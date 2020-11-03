@@ -5,6 +5,7 @@ import {
   Nav,
   NavLogo,
   NavList,
+  MobileNav,
   NavListItem,
   NavActions,
   Hamburger,
@@ -16,17 +17,25 @@ import Link from "next/link";
 
 const Navigation = () => {
   const [user, setUser] = useState(null);
+
   const handleClick = () => {
     const hamburger = document.querySelector(".hamburger__inner");
     const nav = document.querySelector(".nav");
     hamburger.classList.toggle("hamburger--active");
     nav.classList.toggle("active");
-
-    console.log(hamburger);
   };
 
   return (
     <>
+      <MobileNav>
+        <NavLogo>
+          <Link href='/'>
+            <a>
+              <img src='/images/logo2.png' alt='logo' />
+            </a>
+          </Link>
+        </NavLogo>
+      </MobileNav>
       <Hamburger className='hamburger' onClick={() => handleClick()}>
         <HamburgerBox className='hamburger__box'>
           <HamburgerInner className='hamburger__inner'></HamburgerInner>
