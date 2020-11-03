@@ -25,12 +25,13 @@ export const Wrapper = styled.div`
   @media (min-width: 960px) {
     transform: translateX(-50%);
     height: fit-content;
-    background: #222;
+    background: #24272e;
   }
   &.active {
     transform: translateX(-50%) !important;
   }
 `;
+
 export const Nav = styled.nav`
   display: flex;
   width: 100%;
@@ -49,7 +50,7 @@ export const Nav = styled.nav`
     width: 100%;
     text-align: center;
   }
-  @media (min-width: 1000px) {
+  @media (min-width: 960px) {
     flex-wrap: nowrap;
     div,
     ul,
@@ -59,6 +60,20 @@ export const Nav = styled.nav`
     }
   }
 `;
+
+export const MobileNav = styled.div`
+  display: flex;
+  position: fixed;
+  width: 100%;
+  z-index: 98;
+  height: 65px;
+  padding: 5px;
+  background-color: #24272e;
+  align-items: center;
+  @media (min-width: 960px) {
+    display: none;
+  } ;
+`; 
 
 export const NavLogo = styled.div`
   display: block;
@@ -131,7 +146,7 @@ export const HamburgerBox = styled.span`
 export const HamburgerInner = styled.span`
   width: 100%;
   height: 3px;
-  background-color: black;
+  background-color: white;
   position: absolute;
   left: 0;
   top: 50%;
@@ -143,7 +158,7 @@ export const HamburgerInner = styled.span`
     transition: transform 0.2s 0.2s ease-in-out;
     width: 100%;
     height: 3px;
-    background-color: black;
+    background-color: white;
     position: absolute;
   }
   &:after {
@@ -152,7 +167,7 @@ export const HamburgerInner = styled.span`
     transition: transform 0.2s 0.2s ease-in-out;
     width: 100%;
     height: 3px;
-    background-color: black;
+    background-color: white;
     position: absolute;
   }
   &:before {
@@ -165,11 +180,10 @@ export const HamburgerInner = styled.span`
     background-color: transparent;
     &:after {
       transform: translateY(-10px) rotate(-45deg);
-      background-color: white;
     }
     &:before {
       transform: translateY(10px) rotate(45deg);
-      background-color: white;
+
     }
   }
 `;
