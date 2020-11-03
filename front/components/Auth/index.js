@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import Input from "@material-ui/core/Input";
@@ -80,22 +81,43 @@ const defaultValues = {
   policy: null,
 };
 
-const RegisterForm = () => {
+const Login = () => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues,
   });
 
-  const registerUser = (data, event) => {
+  const router = useRouter();
+  const [responseType, setResponseType] = useState(null);
+  const clearAlert = () => setTimeout(() => setResponseType(null), 999);
+
+  const loginUser = async (data, event) => {
     event.preventDefault();
-    console.log(data);
-    // reset();
+      try {
+      const send = await fetch("http://localhost:8080/signIn", {
+        method:"POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const response = await send.json();
+      if (response) {
+        setResponseType(response);
+        if (response.user) {
+          reset();
+        }
+      }
+    } catch (err) {
+      setResponseType({ message: "Some error occured, try again" });
+    }
+    clearAlert();
   };
 
   return (
     <Wrapper>
       <Header>Sign in</Header>
 
-      <Form onSubmit={handleSubmit(registerUser)}>
+      <Form onSubmit={handleSubmit(loginUser)}>
         <FormLabel>
           <InputElement
             type='text'
@@ -144,8 +166,23 @@ const RegisterForm = () => {
           Sign in
         </Button>
       </Form>
+
+      {(responseType && responseType.user && (
+        <Alert
+          message='You are succesfully logged in'
+          shouldOpen={true}
+          variant='success'
+        />
+      )) ||
+        (responseType && responseType.message && (
+          <Alert
+            message={responseType.message}
+            shouldOpen={true}
+            variant='error'
+          />
+        ))}
     </Wrapper>
   );
 };
 
-export default RegisterForm;
+export default Login;
