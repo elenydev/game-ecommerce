@@ -47,12 +47,17 @@ const fileFilter = (req, file, cb) => {
 };
 
 app.use(cors());
+
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("avatar")
 );
+
 app.use(bodyParser.json());
+
 app.use(express.static(path.join(__dirname, "public")));
+
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -71,8 +76,9 @@ router.get("/", (req, res, next) => {
   res.sendFile(path.join(__dirname + "/index.html"));
 });
 
-app.use("/signUp", signUp);
-app.use("/signIn", signIn);
+router.use("/signUp", signUp);
+router.use("/signIn", signIn);
+
 
 app.use("/", router);
 
