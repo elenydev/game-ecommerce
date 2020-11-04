@@ -38,7 +38,7 @@ const Header = styled.h1`
   justify-content: center;
   align-items: center;
   color: rgba(255, 255, 255, 0.8);
-  font-weight: 900;
+  font-weight: 500;
   text-align: center;
   font-size: 2em;
 
@@ -50,6 +50,7 @@ const Header = styled.h1`
 const SubHeader = styled.h3`
   color: rgba(255, 255, 255, 0.8);
   text-align: center;
+  font-weight: 500;
   font-size: 1em;
 
   @media (min-width: 960px) {

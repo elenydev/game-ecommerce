@@ -16,9 +16,11 @@ const Wrapper = styled.div`
 
 const SubHeader = styled.h3`
   display: flex;
-  font-weight: 900;
+  font-weight: 500;
   font-size: 1.2em;
   text-align: center;
+  font-family: "Black Ops One", cursive;
+
   @media (min-width: 960px) {
     font-size: 2.5em;
   }
@@ -127,9 +129,10 @@ const CardTitle = styled.h4`
   width: 100%;
   font-size: 1.2em;
   text-align: center;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 1px;
   padding: 10px;
+  font-family: "Black Ops One", cursive;
 
   @media (min-width: 960px) {
     font-size: 1.5em;

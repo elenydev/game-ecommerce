@@ -27,6 +27,7 @@ const Header = styled.h2`
   font-size: 2em;
   color: rgba(255, 255, 255, 0.8);
   margin-bottom: 70px;
+  font-weight: 500;
 
   @media (min-width: 960px) {
     font-size: 2.5em;
@@ -90,6 +91,7 @@ const CardTitle = styled.h4`
   text-align: center;
   font-size: 1.1em;
   width: 100%;
+  font-weight: 500;
   padding: 10px 15px;
   color: rgba(255, 255, 255, 0.7);
 
