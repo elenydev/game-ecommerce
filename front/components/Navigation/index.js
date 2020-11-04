@@ -53,35 +53,35 @@ const Navigation = () => {
             </NavLogo>
 
             <NavList>
-              <NavListItem>
+              <NavListItem onClick={() => handleClick()}>
                 <Link href='/'>
                   <a>Home</a>
                 </Link>
               </NavListItem>
 
-              <NavListItem>
+              <NavListItem onClick={() => handleClick()}>
                 <Link href='#'>
                   <a>Games</a>
                 </Link>
               </NavListItem>
-              <NavListItem>
+              <NavListItem onClick={() => handleClick()}>
                 <Link href='#'>
                   <a>Team</a>
                 </Link>
               </NavListItem>
-              <NavListItem>
+              <NavListItem onClick={() => handleClick()}>
                 <Link href='#'>
                   <a>Contact</a>
                 </Link>
               </NavListItem>
               {user ? (
-                <NavListItem>
+                <NavListItem onClick={() => handleClick()}>
                   <Link href='/'>
                     <a>Log out</a>
                   </Link>
                 </NavListItem>
               ) : (
-                <NavListItem>
+                <NavListItem onClick={() => handleClick()}>
                   <Link href='/auth/register'>
                     <a>Join us</a>
                   </Link>
@@ -89,7 +89,7 @@ const Navigation = () => {
               )}
 
               {user && (
-                <NavListItem>
+                <NavListItem onClick={() => handleClick()}>
                   <Link href='/cart'>
                     <a>
                       <ShoppingCartIcon />({amountOfProducts})

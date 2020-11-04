@@ -54,7 +54,7 @@ const Description = styled.p`
 
 const CardsWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1;
+  grid-template-columns: 1fr;
   grid-gap: 20px;
   grid-template-rows: repeat(3, 1fr);
   width: 90%;
@@ -67,7 +67,7 @@ const CardsWrapper = styled.div`
   @media (min-width: 960px) {
     width: 90%;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1;
+    grid-template-rows: 1fr;
     grid-gap: 30px;
     margin-top: 50px;
   }
@@ -156,7 +156,7 @@ const GameTypes = () => {
     <Wrapper>
       <SubHeader>Welcome in our</SubHeader>
       <Header>online gaming</Header>
-      <SubHeader>Shop</SubHeader>
+      <SubHeader id='gameTypes'>Shop</SubHeader>
       <Description>
         We are one of the largest sellers of computer games on the web, and our
         company is characterized by a fast supplier and high quality of
