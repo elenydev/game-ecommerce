@@ -69,7 +69,7 @@ const PlayIconContainer = styled.div`
     fill: rgba(255, 255, 255, 0.8);
   }
 
-  animation: showIcon 2s linear 4s infinite;
+  animation: showIcon 2s linear 5s infinite;
 
   @keyframes showIcon {
     0% {
