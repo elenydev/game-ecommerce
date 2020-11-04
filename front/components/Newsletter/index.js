@@ -23,6 +23,7 @@ const Heading = styled.h3`
 
 const Form = styled.form`
   display: flex;
+  font-family: "Roboto";
   justify-content: space-between;
   align-items: center;
   background-color: transparent;

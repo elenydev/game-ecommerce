@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   align-items: center;
   background-color: #24272e;
   justify-content: center;
+  flex-direction: column;
   box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 60%);
   padding: 10px;
 
@@ -25,6 +26,7 @@ const FooterContainer = styled.footer`
   @media (min-width: 960px) {
     width: 90%;
     flex-direction: row;
+    flex-wrap: wrap;
   }
 
   @media (min-width: 1280px) {
@@ -125,6 +127,24 @@ const LinksList = styled.ul`
   }
 `;
 
+const FooterDescription = styled.p`
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  font-family: "Roboto";
+  text-align: center;
+  margin: 25px 0;
+  color: rgba(255, 255, 255, 0.8);
+  @media (min-width: 960px) {
+    margin-top: 40px;
+  }
+
+  & > a {
+    cursor: pointer;
+    color: #5bb2fc;
+  }
+`;
+
 const Footer = () => {
   return (
     <Wrapper>
@@ -170,6 +190,12 @@ const Footer = () => {
         </FollowUsContainer>
         <Newsletter />
       </FooterContainer>
+      <FooterDescription>
+        © 2020 Online Gaming. All Rights Reserved | Design by{" "}
+        <a href='https://w3layouts.com/' target='_blank'>
+          w3layouts
+        </a>
+      </FooterDescription>
     </Wrapper>
   );
 };
