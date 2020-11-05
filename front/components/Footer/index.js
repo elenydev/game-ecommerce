@@ -62,9 +62,9 @@ const AdressContent = styled.div`
 const FollowUsContainer = styled.div`
   display: flex;
   min-height: 15vh;
-  flex-wrap: wrap;
   justify-content: space-between;
   margin: 25px 0;
+  flex-direction: column;
 
   @media (min-width: 960px) {
     margin: 0;
