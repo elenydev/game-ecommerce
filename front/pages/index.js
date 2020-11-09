@@ -11,23 +11,21 @@ import ContactForm from "../components/ContactForm/index.js";
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Create Next App</title>
-        <link rel='icon' href='/favicon.ico' />
-        <link
-          href='https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap'
-          rel='stylesheet'
-        />
-      </Head>
-      <body>
-        <Navigation />
-        <Hero />
-        <GameTypes />
-        <Devices />
-        <OurTeam />
-        <ContactForm />
-        <Footer />
-      </body>
+        <Head>
+          <title>Create Next App</title>
+          <link rel='icon' href='/favicon.ico' />
+          <link
+            href='https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap'
+            rel='stylesheet'
+          />
+        </Head>
+          <Navigation />
+          <Hero />
+          <GameTypes />
+          <Devices />
+          <OurTeam />
+          <ContactForm />
+          <Footer />
     </>
   );
 }

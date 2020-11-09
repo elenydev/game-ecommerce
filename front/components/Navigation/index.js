@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Wrapper,
   Container,
@@ -14,9 +14,13 @@ import {
 } from "./navigation.styles.js";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Link from "next/link";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, deleteUser } from "../../Reducers/userSlice.js";
 
 const Navigation = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({ user: null });
+  const sliceUser = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     const hamburger = document.querySelector(".hamburger__inner");
@@ -24,6 +28,15 @@ const Navigation = () => {
     hamburger.classList.toggle("hamburger--active");
     nav.classList.toggle("active");
   };
+
+  const logOut = () => {
+    dispatch(deleteUser());
+    setUser({ user: null });
+  };
+
+  useEffect(() => {
+    setUser(sliceUser);
+  }, [sliceUser]);
 
   return (
     <>
@@ -74,8 +87,12 @@ const Navigation = () => {
                   <a>Contact</a>
                 </Link>
               </NavListItem>
-              {user ? (
-                <NavListItem onClick={() => handleClick()}>
+              {user.user !== null ? (
+                <NavListItem
+                  onClick={() => {
+                    handleClick(), logOut();
+                  }}
+                >
                   <Link href='/'>
                     <a>Log out</a>
                   </Link>
@@ -88,11 +105,11 @@ const Navigation = () => {
                 </NavListItem>
               )}
 
-              {user && (
+              {user.user !== null && (
                 <NavListItem onClick={() => handleClick()}>
-                  <Link href='/cart'>
+                  <Link href='/auth/account/cart'>
                     <a>
-                      <ShoppingCartIcon />({amountOfProducts})
+                      <ShoppingCartIcon />({0})
                     </a>
                   </Link>
                 </NavListItem>
