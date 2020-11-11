@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import OfferProduct from "../OfferProduct";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../Reducers/userSlice.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -41,6 +43,11 @@ const ItemsContainer = styled.div`
 
   @media (min-width: 1024px) {
     width: 90%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px;
+  }
+
+  @media (min-width: 1280px) {
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 35px;
   }
@@ -48,6 +55,7 @@ const ItemsContainer = styled.div`
 
 const ProductsComponent = () => {
   const [products, setProducts] = useState([]);
+  const user = useSelector(selectUser);
 
   const fetchProducts = async () => {
     const query = await fetch("http://localhost:8080/getProducts");
@@ -57,14 +65,14 @@ const ProductsComponent = () => {
 
   useEffect(() => {
     fetchProducts();
-  });
+  }, []);
 
   return (
     <Wrapper>
       <Header>Our offer</Header>
       <ItemsContainer>
         {products.map((product, index) => (
-          <OfferProduct key={index} product={product} />
+          <OfferProduct key={index} product={product} user={user} />
         ))}
       </ItemsContainer>
     </Wrapper>

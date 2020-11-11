@@ -94,6 +94,7 @@ const defaultValues = {
   prize: null,
   amount: null,
   productImage: null,
+  device: "Dekstop",
 };
 
 const AddProductForm = () => {
@@ -103,10 +104,15 @@ const AddProductForm = () => {
 
   const [responseType, setResponseType] = useState(null);
   const [gameType, setGameType] = useState("War");
+  const [device, setDevice] = useState("Desktop");
   const clearAlert = () => setTimeout(() => setResponseType(null), 999);
 
-  const handleChange = (event) => {
+  const handleChangeGameType = (event) => {
     setGameType(event.target.value);
+  };
+
+  const handleChangeDevice = (event) => {
+    setDevice(e.target.value);
   };
 
   const registerProduct = async (data, event) => {
@@ -118,6 +124,7 @@ const AddProductForm = () => {
       prize,
       amount,
       productImg,
+      device,
     } = data;
 
     const product = new FormData();
@@ -127,6 +134,7 @@ const AddProductForm = () => {
     product.append("prize", prize);
     product.append("amount", amount);
     product.append("productImg", productImg[0]);
+    product.append("device", device);
 
     try {
       const send = await fetch("http://localhost:8080/addProduct", {
@@ -193,7 +201,7 @@ const AddProductForm = () => {
             <p>Select game type</p>
             <Controller
               as={
-                <Select value={gameType} onChange={handleChange}>
+                <Select value={gameType} onChange={handleChangeGameType}>
                   <MenuItem value='Wargame'>Wargame</MenuItem>
                   <MenuItem value='Racing'>Racing</MenuItem>
                   <MenuItem value='MMO'>MMO</MenuItem>
@@ -277,6 +285,26 @@ const AddProductForm = () => {
         </label>
         {errors.productImg && errors.productImg.type === "required" && (
           <ErrorSpan>Please provide a product image</ErrorSpan>
+        )}
+        <SelectBox>
+          <FormLabel>
+            <p>Select device</p>
+            <Controller
+              as={
+                <Select value={device} onChange={handleChangeDevice}>
+                  <MenuItem value='Desktop'>Desktop</MenuItem>
+                  <MenuItem value='Playstation'>Playstation</MenuItem>
+                  <MenuItem value='Xbox'>Xbox</MenuItem>
+                </Select>
+              }
+              name='device'
+              rules={{ required: true }}
+              control={control}
+            />
+          </FormLabel>
+        </SelectBox>
+        {errors.device && errors.device.type === "required" && (
+          <ErrorSpan>Please provide a device</ErrorSpan>
         )}
 
         <Button type='submit' variant='contained' color='secondary'>

@@ -27,6 +27,10 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
+  device: {
+    type: String,
+    required: true,
+  },
 });
 
 export default moongose.model("Product", productSchema);

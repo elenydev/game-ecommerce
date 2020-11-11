@@ -106,6 +106,9 @@ export const NavListItem = styled.li`
   @media (min-width: 960px) {
     margin: 0 20px;
   }
+  & > span {
+    font-size: 0.6em;
+  }
 `;
 
 export const NavActions = styled.div`

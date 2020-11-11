@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import IconButton from "@material-ui/core/IconButton";
 import { Button } from "@material-ui/core";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const Card = styled.div`
   display: flex;
   flex-direction: column;
   box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 60%);
   background: #24272e;
+  transition: 0.2s all linear;
+  border: 1px solid transparent;
 
-  & > .MuiButton-containedSecondary {
+  & > span     {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & > span > .MuiButton-containedSecondary {
     margin: 15px;
     background-color: #5bb2fc;
     width: fit-content;
     align-self: center;
-    transition: 0.3s all linear;
+    transition: 0.5s all linear;
     margin-top: auto;
 
     &:hover {
@@ -22,15 +30,26 @@ const Card = styled.div`
     }
   }
 
+  & > span > .MuiButton-contained.Mui-disabled {
+    background-color: #0b3558;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
   @media (min-width: 960px) {
     max-width: 300px;
   }
+
+  &:hover {
+    transform: scale(1.05);
+     border: 1px solid #ff5a5a;
+  }
 `;
+
 
 const CardImage = styled.div`
   display: flex;
 
-  height: 150px;
+  height: 200px;
   width: auto;
 
   img {
@@ -49,7 +68,9 @@ const CardContentContainer = styled.div`
   flex-direction: column;
   padding: 7px;
   color: rgba(255, 255, 255, 0.8);
+  justify-content: space-between;
   font-family: "Roboto";
+  flex: 1;
   @media (min-width: 960px) {
     padding: 12px;
   }
@@ -88,7 +109,7 @@ const CardContentPrize = styled.p`
   justify-content: flex-end;
 `;
 
-const OfferProduct = ({ product }) => {
+const OfferProduct = React.memo(({ product, user }) => {
   const {
     productName,
     productDescription,
@@ -96,7 +117,20 @@ const OfferProduct = ({ product }) => {
     prize,
     amount,
     productImg,
+    device
   } = product;
+
+
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    if (user.user !== null) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [user]);
+
   return (
     <Card>
       <CardImage>
@@ -110,11 +144,19 @@ const OfferProduct = ({ product }) => {
           <CardContentPrize>{prize} $</CardContentPrize>
         </CardContentInfoWrapper>
       </CardContentContainer>
-      <Button variant='contained' color='secondary'>
-        Add
-      </Button>
+      <Tooltip title={buttonDisabled ? 'Sing in to buy product' : ''} >
+        <span>
+          <Button
+            variant='contained'
+            color='secondary'
+            disabled={buttonDisabled}
+          >
+            Add
+          </Button>
+        </span>
+      </Tooltip>
     </Card>
   );
-};
+});
 
 export default OfferProduct;

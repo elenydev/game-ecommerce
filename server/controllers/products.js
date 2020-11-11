@@ -8,6 +8,7 @@ export const addProduct = async (req, res, next) => {
   const gameType = req.body.gameType;
   const prize = req.body.prize;
   const amount = req.body.amount;
+  const device = req.body.device;
   const productFile = req.file;
 
   if (!productFile) {
@@ -27,6 +28,7 @@ export const addProduct = async (req, res, next) => {
         prize,
         amount,
         productImg,
+        device,
       });
       await product.save();
       res.send({

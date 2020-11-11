@@ -16,10 +16,12 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser, deleteUser } from "../../Reducers/userSlice.js";
+import { selectProducts } from "../../Reducers/productsSlice.js";
 
 const Navigation = () => {
   const [user, setUser] = useState({ user: null });
   const sliceUser = useSelector(selectUser);
+  const productsArray = useSelector(selectProducts);
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -109,7 +111,8 @@ const Navigation = () => {
                 <NavListItem onClick={() => handleClick()}>
                   <Link href='/auth/account/cart'>
                     <a>
-                      <ShoppingCartIcon />({0})
+                      <ShoppingCartIcon />
+                      <span>({productsArray.products.length})</span>
                     </a>
                   </Link>
                 </NavListItem>

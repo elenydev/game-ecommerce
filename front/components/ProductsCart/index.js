@@ -56,7 +56,7 @@ const ProductsCart = () => {
   return (
     <Wrapper>
       {user.email === "admin@admin.com" && <AddProductForm />}
-      {products.length >= 1 ? (
+      {user.email !== "admin@admin.com" && products.length >= 1  ? (
         <>
           {products.map((product, index) => (
             <Product key={index} product={product} productIndex={index} />
@@ -64,19 +64,22 @@ const ProductsCart = () => {
           <TotalPrize>Total prize: 12$</TotalPrize>
         </>
       ) : (
-        <Heading>No products in cart</Heading>
+        user.email !=="admin@admin.com" && <Heading>No products in cart</Heading>
       )}
+     
       <>
-        <OrderBox>
-          <Button
-            type='submit'
-            variant='contained'
-            color='secondary'
-            disabled={products.length < 1 && true}
-          >
-            Click to order
-          </Button>
-        </OrderBox>
+        {user.email !== "admin@admin.com" && (
+          <OrderBox>
+            <Button
+              type='submit'
+              variant='contained'
+              color='secondary'
+              disabled={products.length < 1 && true}
+            >
+              Click to order
+            </Button>
+          </OrderBox>
+        )}
       </>
     </Wrapper>
   );
