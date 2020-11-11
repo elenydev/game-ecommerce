@@ -12,13 +12,15 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  width: 100%;
   padding: 5%;
+  width: 90%;
+  background-color: rgba(0, 0, 0, 0.05);
+  box-shadow: 2px 2px 8px 0 rgb(255 90 90 /60%);
   padding-top: 15%;
-  max-height: 800px;
   @media (min-width: 960px) {
     flex-direction: row;
     padding-top: 5%;
+    width: 98%;
   }
 `;
 
@@ -27,14 +29,14 @@ const UserBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 2px 2px 8px 0 rgb(255 90 90 /60%);
-  background-color: rgba(0, 0, 0, 0.05);
   padding: 10px;
   height: 100%;
+  margin-bottom: 40px;
 
   @media (min-width: 960px) {
     width: 30%;
     margin-right: 50px;
+    margin-bottom: 0px;
   }
 `;
 
@@ -85,6 +87,9 @@ const UserDescription = styled.div`
     margin: 5px;
   }
 `;
+
+
+
 
 const UserCart = () => {
   const user = useSelector(selectUser);
