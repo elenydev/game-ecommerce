@@ -26,6 +26,9 @@ export const productsSlice = createSlice({
     addProductToCart: (state, action) => {
       state.products.push(action.payload);
     },
+    clearCart: (state) => {
+      state.products = [];
+    },
   },
 });
 
@@ -33,6 +36,7 @@ export const {
   increaseAmount,
   decreaseAmount,
   addProductToCart,
+  clearCart,
 } = productsSlice.actions;
 
 export const selectProducts = (state) => state.products;

@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
-import { useDispatch } from "react-redux";
-import { addProductToCart } from "../../Reducers/productsSlice.js";
-import Alert from "../Alert/index.js";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addProductToCart,
+  selectProducts,
+} from "../../Reducers/productsSlice.js";
 
 const Card = styled.div`
   display: flex;
@@ -115,20 +117,18 @@ const CardContentPrize = styled.p`
   justify-content: flex-end;
 `;
 
-const OfferProduct = React.memo(({ product, user }) => {
+const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
   const {
     productName,
     productDescription,
     gameType,
     prize,
-    amount,
     productImg,
-    device,
   } = product;
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [shouldOpen, setShouldOpen] = useState(false);
   const dispatch = useDispatch();
+  const cardProducts = useSelector(selectProducts).products;
 
   useEffect(() => {
     if (user.user !== null) {
@@ -139,25 +139,24 @@ const OfferProduct = React.memo(({ product, user }) => {
   }, [user]);
 
   const addProduct = () => {
-    dispatch(addProductToCart(product));
-    setShouldOpen(true);
+    if (!cardProducts.includes(product)) {
+      setMessage("Product added to cart");
+      setVariant("success");
+      dispatch(addProductToCart(product));
+      return;
+    }
+    setMessage("Product already in card");
+    setVariant("error");
 
     setTimeout(() => {
-      setShouldOpen(false);
+      setMessage(null);
+      setVariant(null);
     }, 1000);
   };
 
   return (
     <>
-      <Card>
-        {shouldOpen && (
-          <Alert
-            variant='success'
-            shouldOpen={shouldOpen}
-            message='Product succesfully added to cart'
-          />
-        )}
-        <CardImage>
+      <Card>  <CardImage>
           <img src={`http://localhost:8080/${productImg}`} alt={productName} />
         </CardImage>
         <CardContentContainer>

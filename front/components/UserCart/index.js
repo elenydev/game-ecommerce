@@ -48,7 +48,7 @@ const UserAvatar = styled.div`
     width: 100%;
     height: auto;
     border-radius: 50%;
-    box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 60%);
+    box-shadow: 0px 0px 17px 7px rgb(255 90 90 /60%);
   }
 
   @media (min-width: 960px) {

@@ -15,6 +15,8 @@ import {
   FooterRows,
   Span,
 } from "./productsComponent.styles.js";
+import Alert from "../Alert/index.js";
+
 
 const ProductsComponent = () => {
   
@@ -24,6 +26,8 @@ const ProductsComponent = () => {
   const [visibleTasks, setVisibleTasks] = useState(5);
   const [startRange, setStartRange] = useState(1);
   const [endRange, setEndRange] = useState(visibleTasks);
+    const [message, setMessage] = useState(null);
+    const [variant, setVariant] = useState(null);
   let arrayLength = 0;
 
   const fetchProducts = async () => {
@@ -62,11 +66,17 @@ const ProductsComponent = () => {
   }, [visibleTasks]);
 
   return (
-    <Wrapper id="games">
+    <Wrapper id='games'>
       <Header>Our offer</Header>
       <ItemsContainer>
         {handleArrayRange(products).map((product, index) => (
-          <OfferProduct key={index} product={product} user={user} />
+          <OfferProduct
+            key={index}
+            product={product}
+            user={user}
+            setVariant={setVariant}
+            setMessage={setMessage}
+          />
         ))}
       </ItemsContainer>
       <Footer>
@@ -118,6 +128,9 @@ const ProductsComponent = () => {
           </FooterRows>
         </FooterContent>
       </Footer>
+      {message && (
+        <Alert variant={variant} shouldOpen={true} message={message} />
+      )}
     </Wrapper>
   );
 };

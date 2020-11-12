@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Product from "../Product/index.js";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@material-ui/core";
-import { selectProducts } from "../../Reducers/productsSlice.js";
+import { clearCart, selectProducts } from "../../Reducers/productsSlice.js";
 import { selectUser } from "../../Reducers/userSlice.js";
 import AddProductForm from "../../components/AddProductForm/index.js";
+import Alert from "../Alert/index.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -51,6 +52,48 @@ const TotalPrize = styled.p`
 const ProductsCart = () => {
   const { products } = useSelector(selectProducts);
   const { user } = useSelector(selectUser);
+  const dispatch = useDispatch();
+  const [message, setMessage] = useState("");
+  const [variant, setVariat] = useState("");
+
+  const getPrize = () => {
+    let prize = 0;
+    products.map((product) => {
+      prize = prize + product.amount * product.prize;
+    });
+    return prize;
+  };
+
+  const createOrder = async () => {
+    const data = {
+      products,
+      user,
+      prize: getPrize(),
+    };
+    try {
+      const request = await fetch("http://localhost:8080/createOrder", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const response = await request.json();
+      if (response.order) {
+        dispatch(clearCart());
+        setMessage("Order created");
+        setVariat("success");
+      }
+      if (response.message) {
+        setMessage(response.message);
+        setVariat("error");
+      }
+    } catch (err) {
+      console.log(err);
+      setMessage("Something went wrong, try again");
+      setVariat("error");
+    }
+  };
 
   return (
     <Wrapper>
@@ -61,7 +104,7 @@ const ProductsCart = () => {
           {products.map((product, index) => (
             <Product key={index} product={product} productIndex={index} />
           ))}
-          <TotalPrize>Total prize: 12$</TotalPrize>
+          <TotalPrize>Total prize: {getPrize()} $</TotalPrize>
         </>
       ) : (
         user.email !== "admin@admin.com" && (
@@ -77,12 +120,16 @@ const ProductsCart = () => {
               variant='contained'
               color='secondary'
               disabled={products.length < 1 && true}
+              onClick={createOrder}
             >
               Click to order
             </Button>
           </OrderBox>
         )}
       </>
+      {message !== "" && (
+        <Alert variant={variant} shouldOpen={true} message={message} />
+      )}
     </Wrapper>
   );
 };
