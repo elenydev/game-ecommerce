@@ -51,22 +51,24 @@ const TotalPrize = styled.p`
 const ProductsCart = () => {
   const { products } = useSelector(selectProducts);
   const { user } = useSelector(selectUser);
-  console.log(user.email);
 
   return (
     <Wrapper>
       {user.email === "admin@admin.com" && <AddProductForm />}
-      {user.email !== "admin@admin.com" && products.length >= 1  ? (
+      {user.email !== "admin@admin.com" && products.length >= 1 ? (
         <>
+          <Heading>Your products: </Heading>
           {products.map((product, index) => (
             <Product key={index} product={product} productIndex={index} />
           ))}
           <TotalPrize>Total prize: 12$</TotalPrize>
         </>
       ) : (
-        user.email !=="admin@admin.com" && <Heading>No products in cart</Heading>
+        user.email !== "admin@admin.com" && (
+          <Heading>No products in cart</Heading>
+        )
       )}
-     
+
       <>
         {user.email !== "admin@admin.com" && (
           <OrderBox>

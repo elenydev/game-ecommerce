@@ -18,7 +18,10 @@ export const addProduct = async (req, res, next) => {
   }
 
   try {
-    const existingProduct = await Product.find({ productName: productName });
+    const existingProduct = await Product.find({
+      productName: productName,
+      device: device,
+    });
     if (existingProduct.length === 0) {
       const productImg = productFile.path;
       const product = new Product({

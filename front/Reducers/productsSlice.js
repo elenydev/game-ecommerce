@@ -7,8 +7,13 @@ export const productsSlice = createSlice({
   },
   reducers: {
     increaseAmount: (state, action) => {
-      state.products[action.payload].amount =
-        state.products[action.payload].amount + 1;
+      if (
+        state.products[action.payload].amount <=
+        state.products[action.payload].availableAmount
+      ) {
+        state.products[action.payload].amount =
+          state.products[action.payload].amount + 1;
+      }
     },
     decreaseAmount: (state, action) => {
       if (state.products[action.payload].amount > 1) {
@@ -18,10 +23,17 @@ export const productsSlice = createSlice({
         state.products.splice(action.payload, 1);
       }
     },
+    addProductToCart: (state, action) => {
+      state.products.push(action.payload);
+    },
   },
 });
 
-export const { increaseAmount, decreaseAmount } = productsSlice.actions;
+export const {
+  increaseAmount,
+  decreaseAmount,
+  addProductToCart,
+} = productsSlice.actions;
 
 export const selectProducts = (state) => state.products;
 

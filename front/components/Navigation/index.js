@@ -69,23 +69,23 @@ const Navigation = () => {
 
             <NavList>
               <NavListItem onClick={() => handleClick()}>
-                <Link href='/'>
+                <Link href='/#home'>
                   <a>Home</a>
                 </Link>
               </NavListItem>
 
               <NavListItem onClick={() => handleClick()}>
-                <Link href='#'>
+                <Link href='/#games'>
                   <a>Games</a>
                 </Link>
               </NavListItem>
               <NavListItem onClick={() => handleClick()}>
-                <Link href='#'>
+                <Link href='/#team'>
                   <a>Team</a>
                 </Link>
               </NavListItem>
               <NavListItem onClick={() => handleClick()}>
-                <Link href='#'>
+                <Link href='/#contact'>
                   <a>Contact</a>
                 </Link>
               </NavListItem>

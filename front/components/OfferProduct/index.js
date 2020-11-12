@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
+import { useDispatch } from "react-redux";
+import { addProductToCart } from "../../Reducers/productsSlice.js";
+import Alert from "../Alert/index.js";
 
 const Card = styled.div`
   display: flex;
@@ -11,7 +14,7 @@ const Card = styled.div`
   transition: 0.2s all linear;
   border: 1px solid transparent;
 
-  & > span     {
+  & > span {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -41,10 +44,9 @@ const Card = styled.div`
 
   &:hover {
     transform: scale(1.05);
-     border: 1px solid #ff5a5a;
+    border: 1px solid #ff5a5a;
   }
 `;
-
 
 const CardImage = styled.div`
   display: flex;
@@ -89,6 +91,8 @@ const CardContentDescription = styled.p`
   width: 100%;
   margin: 8px 0px;
   word-break: break-word;
+  font-family: "Black Ops One", normal;
+  font-weight: 500;
 `;
 
 const CardContentInfoWrapper = styled.div`
@@ -96,6 +100,8 @@ const CardContentInfoWrapper = styled.div`
   width: 100%;
   margin: 10px 0;
   font-size: 1.3em;
+  font-family: "Black Ops One", normal;
+  font-weight: 500;
 `;
 
 const CardContentType = styled.p`
@@ -117,11 +123,12 @@ const OfferProduct = React.memo(({ product, user }) => {
     prize,
     amount,
     productImg,
-    device
+    device,
   } = product;
 
-
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [shouldOpen, setShouldOpen] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (user.user !== null) {
@@ -131,31 +138,50 @@ const OfferProduct = React.memo(({ product, user }) => {
     }
   }, [user]);
 
+  const addProduct = () => {
+    dispatch(addProductToCart(product));
+    setShouldOpen(true);
+
+    setTimeout(() => {
+      setShouldOpen(false);
+    }, 1000);
+  };
+
   return (
-    <Card>
-      <CardImage>
-        <img src={`http://localhost:8080/${productImg}`} alt={productName} />
-      </CardImage>
-      <CardContentContainer>
-        <CardContentHeader>{productName}</CardContentHeader>
-        <CardContentDescription>{productDescription}</CardContentDescription>
-        <CardContentInfoWrapper>
-          <CardContentType>{gameType}</CardContentType>
-          <CardContentPrize>{prize} $</CardContentPrize>
-        </CardContentInfoWrapper>
-      </CardContentContainer>
-      <Tooltip title={buttonDisabled ? 'Sing in to buy product' : ''} >
-        <span>
-          <Button
-            variant='contained'
-            color='secondary'
-            disabled={buttonDisabled}
-          >
-            Add
-          </Button>
-        </span>
-      </Tooltip>
-    </Card>
+    <>
+      <Card>
+        {shouldOpen && (
+          <Alert
+            variant='success'
+            shouldOpen={shouldOpen}
+            message='Product succesfully added to cart'
+          />
+        )}
+        <CardImage>
+          <img src={`http://localhost:8080/${productImg}`} alt={productName} />
+        </CardImage>
+        <CardContentContainer>
+          <CardContentHeader>{productName}</CardContentHeader>
+          <CardContentDescription>{productDescription}</CardContentDescription>
+          <CardContentInfoWrapper>
+            <CardContentType>{gameType}</CardContentType>
+            <CardContentPrize>{prize} $</CardContentPrize>
+          </CardContentInfoWrapper>
+        </CardContentContainer>
+        <Tooltip title={buttonDisabled ? "Sing in to buy product" : ""}>
+          <span>
+            <Button
+              variant='contained'
+              color='secondary'
+              disabled={buttonDisabled}
+              onClick={addProduct}
+            >
+              Add
+            </Button>
+          </span>
+        </Tooltip>
+      </Card>
+    </>
   );
 });
 

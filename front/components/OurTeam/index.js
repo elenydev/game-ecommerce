@@ -124,7 +124,7 @@ const CardParagraphDescription = styled.p`
 
 const OurTeam = () => {
   return (
-    <Wrapper>
+    <Wrapper id='team'>
       <ContentWrapper>
         <Header>Our team</Header>
         <CardContainer>

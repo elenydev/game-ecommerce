@@ -139,7 +139,7 @@ const Product = ({ product, productIndex }) => {
   const {
     productImg,
     productName,
-    price,
+    prize,
     productDescription,
     gameType,
     amount,
@@ -148,7 +148,7 @@ const Product = ({ product, productIndex }) => {
     <Wrapper>
       <ProductContainer>
         <ProductImage>
-          <img src={productImg} alt={productName} />
+          <img src={`http://localhost:8080/${productImg}`} alt={productName} />
         </ProductImage>
         <ProductDescriptionBox>
           <ProductName>{productName}</ProductName>
@@ -157,7 +157,7 @@ const Product = ({ product, productIndex }) => {
         </ProductDescriptionBox>
         <ProductPrizeInfo>
           <ProductPrice>
-            <span>{price * amount} </span>
+            <span>{prize * amount} </span>
             <span>$</span>
           </ProductPrice>
           <ProductAmount>

@@ -3,59 +3,28 @@ import styled from "styled-components";
 import OfferProduct from "../OfferProduct";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../Reducers/userSlice.js";
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 15px;
-  width: 100%;
-
-  @media (min-width: 960px) {
-    padding: 40px;
-  }
-`;
-
-const Header = styled.h2`
-  font-family: "Black Ops One", normal;
-  font-weight: 500;
-  font-size: 2.5em;
-  color: rgba(0, 0, 0, 0.8);
-  margin: 20px 0px;
-  width: 100%;
-  text-align: center;
-
-  @media (min-width: 960px) {
-    margin-bottom: 45px;
-  }
-`;
-
-const ItemsContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1;
-  grid-template-rows: auto;
-  grid-gap: 20px;
-  width: 80%;
-  margin: 0 auto;
-
-  @media (min-width: 720px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (min-width: 1024px) {
-    width: 90%;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 30px;
-  }
-
-  @media (min-width: 1280px) {
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 35px;
-  }
-`;
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
+import {
+  Wrapper,
+  Header,
+  Paragraph,
+  ItemsContainer,
+  Footer,
+  FooterContent,
+  FooterRows,
+  Span,
+} from "./productsComponent.styles.js";
 
 const ProductsComponent = () => {
+  
   const [products, setProducts] = useState([]);
   const user = useSelector(selectUser);
+  const [categoryDisplayed, setCategoryDisplayed] = useState("Desktop");
+  const [visibleTasks, setVisibleTasks] = useState(5);
+  const [startRange, setStartRange] = useState(1);
+  const [endRange, setEndRange] = useState(visibleTasks);
+  let arrayLength = 0;
 
   const fetchProducts = async () => {
     const query = await fetch("http://localhost:8080/getProducts");
@@ -63,18 +32,92 @@ const ProductsComponent = () => {
     setProducts(response.products);
   };
 
+  const incrementRange = () => {
+    if (endRange >= arrayLength) return;
+    setStartRange(startRange + visibleTasks);
+    setEndRange(endRange + visibleTasks);
+  };
+
+  const handleArrayRange = (arr) => {
+    const array = arr.filter(
+      (product) => product.device === categoryDisplayed && product.availableAmount > 0
+    );
+    arrayLength = array.length;
+    return array.slice(startRange - 1, endRange);
+  };
+
+  const decrementRange = () => {
+    if (startRange <= 1 || startRange - visibleTasks <= 0) return;
+    setStartRange(startRange - visibleTasks);
+    setEndRange(endRange - visibleTasks);
+  };
+
+  useEffect(() =>{
+    fetchProducts()
+  },[])
+
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    setStartRange(1);
+    setEndRange(visibleTasks);
+  }, [visibleTasks]);
 
   return (
-    <Wrapper>
+    <Wrapper id="games">
       <Header>Our offer</Header>
       <ItemsContainer>
-        {products.map((product, index) => (
+        {handleArrayRange(products).map((product, index) => (
           <OfferProduct key={index} product={product} user={user} />
         ))}
       </ItemsContainer>
+      <Footer>
+        <FooterContent>
+          <FooterRows>
+            <Paragraph>Products displayed:</Paragraph>
+            <Paragraph>
+              <select
+                onChange={(e) => {
+                  setVisibleTasks(parseInt(e.target.value));
+                }}
+              >
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={15}>15</option>
+              </select>
+            </Paragraph>
+            <Paragraph>
+              <Span>{startRange}</Span>
+              <Span>-</Span>
+              <Span>{endRange}</Span>
+              <Span>of</Span>
+              <Span> {arrayLength} </Span>
+            </Paragraph>
+            <Paragraph>
+              <Span>
+                <KeyboardArrowLeftIcon onClick={() => decrementRange()} />
+              </Span>
+              <Span>
+                <KeyboardArrowRightIcon onClick={() => incrementRange()} />
+              </Span>
+            </Paragraph>
+          </FooterRows>
+        </FooterContent>
+        <FooterContent>
+          <FooterRows>
+            <Paragraph>Device:</Paragraph>
+            <Paragraph>
+              <select
+                onChange={(e) => {
+                  setCategoryDisplayed(e.target.value);
+                }}
+              >
+                <option value='Desktop'>Desktop</option>
+                <option value='Playstation'>Playstation</option>
+                <option value='Xbox'>Xbox</option>
+              </select>
+            </Paragraph>
+          </FooterRows>
+        </FooterContent>
+      </Footer>
     </Wrapper>
   );
 };

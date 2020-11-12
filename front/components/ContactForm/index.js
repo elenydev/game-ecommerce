@@ -125,7 +125,7 @@ const ContactForm = () => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper id='contact'>
       <Form onSubmit={handleSendEmail}>
         <Heading>Have question?</Heading>
         <FormLabel>

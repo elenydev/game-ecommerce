@@ -21,12 +21,13 @@ const FooterContainer = styled.footer`
   justify-content: space-between;
   flex-direction: column;
   width: 100%;
-  padding: 15px;
+  padding: 5px;
 
   @media (min-width: 960px) {
     width: 90%;
     flex-direction: row;
     flex-wrap: wrap;
+    padding: 15px;
   }
 
   @media (min-width: 1280px) {
