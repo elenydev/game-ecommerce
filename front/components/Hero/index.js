@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Typing from "react-typing-animation";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import Link from "next/link";
+import { Typewriter } from "react-typewriting-effect";
 
 const Wrapper = styled.div`
   display: flex;
@@ -38,7 +38,7 @@ const Header = styled.h1`
   justify-content: center;
   align-items: center;
   color: rgba(255, 255, 255, 0.8);
-  font-weight: 900;
+  font-weight: 500;
   text-align: center;
   font-size: 2em;
 
@@ -50,6 +50,7 @@ const Header = styled.h1`
 const SubHeader = styled.h3`
   color: rgba(255, 255, 255, 0.8);
   text-align: center;
+  font-weight: 500;
   font-size: 1em;
 
   @media (min-width: 960px) {
@@ -69,7 +70,7 @@ const PlayIconContainer = styled.div`
     fill: rgba(255, 255, 255, 0.8);
   }
 
-  animation: showIcon 2s linear 5s infinite;
+  animation: showIcon 2s linear 6s infinite;
 
   @keyframes showIcon {
     0% {
@@ -87,16 +88,36 @@ const PlayIconContainer = styled.div`
 `;
 
 const Hero = () => {
+  const [render, setRender] = useState(false);
+
+  const renderSubHeader = () => {
+    setTimeout(() => setRender(true), 3000);
+  };
+
+  useEffect(() => {
+    renderSubHeader();
+  }, []);
+
   return (
-    <Wrapper>
-      <Typing hideCursor={true} speed={20}>
-        <HeaderContainer>
-          <Typing.Delay ms={500} />
-          <Header>All of us love games</Header>
-          <Typing.Delay ms={800} />
-          <SubHeader>tap and buy something to love.</SubHeader>
-        </HeaderContainer>
-      </Typing>
+    <Wrapper id='home'>
+      <HeaderContainer>
+        <Header>
+          <Typewriter
+            string='All of us love gaming'
+            stopBlinkinOnComplete
+            cursor=''
+          />
+        </Header>
+        <SubHeader>
+          {render && (
+            <Typewriter
+              string='now you can buy something to love.'
+              stopBlinkinOnComplete
+              cursor=''
+            />
+          )}
+        </SubHeader>
+      </HeaderContainer>
 
       <PlayIconContainer>
         <Link href='#gameTypes'>

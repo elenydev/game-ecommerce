@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Auth from "../../components/Auth/index";
+import Navigation from "../../components/Navigation/index.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,6 +17,7 @@ const Wrapper = styled.div`
 const Register = () => {
   return (
     <Wrapper>
+      <Navigation />
       <Auth />
     </Wrapper>
   );

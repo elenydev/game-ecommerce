@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import RegisterForm from "../../components/RegisterForm/index";
+import Navigation from "../../components/Navigation/index.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,11 +12,13 @@ const Wrapper = styled.div`
   z-index: 1;
   background: url("/images/register.jpg") no-repeat center;
   background-size: cover;
+  padding-top: 10%;
 `;
 
 const Register = () => {
   return (
     <Wrapper>
+      <Navigation />
       <RegisterForm />
     </Wrapper>
   );

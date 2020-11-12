@@ -29,10 +29,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/auth/register": [
+    "/auth/account/cart": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/auth/register.js"
+      "static/chunks/pages/auth/account/cart.js"
     ]
   },
   "ampFirstPages": []

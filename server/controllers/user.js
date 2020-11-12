@@ -9,7 +9,7 @@ export const signUp = async (req, res, next) => {
   const password = req.body.password;
   const avatar = req.file;
   const policy = req.body.policy;
-
+  console.log(avatar.path);
   if (!avatar) {
     return res.status(422).send({ message: "Error with avatar occured" });
   }
@@ -53,16 +53,25 @@ export const signIn = async (req, res, next) => {
 
   try {
     const user = await User.find({ email: email });
-    if (user.length !== 0 && bcrypt.compare(password, user[0].password)) {
-      socket.getIO().emit("user", { action: "getUser", user: user });
-      res.send({
-        user: {
-          firstName: user[0].firstName,
-          lastName: user[0].lastName,
-          email: user[0].email,
-          avatar: user[0].avatar,
-        },
-      });
+    if (user.length !== 0) {
+      await bcrypt
+        .compare(password, user[0].password)
+        .then((match) => {
+          if (match === true) {
+            socket.getIO().emit("user", { action: "getUser", user: user });
+            return res.send({
+              user: {
+                firstName: user[0].firstName,
+                lastName: user[0].lastName,
+                email: user[0].email,
+                avatar: user[0].avatar,
+              },
+            });
+          } else {
+            res.send({ message: "Wrong password provided, try again" });
+          }
+        })
+        .catch((err) => console.log(err));
     } else {
       res.status(404).send({ message: "User doesn't exist" });
     }

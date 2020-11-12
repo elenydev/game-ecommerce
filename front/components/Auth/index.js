@@ -8,6 +8,8 @@ import Link from "next/link";
 import Alert from "../Alert/index";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../Reducers/userSlice.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -89,12 +91,13 @@ const Login = () => {
   const router = useRouter();
   const [responseType, setResponseType] = useState(null);
   const clearAlert = () => setTimeout(() => setResponseType(null), 999);
+  const dispatch = useDispatch();
 
   const loginUser = async (data, event) => {
     event.preventDefault();
-      try {
+    try {
       const send = await fetch("http://localhost:8080/signIn", {
-        method:"POST",
+        method: "POST",
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
@@ -104,7 +107,11 @@ const Login = () => {
       if (response) {
         setResponseType(response);
         if (response.user) {
-          reset();
+          setTimeout(() => {
+            dispatch(setUser(response.user));
+            reset();
+            router.push("/auth/account/cart");
+          }, 600);
         }
       }
     } catch (err) {
@@ -133,7 +140,7 @@ const Login = () => {
             onChange={() => {
               setError("email", {
                 type: "manual",
-                message: "You have to a email",
+                message: "You have to provide a email",
               });
             }}
           />

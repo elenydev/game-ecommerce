@@ -66,6 +66,7 @@ export const MobileNav = styled.div`
   position: fixed;
   width: 100%;
   z-index: 98;
+  top: 0;
   height: 65px;
   padding: 5px;
   background-color: #24272e;
@@ -96,8 +97,17 @@ export const NavListItem = styled.li`
   font-size: 1.1em;
   margin: 10px 0;
   cursor: pointer;
+  transition: 0.2s all linear;
+
+  &:hover,
+  :focus {
+    color: #ff5a5a;
+  }
   @media (min-width: 960px) {
     margin: 0 20px;
+  }
+  & > span {
+    font-size: 0.6em;
   }
 `;
 

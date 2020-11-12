@@ -13,6 +13,8 @@ import { dirname } from "path";
 import dotenv from "dotenv";
 
 import { signUp, signIn } from "./controllers/user.js";
+import { addProduct, getProducts } from "./controllers/products.js";
+import { get } from "http";
 
 dotenv.config();
 
@@ -50,13 +52,14 @@ app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(
-  multer({ storage: fileStorage, fileFilter: fileFilter }).single("avatar")
-);
+const upload = multer({ storage: fileStorage, fileFilter: fileFilter });
+
+
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/images/", express.static(path.join(__dirname, "images")));
 
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, "public")));
 
 
 app.use((req, res, next) => {
@@ -72,12 +75,16 @@ app.use((req, res, next) => {
   next();
 });
 
+
 router.get("/", (req, res, next) => {
   res.sendFile(path.join(__dirname + "/index.html"));
 });
 
-router.use("/signUp", signUp);
+router.use("/signUp", upload.single("avatar"), signUp);
 router.use("/signIn", signIn);
+
+router.use("/getProducts", getProducts);
+router.use("/addProduct", upload.single("productImg"), addProduct);
 
 
 app.use("/", router);
