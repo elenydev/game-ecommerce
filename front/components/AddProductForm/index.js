@@ -84,17 +84,25 @@ const SelectBox = styled.div`
   & > .MuiFormLabel-root {
     margin: 10px 0;
     color: rgba(255, 255, 255, 0.5);
+
+    & > p {
+      margin: 5px 0;
+    }
+  }
+
+  & > .MuiInputBase-root {
+    color: #ff3600bf !important;
   }
 `;
 
 const defaultValues = {
   productName: null,
   productDescription: null,
-  gameType: "War",
+  gameType: "Wargame",
   prize: null,
-  amount: null,
+  availableAmount: null,
   productImage: null,
-  device: "Dekstop",
+  device: "Desktop",
 };
 
 const AddProductForm = () => {
@@ -103,7 +111,7 @@ const AddProductForm = () => {
   });
 
   const [responseType, setResponseType] = useState(null);
-  const [gameType, setGameType] = useState("War");
+  const [gameType, setGameType] = useState("Wargame");
   const [device, setDevice] = useState("Desktop");
   const clearAlert = () => setTimeout(() => setResponseType(null), 999);
 
@@ -122,7 +130,7 @@ const AddProductForm = () => {
       productDescription,
       gameType,
       prize,
-      amount,
+      availableAmount,
       productImg,
       device,
     } = data;
@@ -132,7 +140,7 @@ const AddProductForm = () => {
     product.append("productDescription", productDescription);
     product.append("gameType", gameType);
     product.append("prize", prize);
-    product.append("amount", amount);
+    product.append("availableAmount", availableAmount);
     product.append("productImg", productImg[0]);
     product.append("device", device);
 
@@ -245,20 +253,21 @@ const AddProductForm = () => {
         <FormLabel>
           <InputElement
             type='number'
-            name='amount'
+            name='availableAmount'
             placeholder='Enter amount of products '
             inputRef={register({ required: true, min: 1 })}
             onChange={() => {
-              setError("amount", {
-                type: "manual",
+              setError("availableAmount", {
+                type: "availableAmount",
                 message: "You have to provide amount of products",
               });
             }}
           />
         </FormLabel>
-        {errors.amount && errors.amount.type === "required" && (
-          <ErrorSpan>Please provide a amount of products</ErrorSpan>
-        )}
+        {errors.availableAmount &&
+          errors.availableAmount.type === "required" && (
+            <ErrorSpan>Please provide a amount of products</ErrorSpan>
+          )}
 
         <input
           ref={register({ required: true })}

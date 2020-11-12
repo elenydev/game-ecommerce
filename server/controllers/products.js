@@ -7,7 +7,7 @@ export const addProduct = async (req, res, next) => {
   const productDescription = req.body.productDescription;
   const gameType = req.body.gameType;
   const prize = req.body.prize;
-  const amount = req.body.amount;
+  const availableAmount = req.body.availableAmount;
   const device = req.body.device;
   const productFile = req.file;
 
@@ -29,9 +29,10 @@ export const addProduct = async (req, res, next) => {
         productDescription,
         gameType,
         prize,
-        amount,
+        availableAmount,
         productImg,
         device,
+        amount: 1,
       });
       await product.save();
       res.send({

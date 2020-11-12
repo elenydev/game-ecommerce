@@ -65,9 +65,11 @@ export const FooterContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
   width: 100%;
   @media (min-width: 960px) {
     width: fit-content;
+    flex-direction: row;
   }
 `;
 
@@ -99,7 +101,7 @@ export const Span = styled.span`
   justify-content: center;
   padding: 3px;
   & > .MuiSvgIcon-root {
-    font-size: 1em;
+    font-size: 2em;
     &:hover {
       cursor: pointer;
     }

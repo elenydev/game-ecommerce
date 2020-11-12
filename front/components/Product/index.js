@@ -22,6 +22,9 @@ const ProductContainer = styled.div`
   display: flex;
   padding: 15px;
   flex-direction: column;
+  border: 1px solid rgb(255 90 90 /60%);
+  border-right: none;
+  border-left: none;
 
   @media (min-width: 960px) {
     flex-direction: row;
@@ -63,6 +66,7 @@ const ProductName = styled.h2`
   display: flex;
   margin: 10px 0;
   justify-content: center;
+  text-align: center;
 
   @media (min-width: 960px) {
     justify-content: flex-start;
