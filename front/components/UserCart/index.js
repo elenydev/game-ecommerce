@@ -6,6 +6,7 @@ import { selectUser } from "../../Reducers/userSlice.js";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import EmailIcon from "@material-ui/icons/Email";
 import ProductsCart from "../ProductsCart/index.js";
+import Sidebar from "../Sidebar/index.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,6 +22,15 @@ const Wrapper = styled.div`
     flex-direction: row;
     padding-top: 5%;
     width: 98%;
+  }
+
+  & > .MuiButton-containedSecondary {
+    margin: 15px;
+    background-color: #b73d1cbf;
+
+    &:hover {
+      background-color: #ff3600bf;
+    }
   }
 `;
 
@@ -95,9 +105,14 @@ const UserCart = () => {
   const user = useSelector(selectUser);
   const router = useRouter();
   useEffect(() => {
+    let isMounted = true;
     if (user.user === null) {
       router.push("/");
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
   return (
     <>
@@ -127,6 +142,7 @@ const UserCart = () => {
                 <p>{user.user.email}</p>
               </div>
             </UserDescription>
+            {user.user.email === "admin@admin.com" && <Sidebar />}
           </UserBox>
           <ProductsCart />
         </Wrapper>

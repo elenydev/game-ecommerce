@@ -37,55 +37,60 @@ const Navigation = () => {
   };
 
   useEffect(() => {
+    let isMounted = true;
     setUser(sliceUser);
+
+    return () => {
+      isMounted = false;
+    };
   }, [sliceUser]);
 
   return (
     <>
       <MobileNav>
         <NavLogo>
-          <Link href='/'>
+          <Link href="/">
             <a>
-              <img src='/images/logo2.png' alt='logo' />
+              <img src="/images/logo2.png" alt="logo" />
             </a>
           </Link>
         </NavLogo>
       </MobileNav>
-      <Hamburger className='hamburger' onClick={() => handleClick()}>
-        <HamburgerBox className='hamburger__box'>
-          <HamburgerInner className='hamburger__inner'></HamburgerInner>
+      <Hamburger className="hamburger" onClick={() => handleClick()}>
+        <HamburgerBox className="hamburger__box">
+          <HamburgerInner className="hamburger__inner"></HamburgerInner>
         </HamburgerBox>
       </Hamburger>
-      <Wrapper className='nav'>
+      <Wrapper className="nav">
         <Container>
           <Nav>
             <NavLogo>
-              <Link href='/'>
+              <Link href="/">
                 <a>
-                  <img src='/images/logo2.png' alt='logo' />
+                  <img src="/images/logo2.png" alt="logo" />
                 </a>
               </Link>
             </NavLogo>
 
             <NavList>
               <NavListItem onClick={() => handleClick()}>
-                <Link href='/#home'>
+                <Link href="/#home">
                   <a>Home</a>
                 </Link>
               </NavListItem>
 
               <NavListItem onClick={() => handleClick()}>
-                <Link href='/#games'>
+                <Link href="/#games">
                   <a>Games</a>
                 </Link>
               </NavListItem>
               <NavListItem onClick={() => handleClick()}>
-                <Link href='/#team'>
+                <Link href="/#team">
                   <a>Team</a>
                 </Link>
               </NavListItem>
               <NavListItem onClick={() => handleClick()}>
-                <Link href='/#contact'>
+                <Link href="/#contact">
                   <a>Contact</a>
                 </Link>
               </NavListItem>
@@ -95,13 +100,13 @@ const Navigation = () => {
                     handleClick(), logOut();
                   }}
                 >
-                  <Link href='/'>
+                  <Link href="/">
                     <a>Log out</a>
                   </Link>
                 </NavListItem>
               ) : (
                 <NavListItem onClick={() => handleClick()}>
-                  <Link href='/auth/register'>
+                  <Link href="/auth/register">
                     <a>Join us</a>
                   </Link>
                 </NavListItem>
@@ -109,7 +114,7 @@ const Navigation = () => {
 
               {user.user !== null && (
                 <NavListItem onClick={() => handleClick()}>
-                  <Link href='/auth/account/cart'>
+                  <Link href="/auth/account/cart">
                     <a>
                       <ShoppingCartIcon />
                       <span>({productsArray.products.length})</span>

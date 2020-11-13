@@ -57,12 +57,22 @@ const ProductsComponent = () => {
   };
 
   useEffect(() =>{
+    let isMounted = true;
     fetchProducts()
+
+    return () => {
+      isMounted = false;
+    };
   },[])
 
   useEffect(() => {
+    let isMounted = true;
     setStartRange(1);
     setEndRange(visibleTasks);
+
+    return () => {
+      isMounted = false;
+    };
   }, [visibleTasks]);
 
   return (

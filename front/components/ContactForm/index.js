@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { FormLabel } from "@material-ui/core";
+import Alert from "../Alert/index.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -9,6 +10,7 @@ const Wrapper = styled.div`
   align-items: center;
   font-family: "Roboto";
   background-color: #24272e;
+  flex-direction: column;
 
   @media (min-width: 960px) {
     padding: 5% 0px;
@@ -95,6 +97,15 @@ const TextInput = styled.textarea`
   }
 `;
 
+const ErrorSpan = styled.span`
+  color: #ff5a5a;
+  font-size: 12px;
+
+  & > a {
+    cursor: pointer;
+  }
+`;
+
 const Button = styled.button`
   padding: 5px 8px;
   color: white;
@@ -117,28 +128,122 @@ const Button = styled.button`
   }
 `;
 
-const ContactForm = () => {
-  const { register, handleSubmit, watch, errors } = useForm();
+const defaultValues = {
+  customerName: null,
+  email: null,
+  message: null,
+};
 
-  const handleSendEmail = (data, event) => {
+const ContactForm = () => {
+  const { register, handleSubmit, errors, setError, reset } = useForm({
+    defaultValues,
+  });
+  const [message, setMessage] = useState(null);
+  const [variant, setVariant] = useState(null);
+
+  const handleSendEmail = async (data, event) => {
     event.preventDefault();
+
+    try {
+      const request = await fetch("http://localhost:8080/receiveEmail", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const response = await request.json();
+      if (!response.newEmail) {
+        setVariant("error");
+        setMessage("Something went wrong, try again");
+      }
+      setVariant("success");
+      setMessage("Email send");
+      reset();
+    } catch (err) {
+      setMessage("Something went wrong, try again");
+    }
+
+    clearMessage();
+  };
+
+  const clearMessage = () => {
+    setTimeout(() => {
+      setMessage(null);
+      setVariant(null);
+    }, 1000);
   };
 
   return (
-    <Wrapper id='contact'>
-      <Form onSubmit={handleSendEmail}>
-        <Heading>Have question?</Heading>
+    <Wrapper id="contact">
+      <Heading>Have question?</Heading>
+
+      <Form onSubmit={handleSubmit(handleSendEmail)}>
         <FormLabel>
-          <Input type='text' name='name' placeholder='Your name' />
+          <Input
+            type="text"
+            name="customerName"
+            placeholder="Your name"
+            ref={register({ required: true })}
+            onChange={() => {
+              setError("customerName", {
+                type: "manual",
+                message: "You have to provide a name",
+              });
+            }}
+          />
         </FormLabel>
+        {errors.customerName && errors.customerName.type === "required" && (
+          <ErrorSpan>Please provide a name</ErrorSpan>
+        )}
         <FormLabel>
-          <Input type='email' name='email' placeholder='Your e-mail' />
+          <Input
+            type="email"
+            name="email"
+            placeholder="Your e-mail"
+            ref={register({
+              required: true,
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "invalid email address",
+              },
+            })}
+            onChange={() => {
+              setError("email", {
+                type: "manual",
+                message: "You have to a email",
+              });
+            }}
+          />
         </FormLabel>
+        {errors.email && errors.email.type === "required" && (
+          <ErrorSpan>Please provide a email</ErrorSpan>
+        )}
+        {errors.email && errors.email.type === "pattern" && (
+          <ErrorSpan>Please provide a correct email</ErrorSpan>
+        )}
         <FormLabel>
-          <TextInput placeholder='Your message...' name='message'></TextInput>
+          <TextInput
+            placeholder="Your message..."
+            name="message"
+            ref={register({ required: true })}
+            onChange={() => {
+              setError("message", {
+                type: "manual",
+                message: "You have to provide a message",
+              });
+            }}
+          ></TextInput>
         </FormLabel>
-        <Button type='submit'>Send</Button>
+        {errors.message && errors.message.type === "required" && (
+          <ErrorSpan>Please provide a message</ErrorSpan>
+        )}
+
+        <Button type="submit">Send</Button>
       </Form>
+      {message && (
+        <Alert shouldOpen={true} message={message} variant={variant} />
+      )}
     </Wrapper>
   );
 };
