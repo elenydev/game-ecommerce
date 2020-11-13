@@ -7,6 +7,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import EmailIcon from "@material-ui/icons/Email";
 import ProductsCart from "../ProductsCart/index.js";
 import Sidebar from "../Sidebar/index.js";
+import EmailsCart from "../EmailsCart/index.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,6 +23,7 @@ const Wrapper = styled.div`
     flex-direction: row;
     padding-top: 5%;
     width: 98%;
+    align-items: flex-start;
   }
 
   & > .MuiButton-containedSecondary {
@@ -104,16 +106,17 @@ const UserDescription = styled.div`
 const UserCart = () => {
   const user = useSelector(selectUser);
   const router = useRouter();
+  
   useEffect(() => {
     let isMounted = true;
     if (user.user === null) {
       router.push("/");
     }
-
     return () => {
       isMounted = false;
     };
   }, []);
+
   return (
     <>
       {user.user && (
@@ -144,7 +147,8 @@ const UserCart = () => {
             </UserDescription>
             {user.user.email === "admin@admin.com" && <Sidebar />}
           </UserBox>
-          <ProductsCart />
+          {router.pathname === "/auth/account/cart" && <ProductsCart />}
+          {router.pathname === "/auth/account/emails" && <EmailsCart />}
         </Wrapper>
       )}
     </>

@@ -4,7 +4,7 @@ export const receiveEmail = async (req, res, next) => {
   const customerName = req.body.customerName;
   const email = req.body.email;
   const message = req.body.message;
-  const date = new Date().toISOString();
+  const date = new Date().toLocaleString();
   try {
     const newEmail = new Email({
       customerName,
@@ -18,5 +18,26 @@ export const receiveEmail = async (req, res, next) => {
   } catch (err) {
     res.send({ message: "Something went wrong, try again" });
     next();
+  }
+};
+
+export const getEmails = async (req, res, next) => {
+  try {
+    const emails = await Email.find();
+    res.send({ emails });
+    next();
+  } catch (err) {
+    res.send({ message: "Something went wrong with fetching products" });
+  }
+};
+
+export const removeEmail = async (req, res, next) => {
+  const productId = req.body._id;
+
+  try {
+    await Email.findByIdAndDelete(productId);
+    res.send({ email: req.body });
+  } catch (err) {
+    res.send({ message: "Something went wrong, try again" });
   }
 };

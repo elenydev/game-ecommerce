@@ -105,9 +105,9 @@ const Sidebar = () => {
     >
       <List>
         {ListMap.map((item, index) => (
-          <Link href={item.destination}>
+          <Link href={item.destination}key={index}>
             <a>
-              <ListItem button key={index}>
+              <ListItem button >
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.text} />
               </ListItem>
