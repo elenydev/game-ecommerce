@@ -95,7 +95,12 @@ const Hero = () => {
   };
 
   useEffect(() => {
+    let isMounted = true;
     renderSubHeader();
+
+    return () => {
+      isMounted = false;
+    }; 
   }, []);
 
   return (

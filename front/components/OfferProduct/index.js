@@ -131,11 +131,16 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
   const cardProducts = useSelector(selectProducts).products;
 
   useEffect(() => {
+    let isMounted = true;
     if (user.user !== null) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [user]);
 
   const addProduct = () => {
