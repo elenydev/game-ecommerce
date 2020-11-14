@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Products = () => {
+const Products = ({ products }) => {
   const user = useSelector(selectUser);
   const router = useRouter();
   useEffect(() => {
@@ -33,10 +33,23 @@ const Products = () => {
     <>
       <Navigation />
       <Wrapper>
-        <UserCart />
+        <UserCart products={products} />
       </Wrapper>
     </>
   );
 };
+
+export async function getStaticProps() {
+  const query = await fetch("http://localhost:8080/getProducts");
+  const response = await query.json();
+  const products = response.products;
+  console.log(response);
+
+  return {
+    props: {
+      products,
+    },
+  };
+}
 
 export default Products;

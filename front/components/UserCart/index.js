@@ -9,6 +9,7 @@ import ProductsCart from "../ProductsCart/index.js";
 import Sidebar from "../Sidebar/index.js";
 import EmailsCart from "../EmailsCart/index.js";
 import OrdersCart from "../OrdersCart/index.js";
+import AdminProductsList from "../AdminProductsList/index.js";
 
 
 const Wrapper = styled.div`
@@ -105,10 +106,10 @@ const UserDescription = styled.div`
 
 
 
-const UserCart = () => {
+const UserCart = ({ products }) => {
   const user = useSelector(selectUser);
   const router = useRouter();
-  
+
   useEffect(() => {
     let isMounted = true;
     if (user.user === null) {
@@ -152,6 +153,9 @@ const UserCart = () => {
           {router.pathname === "/auth/account/cart" && <ProductsCart />}
           {router.pathname === "/auth/account/emails" && <EmailsCart />}
           {router.pathname === "/auth/account/orders" && <OrdersCart />}
+          {router.pathname === "/auth/account/products" && (
+            <AdminProductsList products={products}  />
+          )}
         </Wrapper>
       )}
     </>

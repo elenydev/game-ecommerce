@@ -3,8 +3,6 @@ import styled from "styled-components";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { IconButton } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import { increaseAmount, decreaseAmount } from "../../Reducers/productsSlice";
 
 const Wrapper = styled.div`
   display: flex;
@@ -137,9 +135,7 @@ const ActionsBox = styled.div`
   }
 `;
 
-const Product = ({ product, productIndex }) => {
-  const dispatch = useDispatch();
-
+const AdminProductListItem = ({ product, productIndex }) => {
   const {
     productImg,
     productName,
@@ -147,6 +143,7 @@ const Product = ({ product, productIndex }) => {
     productDescription,
     gameType,
     amount,
+    device,
   } = product;
 
   return (
@@ -159,6 +156,7 @@ const Product = ({ product, productIndex }) => {
           <ProductName>{productName}</ProductName>
           <ProductDescription>{productDescription}</ProductDescription>
           <ProductDescription>Type: {gameType}</ProductDescription>
+          <ProductDescription>Device: {device}</ProductDescription>
         </ProductDescriptionBox>
         <ProductPrizeInfo>
           <ProductPrice>
@@ -192,4 +190,4 @@ const Product = ({ product, productIndex }) => {
   );
 };
 
-export default Product;
+export default AdminProductListItem;

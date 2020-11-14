@@ -53,11 +53,14 @@ export const Footer = styled.div`
   flex-direction: column;
   font-size: 0.8em;
   width: 100%;
+  font-family: "Black Ops One", normal;
+  font-weight: 500;
   padding: 10px;
 
   @media (min-width: 960px) {
     flex-direction: row;
     justify-content: flex-end;
+    font-size: 1em;
   }
 `;
 
@@ -87,7 +90,9 @@ export const Paragraph = styled.p`
     outline: none;
     border: none;
     min-height: 100%;
-    margin: 0 15px;
+    margin: 0 10px;
+    font-family: "Black Ops One", normal;
+    font-weight: 500;
     padding-top: 3px;
     @media (min-width: 960px) {
       margin: 0 20px;

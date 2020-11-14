@@ -10,26 +10,39 @@ import Footer from "../components/Footer/index.js";
 import ContactForm from "../components/ContactForm/index.js";
 import ProductsComponent from "../components/ProductsComponent/index.js";
 
-
-export default function Home() {
+const Home = ({  products  }) => {
   return (
     <>
       <Head>
         <title>Create Next App</title>
-        <link rel='icon' href='/favicon.ico' />
+        <link rel="icon" href="/favicon.ico" />
         <link
-          href='https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap'
-          rel='stylesheet'
+          href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap"
+          rel="stylesheet"
         />
       </Head>
       <Navigation />
       <Hero />
       <GameTypes />
       <Devices />
-      <ProductsComponent />
+      <ProductsComponent products={products}/>
       <OurTeam />
       <ContactForm />
       <Footer />
     </>
   );
+};
+
+export async function getStaticProps() {
+  const query = await fetch("http://localhost:8080/getProducts");
+  const response = await query.json();
+  const products = response.products;
+
+  return {
+    props: {
+      products,
+    },
+  };
 }
+
+export default Home;
