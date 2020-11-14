@@ -7,6 +7,7 @@ service.js
 .next
 firebase.json
 nodemon.json
+front/.next
 
 /.pnp
 .pnp.js

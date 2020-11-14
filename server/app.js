@@ -14,7 +14,7 @@ import dotenv from "dotenv";
 
 import { signUp, signIn } from "./controllers/user.js";
 import { addProduct, getProducts } from "./controllers/products.js";
-import { createOrder } from "./controllers/order.js";
+import { createOrder, getOrders, changeStatus } from "./controllers/order.js";
 import { getEmails, receiveEmail, removeEmail } from "./controllers/emails.js";
 import { get } from "http";
 
@@ -89,6 +89,8 @@ router.use("/getProducts", getProducts);
 router.use("/addProduct", upload.single("productImg"), addProduct);
 
 router.use("/createOrder", createOrder);
+router.use("/getOrders", getOrders);
+router.use("/changeStatus", changeStatus);
 
 router.use("/receiveEmail", receiveEmail);
 router.use("/getEmails", getEmails);

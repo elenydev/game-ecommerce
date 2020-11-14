@@ -8,6 +8,8 @@ import EmailIcon from "@material-ui/icons/Email";
 import ProductsCart from "../ProductsCart/index.js";
 import Sidebar from "../Sidebar/index.js";
 import EmailsCart from "../EmailsCart/index.js";
+import OrdersCart from "../OrdersCart/index.js";
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -149,6 +151,7 @@ const UserCart = () => {
           </UserBox>
           {router.pathname === "/auth/account/cart" && <ProductsCart />}
           {router.pathname === "/auth/account/emails" && <EmailsCart />}
+          {router.pathname === "/auth/account/orders" && <OrdersCart />}
         </Wrapper>
       )}
     </>

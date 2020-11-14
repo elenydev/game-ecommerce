@@ -1,4 +1,5 @@
 import moongose from "mongoose";
+import Product from "./product.js";
 
 const { Schema } = moongose;
 
@@ -16,7 +17,14 @@ const orderSchema = new Schema({
     required: true,
   },
   products: {
-    type: [String],
+    type: [
+      {
+        productName: String,
+        prize: Number,
+        productImg: String,
+        amount: Number,
+      },
+    ],
     required: true,
   },
   prize: {
@@ -24,6 +32,10 @@ const orderSchema = new Schema({
     required: true,
   },
   date: {
+    type: String,
+    required: true,
+  },
+  status: {
     type: String,
     required: true,
   },

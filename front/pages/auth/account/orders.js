@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   background-color: #24272e;
   min-height: 100vh;
   box-shadow: 2px 2px 8px 0 rgb(255 90 90 /60%);
+  overflow-y: auto;
 
   @media (min-width: 960px) {
     flex-direction: row;
@@ -25,7 +26,7 @@ const Orders = () => {
   const user = useSelector(selectUser);
   const router = useRouter();
   useEffect(() => {
-    if (user.user === null && user.user.email !== "admin@admin.com") {
+    if (user.user === null || user.user.email !== "admin@admin.com") {
       router.push("/");
     }
   }, []);

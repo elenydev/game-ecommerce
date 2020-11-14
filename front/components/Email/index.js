@@ -67,17 +67,6 @@ const EmailMessage = styled.p`
   word-break: break-word;
 `;
 
-const ActionsBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 5px;
-
-  span {
-    display: flex;
-    color: rgb(255 90 90 /80%);
-  }
-`;
 
 const Email = ({ emailMessage, index }) => {
   const { customerName, email, message, date } = emailMessage;
