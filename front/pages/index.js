@@ -36,7 +36,7 @@ const Home = ({  products  }) => {
 export async function getStaticProps() {
   const query = await fetch("http://localhost:8080/getProducts");
   const response = await query.json();
-  const products = response.products;
+  const products = response.products ? response.products : [];
 
   return {
     props: {
