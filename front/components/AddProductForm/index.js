@@ -43,7 +43,7 @@ const Form = styled.form`
     color: white !important;
 
     &::placeholder {
-      color: white;
+      color: white !important;
     }
   }
 `;
@@ -90,7 +90,7 @@ const SelectBox = styled.div`
     }
   }
 
-  & > .MuiInputBase-root {
+  & > label > .MuiInputBase-root {
     color: #ff3600bf !important;
   }
 `;

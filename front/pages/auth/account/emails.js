@@ -25,7 +25,7 @@ const Emails = () => {
   const user = useSelector(selectUser);
   const router = useRouter();
   useEffect(() => {
-    if (user.user === null && user.user.email !== "admin@admin.com") {
+    if (user.user === null || user.user.email !== "admin@admin.com") {
       router.push("/");
     }
   }, []);
