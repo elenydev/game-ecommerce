@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../Reducers/userSlice.js";
+import Cookies from "universal-cookie";
 
 const Wrapper = styled.div`
   display: flex;
@@ -92,6 +93,7 @@ const Login = () => {
   const [responseType, setResponseType] = useState(null);
   const clearAlert = () => setTimeout(() => setResponseType(null), 999);
   const dispatch = useDispatch();
+  const cookies = new Cookies();
 
   const loginUser = async (data, event) => {
     event.preventDefault();
@@ -104,11 +106,16 @@ const Login = () => {
         },
       });
       const response = await send.json();
+
       if (response) {
         setResponseType(response);
         if (response.user) {
           setTimeout(() => {
             dispatch(setUser(response.user));
+            const date = new Date(new Date().getTime() + 15 * 60 * 1000);
+            cookies.set("User", response.user, {
+              expires: date,
+            });
             reset();
             router.push("/auth/account/cart");
           }, 600);
@@ -127,9 +134,9 @@ const Login = () => {
       <Form onSubmit={handleSubmit(loginUser)}>
         <FormLabel>
           <InputElement
-            type='text'
-            name='email'
-            placeholder='Enter email'
+            type="text"
+            name="email"
+            placeholder="Enter email"
             inputRef={register({
               required: true,
               pattern: {
@@ -153,9 +160,9 @@ const Login = () => {
         )}
         <FormLabel>
           <InputElement
-            type='password'
-            name='password'
-            placeholder='Enter Password'
+            type="password"
+            name="password"
+            placeholder="Enter Password"
             inputRef={register({ required: true })}
             onChange={() => {
               setError("password", {
@@ -169,23 +176,23 @@ const Login = () => {
           <ErrorSpan>Please provide a password</ErrorSpan>
         )}
 
-        <Button type='submit' variant='contained' color='secondary'>
+        <Button type="submit" variant="contained" color="secondary">
           Sign in
         </Button>
       </Form>
 
       {(responseType && responseType.user && (
         <Alert
-          message='You are succesfully logged in'
+          message="You are succesfully logged in"
           shouldOpen={true}
-          variant='success'
+          variant="success"
         />
       )) ||
         (responseType && responseType.message && (
           <Alert
             message={responseType.message}
             shouldOpen={true}
-            variant='error'
+            variant="error"
           />
         ))}
     </Wrapper>
