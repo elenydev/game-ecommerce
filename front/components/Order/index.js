@@ -167,7 +167,6 @@ const Order = ({ specificOrder, index }) => {
       },
     });
     const response = await query.json();
-    console.log(response);
     setOrderStatus(e.target.value);
   };
 

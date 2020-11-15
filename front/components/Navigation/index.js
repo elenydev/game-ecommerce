@@ -112,12 +112,21 @@ const Navigation = () => {
                 </NavListItem>
               )}
 
-              {user.user !== null && (
+              {user.user !== null && user.user.email !== "admin@admin.com" && (
                 <NavListItem onClick={() => handleClick()}>
                   <Link href="/auth/account/cart">
                     <a>
                       <ShoppingCartIcon />
                       <span>({productsArray.products.length})</span>
+                    </a>
+                  </Link>
+                </NavListItem>
+              )}
+              {user.user !== null && user.user.email === "admin@admin.com" && (
+                <NavListItem onClick={() => handleClick()}>
+                  <Link href="/auth/account/cart">
+                    <a>
+                    Admin
                     </a>
                   </Link>
                 </NavListItem>

@@ -17,66 +17,63 @@ import {
 } from "./productsComponent.styles.js";
 import Alert from "../Alert/index.js";
 
-
-const ProductsComponent = () => {
-  
-  const [products, setProducts] = useState([]);
+const ProductsComponent = ({ products }) => {
   const user = useSelector(selectUser);
   const [categoryDisplayed, setCategoryDisplayed] = useState("Desktop");
-  const [visibleTasks, setVisibleTasks] = useState(5);
+  const [visibleProducts, setVisibleProducts] = useState(4);
   const [startRange, setStartRange] = useState(1);
-  const [endRange, setEndRange] = useState(visibleTasks);
-    const [message, setMessage] = useState(null);
-    const [variant, setVariant] = useState(null);
+  const [endRange, setEndRange] = useState(visibleProducts);
+  const [message, setMessage] = useState(null);
+  const [variant, setVariant] = useState(null);
   let arrayLength = 0;
-
-  const fetchProducts = async () => {
-    const query = await fetch("http://localhost:8080/getProducts");
-    const response = await query.json();
-    setProducts(response.products);
-  };
 
   const incrementRange = () => {
     if (endRange >= arrayLength) return;
-    setStartRange(startRange + visibleTasks);
-    setEndRange(endRange + visibleTasks);
+    setStartRange(startRange + visibleProducts);
+    if (endRange + visibleProducts >= arrayLength) {
+      setEndRange(arrayLength);
+      return;
+    } else {
+      setEndRange(endRange + visibleProducts);
+    }
   };
 
   const handleArrayRange = (arr) => {
     const array = arr.filter(
-      (product) => product.device === categoryDisplayed && product.availableAmount > 0
+      (product) =>
+        product.device === categoryDisplayed && product.availableAmount > 0
     );
     arrayLength = array.length;
     return array.slice(startRange - 1, endRange);
   };
 
   const decrementRange = () => {
-    if (startRange <= 1 || startRange - visibleTasks <= 0) return;
-    setStartRange(startRange - visibleTasks);
-    setEndRange(endRange - visibleTasks);
+    if (startRange <= 1 || startRange - visibleProducts <= 0) return;
+    setStartRange(startRange - visibleProducts);
+    if (endRange - visibleProducts < visibleProducts) {
+      setEndRange(visibleProducts);
+    } else {
+      setEndRange(endRange - visibleProducts);
+    }
   };
-
-  useEffect(() =>{
-    let isMounted = true;
-    fetchProducts()
-
-    return () => {
-      isMounted = false;
-    };
-  },[])
 
   useEffect(() => {
     let isMounted = true;
     setStartRange(1);
-    setEndRange(visibleTasks);
+    setEndRange(visibleProducts);
+    if (visibleProducts > arrayLength) {
+      setEndRange(arrayLength);
+    } else {
+      setEndRange(visibleProducts);
+    }
 
     return () => {
       isMounted = false;
     };
-  }, [visibleTasks]);
+  }, [visibleProducts]);
 
   return (
-    <Wrapper id='games'>
+    <Wrapper id="games">
       <Header>Our offer</Header>
       <ItemsContainer>
         {handleArrayRange(products).map((product, index) => (
@@ -96,12 +93,12 @@ const ProductsComponent = () => {
             <Paragraph>
               <select
                 onChange={(e) => {
-                  setVisibleTasks(parseInt(e.target.value));
+                  setVisibleProducts(parseInt(e.target.value));
                 }}
               >
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={15}>15</option>
+                <option value={4}>4</option>
+                <option value={8}>8</option>
+                <option value={12}>12</option>
               </select>
             </Paragraph>
             <Paragraph>
@@ -130,9 +127,9 @@ const ProductsComponent = () => {
                   setCategoryDisplayed(e.target.value);
                 }}
               >
-                <option value='Desktop'>Desktop</option>
-                <option value='Playstation'>Playstation</option>
-                <option value='Xbox'>Xbox</option>
+                <option value="Desktop">Desktop</option>
+                <option value="Playstation">Playstation</option>
+                <option value="Xbox">Xbox</option>
               </select>
             </Paragraph>
           </FooterRows>
