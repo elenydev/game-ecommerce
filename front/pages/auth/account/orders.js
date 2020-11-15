@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Orders = () => {
+const Orders = ({ orders }) => {
   const user = useSelector(selectUser);
   const router = useRouter();
   useEffect(() => {
@@ -34,10 +34,22 @@ const Orders = () => {
     <>
       <Navigation />
       <Wrapper>
-        <UserCart />
+        <UserCart orders={orders} />
       </Wrapper>
     </>
   );
 };
+
+export async function getStaticProps() {
+  const query = await fetch("http://localhost:8080/getOrders");
+  const response = await query.json();
+  const orders = response.orders;
+
+  return {
+    props: {
+      orders,
+    },
+  };
+}
 
 export default Orders;

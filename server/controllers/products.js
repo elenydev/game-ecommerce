@@ -52,7 +52,24 @@ export const getProducts = async (req, res, next) => {
   try {
     const products = await Product.find();
     res.send({ products: products });
+    next();
   } catch (err) {
     res.send({ message: "Something went wrong with fetching products" });
+    next();
+  }
+};
+
+export const changeAmount = async (req, res, next) => {
+  const productId = req.body.productId;
+  const productAmount = req.body.productAmount;
+  try {
+    const product = await Product.findOne({ _id: productId });
+    product.availableAmount = productAmount;
+    await product.save();
+    res.send({ message: "Amount changed" });
+    next();
+  } catch (err) {
+    res.send({ message: "Something went wrong, try again" });
+    next();
   }
 };

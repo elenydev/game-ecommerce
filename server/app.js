@@ -13,7 +13,11 @@ import { dirname } from "path";
 import dotenv from "dotenv";
 
 import { signUp, signIn } from "./controllers/user.js";
-import { addProduct, getProducts } from "./controllers/products.js";
+import {
+  addProduct,
+  getProducts,
+  changeAmount,
+} from "./controllers/products.js";
 import { createOrder, getOrders, changeStatus } from "./controllers/order.js";
 import { getEmails, receiveEmail, removeEmail } from "./controllers/emails.js";
 import { get } from "http";
@@ -87,6 +91,7 @@ router.use("/signIn", signIn);
 
 router.use("/getProducts", getProducts);
 router.use("/addProduct", upload.single("productImg"), addProduct);
+router.use("/changeAmount", changeAmount);
 
 router.use("/createOrder", createOrder);
 router.use("/getOrders", getOrders);

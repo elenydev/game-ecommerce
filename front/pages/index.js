@@ -1,5 +1,6 @@
 
 import Head from "next/head";
+import React from 'react';
 import Navigation from "../components/Navigation/index.js";
 import Hero from "../components/Hero/index.js"; 
 import GameTypes from '../components/GameTypes/index.js'
@@ -10,7 +11,7 @@ import Footer from "../components/Footer/index.js";
 import ContactForm from "../components/ContactForm/index.js";
 import ProductsComponent from "../components/ProductsComponent/index.js";
 
-const Home = ({  products  }) => {
+const Home = React.memo(({  products  }) => {
   return (
     <>
       <Head>
@@ -31,7 +32,7 @@ const Home = ({  products  }) => {
       <Footer />
     </>
   );
-};
+});
 
 export async function getStaticProps() {
   const query = await fetch("http://localhost:8080/getProducts");
@@ -42,6 +43,7 @@ export async function getStaticProps() {
     props: {
       products,
     },
+    revalidate: 2,
   };
 }
 

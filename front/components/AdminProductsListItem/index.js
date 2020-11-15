@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -142,9 +142,51 @@ const AdminProductListItem = ({ product, productIndex }) => {
     prize,
     productDescription,
     gameType,
+    availableAmount,
     amount,
     device,
   } = product;
+
+  const [productAmount, setProductAmount] = useState(availableAmount);
+  let newAmount = 0;
+
+  const increaseAmount = () => {
+    setProductAmount(productAmount + 1);
+    newAmount = productAmount + 1;
+    setTimeout(() => {
+      changeAmountInDatabase();
+    }, 500);
+  };
+
+  const decreaseAmount = () => {
+    if (productAmount - 1 < 0) {
+      return;
+    }
+    setProductAmount(productAmount - 1);
+    newAmount = productAmount + -1;
+    setTimeout(() => {
+      changeAmountInDatabase();
+    }, 500);
+  };
+
+  const changeAmountInDatabase = async () => {
+    const data = {
+      productId: product._id,
+      productAmount: newAmount,
+    };
+    try {
+      const query = await fetch("http://localhost:8080/changeAmount", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const response = await query;
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Wrapper>
@@ -165,21 +207,17 @@ const AdminProductListItem = ({ product, productIndex }) => {
           </ProductPrice>
           <ProductAmount>
             <span>Amount: </span>
-            <span> {amount}</span>
+            <span> {productAmount}</span>
           </ProductAmount>
 
           <ActionsBox>
             <span>
-              <IconButton
-                onClick={() => dispatch(increaseAmount(productIndex))}
-              >
+              <IconButton onClick={increaseAmount}>
                 <ExpandLessIcon />
               </IconButton>
             </span>
             <span>
-              <IconButton
-                onClick={() => dispatch(decreaseAmount(productIndex))}
-              >
+              <IconButton onClick={decreaseAmount}>
                 <ExpandMoreIcon />
               </IconButton>
             </span>

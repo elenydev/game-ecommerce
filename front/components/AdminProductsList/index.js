@@ -34,12 +34,19 @@ const Footer = styled.div`
   font-family: "Black Ops One", normal;
   font-weight: 500;
   padding: 10px;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 1);
 
   @media (min-width: 960px) {
     flex-direction: row;
     justify-content: flex-end;
     font-size: 1em;
+  }
+
+  & > div > div > p > select {
+    background-color: #24272e;
+    color: white;
+    font-size: 1em;
+
   }
 `;
 
@@ -68,7 +75,11 @@ const AdminProductsList = ({ products }) => {
   const decrementRange = () => {
     if (startRange <= 1 || startRange - visibleProducts <= 0) return;
     setStartRange(startRange - visibleProducts);
-    setEndRange(endRange - visibleProducts);
+    if (endRange - visibleProducts < visibleProducts) {
+      setEndRange(visibleProducts);
+    } else {
+      setEndRange(endRange - visibleProducts);
+    }
   };
 
   useEffect(() => {

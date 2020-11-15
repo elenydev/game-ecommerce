@@ -9,7 +9,6 @@ export const signUp = async (req, res, next) => {
   const password = req.body.password;
   const avatar = req.file;
   const policy = req.body.policy;
-  console.log(avatar.path);
   if (!avatar) {
     return res.status(422).send({ message: "Error with avatar occured" });
   }

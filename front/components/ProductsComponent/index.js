@@ -20,13 +20,12 @@ import Alert from "../Alert/index.js";
 const ProductsComponent = ({ products }) => {
   const user = useSelector(selectUser);
   const [categoryDisplayed, setCategoryDisplayed] = useState("Desktop");
-  const [visibleProducts, setVisibleProducts] = useState(5);
+  const [visibleProducts, setVisibleProducts] = useState(4);
   const [startRange, setStartRange] = useState(1);
   const [endRange, setEndRange] = useState(visibleProducts);
   const [message, setMessage] = useState(null);
   const [variant, setVariant] = useState(null);
-  let arrayLength = 0
-
+  let arrayLength = 0;
 
   const incrementRange = () => {
     if (endRange >= arrayLength) return;
@@ -51,7 +50,11 @@ const ProductsComponent = ({ products }) => {
   const decrementRange = () => {
     if (startRange <= 1 || startRange - visibleProducts <= 0) return;
     setStartRange(startRange - visibleProducts);
-    setEndRange(endRange - visibleProducts);
+    if (endRange - visibleProducts < visibleProducts) {
+      setEndRange(visibleProducts);
+    } else {
+      setEndRange(endRange - visibleProducts);
+    }
   };
 
   useEffect(() => {
@@ -93,9 +96,9 @@ const ProductsComponent = ({ products }) => {
                   setVisibleProducts(parseInt(e.target.value));
                 }}
               >
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={15}>15</option>
+                <option value={4}>4</option>
+                <option value={8}>8</option>
+                <option value={12}>12</option>
               </select>
             </Paragraph>
             <Paragraph>
@@ -137,8 +140,6 @@ const ProductsComponent = ({ products }) => {
       )}
     </Wrapper>
   );
-  
 };
-
 
 export default ProductsComponent;

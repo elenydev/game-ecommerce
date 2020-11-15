@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import Alert from "../Alert/index.js";
 import Order from "../Order/index.js";
 
 const Wrapper = styled.div`
@@ -33,30 +32,7 @@ const OrderWrapper = styled.div`
   }
 `;
 
-const OrdersCart = () => {
-  const [orders, setOrders] = useState([]);
-  const [message, setMessage] = useState(null);
-  const [variant, setVariant] = useState(null);
-
-  const fetchOrders = async () => {
-    try {
-      const query = await fetch("http://localhost:8080/getOrders");
-      const response = await query.json();
-      setOrders(response.orders.reverse());
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    let isMounted = true;
-
-    fetchOrders();
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
+const OrdersCart = ({ orders }) => {
   return (
     <Wrapper>
       {orders && orders.length === 0 ? (
@@ -70,9 +46,6 @@ const OrdersCart = () => {
             </OrderWrapper>
           ))}
         </>
-      )}
-      {message && (
-        <Alert shouldOpen={true} variant={variant} message={message} />
       )}
     </Wrapper>
   );
