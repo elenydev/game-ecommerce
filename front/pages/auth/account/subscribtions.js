@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Emails = ({ emails }) => {
+const Subscribtions = ({ subscribtions }) => {
   const user = useSelector(selectUser);
   const router = useRouter();
   useEffect(() => {
@@ -33,21 +33,21 @@ const Emails = ({ emails }) => {
     <>
       <Navigation />
       <Wrapper>
-        <UserCart emails={emails} />
+        <UserCart subscribtions={subscribtions} />
       </Wrapper>
     </>
   );
 };
 
 export async function getStaticProps() {
-  const query = await fetch("http://localhost:8080/getEmails");
+  const query = await fetch("http://localhost:8080/getSubscribtions");
   const response = await query.json();
-  const emails = response.emails;
+  const subscribtions = response.subscribers;
 
   return {
     props: {
-      emails,
+      subscribtions,
     },
   };
 }
-export default Emails;
+export default Subscribtions;

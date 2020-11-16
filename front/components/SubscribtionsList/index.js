@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Email from "../Email/index.js";
 import {
   FooterContent,
   FooterRows,
@@ -9,6 +8,7 @@ import {
 } from "../ProductsComponent/productsComponent.styles.js";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
+import Subscribtion from "../Subscribtion/index.js";
 import Alert from "../Alert/index.js";
 
 const Wrapper = styled.div`
@@ -18,13 +18,20 @@ const Wrapper = styled.div`
   min-height: 100%;
   align-items: flex-start;
   justify-content: flex-start;
+
+  @media (min-width: 960px) {
+    max-width: 900px;
+  }
 `;
 
 const Heading = styled.h1`
   width: 100%;
   text-align: center;
-  padding: 40px;
   color: rgb(255 90 90 /90%);
+
+  @media (min-width: 960px) {
+    padding: 40px;
+  }
 `;
 
 const Footer = styled.div`
@@ -50,13 +57,13 @@ const Footer = styled.div`
   }
 `;
 
-const EmailsCart = ({ emailsList }) => {
-  const [emails, setEmails] = useState(emailsList);
-  const [message, setMessage] = useState(null);
-  const [variant, setVariant] = useState(null);
+const SubscribtionsList = ({ subscribtionsList }) => {
+  const [subscribtions, setSubscribtions] = useState(subscribtionsList);
   const [visibleProducts, setVisibleProducts] = useState(5);
   const [startRange, setStartRange] = useState(1);
   const [endRange, setEndRange] = useState(visibleProducts);
+  const [message, setMessage] = useState(null);
+  const [variant, setVariant] = useState(null);
   let arrayLength = 0;
 
   const incrementRange = () => {
@@ -84,6 +91,7 @@ const EmailsCart = ({ emailsList }) => {
       setEndRange(endRange - visibleProducts);
     }
   };
+
   const clearMessage = () => {
     setTimeout(() => {
       setMessage(null);
@@ -107,35 +115,32 @@ const EmailsCart = ({ emailsList }) => {
   }, [visibleProducts]);
 
   useEffect(() => {
-    console.log(emails);
     clearMessage();
   }, []);
 
   return (
     <Wrapper>
-      {emails && emails.length === 0 ? (
-        <Heading>We don't have any emails</Heading>
+      {subscribtions && subscribtions.length === 0 ? (
+        <Heading>We don't have any subscribtions</Heading>
       ) : (
         <>
-          <Heading>Emails: </Heading>
-          {handleArrayRange(emails).map((email, index) => (
-            <Email
-              emailMessage={email}
+          <Heading>Subscribtions: </Heading>
+          {handleArrayRange(subscribtions).map((email, index) => (
+            <Subscribtion
+              email={email}
               index={index}
-              key={index}
-              emailId={email._id}
-              setEmails={setEmails}
               setMessage={setMessage}
               setVariant={setVariant}
-            />
+              setSubscribtions={setSubscribtions}
+            ></Subscribtion>
           ))}
         </>
       )}
-      {emails.length > 0 && (
+      {subscribtions.length > 0 && (
         <Footer>
           <FooterContent>
             <FooterRows>
-              <Paragraph>emails displayed:</Paragraph>
+              <Paragraph>Subscribtions displayed:</Paragraph>
               <Paragraph>
                 <select
                   onChange={(e) => {
@@ -173,4 +178,4 @@ const EmailsCart = ({ emailsList }) => {
   );
 };
 
-export default EmailsCart;
+export default SubscribtionsList;

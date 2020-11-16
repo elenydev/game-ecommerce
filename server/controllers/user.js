@@ -1,5 +1,4 @@
 import User from "../models/user.js";
-import socket from "../socket.js";
 import bcrypt from "bcryptjs";
 
 export const signUp = async (req, res, next) => {
@@ -35,7 +34,6 @@ export const signUp = async (req, res, next) => {
           imageUrl,
         },
       });
-      socket.getIO().emit("user", { action: "createUser", user: user });
     } else {
       res.send({ message: "User already exist" });
     }
@@ -57,7 +55,6 @@ export const signIn = async (req, res, next) => {
         .compare(password, user[0].password)
         .then((match) => {
           if (match === true) {
-            socket.getIO().emit("user", { action: "getUser", user: user });
             return res.send({
               user: {
                 firstName: user[0].firstName,
@@ -85,7 +82,6 @@ export const logOut = async (req, res, next) => {
   const id = req.body.id;
   try {
     const user = await User.findById({ _id: id });
-    socket.getIO().emit("user", { action: "logOut", user: user });
     res.json({ message: "Logged out" });
   } catch (err) {
     console.log(err);

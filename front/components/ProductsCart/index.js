@@ -53,8 +53,8 @@ const ProductsCart = () => {
   const { products } = useSelector(selectProducts);
   const { user } = useSelector(selectUser);
   const dispatch = useDispatch();
-  const [message, setMessage] = useState("");
-  const [variant, setVariat] = useState("");
+  const [message, setMessage] = useState(null);
+  const [variant, setVariant] = useState(null);
 
   const getPrize = () => {
     let prize = 0;
@@ -81,17 +81,16 @@ const ProductsCart = () => {
       const response = await request.json();
       if (response.order) {
         dispatch(clearCart());
+        setVariant("success");
         setMessage("Order created");
-        setVariat("success");
       }
       if (response.message) {
+        setVariant("error");
         setMessage(response.message);
-        setVariat("error");
       }
     } catch (err) {
-      console.log(err);
+      setVariant("error");
       setMessage("Something went wrong, try again");
-      setVariat("error");
     }
   };
 
@@ -116,9 +115,9 @@ const ProductsCart = () => {
         {user.email !== "admin@admin.com" && (
           <OrderBox>
             <Button
-              type='submit'
-              variant='contained'
-              color='secondary'
+              type="submit"
+              variant="contained"
+              color="secondary"
               disabled={products.length < 1 && true}
               onClick={createOrder}
             >
@@ -127,7 +126,7 @@ const ProductsCart = () => {
           </OrderBox>
         )}
       </>
-      {message !== "" && (
+      {message !== null && (
         <Alert variant={variant} shouldOpen={true} message={message} />
       )}
     </Wrapper>

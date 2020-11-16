@@ -32,10 +32,10 @@ export const getEmails = async (req, res, next) => {
 };
 
 export const removeEmail = async (req, res, next) => {
-  const productId = req.body._id;
+  const emailId = req.body.emailId;
 
   try {
-    await Email.findByIdAndDelete(productId);
+    await Email.findByIdAndDelete(emailId);
     res.send({ email: req.body });
   } catch (err) {
     res.send({ message: "Something went wrong, try again" });

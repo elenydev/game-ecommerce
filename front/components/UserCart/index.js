@@ -10,6 +10,7 @@ import Sidebar from "../Sidebar/index.js";
 import EmailsCart from "../EmailsCart/index.js";
 import OrdersCart from "../OrdersCart/index.js";
 import AdminProductsList from "../AdminProductsList/index.js";
+import SubscribtionsList from "../SubscribtionsList/index.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,6 +21,7 @@ const Wrapper = styled.div`
   width: 90%;
   background-color: rgba(0, 0, 0, 0.05);
   box-shadow: 2px 2px 8px 0 rgb(255 90 90 /60%);
+
   padding-top: 15%;
   @media (min-width: 960px) {
     flex-direction: row;
@@ -62,7 +64,7 @@ const UserAvatar = styled.div`
     width: 100%;
     height: auto;
     border-radius: 50%;
-    box-shadow: 0px 0px 17px 7px rgb(255 90 90 /60%);
+    box-shadow: 0px 0px 17px 7px rgb(255 90 90 /30%);
   }
 
   @media (min-width: 960px) {
@@ -76,7 +78,8 @@ const UserDescription = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  font-family: "Roboto";
+  font-family: "Black Ops One", normal;
+  font-weight: 600;
   width: 100%;
   color: #5bb2fc;
   @media (min-width: 960px) {
@@ -102,7 +105,7 @@ const UserDescription = styled.div`
   }
 `;
 
-const UserCart = ({ products, orders }) => {
+const UserCart = ({ products, orders, subscribtions, emails }) => {
   const user = useSelector(selectUser);
   const router = useRouter();
 
@@ -148,11 +151,16 @@ const UserCart = ({ products, orders }) => {
           </UserBox>
           {router.pathname === "/auth/account/cart" && <ProductsCart />}
           {router.pathname === "/auth/account/emails" && (
-            <EmailsCart />
+            <EmailsCart emailsList={emails} />
           )}
-          {router.pathname === "/auth/account/orders" && <OrdersCart orders={orders} />}
+          {router.pathname === "/auth/account/orders" && (
+            <OrdersCart orders={orders} />
+          )}
           {router.pathname === "/auth/account/products" && (
             <AdminProductsList products={products} />
+          )}
+          {router.pathname === "/auth/account/subscribtions" && (
+            <SubscribtionsList subscribtionsList={subscribtions} />
           )}
         </Wrapper>
       )}
