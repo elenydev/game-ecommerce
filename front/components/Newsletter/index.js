@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import Alert from "../Alert/index.js";
+import useAlert from "../../hooks/useAlert.js";
 
 const NewsletterContainer = styled.div`
   display: flex;
@@ -102,8 +103,14 @@ const Newsletter = () => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues,
   });
-  const [message, setMessage] = useState(null);
-  const [variant, setVariant] = useState(null);
+  const {
+    message,
+    setMessage,
+    variant,
+    setVariant,
+    clearMessage,
+    setErrorAlert,
+  } = useAlert();
 
   const addSubscriber = async (data, e) => {
     e.preventDefault();
@@ -116,7 +123,6 @@ const Newsletter = () => {
         body: JSON.stringify(data),
       });
       const response = await query.json();
-      console.log(response);
       if (response) {
         if (response.subscriber) {
           setVariant("success");
@@ -130,28 +136,15 @@ const Newsletter = () => {
           return;
         }
       }
-      error();
-      return;
+      setErrorAlert();
     } catch (err) {
-      error();
+      setErrorAlert();
     }
-  };
-
-  const error = () => {
-    setVariant("error");
-    setMessage("Something went wrong, try again");
-  };
-
-  const clearMessage = () => {
-    setTimeout(() => {
-      setMessage(null);
-      setVariant(null);
-    }, 4000);
   };
 
   useEffect(() => {
     clearMessage();
-  });
+  }, [message]);
 
   return (
     <>

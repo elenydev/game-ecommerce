@@ -108,6 +108,7 @@ const OrdersCart = ({ orders }) => {
       isMounted = false;
     };
   }, [visibleProducts]);
+
   return (
     <Wrapper>
       {orders && orders.length === 0 ? (

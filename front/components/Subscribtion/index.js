@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import useAlert from "../../hooks/useAlert";
 
 const SubscribtionWrapper = styled.div`
   display: flex;
@@ -27,13 +28,15 @@ const DeleteWrapper = styled.div`
   }
 `;
 
-const Subscribtion = ({
-  email,
-  index,
-  setSubscribtions,
-  setMessage,
-  setVariant,
-}) => {
+const Subscribtion = (props) => {
+  const {
+    email,
+    index,
+    setSubscribtions,
+    setVariant,
+    setMessage,
+    setErrorAlert,
+  } = props;
   const fetchSubscribtions = async () => {
     try {
       const query = await fetch("http://localhost:8080/getSubscribtions");
@@ -55,19 +58,16 @@ const Subscribtion = ({
       });
       const response = await request.json();
       if (!response.subscribtion) {
-        setVariant("error");
-        setMessage("Something went wrong, try again");
+        setErrorAlert();
         return;
       }
       setVariant("success");
       setMessage("Subscribtion deleted");
       fetchSubscribtions();
     } catch (err) {
-      setVariant("error");
-      setMessage("Something went wrong, try again");
+      setErrorAlert();
     }
   };
-
   return (
     <>
       <SubscribtionWrapper key={index}>

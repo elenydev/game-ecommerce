@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import useAlert from "../../hooks/useAlert";
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,7 +25,6 @@ const EmailContainer = styled.div`
 
   @media (min-width: 960px) {
     flex-direction: row;
-    
   }
 `;
 
@@ -96,14 +96,16 @@ const DeleteWrapper = styled.div`
   }
 `;
 
-const Email = ({
-  emailMessage,
-  setEmails,
-  setMessage,
-  setVariant,
-  emailId,
-}) => {
-  const { customerName, email, message, date } = emailMessage;
+const Email = (props) => {
+  const { customerName, email, message, date } = props.emailMessage;
+  const {
+    emailMessage,
+    setEmails,
+    emailId,
+    setMessage,
+    setVariant,
+    setErrorAlert,
+  } = props;
 
   const fetchEmails = async () => {
     try {
@@ -116,7 +118,6 @@ const Email = ({
   };
 
   const deleteEmailFromDatabase = async (emailId) => {
-    console.log(emailId);
     try {
       const request = await fetch("http://localhost:8080/removeEmail", {
         method: "POST",
@@ -127,16 +128,14 @@ const Email = ({
       });
       const response = await request.json();
       if (!response.email) {
-        setVariant("error");
-        setMessage("Something went wrong, try again");
+        setErrorAlert();
         return;
       }
       setVariant("success");
       setMessage("Email deleted");
       fetchEmails();
     } catch (err) {
-      setVariant("error");
-      setMessage("Something went wrong, try again");
+      setErrorAlert();
     }
   };
 

@@ -11,6 +11,8 @@ import EmailsCart from "../EmailsCart/index.js";
 import OrdersCart from "../OrdersCart/index.js";
 import AdminProductsList from "../AdminProductsList/index.js";
 import SubscribtionsList from "../SubscribtionsList/index.js";
+import useAlert from "../../hooks/useAlert.js";
+import Alert from "../Alert/index.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -108,6 +110,7 @@ const UserDescription = styled.div`
 const UserCart = ({ products, orders, subscribtions, emails }) => {
   const user = useSelector(selectUser);
   const router = useRouter();
+  const { variant, message, clearMessage } = useAlert();
 
   useEffect(() => {
     let isMounted = true;
@@ -118,6 +121,12 @@ const UserCart = ({ products, orders, subscribtions, emails }) => {
       isMounted = false;
     };
   }, []);
+
+   
+  useEffect(() => {
+    clearMessage();
+  }, [message]);
+
 
   return (
     <>
@@ -163,6 +172,9 @@ const UserCart = ({ products, orders, subscribtions, emails }) => {
             <SubscribtionsList subscribtionsList={subscribtions} />
           )}
         </Wrapper>
+      )}
+      {message && (
+        <Alert message={message} variant={variant} shouldOpen={true} />
       )}
     </>
   );

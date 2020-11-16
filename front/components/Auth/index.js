@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
@@ -11,6 +11,7 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../Reducers/userSlice.js";
 import Cookies from "universal-cookie";
+import useAlert from "../../hooks/useAlert";
 
 const Wrapper = styled.div`
   display: flex;
@@ -88,10 +89,17 @@ const Login = () => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues,
   });
+  
+  const {
+    message,
+    setMessage,
+    variant,
+    setVariant,
+    clearMessage,
+    setErrorAlert,
+  } = useAlert();
 
   const router = useRouter();
-  const [responseType, setResponseType] = useState(null);
-  const clearAlert = () => setTimeout(() => setResponseType(null), 999);
   const dispatch = useDispatch();
   const cookies = new Cookies();
 
@@ -108,7 +116,6 @@ const Login = () => {
       const response = await send.json();
 
       if (response) {
-        setResponseType(response);
         if (response.user) {
           setTimeout(() => {
             dispatch(setUser(response.user));
@@ -117,15 +124,28 @@ const Login = () => {
               expires: date,
             });
             reset();
+            setVariant("success");
+            setMessage("You are logged in");
             router.push("/auth/account/cart");
           }, 600);
         }
+        else{
+          setErrorAlert()
+        }
+      } else {
+        setVariant("error");
+        setMessage("Wrong password or email provided");
       }
     } catch (err) {
-      setResponseType({ message: "Some error occured, try again" });
+      setErrorAlert();
     }
-    clearAlert();
   };
+
+  
+  useEffect(() => {
+    clearMessage();
+  }, [message]);
+
 
   return (
     <Wrapper>
@@ -181,20 +201,9 @@ const Login = () => {
         </Button>
       </Form>
 
-      {(responseType && responseType.user && (
-        <Alert
-          message="You are succesfully logged in"
-          shouldOpen={true}
-          variant="success"
-        />
-      )) ||
-        (responseType && responseType.message && (
-          <Alert
-            message={responseType.message}
-            shouldOpen={true}
-            variant="error"
-          />
-        ))}
+      {message && (
+        <Alert message={message} variant={variant} shouldOpen={true} />
+      )}
     </Wrapper>
   );
 };

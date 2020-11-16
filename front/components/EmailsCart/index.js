@@ -10,6 +10,7 @@ import {
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import Alert from "../Alert/index.js";
+import useAlert from "../../hooks/useAlert.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -52,8 +53,14 @@ const Footer = styled.div`
 
 const EmailsCart = ({ emailsList }) => {
   const [emails, setEmails] = useState(emailsList);
-  const [message, setMessage] = useState(null);
-  const [variant, setVariant] = useState(null);
+  const {
+    message,
+    setMessage,
+    variant,
+    setVariant,
+    clearMessage,
+    setErrorAlert,
+  } = useAlert();
   const [visibleProducts, setVisibleProducts] = useState(5);
   const [startRange, setStartRange] = useState(1);
   const [endRange, setEndRange] = useState(visibleProducts);
@@ -84,12 +91,6 @@ const EmailsCart = ({ emailsList }) => {
       setEndRange(endRange - visibleProducts);
     }
   };
-  const clearMessage = () => {
-    setTimeout(() => {
-      setMessage(null);
-      setVariant(null);
-    }, 2000);
-  };
 
   useEffect(() => {
     let isMounted = true;
@@ -107,69 +108,71 @@ const EmailsCart = ({ emailsList }) => {
   }, [visibleProducts]);
 
   useEffect(() => {
-    console.log(emails);
     clearMessage();
-  }, []);
+  }, [message]);
 
   return (
-    <Wrapper>
-      {emails && emails.length === 0 ? (
-        <Heading>We don't have any emails</Heading>
-      ) : (
-        <>
-          <Heading>Emails: </Heading>
-          {handleArrayRange(emails).map((email, index) => (
-            <Email
-              emailMessage={email}
-              index={index}
-              key={index}
-              emailId={email._id}
-              setEmails={setEmails}
-              setMessage={setMessage}
-              setVariant={setVariant}
-            />
-          ))}
-        </>
-      )}
-      {emails.length > 0 && (
-        <Footer>
-          <FooterContent>
-            <FooterRows>
-              <Paragraph>emails displayed:</Paragraph>
-              <Paragraph>
-                <select
-                  onChange={(e) => {
-                    setVisibleProducts(parseInt(e.target.value));
-                  }}
-                >
-                  <option value={5}>5</option>
-                  <option value={10}>10</option>
-                  <option value={15}>15</option>
-                </select>
-              </Paragraph>
-              <Paragraph>
-                <Span>{startRange}</Span>
-                <Span>-</Span>
-                <Span>{endRange}</Span>
-                <Span>of</Span>
-                <Span> {arrayLength} </Span>
-              </Paragraph>
-              <Paragraph>
-                <Span>
-                  <KeyboardArrowLeftIcon onClick={() => decrementRange()} />
-                </Span>
-                <Span>
-                  <KeyboardArrowRightIcon onClick={() => incrementRange()} />
-                </Span>
-              </Paragraph>
-            </FooterRows>
-          </FooterContent>
-        </Footer>
-      )}
-      {message && (
-        <Alert shouldOpen={true} variant={variant} message={message} />
-      )}
-    </Wrapper>
+    <>
+      <Wrapper>
+        {emails && emails.length === 0 ? (
+          <Heading>We don't have any emails</Heading>
+        ) : (
+          <>
+            <Heading>Emails: </Heading>
+            {handleArrayRange(emails).map((email, index) => (
+              <Email
+                emailMessage={email}
+                index={index}
+                key={index}
+                emailId={email._id}
+                setEmails={setEmails}
+                setMessage={setMessage}
+                setVariant={setVariant}
+                setErrorAlert={setErrorAlert}
+              />
+            ))}
+          </>
+        )}
+        {emails.length > 0 && (
+          <Footer>
+            <FooterContent>
+              <FooterRows>
+                <Paragraph>emails displayed:</Paragraph>
+                <Paragraph>
+                  <select
+                    onChange={(e) => {
+                      setVisibleProducts(parseInt(e.target.value));
+                    }}
+                  >
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={15}>15</option>
+                  </select>
+                </Paragraph>
+                <Paragraph>
+                  <Span>{startRange}</Span>
+                  <Span>-</Span>
+                  <Span>{endRange}</Span>
+                  <Span>of</Span>
+                  <Span> {arrayLength} </Span>
+                </Paragraph>
+                <Paragraph>
+                  <Span>
+                    <KeyboardArrowLeftIcon onClick={() => decrementRange()} />
+                  </Span>
+                  <Span>
+                    <KeyboardArrowRightIcon onClick={() => incrementRange()} />
+                  </Span>
+                </Paragraph>
+              </FooterRows>
+            </FooterContent>
+          </Footer>
+        )}
+        {message && (
+          <Alert variant={variant} message={message} shouldOpen={true} />
+        )}
+      </Wrapper>
+    </>
   );
 };
 

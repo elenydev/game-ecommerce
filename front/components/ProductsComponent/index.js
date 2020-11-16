@@ -16,6 +16,7 @@ import {
   Span,
 } from "./productsComponent.styles.js";
 import Alert from "../Alert/index.js";
+import useAlert from "../../hooks/useAlert";
 
 const ProductsComponent = ({ products }) => {
   const user = useSelector(selectUser);
@@ -23,8 +24,7 @@ const ProductsComponent = ({ products }) => {
   const [visibleProducts, setVisibleProducts] = useState(4);
   const [startRange, setStartRange] = useState(1);
   const [endRange, setEndRange] = useState(visibleProducts);
-  const [message, setMessage] = useState(null);
-  const [variant, setVariant] = useState(null);
+  const { message, variant, setMessage, setVariant, clearMessage } = useAlert();
   let arrayLength = 0;
 
   const incrementRange = () => {
@@ -72,6 +72,10 @@ const ProductsComponent = ({ products }) => {
     };
   }, [visibleProducts]);
 
+  useEffect(() => {
+    clearMessage();
+  }, [message]);
+
   return (
     <Wrapper id="games">
       <Header>Our offer</Header>
@@ -81,8 +85,8 @@ const ProductsComponent = ({ products }) => {
             key={index}
             product={product}
             user={user}
-            setVariant={setVariant}
             setMessage={setMessage}
+            setVariant={setVariant}
           />
         ))}
       </ItemsContainer>
@@ -135,9 +139,11 @@ const ProductsComponent = ({ products }) => {
           </FooterRows>
         </FooterContent>
       </Footer>
-      {message && (
-        <Alert variant={variant} shouldOpen={true} message={message} />
-      )}
+      <>
+        {message && (
+          <Alert variant={variant} shouldOpen={true} message={message} />
+        )}
+      </>
     </Wrapper>
   );
 };

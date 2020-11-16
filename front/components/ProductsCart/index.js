@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Product from "../Product/index.js";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,6 +7,7 @@ import { clearCart, selectProducts } from "../../Reducers/productsSlice.js";
 import { selectUser } from "../../Reducers/userSlice.js";
 import AddProductForm from "../../components/AddProductForm/index.js";
 import Alert from "../Alert/index.js";
+import useAlert from "../../hooks/useAlert.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -53,8 +54,14 @@ const ProductsCart = () => {
   const { products } = useSelector(selectProducts);
   const { user } = useSelector(selectUser);
   const dispatch = useDispatch();
-  const [message, setMessage] = useState(null);
-  const [variant, setVariant] = useState(null);
+  const {
+    message,
+    setMessage,
+    variant,
+    setVariant,
+    clearMessage,
+    setErrorAlert,
+  } = useAlert();
 
   const getPrize = () => {
     let prize = 0;
@@ -85,14 +92,18 @@ const ProductsCart = () => {
         setMessage("Order created");
       }
       if (response.message) {
-        setVariant("error");
-        setMessage(response.message);
+        setErrorAlert();
       }
     } catch (err) {
-      setVariant("error");
-      setMessage("Something went wrong, try again");
+      setErrorAlert();
     }
   };
+
+   
+  useEffect(() => {
+    clearMessage();
+  }, [message]);
+
 
   return (
     <Wrapper>
@@ -126,7 +137,7 @@ const ProductsCart = () => {
           </OrderBox>
         )}
       </>
-      {message !== null && (
+      {message && (
         <Alert variant={variant} shouldOpen={true} message={message} />
       )}
     </Wrapper>

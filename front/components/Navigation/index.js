@@ -16,7 +16,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser, deleteUser } from "../../Reducers/userSlice.js";
-import { selectProducts } from "../../Reducers/productsSlice.js";
+import { clearCart, selectProducts } from "../../Reducers/productsSlice.js";
 import Cookies from "universal-cookie";
 
 const Navigation = () => {
@@ -36,6 +36,7 @@ const Navigation = () => {
   const logOut = () => {
     cookies.remove("User");
     dispatch(deleteUser());
+    dispatch(clearCart());
     setUser({ user: null });
   };
 

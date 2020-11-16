@@ -10,6 +10,7 @@ import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import Subscribtion from "../Subscribtion/index.js";
 import Alert from "../Alert/index.js";
+import useAlert from "../../hooks/useAlert.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,7 +18,7 @@ const Wrapper = styled.div`
   width: 100%;
   min-height: 100%;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
 
   @media (min-width: 960px) {
     max-width: 900px;
@@ -62,8 +63,7 @@ const SubscribtionsList = ({ subscribtionsList }) => {
   const [visibleProducts, setVisibleProducts] = useState(5);
   const [startRange, setStartRange] = useState(1);
   const [endRange, setEndRange] = useState(visibleProducts);
-  const [message, setMessage] = useState(null);
-  const [variant, setVariant] = useState(null);
+  const { message,setMessage, variant,setVariant, clearMessage, setErrorAlert } = useAlert();
   let arrayLength = 0;
 
   const incrementRange = () => {
@@ -92,13 +92,6 @@ const SubscribtionsList = ({ subscribtionsList }) => {
     }
   };
 
-  const clearMessage = () => {
-    setTimeout(() => {
-      setMessage(null);
-      setVariant(null);
-    }, 2000);
-  };
-
   useEffect(() => {
     let isMounted = true;
     setStartRange(1);
@@ -114,67 +107,72 @@ const SubscribtionsList = ({ subscribtionsList }) => {
     };
   }, [visibleProducts]);
 
+ 
   useEffect(() => {
     clearMessage();
-  }, []);
+  }, [message]);
 
   return (
-    <Wrapper>
-      {subscribtions && subscribtions.length === 0 ? (
-        <Heading>We don't have any subscribtions</Heading>
-      ) : (
-        <>
-          <Heading>Subscribtions: </Heading>
-          {handleArrayRange(subscribtions).map((email, index) => (
-            <Subscribtion
-              email={email}
-              index={index}
-              setMessage={setMessage}
-              setVariant={setVariant}
-              setSubscribtions={setSubscribtions}
-            ></Subscribtion>
-          ))}
-        </>
-      )}
-      {subscribtions.length > 0 && (
-        <Footer>
-          <FooterContent>
-            <FooterRows>
-              <Paragraph>Subscribtions displayed:</Paragraph>
-              <Paragraph>
-                <select
-                  onChange={(e) => {
-                    setVisibleProducts(parseInt(e.target.value));
-                  }}
-                >
-                  <option value={5}>5</option>
-                  <option value={10}>10</option>
-                  <option value={15}>15</option>
-                </select>
-              </Paragraph>
-              <Paragraph>
-                <Span>{startRange}</Span>
-                <Span>-</Span>
-                <Span>{endRange}</Span>
-                <Span>of</Span>
-                <Span> {arrayLength} </Span>
-              </Paragraph>
-              <Paragraph>
-                <Span>
-                  <KeyboardArrowLeftIcon onClick={() => decrementRange()} />
-                </Span>
-                <Span>
-                  <KeyboardArrowRightIcon onClick={() => incrementRange()} />
-                </Span>
-              </Paragraph>
-            </FooterRows>
-          </FooterContent>
-        </Footer>
-      )}
-      {message && (
-        <Alert shouldOpen={true} variant={variant} message={message} />
-      )}
-    </Wrapper>
+    <>
+      <Wrapper>
+        {subscribtions && subscribtions.length === 0 ? (
+          <Heading>We don't have any subscribtions</Heading>
+        ) : (
+          <>
+            <Heading>Subscribtions: </Heading>
+            {handleArrayRange(subscribtions).map((email, index) => (
+              <Subscribtion
+                email={email}
+                key={index}
+                index={index}
+                setSubscribtions={setSubscribtions}
+                setVariant={setVariant}
+                setMessage={setMessage}
+                setErrorAlert={setErrorAlert}
+              ></Subscribtion>
+            ))}
+          </>
+        )}
+        {subscribtions.length > 0 && (
+          <Footer>
+            <FooterContent>
+              <FooterRows>
+                <Paragraph>Subscribtions displayed:</Paragraph>
+                <Paragraph>
+                  <select
+                    onChange={(e) => {
+                      setVisibleProducts(parseInt(e.target.value));
+                    }}
+                  >
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={15}>15</option>
+                  </select>
+                </Paragraph>
+                <Paragraph>
+                  <Span>{startRange}</Span>
+                  <Span>-</Span>
+                  <Span>{endRange}</Span>
+                  <Span>of</Span>
+                  <Span> {arrayLength} </Span>
+                </Paragraph>
+                <Paragraph>
+                  <Span>
+                    <KeyboardArrowLeftIcon onClick={() => decrementRange()} />
+                  </Span>
+                  <Span>
+                    <KeyboardArrowRightIcon onClick={() => incrementRange()} />
+                  </Span>
+                </Paragraph>
+              </FooterRows>
+            </FooterContent>
+          </Footer>
+        )}
+        {message && (
+          <Alert shouldOpen={true} variant={variant} message={message} />
+        )}
+      </Wrapper>
+    </>
   );
 };
 
