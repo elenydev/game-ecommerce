@@ -17,60 +17,29 @@ import {
 } from "./productsComponent.styles.js";
 import Alert from "../Alert/index.js";
 import useAlert from "../../hooks/useAlert";
+import useArrayRange from "../../hooks/useArrayRange";
 
 const ProductsComponent = ({ products }) => {
   const user = useSelector(selectUser);
   const [categoryDisplayed, setCategoryDisplayed] = useState("Desktop");
-  const [visibleProducts, setVisibleProducts] = useState(4);
-  const [startRange, setStartRange] = useState(1);
-  const [endRange, setEndRange] = useState(visibleProducts);
+  const {
+    startRange,
+    endRange,
+    incrementRange,
+    checkRanges,
+    decrementRange,
+    handleProductsArrayRange,
+    setVisibleProducts,
+  } = useArrayRange();
   const { message, variant, setMessage, setVariant, clearMessage } = useAlert();
-  let arrayLength = 0;
+  const { arrayLength, currentCategoryProducts } = handleProductsArrayRange(
+    products,
+    categoryDisplayed
+  );
 
-  const incrementRange = () => {
-    if (endRange >= arrayLength) return;
-    setStartRange(startRange + visibleProducts);
-    if (endRange + visibleProducts >= arrayLength) {
-      setEndRange(arrayLength);
-      return;
-    } else {
-      setEndRange(endRange + visibleProducts);
-    }
-  };
-
-  const handleArrayRange = (arr) => {
-    const array = arr.filter(
-      (product) =>
-        product.device === categoryDisplayed && product.availableAmount > 0
-    );
-    arrayLength = array.length;
-    return array.slice(startRange - 1, endRange);
-  };
-
-  const decrementRange = () => {
-    if (startRange <= 1 || startRange - visibleProducts <= 0) return;
-    setStartRange(startRange - visibleProducts);
-    if (endRange - visibleProducts < visibleProducts) {
-      setEndRange(visibleProducts);
-    } else {
-      setEndRange(endRange - visibleProducts);
-    }
-  };
-
-  useEffect(() => {
-    let isMounted = true;
-    setStartRange(1);
-    setEndRange(visibleProducts);
-    if (visibleProducts > arrayLength) {
-      setEndRange(arrayLength);
-    } else {
-      setEndRange(visibleProducts);
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [visibleProducts]);
+  useEffect(() =>{
+    checkRanges()
+  },[categoryDisplayed])
 
   useEffect(() => {
     clearMessage();
@@ -80,15 +49,17 @@ const ProductsComponent = ({ products }) => {
     <Wrapper id="games">
       <Header>Our offer</Header>
       <ItemsContainer>
-        {handleArrayRange(products).map((product, index) => (
-          <OfferProduct
-            key={index}
-            product={product}
-            user={user}
-            setMessage={setMessage}
-            setVariant={setVariant}
-          />
-        ))}
+        {currentCategoryProducts.map(
+          (product, index) => (
+            <OfferProduct
+              key={index}
+              product={product}
+              user={user}
+              setMessage={setMessage}
+              setVariant={setVariant}
+            />
+          )
+        )}
       </ItemsContainer>
       <Footer>
         <FooterContent>
@@ -110,7 +81,9 @@ const ProductsComponent = ({ products }) => {
               <Span>-</Span>
               <Span>{endRange}</Span>
               <Span>of</Span>
-              <Span> {arrayLength} </Span>
+              <Span>
+                {arrayLength}
+              </Span>
             </Paragraph>
             <Paragraph>
               <Span>

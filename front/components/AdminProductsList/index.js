@@ -9,6 +9,7 @@ import {
 } from "../ProductsComponent/productsComponent.styles.js";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
+import useArrayRange from "../../hooks/useArrayRange.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -51,51 +52,17 @@ const Footer = styled.div`
 `;
 
 const AdminProductsList = ({ products }) => {
-  const [visibleProducts, setVisibleProducts] = useState(5);
-  const [startRange, setStartRange] = useState(1);
-  const [endRange, setEndRange] = useState(visibleProducts);
-  let arrayLength = 0;
+  const {
+    startRange,
+    endRange,
+    incrementRange,
+    checkRanges,
+    decrementRange,
+    handleArrayRange,
+    setVisibleProducts,
+  } = useArrayRange();
 
-  const incrementRange = () => {
-    if (endRange >= arrayLength) return;
-    setStartRange(startRange + visibleProducts);
-    if (endRange + visibleProducts >= arrayLength) {
-      setEndRange(arrayLength);
-      return;
-    } else {
-      setEndRange(endRange + visibleProducts);
-    }
-  };
-
-  const handleArrayRange = (arr) => {
-    arrayLength = arr.length;
-    return arr.slice(startRange - 1, endRange);
-  };
-
-  const decrementRange = () => {
-    if (startRange <= 1 || startRange - visibleProducts <= 0) return;
-    setStartRange(startRange - visibleProducts);
-    if (endRange - visibleProducts < visibleProducts) {
-      setEndRange(visibleProducts);
-    } else {
-      setEndRange(endRange - visibleProducts);
-    }
-  };
-
-  useEffect(() => {
-    let isMounted = true;
-    setStartRange(1);
-    setEndRange(visibleProducts);
-    if (visibleProducts > arrayLength) {
-      setEndRange(arrayLength);
-    } else {
-      setEndRange(visibleProducts);
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [visibleProducts]);
+  const { slicedArray, arrayLength } = handleArrayRange(products);
 
   return (
     <Wrapper>
@@ -105,7 +72,7 @@ const AdminProductsList = ({ products }) => {
         <Heading>Products list:</Heading>
       )}
       {products.length > 0 &&
-        handleArrayRange(products).map((product, index) => (
+        slicedArray.map((product, index) => (
           <AdminProductsListItem key={index} product={product} />
         ))}
       {products.length > 0 && (

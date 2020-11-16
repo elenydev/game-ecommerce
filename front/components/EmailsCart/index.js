@@ -11,6 +11,7 @@ import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import Alert from "../Alert/index.js";
 import useAlert from "../../hooks/useAlert.js";
+import useArrayRange from "../../hooks/useArrayRange";
 
 const Wrapper = styled.div`
   display: flex;
@@ -61,54 +62,21 @@ const EmailsCart = ({ emailsList }) => {
     clearMessage,
     setErrorAlert,
   } = useAlert();
-  const [visibleProducts, setVisibleProducts] = useState(5);
-  const [startRange, setStartRange] = useState(1);
-  const [endRange, setEndRange] = useState(visibleProducts);
-  let arrayLength = 0;
+  const {
+    startRange,
+    endRange,
+    incrementRange,
+    checkRanges,
+    decrementRange,
+    handleArrayRange,
+    setVisibleProducts,
+  } = useArrayRange();
 
-  const incrementRange = () => {
-    if (endRange >= arrayLength) return;
-    setStartRange(startRange + visibleProducts);
-    if (endRange + visibleProducts >= arrayLength) {
-      setEndRange(arrayLength);
-      return;
-    } else {
-      setEndRange(endRange + visibleProducts);
-    }
-  };
-
-  const handleArrayRange = (subscribtions) => {
-    arrayLength = subscribtions.length;
-    return subscribtions.slice(startRange - 1, endRange);
-  };
-
-  const decrementRange = () => {
-    if (startRange <= 1 || startRange - visibleProducts <= 0) return;
-    setStartRange(startRange - visibleProducts);
-    if (endRange - visibleProducts < visibleProducts) {
-      setEndRange(visibleProducts);
-    } else {
-      setEndRange(endRange - visibleProducts);
-    }
-  };
-
-  useEffect(() => {
-    let isMounted = true;
-    setStartRange(1);
-    setEndRange(visibleProducts);
-    if (visibleProducts > arrayLength) {
-      setEndRange(arrayLength);
-    } else {
-      setEndRange(visibleProducts);
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [visibleProducts]);
+  const { slicedArray, arrayLength } = handleArrayRange(emails);
 
   useEffect(() => {
     clearMessage();
+    checkRanges();;
   }, [message]);
 
   return (
@@ -119,7 +87,7 @@ const EmailsCart = ({ emailsList }) => {
         ) : (
           <>
             <Heading>Emails: </Heading>
-            {handleArrayRange(emails).map((email, index) => (
+            {slicedArray.map((email, index) => (
               <Email
                 emailMessage={email}
                 index={index}

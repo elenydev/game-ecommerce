@@ -9,6 +9,7 @@ import {
 import Order from "../Order/index.js";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
+import useArrayRange from "../../hooks/useArrayRange.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -64,50 +65,17 @@ const Footer = styled.div`
 
 
 const OrdersCart = ({ orders }) => {
-  const [visibleProducts, setVisibleProducts] = useState(5);
-  const [startRange, setStartRange] = useState(1);
-  const [endRange, setEndRange] = useState(visibleProducts);
-  let arrayLength = 0;
-  const incrementRange = () => {
-    if (endRange >= arrayLength) return;
-    setStartRange(startRange + visibleProducts);
-    if (endRange + visibleProducts >= arrayLength) {
-      setEndRange(arrayLength);
-      return;
-    } else {
-      setEndRange(endRange + visibleProducts);
-    }
-  };
+  const {
+    startRange,
+    endRange,
+    incrementRange,
+    checkRanges,
+    decrementRange,
+    handleArrayRange,
+    setVisibleProducts,
+  } = useArrayRange();
 
-  const handleArrayRange = (arr) => {
-    arrayLength = arr.length;
-    return arr.slice(startRange - 1, endRange);
-  };
-
-  const decrementRange = () => {
-    if (startRange <= 1 || startRange - visibleProducts <= 0) return;
-    setStartRange(startRange - visibleProducts);
-    if (endRange - visibleProducts < visibleProducts) {
-      setEndRange(visibleProducts);
-    } else {
-      setEndRange(endRange - visibleProducts);
-    }
-  };
-
-  useEffect(() => {
-    let isMounted = true;
-    setStartRange(1);
-    setEndRange(visibleProducts);
-    if (visibleProducts > arrayLength) {
-      setEndRange(arrayLength);
-    } else {
-      setEndRange(visibleProducts);
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [visibleProducts]);
+  const { slicedArray, arrayLength } = handleArrayRange(orders);
 
   return (
     <Wrapper>
@@ -116,7 +84,7 @@ const OrdersCart = ({ orders }) => {
       ) : (
         <>
           <Heading>Orders: </Heading>
-          {handleArrayRange(orders).map((order, index) => (
+          {slicedArray.map((order, index) => (
             <OrderWrapper key={index}>
               <Order specificOrder={order} index={index} />
             </OrderWrapper>
@@ -125,16 +93,16 @@ const OrdersCart = ({ orders }) => {
             <Footer>
               <FooterContent>
                 <FooterRows>
-                  <Paragraph>Subscribtions displayed:</Paragraph>
+                  <Paragraph>Orders displayed:</Paragraph>
                   <Paragraph>
                     <select
                       onChange={(e) => {
                         setVisibleProducts(parseInt(e.target.value));
                       }}
                     >
-                      <option value={5}>5</option>
-                      <option value={10}>10</option>
-                      <option value={15}>15</option>
+                      <option value={4}>4</option>
+                      <option value={8}>8</option>
+                      <option value={12}>12</option>
                     </select>
                   </Paragraph>
                   <Paragraph>
