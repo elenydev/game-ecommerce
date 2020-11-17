@@ -35,13 +35,22 @@ export const createOrder = async (req, res, next) => {
   const products = req.body.products;
   const user = req.body.user;
   const prize = req.body.prize;
-  console.log(email, password);
 
   const mailOptions = {
     from: "online-gaming-dummy@gmail.com",
-    to: req.body.user.email,
+    to: user.email,
     subject: "Order",
     text: "It works",
+    html: `<h2>Thank you for selecting Online-Gaming </h2>
+    <div>
+    <h3>Your order:</h3>
+    ${products.map(
+      (product) => `<p>${product.productName} x${product.amount}</p>`
+    )}
+
+    <h3>Your order prize is: ${prize}$</h3>
+    <small>Have a nice day! Online-Gaming team. You can reply direct to this email or catch us on: online.gaming.dummy@gmail.com</small></p>
+    </div>`,
   };
 
   try {
@@ -55,22 +64,19 @@ export const createOrder = async (req, res, next) => {
       status: "Accepted",
     });
     await order.save();
+    res.send({ order });
     transporter.sendMail(mailOptions, function (err, data) {
       if (err) {
         console.log(err);
-      } else {
-        console.log("poszlo");
       }
     });
-    
-    res.send({ order });
     handleAmountOfLeftProducts(products);
     next();
   } catch (err) {
     res.send({ message: "Some error occured, try again" });
     next(err);
   }
-};
+};;;
 
 export const getOrders = async (req, res, next) => {
   try {
