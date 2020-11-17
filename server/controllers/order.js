@@ -1,7 +1,21 @@
 import Order from "../models/order.js";
 import Product from "../models/product.js";
-import socket from "../socket.js";
-import bcrypt from "bcryptjs";
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
+
+
 
 const handleAmountOfLeftProducts = (productsArray) => {
   productsArray.map(async (product) => {
@@ -21,6 +35,14 @@ export const createOrder = async (req, res, next) => {
   const products = req.body.products;
   const user = req.body.user;
   const prize = req.body.prize;
+  console.log(email, password);
+
+  const mailOptions = {
+    from: "online-gaming-dummy@gmail.com",
+    to: req.body.user.email,
+    subject: "Order",
+    text: "It works",
+  };
 
   try {
     const order = new Order({
@@ -33,6 +55,14 @@ export const createOrder = async (req, res, next) => {
       status: "Accepted",
     });
     await order.save();
+    transporter.sendMail(mailOptions, function (err, data) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("poszlo");
+      }
+    });
+    
     res.send({ order });
     handleAmountOfLeftProducts(products);
     next();
@@ -68,3 +98,6 @@ export const changeStatus = async (req, res, next) => {
     next();
   }
 };
+
+
+

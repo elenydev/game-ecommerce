@@ -90,7 +90,7 @@ export const Paragraph = styled.p`
     outline: none;
     border: none;
     min-height: 100%;
-    margin: 0 10px;
+    margin: 0 5px;
     font-family: "Black Ops One", normal;
     background-color: transparent;
     font-weight: 500;
@@ -98,6 +98,9 @@ export const Paragraph = styled.p`
     @media (min-width: 960px) {
       margin: 0 20px;
     }
+  }
+  .MuiIconButton-root {
+    padding: 5px;
   }
 `;
 

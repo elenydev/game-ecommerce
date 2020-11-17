@@ -103,11 +103,9 @@ const ProductsCart = () => {
     }
   };
 
-   
   useEffect(() => {
     clearMessage();
   }, [message]);
-
 
   return (
     <Wrapper>
