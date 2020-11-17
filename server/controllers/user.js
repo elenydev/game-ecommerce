@@ -1,5 +1,21 @@
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
+
+
 
 export const signUp = async (req, res, next) => {
   const firstName = req.body.firstName;
@@ -11,6 +27,22 @@ export const signUp = async (req, res, next) => {
   if (!avatar) {
     return res.status(422).send({ message: "Error with avatar occured" });
   }
+  const mailOptions = {
+    from: "online-gaming-dummy@gmail.com",
+    to: email,
+    subject: "Online-gaming shop account",
+    text: "It works",
+    html: `<h3>Thank you for joining our Online-Gaming ${firstName}</h3>
+    <br/>
+    <div>
+    <p>Hi ${firstName},</p>
+    <p>We are very glad that u decided to join our community. Now you buy our products and enjoy gaming like us.</p>
+    <p>Stay tuned for new products and check your email carefully for getting discount codes from us :)</p>
+    <br/>
+    <br/>
+    <small>Have a nice day! Online-Gaming team. You can reply direct to this email or catch us on: online.gaming.dummy@gmail.com</small></p>
+    </div>`,
+  };
 
   try {
     const existingUser = await User.find({ email: email });
@@ -33,6 +65,11 @@ export const signUp = async (req, res, next) => {
           email,
           imageUrl,
         },
+      });
+      transporter.sendMail(mailOptions, function (err, data) {
+        if (err) {
+          console.log(err);
+        }
       });
     } else {
       res.send({ message: "User already exist" });
