@@ -40,10 +40,11 @@ const Products = ({ products }) => {
 };
 
 export async function getStaticProps() {
-  const query = await fetch("http://localhost:8080/getProducts");
+  const query = await fetch(
+    "https://online-gaming-shop.herokuapp.com/getProducts"
+  );
   const response = await query.json();
   const products = response.products;
-  console.log(response);
 
   return {
     props: {

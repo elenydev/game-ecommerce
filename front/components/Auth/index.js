@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,8 @@ import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../Reducers/userSlice.js";
+import Cookies from "universal-cookie";
+import useAlert from "../../hooks/useAlert";
 
 const Wrapper = styled.div`
   display: flex;
@@ -87,38 +89,66 @@ const Login = () => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues,
   });
+  
+  const {
+    message,
+    setMessage,
+    variant,
+    setVariant,
+    clearMessage,
+    setErrorAlert,
+  } = useAlert();
 
   const router = useRouter();
-  const [responseType, setResponseType] = useState(null);
-  const clearAlert = () => setTimeout(() => setResponseType(null), 999);
   const dispatch = useDispatch();
+  const cookies = new Cookies();
 
   const loginUser = async (data, event) => {
     event.preventDefault();
     try {
-      const send = await fetch("http://localhost:8080/signIn", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const send = await fetch(
+        "https://online-gaming-shop.herokuapp.com/signIn",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const response = await send.json();
+
       if (response) {
-        setResponseType(response);
         if (response.user) {
           setTimeout(() => {
             dispatch(setUser(response.user));
+            const date = new Date(new Date().getTime() + 15 * 60 * 1000);
+            cookies.set("User", response.user, {
+              expires: date,
+            });
             reset();
+            setVariant("success");
+            setMessage("You are logged in");
             router.push("/auth/account/cart");
           }, 600);
         }
+        else{
+          setErrorAlert()
+        }
+      } else {
+        setVariant("error");
+        setMessage("Wrong password or email provided");
       }
     } catch (err) {
-      setResponseType({ message: "Some error occured, try again" });
+      setErrorAlert();
     }
-    clearAlert();
   };
+
+  
+  useEffect(() => {
+    clearMessage();
+  }, [message]);
+
 
   return (
     <Wrapper>
@@ -127,9 +157,9 @@ const Login = () => {
       <Form onSubmit={handleSubmit(loginUser)}>
         <FormLabel>
           <InputElement
-            type='text'
-            name='email'
-            placeholder='Enter email'
+            type="text"
+            name="email"
+            placeholder="Enter email"
             inputRef={register({
               required: true,
               pattern: {
@@ -153,9 +183,9 @@ const Login = () => {
         )}
         <FormLabel>
           <InputElement
-            type='password'
-            name='password'
-            placeholder='Enter Password'
+            type="password"
+            name="password"
+            placeholder="Enter Password"
             inputRef={register({ required: true })}
             onChange={() => {
               setError("password", {
@@ -169,25 +199,14 @@ const Login = () => {
           <ErrorSpan>Please provide a password</ErrorSpan>
         )}
 
-        <Button type='submit' variant='contained' color='secondary'>
+        <Button type="submit" variant="contained" color="secondary">
           Sign in
         </Button>
       </Form>
 
-      {(responseType && responseType.user && (
-        <Alert
-          message='You are succesfully logged in'
-          shouldOpen={true}
-          variant='success'
-        />
-      )) ||
-        (responseType && responseType.message && (
-          <Alert
-            message={responseType.message}
-            shouldOpen={true}
-            variant='error'
-          />
-        ))}
+      {message && (
+        <Alert message={message} variant={variant} shouldOpen={true} />
+      )}
     </Wrapper>
   );
 };

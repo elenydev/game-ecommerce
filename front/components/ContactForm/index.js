@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { FormLabel } from "@material-ui/core";
 import Alert from "../Alert/index.js";
+import useAlert from "../../hooks/useAlert";
 
 const Wrapper = styled.div`
   display: flex;
@@ -138,41 +139,39 @@ const ContactForm = () => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues,
   });
-  const [message, setMessage] = useState(null);
-  const [variant, setVariant] = useState(null);
+  const {message,setMessage,variant,setVariant,clearMessage, setErrorAlert} = useAlert()
+ 
 
   const handleSendEmail = async (data, event) => {
     event.preventDefault();
-
     try {
-      const request = await fetch("http://localhost:8080/receiveEmail", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const request = await fetch(
+        "https://online-gaming-shop.herokuapp.com/receiveEmail",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const response = await request.json();
       if (!response.newEmail) {
-        setVariant("error");
-        setMessage("Something went wrong, try again");
+        setErrorAlert()
       }
       setVariant("success");
       setMessage("Email send");
       reset();
     } catch (err) {
-      setMessage("Something went wrong, try again");
+     setErrorAlert()
     }
 
-    clearMessage();
   };
 
-  const clearMessage = () => {
-    setTimeout(() => {
-      setMessage(null);
-      setVariant(null);
-    }, 1000);
-  };
+  useEffect(() => {
+    clearMessage();
+  }, [message]);
+
 
   return (
     <Wrapper id="contact">

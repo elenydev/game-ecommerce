@@ -7,6 +7,7 @@ import {
   addProductToCart,
   selectProducts,
 } from "../../Reducers/productsSlice.js";
+import useAlert from "../../hooks/useAlert.js";
 
 const Card = styled.div`
   display: flex;
@@ -126,6 +127,7 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
     productImg,
   } = product;
 
+
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const dispatch = useDispatch();
   const cardProducts = useSelector(selectProducts).products;
@@ -152,17 +154,17 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
     }
     setMessage("Product already in card");
     setVariant("error");
-
-    setTimeout(() => {
-      setMessage(null);
-      setVariant(null);
-    }, 1000);
   };
 
   return (
     <>
-      <Card>  <CardImage>
-          <img src={`http://localhost:8080/${productImg}`} alt={productName} />
+      <Card>
+        {" "}
+        <CardImage>
+          <img
+            src={`https://online-gaming-shop.herokuapp.com/${productImg}`}
+            alt={productName}
+          />
         </CardImage>
         <CardContentContainer>
           <CardContentHeader>{productName}</CardContentHeader>
@@ -175,8 +177,8 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
         <Tooltip title={buttonDisabled ? "Sing in to buy product" : ""}>
           <span>
             <Button
-              variant='contained'
-              color='secondary'
+              variant="contained"
+              color="secondary"
               disabled={buttonDisabled}
               onClick={addProduct}
             >

@@ -18,7 +18,8 @@
     "react-hook-form": "^6.10.1",
     "react-redux": "^7.2.2",
     "react-typewriting-effect": "^1.0.4",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "babel-runtime": "^6.26.0"

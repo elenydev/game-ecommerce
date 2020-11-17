@@ -26,6 +26,10 @@ const ProductContainer = styled.div`
   border-right: none;
   border-left: none;
 
+  &:nth-child(odd) {
+    border-top: none;
+  }
+
   @media (min-width: 960px) {
     flex-direction: row;
   }
@@ -153,7 +157,10 @@ const Product = ({ product, productIndex }) => {
     <Wrapper>
       <ProductContainer>
         <ProductImage>
-          <img src={`http://localhost:8080/${productImg}`} alt={productName} />
+          <img
+            src={`https://online-gaming-shop.herokuapp.com/${productImg}`}
+            alt={productName}
+          />
         </ProductImage>
         <ProductDescriptionBox>
           <ProductName>{productName}</ProductName>

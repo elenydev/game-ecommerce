@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Emails = () => {
+const Emails = ({ emails }) => {
   const user = useSelector(selectUser);
   const router = useRouter();
   useEffect(() => {
@@ -33,10 +33,23 @@ const Emails = () => {
     <>
       <Navigation />
       <Wrapper>
-        <UserCart />
+        <UserCart emails={emails} />
       </Wrapper>
     </>
   );
 };
 
+export async function getStaticProps() {
+  const query = await fetch(
+    "https://online-gaming-shop.herokuapp.com/getEmails"
+  );
+  const response = await query.json();
+  const emails = response.emails;
+
+  return {
+    props: {
+      emails,
+    },
+  };
+}
 export default Emails;

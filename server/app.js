@@ -20,6 +20,11 @@ import {
 } from "./controllers/products.js";
 import { createOrder, getOrders, changeStatus } from "./controllers/order.js";
 import { getEmails, receiveEmail, removeEmail } from "./controllers/emails.js";
+import {
+  addSubscriber,
+  getSubscribtions,
+  removeSubscribtion,
+} from "./controllers/subscriptions.js";
 import { get } from "http";
 
 dotenv.config();
@@ -100,6 +105,10 @@ router.use("/changeStatus", changeStatus);
 router.use("/receiveEmail", receiveEmail);
 router.use("/getEmails", getEmails);
 router.use("/removeEmail", removeEmail);
+
+router.use("/addSubscriber", addSubscriber);
+router.use("/getSubscribtions", getSubscribtions);
+router.use("/removeSubscribtion", removeSubscribtion);
 
 
 app.use("/", router);

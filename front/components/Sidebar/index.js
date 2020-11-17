@@ -11,6 +11,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
+import SubscriptionsIcon from "@material-ui/icons/Subscriptions";
 import Link from "next/link";
 
 const useStyles = makeStyles({
@@ -72,8 +74,13 @@ const ListMap = [
   },
   {
     text: "Products",
-    icon: <InboxIcon />,
+    icon: <ShoppingBasketIcon />,
     destination: "/auth/account/products",
+  },
+  {
+    text: "Subscribtions",
+    icon: <SubscriptionsIcon />,
+    destination: "/auth/account/subscribtions",
   },
 ];
 

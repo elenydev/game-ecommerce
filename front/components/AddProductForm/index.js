@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useForm, Controller } from "react-hook-form";
 import Input from "@material-ui/core/Input";
@@ -8,6 +8,7 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Alert from "../../components/Alert/index.js";
+import useAlert from "../../hooks/useAlert";
 
 const Form = styled.form`
   display: flex;
@@ -21,6 +22,7 @@ const Form = styled.form`
   & > .MuiButton-containedSecondary {
     margin: 15px;
     background-color: #b73d1cbf;
+    font-size: 0.8em;
 
     &:hover {
       background-color: #ff3600bf;
@@ -63,7 +65,7 @@ const Header = styled.h2`
   width: 100%;
   padding: 10px;
   justify-content: center;
-  color: rgb(255 90 90 /60%);
+  color: rgb(255 90 90 /85%);
 `;
 
 const InputElement = styled(Input)`
@@ -110,10 +112,16 @@ const AddProductForm = () => {
     defaultValues,
   });
 
-  const [responseType, setResponseType] = useState(null);
+  const {
+    message,
+    setMessage,
+    variant,
+    setVariant,
+    clearMessage,
+    setErrorAlert,
+  } = useAlert();
   const [gameType, setGameType] = useState("Wargame");
   const [device, setDevice] = useState("Desktop");
-  const clearAlert = () => setTimeout(() => setResponseType(null), 999);
 
   const handleChangeGameType = (event) => {
     setGameType(event.target.value);
@@ -145,33 +153,45 @@ const AddProductForm = () => {
     product.append("device", device);
 
     try {
-      const send = await fetch("http://localhost:8080/addProduct", {
-        method: "POST",
-        body: product,
-      });
+      const send = await fetch(
+        "https://online-gaming-shop.herokuapp.com/addProduct",
+        {
+          method: "POST",
+          body: product,
+        }
+      );
       const response = await send.json();
-      console.log(response);
       if (response) {
-        setResponseType(response);
         if (response.product) {
+          setVariant("success");
+          setMessage("Product added");
           reset();
+          return;
+        } else {
+          setVariant("error");
+          setMessage("Product already exist");
+          return;
         }
       }
+      setErrorAlert();
     } catch (err) {
-      setResponseType({ message: "Some error occured, try again" });
+      setErrorAlert();
     }
-    clearAlert();
   };
+
+  useEffect(() => {
+    clearMessage();
+  }, [message]);
 
   return (
     <div>
       <Header>Add product</Header>
-      <Form onSubmit={handleSubmit(registerProduct)} encType=''>
+      <Form onSubmit={handleSubmit(registerProduct)} encType="">
         <FormLabel>
           <InputElement
-            type='text'
-            name='productName'
-            placeholder='Product Name'
+            type="text"
+            name="productName"
+            placeholder="Product Name"
             inputRef={register({ required: true })}
             onChange={() => {
               setError("productName", {
@@ -187,9 +207,9 @@ const AddProductForm = () => {
 
         <FormLabel>
           <InputElement
-            type='text'
-            name='productDescription'
-            placeholder='Product Description'
+            type="text"
+            name="productDescription"
+            placeholder="Product Description"
             inputRef={register({ required: true })}
             onChange={() => {
               setError("productDescription", {
@@ -210,19 +230,19 @@ const AddProductForm = () => {
             <Controller
               as={
                 <Select value={gameType} onChange={handleChangeGameType}>
-                  <MenuItem value='Wargame'>Wargame</MenuItem>
-                  <MenuItem value='Racing'>Racing</MenuItem>
-                  <MenuItem value='MMO'>MMO</MenuItem>
-                  <MenuItem value='RPG'>RPG</MenuItem>
-                  <MenuItem value='RP'>RP</MenuItem>
-                  <MenuItem value='Simulation'>Simulation</MenuItem>
-                  <MenuItem value='Strategy'>Strategy</MenuItem>
-                  <MenuItem value='Sports'>Sports</MenuItem>
-                  <MenuItem value='Survival'>Survival</MenuItem>
-                  <MenuItem value='Battle Royale'>Battle Royale</MenuItem>
+                  <MenuItem value="Wargame">Wargame</MenuItem>
+                  <MenuItem value="Racing">Racing</MenuItem>
+                  <MenuItem value="MMO">MMO</MenuItem>
+                  <MenuItem value="RPG">RPG</MenuItem>
+                  <MenuItem value="RP">RP</MenuItem>
+                  <MenuItem value="Simulation">Simulation</MenuItem>
+                  <MenuItem value="Strategy">Strategy</MenuItem>
+                  <MenuItem value="Sports">Sports</MenuItem>
+                  <MenuItem value="Survival">Survival</MenuItem>
+                  <MenuItem value="Battle Royale">Battle Royale</MenuItem>
                 </Select>
               }
-              name='gameType'
+              name="gameType"
               rules={{ required: true }}
               control={control}
             />
@@ -234,9 +254,9 @@ const AddProductForm = () => {
 
         <FormLabel>
           <InputElement
-            type='number'
-            name='prize'
-            placeholder='Enter prize'
+            type="number"
+            name="prize"
+            placeholder="Enter prize"
             inputRef={register({ required: true, min: 1 })}
             onChange={() => {
               setError("prize", {
@@ -252,9 +272,9 @@ const AddProductForm = () => {
 
         <FormLabel>
           <InputElement
-            type='number'
-            name='availableAmount'
-            placeholder='Enter amount of products '
+            type="number"
+            name="availableAmount"
+            placeholder="Enter amount of products "
             inputRef={register({ required: true, min: 1 })}
             onChange={() => {
               setError("availableAmount", {
@@ -271,11 +291,11 @@ const AddProductForm = () => {
 
         <input
           ref={register({ required: true })}
-          name='productImg'
-          type='file'
-          accept='.png, .jpg, .jpeg'
-          id='productImg'
-          className='hidden'
+          name="productImg"
+          type="file"
+          accept=".png, .jpg, .jpeg"
+          id="productImg"
+          className="hidden"
           onChange={(e) => {
             setError("productImg", {
               type: "manual",
@@ -283,11 +303,11 @@ const AddProductForm = () => {
             });
           }}
         />
-        <label htmlFor='productImg'>
+        <label htmlFor="productImg">
           <IconButton
-            color='primary'
-            aria-label='upload picture'
-            component='span'
+            color="primary"
+            aria-label="upload picture"
+            component="span"
           >
             <PhotoCamera />
           </IconButton>
@@ -301,12 +321,12 @@ const AddProductForm = () => {
             <Controller
               as={
                 <Select value={device} onChange={handleChangeDevice}>
-                  <MenuItem value='Desktop'>Desktop</MenuItem>
-                  <MenuItem value='Playstation'>Playstation</MenuItem>
-                  <MenuItem value='Xbox'>Xbox</MenuItem>
+                  <MenuItem value="Desktop">Desktop</MenuItem>
+                  <MenuItem value="Playstation">Playstation</MenuItem>
+                  <MenuItem value="Xbox">Xbox</MenuItem>
                 </Select>
               }
-              name='device'
+              name="device"
               rules={{ required: true }}
               control={control}
             />
@@ -316,24 +336,13 @@ const AddProductForm = () => {
           <ErrorSpan>Please provide a device</ErrorSpan>
         )}
 
-        <Button type='submit' variant='contained' color='secondary'>
+        <Button type="submit" variant="contained" color="secondary">
           Add Product
         </Button>
       </Form>
-      {(responseType && responseType.product && (
-        <Alert
-          message='Product succesfully added to offer'
-          shouldOpen={true}
-          variant='success'
-        />
-      )) ||
-        (responseType && responseType.message && (
-          <Alert
-            message={responseType.message}
-            shouldOpen={true}
-            variant='error'
-          />
-        ))}
+      {message && (
+        <Alert message={message} variant={variant} shouldOpen={true} />
+      )}
     </div>
   );
 };

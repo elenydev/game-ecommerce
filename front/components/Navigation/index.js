@@ -16,13 +16,15 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser, deleteUser } from "../../Reducers/userSlice.js";
-import { selectProducts } from "../../Reducers/productsSlice.js";
+import { clearCart, selectProducts } from "../../Reducers/productsSlice.js";
+import Cookies from "universal-cookie";
 
 const Navigation = () => {
   const [user, setUser] = useState({ user: null });
   const sliceUser = useSelector(selectUser);
   const productsArray = useSelector(selectProducts);
   const dispatch = useDispatch();
+  const cookies = new Cookies();
 
   const handleClick = () => {
     const hamburger = document.querySelector(".hamburger__inner");
@@ -32,7 +34,9 @@ const Navigation = () => {
   };
 
   const logOut = () => {
+    cookies.remove("User");
     dispatch(deleteUser());
+    dispatch(clearCart());
     setUser({ user: null });
   };
 
@@ -125,9 +129,7 @@ const Navigation = () => {
               {user.user !== null && user.user.email === "admin@admin.com" && (
                 <NavListItem onClick={() => handleClick()}>
                   <Link href="/auth/account/cart">
-                    <a>
-                    Admin
-                    </a>
+                    <a>Admin</a>
                   </Link>
                 </NavListItem>
               )}

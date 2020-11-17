@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ import Link from "next/link";
 import Alert from "../Alert/index";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import useAlert from "../../hooks/useAlert";
 
 const Wrapper = styled.div`
   display: flex;
@@ -129,9 +130,14 @@ const RegisterForm = () => {
   });
 
   const router = useRouter();
-  const [responseType, setResponseType] = useState(null);
-  const clearAlert = () => setTimeout(() => setResponseType(null), 999);
-
+  const {
+    message,
+    setMessage,
+    variant,
+    setVariant,
+    clearMessage,
+    setErrorAlert,
+  } = useAlert();
   const registerUser = async (data, event) => {
     event.preventDefault();
     const { firstName, lastName, email, password, avatar, policy } = data;
@@ -145,34 +151,47 @@ const RegisterForm = () => {
     user.append("policy", policy);
 
     try {
-      const send = await fetch("http://localhost:8080/signUp", {
-        method: "POST",
-        body: user,
-      });
+      const send = await fetch(
+        "https://online-gaming-shop.herokuapp.com/signUp",
+        {
+          method: "POST",
+          body: user,
+        }
+      );
       const response = await send.json();
       if (response) {
-        setResponseType(response);
         if (response.user) {
-          setTimeout(() => router.push('/auth/login'),  1000);;
+          setVariant("success");
+          setMessage("User created");
+          setTimeout(() => router.push("/auth/login"), 1000);
           reset();
         }
+        if (response.message) {
+          setVariant("error");
+          setMessage("User already exist");
+        }
+      } else {
+        setErrorAlert();
       }
     } catch (err) {
-      setResponseType({ message: "Some error occured, try again" });
+      setErrorAlert();
     }
-    clearAlert();
   };
+
+  useEffect(() => {
+    clearMessage();
+  }, [message]);
 
   return (
     <Wrapper>
       <Header>Create an account</Header>
 
-      <Form onSubmit={handleSubmit(registerUser)} encType=''>
+      <Form onSubmit={handleSubmit(registerUser)} encType="">
         <FormLabel>
           <InputElement
-            type='text'
-            name='firstName'
-            placeholder='First Name'
+            type="text"
+            name="firstName"
+            placeholder="First Name"
             inputRef={register({ required: true })}
             onChange={() => {
               setError("firstName", {
@@ -188,9 +207,9 @@ const RegisterForm = () => {
 
         <FormLabel>
           <InputElement
-            type='text'
-            name='lastName'
-            placeholder='Last Name'
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
             inputRef={register({ required: true })}
             onChange={() => {
               setError("lastName", {
@@ -206,9 +225,9 @@ const RegisterForm = () => {
 
         <FormLabel>
           <InputElement
-            type='text'
-            name='email'
-            placeholder='Enter email'
+            type="text"
+            name="email"
+            placeholder="Enter email"
             inputRef={register({
               required: true,
               pattern: {
@@ -233,9 +252,9 @@ const RegisterForm = () => {
 
         <FormLabel>
           <InputElement
-            type='password'
-            name='password'
-            placeholder='Enter Password'
+            type="password"
+            name="password"
+            placeholder="Enter Password"
             inputRef={register({ required: true })}
             onChange={() => {
               setError("password", {
@@ -251,11 +270,11 @@ const RegisterForm = () => {
 
         <input
           ref={register({ required: true })}
-          name='avatar'
-          type='file'
-          accept='.png, .jpg, .jpeg'
-          id='avatar'
-          className='hidden'
+          name="avatar"
+          type="file"
+          accept=".png, .jpg, .jpeg"
+          id="avatar"
+          className="hidden"
           onChange={(e) => {
             setError("avatar", {
               type: "manual",
@@ -263,11 +282,11 @@ const RegisterForm = () => {
             });
           }}
         />
-        <label htmlFor='avatar'>
+        <label htmlFor="avatar">
           <IconButton
-            color='primary'
-            aria-label='upload picture'
-            component='span'
+            color="primary"
+            aria-label="upload picture"
+            component="span"
           >
             <PhotoCamera />
           </IconButton>
@@ -279,13 +298,13 @@ const RegisterForm = () => {
         <CheckBox>
           {" "}
           You have to accept our{" "}
-          <Link href='/privacy'>
+          <Link href="/privacy">
             <ErrorSpan>
               <a>Privacy Policy</a>
             </ErrorSpan>
           </Link>
           <Checkbox
-            name='policy'
+            name="policy"
             inputRef={register({ required: true })}
             onChange={() => {
               setError("policy", {
@@ -298,31 +317,20 @@ const RegisterForm = () => {
             <ErrorSpan>Please accept our privacy policy</ErrorSpan>
           )}
         </CheckBox>
-        <Button type='submit' variant='contained' color='secondary'>
+        <Button type="submit" variant="contained" color="secondary">
           Create
         </Button>
       </Form>
 
       <LoginDiv>
-        <Link href='/auth/login'>
+        <Link href="/auth/login">
           <a>Or switch to sign in</a>
         </Link>
       </LoginDiv>
 
-      {(responseType && responseType.user && (
-        <Alert
-          message='User succesfully created'
-          shouldOpen={true}
-          variant='success'
-        />
-      )) ||
-        (responseType && responseType.message && (
-          <Alert
-            message={responseType.message}
-            shouldOpen={true}
-            variant='error'
-          />
-        ))}
+      {message && (
+        <Alert variant={variant} message={message} shouldOpen={true} />
+      )}
     </Wrapper>
   );
 };

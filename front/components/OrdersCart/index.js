@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
+import {
+  FooterContent,
+  FooterRows,
+  Paragraph,
+  Span,
+} from "../ProductsComponent/productsComponent.styles.js";
 import Order from "../Order/index.js";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
+import useArrayRange from "../../hooks/useArrayRange.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,7 +40,45 @@ const OrderWrapper = styled.div`
   }
 `;
 
+const Footer = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8em;
+  width: 100%;
+  font-family: "Black Ops One", normal;
+  font-weight: 500;
+  padding: 10px;
+  color: rgba(255, 255, 255, 1);
+
+  @media (min-width: 960px) {
+    flex-direction: row;
+    justify-content: flex-end;
+    font-size: 1em;
+  }
+
+  & > div > div > p > select {
+    background-color: #24272e;
+    color: white;
+    font-size: 1em;
+  }
+  .MuiIconButton-root {
+    color: white;
+  }
+`;
+
+
 const OrdersCart = ({ orders }) => {
+  const {
+    startRange,
+    endRange,
+    incrementRange,
+    decrementRange,
+    handleArrayRange,
+    setVisibleProducts,
+  } = useArrayRange();
+
+  const { slicedArray, arrayLength } = handleArrayRange(orders);
+
   return (
     <Wrapper>
       {orders && orders.length === 0 ? (
@@ -40,11 +86,48 @@ const OrdersCart = ({ orders }) => {
       ) : (
         <>
           <Heading>Orders: </Heading>
-          {orders.map((order, index) => (
+          {slicedArray.map((order, index) => (
             <OrderWrapper key={index}>
               <Order specificOrder={order} index={index} />
             </OrderWrapper>
           ))}
+          {orders.length > 0 && (
+            <Footer>
+              <FooterContent>
+                <FooterRows>
+                  <Paragraph>Orders displayed:</Paragraph>
+                  <Paragraph>
+                    <select
+                      onChange={(e) => {
+                        setVisibleProducts(parseInt(e.target.value));
+                      }}
+                    >
+                      <option value={4}>4</option>
+                      <option value={8}>8</option>
+                      <option value={12}>12</option>
+                    </select>
+                  </Paragraph>
+                  <Paragraph>
+                    <Span>{startRange}</Span>
+                    <Span>-</Span>
+                    <Span>{endRange}</Span>
+                    <Span>of</Span>
+                    <Span> {arrayLength} </Span>
+                  </Paragraph>
+                  <Paragraph>
+                    <Span>
+                      <KeyboardArrowLeftIcon onClick={() => decrementRange()} />
+                    </Span>
+                    <Span>
+                      <KeyboardArrowRightIcon
+                        onClick={() => incrementRange()}
+                      />
+                    </Span>
+                  </Paragraph>
+                </FooterRows>
+              </FooterContent>
+            </Footer>
+          )}
         </>
       )}
     </Wrapper>

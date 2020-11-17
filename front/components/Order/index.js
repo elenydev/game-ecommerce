@@ -1,6 +1,12 @@
-import { Select, MenuItem } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
+import { Select, MenuItem, FormControlLabel } from "@material-ui/core";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { FormLabel } from "@material-ui/core";
+
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,6 +17,25 @@ const Wrapper = styled.div`
 
   @media (min-width: 960px) {
     margin: 0;
+  }
+
+  .MuiPaper-root {
+    background: transparent;
+    color: rgb(255 90 90 /90%);
+  }
+  .MuiAccordionSummary-root {
+    padding: 5px 0px;
+  }
+  .MuiPaper-elevation1 {
+    box-shadow: none;
+  }
+
+  .MuiIconButton-root {
+    color: white;
+  }
+  .MuiFormLabel-root {
+    color: rgb(255 90 90 /90%);
+    margin-right: 5px;
   }
 `;
 
@@ -65,6 +90,7 @@ const ProductsList = styled.div`
   margin: 10px 0;
   word-break: break-word;
   flex-direction: column;
+  min-width: 100%;
 `;
 
 const ActionsBox = styled.div`
@@ -116,7 +142,10 @@ const OrderInfo = styled.div`
   color: rgb(255 90 90 /90%);
 
   & > p {
-    display: block;
+    display: flex;
+    min-height: 100%;
+    text-align: center;
+   
   }
 
   & > div > .MuiInputBase-root {
@@ -159,13 +188,16 @@ const Order = ({ specificOrder, index }) => {
       order: specificOrder,
       status: e.target.value,
     };
-    const query = await fetch("http://localhost:8080/changeStatus", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const query = await fetch(
+      "https://online-gaming-shop.herokuapp.com/changeStatus",
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const response = await query.json();
     setOrderStatus(e.target.value);
   };
@@ -178,35 +210,50 @@ const Order = ({ specificOrder, index }) => {
           <CustomerName>
             {customerFirstName} {customerLastName} {date}
           </CustomerName>
-          <ProductsList>
-            {products
-              ? products.map((product, index) => (
-                  <ProductContainer key={index}>
-                    <ProductImage>
-                      <img
-                        src={`http://localhost:8080/${product.productImg}`}
-                        alt={product.productName}
-                      />
-                    </ProductImage>
-                    <ProductInfo>
-                      <ProductName>{product.productName}</ProductName>
-                      <ProductAmount>
-                        <span>x{product.amount}</span>
-                      </ProductAmount>
-                    </ProductInfo>
-                  </ProductContainer>
-                ))
-              : "There are no products"}
-          </ProductsList>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              Products
+            </AccordionSummary>
+            <AccordionDetails>
+              <ProductsList>
+                {products
+                  ? products.map((product, index) => (
+                      <ProductContainer key={index}>
+                        <ProductImage>
+                          <img
+                            src={`https://online-gaming-shop.herokuapp.com/${product.productImg}`}
+                            alt={product.productName}
+                          />
+                        </ProductImage>
+                        <ProductInfo>
+                          <ProductName>{product.productName}</ProductName>
+                          <ProductAmount>
+                            <span>x{product.amount}</span>
+                          </ProductAmount>
+                        </ProductInfo>
+                      </ProductContainer>
+                    ))
+                  : "There are no products"}
+              </ProductsList>
+            </AccordionDetails>
+          </Accordion>
+
           <OrderInfo status={orderStatus}>
             <div>
+              <FormLabel>Order Status: </FormLabel>
               <Select value={orderStatus} onChange={handleChange}>
                 <MenuItem value="Accepted">Accepted</MenuItem>
                 <MenuItem value="In progress">In progress</MenuItem>
                 <MenuItem value="Delivered">Delivered</MenuItem>
               </Select>
             </div>
-            <p>Total prize: {prize} $</p>
+            <p>
+              Total prize: {prize}$
+            </p>
           </OrderInfo>
         </OrderDescriptionBox>
       </OrderContainer>

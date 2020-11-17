@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Product from "../Product/index.js";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,6 +7,7 @@ import { clearCart, selectProducts } from "../../Reducers/productsSlice.js";
 import { selectUser } from "../../Reducers/userSlice.js";
 import AddProductForm from "../../components/AddProductForm/index.js";
 import Alert from "../Alert/index.js";
+import useAlert from "../../hooks/useAlert.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -53,8 +54,14 @@ const ProductsCart = () => {
   const { products } = useSelector(selectProducts);
   const { user } = useSelector(selectUser);
   const dispatch = useDispatch();
-  const [message, setMessage] = useState("");
-  const [variant, setVariat] = useState("");
+  const {
+    message,
+    setMessage,
+    variant,
+    setVariant,
+    clearMessage,
+    setErrorAlert,
+  } = useAlert();
 
   const getPrize = () => {
     let prize = 0;
@@ -71,29 +78,35 @@ const ProductsCart = () => {
       prize: getPrize(),
     };
     try {
-      const request = await fetch("http://localhost:8080/createOrder", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const request = await fetch(
+        "https://online-gaming-shop.herokuapp.com/createOrder",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const response = await request.json();
       if (response.order) {
         dispatch(clearCart());
+        setVariant("success");
         setMessage("Order created");
-        setVariat("success");
       }
       if (response.message) {
-        setMessage(response.message);
-        setVariat("error");
+        setErrorAlert();
       }
     } catch (err) {
-      console.log(err);
-      setMessage("Something went wrong, try again");
-      setVariat("error");
+      setErrorAlert();
     }
   };
+
+   
+  useEffect(() => {
+    clearMessage();
+  }, [message]);
+
 
   return (
     <Wrapper>
@@ -116,9 +129,9 @@ const ProductsCart = () => {
         {user.email !== "admin@admin.com" && (
           <OrderBox>
             <Button
-              type='submit'
-              variant='contained'
-              color='secondary'
+              type="submit"
+              variant="contained"
+              color="secondary"
               disabled={products.length < 1 && true}
               onClick={createOrder}
             >
@@ -127,7 +140,7 @@ const ProductsCart = () => {
           </OrderBox>
         )}
       </>
-      {message !== "" && (
+      {message && (
         <Alert variant={variant} shouldOpen={true} message={message} />
       )}
     </Wrapper>
