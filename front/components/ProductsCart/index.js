@@ -35,7 +35,7 @@ const OrderBox = styled.div`
 const Heading = styled.h1`
   width: 100%;
   text-align: center;
-  padding: 40px;
+  padding: 10px;
   color: rgb(255 90 90 /90%);
 `;
 
@@ -44,6 +44,7 @@ const TotalPrize = styled.p`
   align-self: flex-end;
   font-size: 1.2em;
   margin: 20px;
+  border-bottom: 1px solid rgb(255 90 90 /60%);
 
   @media (min-width: 960px) {
     margin: 20px 40px;

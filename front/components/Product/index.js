@@ -23,11 +23,13 @@ const ProductContainer = styled.div`
   padding: 15px;
   flex-direction: column;
   border: 1px solid rgb(255 90 90 /60%);
-  border-right: none;
-  border-left: none;
+  border-radius: 50px;
+  margin-bottom: 5px;
+  transition: all 0.4s ease 0s;
 
-  &:nth-child(odd) {
-    border-top: none;
+  &:hover {
+    transform: scale(1.02);
+    border: 1.5px solid #ff5a5a;
   }
 
   @media (min-width: 960px) {
@@ -50,6 +52,7 @@ const ProductImage = styled.div`
     width: 100%;
     box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 60%);
     height: auto;
+    border-radius: 50%;
   }
 `;
 

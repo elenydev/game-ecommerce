@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import OfferProduct from "../OfferProduct";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../Reducers/userSlice.js";

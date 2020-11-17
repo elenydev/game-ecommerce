@@ -92,6 +92,7 @@ export const Paragraph = styled.p`
     min-height: 100%;
     margin: 0 10px;
     font-family: "Black Ops One", normal;
+    background-color: transparent;
     font-weight: 500;
     padding-top: 3px;
     @media (min-width: 960px) {

@@ -11,7 +11,6 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding-top: 10%;
   background: ${({ isAdmin }) =>
     isAdmin ? 'url("/images/register.jpg") no-repeat center' : "#24272e"};
   background-size: cover;

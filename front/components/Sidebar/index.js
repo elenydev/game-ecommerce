@@ -25,13 +25,11 @@ const useStyles = makeStyles({
 });
 
 const Wrapper = styled.div`
+  display: flex;
+
   & > .MuiButton-containedSecondary {
-    margin: 15px;
-    background-color: #5bb2fc;
-    width: fit-content;
-    align-self: center;
-    transition: 0.5s all linear;
-    margin-top: auto;
+    background-color: #b73d1cbf;
+    font-size: 0.8em;
 
     &:hover {
       background-color: #ff3600bf;
