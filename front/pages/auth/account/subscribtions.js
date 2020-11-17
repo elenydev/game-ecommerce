@@ -40,7 +40,9 @@ const Subscribtions = ({ subscribtions }) => {
 };
 
 export async function getStaticProps() {
-  const query = await fetch("http://localhost:8080/getSubscribtions");
+  const query = await fetch(
+    "https://online-gaming-shop.herokuapp.com/getSubscribtions"
+  );
   const response = await query.json();
   const subscribtions = response.subscribers;
 

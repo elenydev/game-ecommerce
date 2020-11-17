@@ -105,7 +105,9 @@ const Email = (props) => {
 
   const fetchEmails = async () => {
     try {
-      const query = await fetch("http://localhost:8080/getEmails");
+      const query = await fetch(
+        "https://online-gaming-shop.herokuapp.com/getEmails"
+      );
       const response = await query.json();
       setEmails(response.emails.reverse());
     } catch (err) {
@@ -115,13 +117,16 @@ const Email = (props) => {
 
   const deleteEmailFromDatabase = async (emailId) => {
     try {
-      const request = await fetch("http://localhost:8080/removeEmail", {
-        method: "POST",
-        body: JSON.stringify({ emailId: emailId }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const request = await fetch(
+        "https://online-gaming-shop.herokuapp.com/removeEmail",
+        {
+          method: "POST",
+          body: JSON.stringify({ emailId: emailId }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const response = await request.json();
       if (!response.email) {
         setErrorAlert();

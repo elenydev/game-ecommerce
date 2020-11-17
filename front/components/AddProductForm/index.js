@@ -153,10 +153,13 @@ const AddProductForm = () => {
     product.append("device", device);
 
     try {
-      const send = await fetch("http://localhost:8080/addProduct", {
-        method: "POST",
-        body: product,
-      });
+      const send = await fetch(
+        "https://online-gaming-shop.herokuapp.com/addProduct",
+        {
+          method: "POST",
+          body: product,
+        }
+      );
       const response = await send.json();
       if (response) {
         if (response.product) {

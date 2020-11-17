@@ -41,7 +41,9 @@ const Orders = ({ orders }) => {
 };
 
 export async function getStaticProps() {
-  const query = await fetch("http://localhost:8080/getOrders");
+  const query = await fetch(
+    "https://online-gaming-shop.herokuapp.com/getOrders"
+  );
   const response = await query.json();
   const orders = response.orders;
 

@@ -48,7 +48,10 @@ const Footer = styled.div`
     background-color: #24272e;
     color: white;
     font-size: 1em;
+  }
 
+  .MuiIconButton-root {
+    color: white;
   }
 `;
 

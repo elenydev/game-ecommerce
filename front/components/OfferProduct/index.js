@@ -161,7 +161,10 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
       <Card>
         {" "}
         <CardImage>
-          <img src={`http://localhost:8080/${productImg}`} alt={productName} />
+          <img
+            src={`https://online-gaming-shop.herokuapp.com/${productImg}`}
+            alt={productName}
+          />
         </CardImage>
         <CardContentContainer>
           <CardContentHeader>{productName}</CardContentHeader>
@@ -184,7 +187,6 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
           </span>
         </Tooltip>
       </Card>
-     
     </>
   );
 });

@@ -106,13 +106,16 @@ const Login = () => {
   const loginUser = async (data, event) => {
     event.preventDefault();
     try {
-      const send = await fetch("http://localhost:8080/signIn", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const send = await fetch(
+        "https://online-gaming-shop.herokuapp.com/signIn",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const response = await send.json();
 
       if (response) {

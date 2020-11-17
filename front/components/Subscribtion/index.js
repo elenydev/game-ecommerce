@@ -46,7 +46,9 @@ const Subscribtion = (props) => {
   } = props;
   const fetchSubscribtions = async () => {
     try {
-      const query = await fetch("http://localhost:8080/getSubscribtions");
+      const query = await fetch(
+        "https://online-gaming-shop.herokuapp.com/getSubscribtions"
+      );
       const response = await query.json();
       setSubscribtions(response.subscribers.reverse());
     } catch (err) {
@@ -56,13 +58,16 @@ const Subscribtion = (props) => {
 
   const deleteSubscribtionFromDatabase = async (email) => {
     try {
-      const request = await fetch("http://localhost:8080/removeSubscribtion", {
-        method: "POST",
-        body: JSON.stringify({ email: email.email }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const request = await fetch(
+        "https://online-gaming-shop.herokuapp.com/removeSubscribtion",
+        {
+          method: "POST",
+          body: JSON.stringify({ email: email.email }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const response = await request.json();
       if (!response.subscribtion) {
         setErrorAlert();

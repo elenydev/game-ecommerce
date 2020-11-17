@@ -115,13 +115,16 @@ const Newsletter = () => {
   const addSubscriber = async (data, e) => {
     e.preventDefault();
     try {
-      const query = await fetch("http://localhost:8080/addSubscriber", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const query = await fetch(
+        "https://online-gaming-shop.herokuapp.com/addSubscriber",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       const response = await query.json();
       if (response) {
         if (response.subscriber) {

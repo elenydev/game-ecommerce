@@ -40,7 +40,9 @@ const Emails = ({ emails }) => {
 };
 
 export async function getStaticProps() {
-  const query = await fetch("http://localhost:8080/getEmails");
+  const query = await fetch(
+    "https://online-gaming-shop.herokuapp.com/getEmails"
+  );
   const response = await query.json();
   const emails = response.emails;
 

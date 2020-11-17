@@ -145,13 +145,16 @@ const ContactForm = () => {
   const handleSendEmail = async (data, event) => {
     event.preventDefault();
     try {
-      const request = await fetch("http://localhost:8080/receiveEmail", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const request = await fetch(
+        "https://online-gaming-shop.herokuapp.com/receiveEmail",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const response = await request.json();
       if (!response.newEmail) {
         setErrorAlert()

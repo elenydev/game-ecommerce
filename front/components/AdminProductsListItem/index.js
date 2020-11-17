@@ -175,13 +175,16 @@ const AdminProductListItem = ({ product, productIndex }) => {
       productAmount: newAmount,
     };
     try {
-      const query = await fetch("http://localhost:8080/changeAmount", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const query = await fetch(
+        "https://online-gaming-shop.herokuapp.com/changeAmount",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const response = await query;
     } catch (err) {
       console.log(err);
@@ -192,7 +195,10 @@ const AdminProductListItem = ({ product, productIndex }) => {
     <Wrapper>
       <ProductContainer>
         <ProductImage>
-          <img src={`http://localhost:8080/${productImg}`} alt={productName} />
+          <img
+            src={`https://online-gaming-shop.herokuapp.com/${productImg}`}
+            alt={productName}
+          />
         </ProductImage>
         <ProductDescriptionBox>
           <ProductName>{productName}</ProductName>

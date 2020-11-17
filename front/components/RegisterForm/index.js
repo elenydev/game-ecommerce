@@ -151,10 +151,13 @@ const RegisterForm = () => {
     user.append("policy", policy);
 
     try {
-      const send = await fetch("http://localhost:8080/signUp", {
-        method: "POST",
-        body: user,
-      });
+      const send = await fetch(
+        "https://online-gaming-shop.herokuapp.com/signUp",
+        {
+          method: "POST",
+          body: user,
+        }
+      );
       const response = await send.json();
       if (response) {
         if (response.user) {

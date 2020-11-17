@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   padding: 5%;
   width: ${({ isAdmin }) => (isAdmin ? "100%" : "90%")};
-  background: ${({ isAdmin }) => isAdmin ? "rgba(0,0,0,0.3)" : "#24272e"};
+  background: ${({ isAdmin }) => (isAdmin ? "rgba(0,0,0,0.3)" : "#24272e")};
 
   padding-top: 15%;
   @media (min-width: 960px) {
@@ -145,40 +145,16 @@ const UserCart = ({ products, orders, subscribtions, emails }) => {
     <>
       {user.user && (
         <Wrapper
-
-
-
-
-                                              isAdmin={
-            
-            
-            
-            
+          isAdmin={
             user.user.email === "admin@admin.com" &&
-          
-          
-          
-          
-                router.pathname === "/auth/account/cart" &&
-
-
-
-
-                                                        true
-          
-          
-          
-          
+            router.pathname === "/auth/account/cart" &&
+            true
           }
-        
-        
-        
-        
         >
           <UserBox>
             <UserAvatar>
               <img
-                src={`http://localhost:8080/${user.user.avatar}`}
+                src={`https://online-gaming-shop.herokuapp.com/${user.user.avatar}`}
                 alt={user.user.firstName}
               />
             </UserAvatar>

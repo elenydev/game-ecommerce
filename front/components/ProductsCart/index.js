@@ -78,13 +78,16 @@ const ProductsCart = () => {
       prize: getPrize(),
     };
     try {
-      const request = await fetch("http://localhost:8080/createOrder", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const request = await fetch(
+        "https://online-gaming-shop.herokuapp.com/createOrder",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const response = await request.json();
       if (response.order) {
         dispatch(clearCart());

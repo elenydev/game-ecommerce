@@ -61,6 +61,9 @@ const Footer = styled.div`
     color: white;
     font-size: 1em;
   }
+  .MuiIconButton-root {
+    color: white;
+  }
 `;
 
 
