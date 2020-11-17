@@ -10,6 +10,7 @@ import {
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import useArrayRange from "../../hooks/useArrayRange.js";
+import IconButton from "@material-ui/core/IconButton";
 
 const Wrapper = styled.div`
   display: flex;
@@ -100,10 +101,14 @@ const AdminProductsList = ({ products }) => {
               </Paragraph>
               <Paragraph>
                 <Span>
-                  <KeyboardArrowLeftIcon onClick={() => decrementRange()} />
+                  <IconButton onClick={() => decrementRange()}>
+                    <KeyboardArrowLeftIcon />
+                  </IconButton>
                 </Span>
                 <Span>
-                  <KeyboardArrowRightIcon onClick={() => incrementRange()} />
+                  <IconButton onClick={() => incrementRange()}>
+                    <KeyboardArrowRightIcon />
+                  </IconButton>
                 </Span>
               </Paragraph>
             </FooterRows>

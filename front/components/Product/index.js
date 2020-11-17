@@ -26,6 +26,10 @@ const ProductContainer = styled.div`
   border-right: none;
   border-left: none;
 
+  &:nth-child(odd) {
+    border-top: none;
+  }
+
   @media (min-width: 960px) {
     flex-direction: row;
   }

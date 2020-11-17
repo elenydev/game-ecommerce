@@ -69,7 +69,6 @@ const OrdersCart = ({ orders }) => {
     startRange,
     endRange,
     incrementRange,
-    checkRanges,
     decrementRange,
     handleArrayRange,
     setVisibleProducts,

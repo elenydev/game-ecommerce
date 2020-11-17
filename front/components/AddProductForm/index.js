@@ -22,6 +22,7 @@ const Form = styled.form`
   & > .MuiButton-containedSecondary {
     margin: 15px;
     background-color: #b73d1cbf;
+    font-size: 0.8em;
 
     &:hover {
       background-color: #ff3600bf;
@@ -64,7 +65,7 @@ const Header = styled.h2`
   width: 100%;
   padding: 10px;
   justify-content: center;
-  color: rgb(255 90 90 /60%);
+  color: rgb(255 90 90 /85%);
 `;
 
 const InputElement = styled(Input)`

@@ -70,7 +70,7 @@ const PlayIconContainer = styled.div`
     fill: rgba(255, 255, 255, 0.8);
   }
 
-  animation: showIcon 2s linear 6s infinite;
+  animation: showIcon 2s linear .5s infinite;
 
   @keyframes showIcon {
     0% {
@@ -88,44 +88,18 @@ const PlayIconContainer = styled.div`
 `;
 
 const Hero = () => {
-  const [render, setRender] = useState(false);
 
-  const renderSubHeader = () => {
-    setTimeout(() => setRender(true), 3000);
-  };
 
-  useEffect(() => {
-    let isMounted = true;
-    renderSubHeader();
-
-    return () => {
-      isMounted = false;
-    }; 
-  }, []);
 
   return (
-    <Wrapper id='home'>
+    <Wrapper id="home">
       <HeaderContainer>
-        <Header>
-          <Typewriter
-            string='All of us love gaming'
-            stopBlinkinOnComplete
-            cursor=''
-          />
-        </Header>
-        <SubHeader>
-          {render && (
-            <Typewriter
-              string='now you can buy something to love.'
-              stopBlinkinOnComplete
-              cursor=''
-            />
-          )}
-        </SubHeader>
+        <Header>All of us love gaming</Header>
+        <SubHeader>now you can buy something to love.</SubHeader>
       </HeaderContainer>
 
       <PlayIconContainer>
-        <Link href='#gameTypes'>
+        <Link href="#gameTypes">
           <a>
             <PlayCircleOutlineIcon />
           </a>

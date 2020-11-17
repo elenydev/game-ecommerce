@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import useAlert from "../../hooks/useAlert";
 
 const Wrapper = styled.div`
   display: flex;
@@ -81,6 +80,10 @@ const EmailWrapper = styled.div`
   border-right: none;
   border-left: none;
 
+  &:nth-child(odd) {
+    border-top: none;
+  }
+
   @media (min-width: 960px) {
     flex-direction: row;
   }
@@ -98,14 +101,7 @@ const DeleteWrapper = styled.div`
 
 const Email = (props) => {
   const { customerName, email, message, date } = props.emailMessage;
-  const {
-    emailMessage,
-    setEmails,
-    emailId,
-    setMessage,
-    setVariant,
-    setErrorAlert,
-  } = props;
+  const { setEmails, emailId, setMessage, setVariant, setErrorAlert } = props;
 
   const fetchEmails = async () => {
     try {

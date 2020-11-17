@@ -20,15 +20,14 @@ const Wrapper = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   padding: 5%;
-  width: 90%;
-  background-color: rgba(0, 0, 0, 0.05);
-  box-shadow: 2px 2px 8px 0 rgb(255 90 90 /60%);
+  width: ${({ isAdmin }) => (isAdmin ? "100%" : "90%")};
+  background: ${({ isAdmin }) => isAdmin ? "rgba(0,0,0,0.3)" : "#24272e"};
 
   padding-top: 15%;
   @media (min-width: 960px) {
     flex-direction: row;
     padding-top: 5%;
-    width: 98%;
+    width: 100%;
     align-items: flex-start;
   }
 
@@ -81,9 +80,10 @@ const UserDescription = styled.div`
   align-items: center;
   padding: 10px;
   font-family: "Black Ops One", normal;
-  font-weight: 600;
+  font-weight: 500;
   width: 100%;
-  color: #5bb2fc;
+  color: rgb(255 90 90 /90%);
+
   @media (min-width: 960px) {
     padding: 20px;
   }
@@ -101,9 +101,24 @@ const UserDescription = styled.div`
   }
 
   p {
-    display: flex;
     justify-content: center;
-    margin: 5px;
+    margin: 0px 5px;
+    display: block;
+    color: #5bb2fc;
+    font-family: "Black Ops One", normal;
+    font-weight: 500;
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
+
+    svg {
+      margin-top: 5px;
+    }
+  }
+  span {
+    color: #5bb2fc;
+    margin: 0px 5px;
   }
 `;
 
@@ -122,16 +137,44 @@ const UserCart = ({ products, orders, subscribtions, emails }) => {
     };
   }, []);
 
-   
   useEffect(() => {
     clearMessage();
   }, [message]);
 
-
   return (
     <>
       {user.user && (
-        <Wrapper>
+        <Wrapper
+
+
+
+
+                                              isAdmin={
+            
+            
+            
+            
+            user.user.email === "admin@admin.com" &&
+          
+          
+          
+          
+                router.pathname === "/auth/account/cart" &&
+
+
+
+
+                                                        true
+          
+          
+          
+          
+          }
+        
+        
+        
+        
+        >
           <UserBox>
             <UserAvatar>
               <img
@@ -144,7 +187,7 @@ const UserCart = ({ products, orders, subscribtions, emails }) => {
                 <p>
                   <AccountCircleIcon />
                 </p>
-                <p> {user.user.firstName} </p>
+                <p>{user.user.firstName} </p>
                 <p>{user.user.lastName}</p>
               </div>
             </UserDescription>
@@ -153,7 +196,7 @@ const UserCart = ({ products, orders, subscribtions, emails }) => {
                 <p>
                   <EmailIcon />
                 </p>
-                <p>{user.user.email}</p>
+                <span>{user.user.email}</span>
               </div>
             </UserDescription>
             {user.user.email === "admin@admin.com" && <Sidebar />}

@@ -12,6 +12,7 @@ import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import Alert from "../Alert/index.js";
 import useAlert from "../../hooks/useAlert.js";
 import useArrayRange from "../../hooks/useArrayRange";
+import IconButton from "@material-ui/core/IconButton";
 
 const Wrapper = styled.div`
   display: flex;
@@ -126,10 +127,14 @@ const EmailsCart = ({ emailsList }) => {
                 </Paragraph>
                 <Paragraph>
                   <Span>
-                    <KeyboardArrowLeftIcon onClick={() => decrementRange()} />
+                    <IconButton onClick={() => decrementRange()}>
+                      <KeyboardArrowLeftIcon />
+                    </IconButton>
                   </Span>
                   <Span>
-                    <KeyboardArrowRightIcon onClick={() => incrementRange()} />
+                    <IconButton onClick={() => incrementRange()}>
+                      <KeyboardArrowRightIcon />
+                    </IconButton>
                   </Span>
                 </Paragraph>
               </FooterRows>

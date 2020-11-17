@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../Reducers/userSlice.js";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
+import IconButton from "@material-ui/core/IconButton";
+
 import {
   Wrapper,
   Header,
@@ -49,17 +51,15 @@ const ProductsComponent = ({ products }) => {
     <Wrapper id="games">
       <Header>Our offer</Header>
       <ItemsContainer>
-        {currentCategoryProducts.map(
-          (product, index) => (
-            <OfferProduct
-              key={index}
-              product={product}
-              user={user}
-              setMessage={setMessage}
-              setVariant={setVariant}
-            />
-          )
-        )}
+        {currentCategoryProducts.map((product, index) => (
+          <OfferProduct
+            key={index}
+            product={product}
+            user={user}
+            setMessage={setMessage}
+            setVariant={setVariant}
+          />
+        ))}
       </ItemsContainer>
       <Footer>
         <FooterContent>
@@ -81,16 +81,18 @@ const ProductsComponent = ({ products }) => {
               <Span>-</Span>
               <Span>{endRange}</Span>
               <Span>of</Span>
-              <Span>
-                {arrayLength}
-              </Span>
+              <Span>{arrayLength}</Span>
             </Paragraph>
             <Paragraph>
               <Span>
-                <KeyboardArrowLeftIcon onClick={() => decrementRange()} />
+                <IconButton onClick={() => decrementRange()}>
+                  <KeyboardArrowLeftIcon />
+                </IconButton>
               </Span>
               <Span>
-                <KeyboardArrowRightIcon onClick={() => incrementRange()} />
+                <IconButton onClick={() => incrementRange()}>
+                  <KeyboardArrowRightIcon />
+                </IconButton>
               </Span>
             </Paragraph>
           </FooterRows>

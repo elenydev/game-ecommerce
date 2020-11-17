@@ -12,7 +12,9 @@ const Wrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   padding-top: 10%;
-  background-color: #24272e;
+  background: ${({ isAdmin }) =>
+    isAdmin ? 'url("/images/register.jpg") no-repeat center' : "#24272e"};
+  background-size: cover;
   min-height: 100vh;
   box-shadow: 2px 2px 8px 0 rgb(255 90 90 /60%);
 
@@ -32,7 +34,9 @@ const Account = () => {
   return (
     <>
       <Navigation />
-      <Wrapper>
+      <Wrapper
+        isAdmin={user.user && user.user.email === "admin@admin.com" && true}
+      >
         <UserCart />
       </Wrapper>
     </>
