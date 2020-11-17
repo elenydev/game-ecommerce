@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../Reducers/userSlice.js";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import EmailIcon from "@material-ui/icons/Email";
 import ProductsCart from "../ProductsCart/index.js";
 import Sidebar from "../Sidebar/index.js";
 import EmailsCart from "../EmailsCart/index.js";
@@ -20,13 +18,13 @@ const Wrapper = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   padding: 5%;
+  min-height: 100vh;
   width: ${({ isAdmin }) => (isAdmin ? "100%" : "90%")};
   background: ${({ isAdmin }) => (isAdmin ? "rgba(0,0,0,0.3)" : "#24272e")};
-
-  padding-top: 15%;
+  padding-top: 25%;
   @media (min-width: 960px) {
     flex-direction: row;
-    padding-top: 5%;
+    padding-top: 10%;
     width: 100%;
     align-items: flex-start;
   }
@@ -41,84 +39,75 @@ const Wrapper = styled.div`
   }
 `;
 
+
+
 const UserBox = styled.div`
   display: flex;
-  flex-direction: column;
+  padding: 10px 30px 10px 10px;
+  border-radius: 50px;
   align-items: center;
-  justify-content: center;
-  padding: 10px;
-  height: 100%;
-  margin-bottom: 40px;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 50px;
+
+  flex: 0 0 auto;
+  transition: all 0.4s ease 0s;
+  border: 0.5px solid transparent;
 
   @media (min-width: 960px) {
-    width: 30%;
     margin-right: 50px;
     margin-bottom: 0px;
   }
 `;
 
 const UserAvatar = styled.div`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  flex: 0 0 auto;
+  margin-right: 20px;
   img {
     width: 100%;
     height: auto;
     border-radius: 50%;
-    box-shadow: 0px 0px 17px 7px rgb(255 90 90 /30%);
   }
 
   @media (min-width: 960px) {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
   }
+  @media (min-width: 1280px) {
+    width: 150px;
+    height: 150px;
+  }
+`;
+
+const MenuBox = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -40px;
 `;
 
 const UserDescription = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  font-family: "Black Ops One", normal;
-  font-weight: 500;
-  width: 100%;
-  color: rgb(255 90 90 /90%);
+  flex-direction: column;
+`;
+
+const CardParagraph = styled.p`
+  font-family: "Roboto";
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.3em;
 
   @media (min-width: 960px) {
-    padding: 20px;
+    font-size: 2.5em;
   }
+`;
 
-  div {
-    display: flex;
-    align-items: center;
-    font-size: 1.2em;
-    justify-content: center;
-    width: 100%;
-
-    @media (min-width: 960px) {
-      font-size: 1.4em;
-    }
-  }
-
-  p {
-    justify-content: center;
-    margin: 0px 5px;
-    display: block;
-    color: #5bb2fc;
-    font-family: "Black Ops One", normal;
-    font-weight: 500;
-
-    &::first-letter {
-      text-transform: capitalize;
-    }
-
-    svg {
-      margin-top: 5px;
-    }
-  }
-  span {
-    color: #5bb2fc;
-    margin: 0px 5px;
+const CardParagraphDescription = styled.p`
+  font-size: 0.8em;
+  color: rgba(255, 255, 255, 0.8);
+  @media (min-width: 960px) {
+    font-size: 1em;
   }
 `;
 
@@ -159,24 +148,20 @@ const UserCart = ({ products, orders, subscribtions, emails }) => {
               />
             </UserAvatar>
             <UserDescription>
-              <div>
-                <p>
-                  <AccountCircleIcon />
-                </p>
-                <p>{user.user.firstName} </p>
-                <p>{user.user.lastName}</p>
-              </div>
+              <CardParagraph>
+                {user.user.firstName}
+                <span> </span>
+                {user.user.lastName}
+              </CardParagraph>
+              <CardParagraphDescription>
+                {user.user.email}
+              </CardParagraphDescription>
             </UserDescription>
-            <UserDescription>
-              <div>
-                <p>
-                  <EmailIcon />
-                </p>
-                <span>{user.user.email}</span>
-              </div>
-            </UserDescription>
-            {user.user.email === "admin@admin.com" && <Sidebar />}
+            <MenuBox>
+              {user.user.email === "admin@admin.com" && <Sidebar />}
+            </MenuBox>
           </UserBox>
+
           {router.pathname === "/auth/account/cart" && <ProductsCart />}
           {router.pathname === "/auth/account/emails" && (
             <EmailsCart emailsList={emails} />

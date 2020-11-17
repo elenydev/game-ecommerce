@@ -110,7 +110,7 @@ const EmailsCart = ({ emailsList }) => {
           <Footer>
             <FooterContent>
               <FooterRows>
-                <Paragraph>emails displayed:</Paragraph>
+                <Paragraph>Emails displayed:</Paragraph>
                 <Paragraph>
                   <select
                     onChange={(e) => {
