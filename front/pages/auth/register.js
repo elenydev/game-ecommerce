@@ -12,7 +12,11 @@ const Wrapper = styled.div`
   z-index: 1;
   background: url("/images/register.jpg") no-repeat center;
   background-size: cover;
-  padding-top: 10%;
+  padding-top: 25%;
+  padding-bottom: 3%;
+  @media (min-width: 960px) {
+    padding-top: 5%;
+  }
 `;
 
 const Register = () => {

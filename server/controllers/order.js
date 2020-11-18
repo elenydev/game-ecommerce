@@ -37,7 +37,7 @@ export const createOrder = async (req, res, next) => {
   const prize = req.body.prize;
 
   const mailOptions = {
-    from: "online-gaming-dummy@gmail.com",
+    from: "online.gaming.dummy@gmail.com",
     to: user.email,
     subject: "Order",
     text: "It works",

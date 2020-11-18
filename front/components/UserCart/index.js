@@ -22,10 +22,15 @@ const Wrapper = styled.div`
   width: ${({ isAdmin }) => (isAdmin ? "100%" : "90%")};
   background: ${({ isAdmin }) => (isAdmin ? "rgba(0,0,0,0.3)" : "#24272e")};
   padding-top: 25%;
+  
+  @media   (min-width: 280px)   and (orientation: landscape)   {
+    padding-top: 5%
+    ;
+  }
   @media (min-width: 960px) {
     flex-direction: row;
-    padding-top: 10%;
     width: 100%;
+    padding-top: 0;
     align-items: flex-start;
   }
 
@@ -38,8 +43,6 @@ const Wrapper = styled.div`
     }
   }
 `;
-
-
 
 const UserBox = styled.div`
   display: flex;
@@ -65,6 +68,10 @@ const UserAvatar = styled.div`
   height: 75px;
   flex: 0 0 auto;
   margin-right: 20px;
+  overflow: hidden;
+  background: ${({ background }) => `url('${background}') no-repeat center`};
+  background-size: cover;
+  border-radius: 50%;
   img {
     width: 100%;
     height: auto;
@@ -115,6 +122,10 @@ const UserCart = ({ products, orders, subscribtions, emails }) => {
   const user = useSelector(selectUser);
   const router = useRouter();
   const { variant, message, clearMessage } = useAlert();
+  const userImage =
+    user.user &&
+    "https://online-gaming-shop.herokuapp.com/" +
+      user.user.avatar.replace("images\\", "images/");
 
   useEffect(() => {
     let isMounted = true;
@@ -141,12 +152,7 @@ const UserCart = ({ products, orders, subscribtions, emails }) => {
           }
         >
           <UserBox>
-            <UserAvatar>
-              <img
-                src={`https://online-gaming-shop.herokuapp.com/${user.user.avatar}`}
-                alt={user.user.firstName}
-              />
-            </UserAvatar>
+            <UserAvatar background={userImage} />
             <UserDescription>
               <CardParagraph>
                 {user.user.firstName}

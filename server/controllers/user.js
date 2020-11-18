@@ -28,7 +28,7 @@ export const signUp = async (req, res, next) => {
     return res.status(422).send({ message: "Error with avatar occured" });
   }
   const mailOptions = {
-    from: "online-gaming-dummy@gmail.com",
+    from: "online.gaming.dummy@gmail.com",
     to: email,
     subject: "Online-gaming shop account",
     text: "It works",
