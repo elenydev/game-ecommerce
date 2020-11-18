@@ -11,11 +11,9 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding-top: 10%;
   background-color: #24272e;
   min-height: 100vh;
   box-shadow: 2px 2px 8px 0 rgb(255 90 90 /60%);
-
   @media (min-width: 960px) {
     flex-direction: row;
   }

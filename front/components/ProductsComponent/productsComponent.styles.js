@@ -26,11 +26,12 @@ export const Header = styled.h2`
 
 export const ItemsContainer = styled.div`
   display: grid;
-  grid-template-columns: 1;
+  grid-template-columns: 1fr;
   grid-template-rows: auto;
   grid-gap: 20px;
   width: 80%;
   margin: 0 auto;
+  place-items: center;
 
   @media (min-width: 720px) {
     grid-template-columns: repeat(2, 1fr);

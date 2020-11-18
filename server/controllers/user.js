@@ -125,3 +125,25 @@ export const logOut = async (req, res, next) => {
     next(err);
   }
 };
+
+export const changeAvatar = async (req, res, next) => {
+  const userEmail = req.body.email;
+  const avatar = req.file;
+  const imageUrl = avatar.path;
+  const specificUser = await User.findOne({ email: userEmail });
+
+  if (specificUser) {
+    try {
+      specificUser.avatar = imageUrl;
+      await specificUser.save();
+      res.send({ imageUrl });
+      return;
+    } catch (err) {
+      res.send({ message: "Something went wrong, try again" });
+      next();
+    }
+  } else {
+    res.send({ message: "Something went wrong, try again" });
+    next();
+  }
+};

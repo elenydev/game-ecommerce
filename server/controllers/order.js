@@ -15,8 +15,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-
-
 const handleAmountOfLeftProducts = (productsArray) => {
   productsArray.map(async (product) => {
     const exisitingProduct = await Product.findOne({
@@ -76,7 +74,7 @@ export const createOrder = async (req, res, next) => {
     res.send({ message: "Some error occured, try again" });
     next(err);
   }
-};;;
+};
 
 export const getOrders = async (req, res, next) => {
   try {
@@ -94,16 +92,13 @@ export const changeStatus = async (req, res, next) => {
   const orderStatus = req.body.status;
 
   try {
-    const specificOrder  = await Order.findOne({ _id: order._id });
+    const specificOrder = await Order.findOne({ _id: order._id });
     specificOrder.status = orderStatus;
-    await specificOrder.save()
-    res.send({order});
-    next()
+    await specificOrder.save();
+    res.send({ order });
+    next();
   } catch (err) {
     res.send({ message: "Something went wrong, try again" });
     next();
   }
 };
-
-
-

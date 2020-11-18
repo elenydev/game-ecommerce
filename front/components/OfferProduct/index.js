@@ -7,7 +7,6 @@ import {
   addProductToCart,
   selectProducts,
 } from "../../Reducers/productsSlice.js";
-import useAlert from "../../hooks/useAlert.js";
 
 const Card = styled.div`
   display: flex;
@@ -16,6 +15,9 @@ const Card = styled.div`
   background: #24272e;
   transition: 0.2s all linear;
   border: 1px solid transparent;
+  max-width: 250px;
+  height: 100%;
+  width: 100%;
 
   & > span {
     display: flex;
@@ -168,7 +170,9 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
         </CardImage>
         <CardContentContainer>
           <CardContentHeader>{productName}</CardContentHeader>
-          <CardContentDescription>{productDescription}</CardContentDescription>
+          <CardContentDescription>
+            {productDescription.substring(0, 60) + "..."}
+          </CardContentDescription>
           <CardContentInfoWrapper>
             <CardContentType>{gameType}</CardContentType>
             <CardContentPrize>{prize} $</CardContentPrize>

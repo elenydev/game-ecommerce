@@ -12,7 +12,7 @@ import { dirname } from "path";
 
 import dotenv from "dotenv";
 
-import { signUp, signIn } from "./controllers/user.js";
+import { signUp, signIn, changeAvatar } from "./controllers/user.js";
 import {
   addProduct,
   getProducts,
@@ -93,6 +93,8 @@ router.get("/", (req, res, next) => {
 
 router.use("/signUp", upload.single("avatar"), signUp);
 router.use("/signIn", signIn);
+router.use("/changeAvatar", upload.single("avatar"), changeAvatar);
+
 
 router.use("/getProducts", getProducts);
 router.use("/addProduct", upload.single("productImg"), addProduct);
