@@ -296,11 +296,12 @@ const RegisterForm = () => {
         )}
 
         <CheckBox>
-          {" "}
-          You have to accept our{" "}
-          <Link href="/privacy">
+          You have to accept our
+          <Link href="/auth/policy">
             <ErrorSpan>
-              <a>Privacy Policy</a>
+              <a>
+                Privacy Policy
+              </a>
             </ErrorSpan>
           </Link>
           <Checkbox

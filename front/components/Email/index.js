@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import EmailIcon from "@material-ui/icons/Email";
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ const Wrapper = styled.div`
   margin-top: 50px;
 
   @media (min-width: 960px) {
-    margin: 0;
+    margin: 5px 0px;
   }
 `;
 
@@ -33,7 +34,6 @@ const EmailDescriptionBox = styled.div`
   min-height: 100%;
   width: 100%;
   color: #5bb2fc;
-  align-items: center;
 
   @media (min-width: 960px) {
     margin: 0 25px;
@@ -66,9 +66,9 @@ const EmailCustomerName = styled.p`
 
 const EmailMessage = styled.p`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   color: rgb(255 90 90 /90%);
-  margin: 10px 0;
+  margin-top:10px;
   word-break: break-word;
 `;
 
@@ -77,12 +77,8 @@ const EmailWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   border: 1px solid rgb(255 90 90 /60%);
-  border-right: none;
-  border-left: none;
 
-  &:nth-child(odd) {
-    border-top: none;
-  }
+
 
   @media (min-width: 960px) {
     flex-direction: row;
@@ -96,6 +92,13 @@ const DeleteWrapper = styled.div`
   justify-content: center;
   & > .MuiIconButton-root {
     color: rgb(255 90 90 /90%) !important;
+  }
+  &> a{
+    padding-top: 8px;
+  }
+
+  @media(min-width: 960px){
+    flex-direction: column;
   }
 `;
 
@@ -149,12 +152,16 @@ const Email = (props) => {
             <EmailCustomerName>
               {customerName} {date}
             </EmailCustomerName>
+            <EmailMessage>Message:</EmailMessage>
             <EmailMessage>{message}</EmailMessage>
           </EmailDescriptionBox>
         </EmailContainer>
         <DeleteWrapper>
           <IconButton onClick={() => deleteEmailFromDatabase(emailId)}>
             <DeleteForeverIcon />
+          </IconButton>
+          <IconButton>
+            <a href={`mailto:${email}`}><EmailIcon/></a>
           </IconButton>
         </DeleteWrapper>
       </EmailWrapper>

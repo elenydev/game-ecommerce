@@ -39,8 +39,6 @@ const Wrapper = styled.div`
   }
 `;
 
-
-
 const UserBox = styled.div`
   display: flex;
   padding: 10px 30px 10px 10px;
@@ -65,6 +63,10 @@ const UserAvatar = styled.div`
   height: 75px;
   flex: 0 0 auto;
   margin-right: 20px;
+  overflow: hidden;
+  background: ${({ background }) => `url('${background}') no-repeat center`};
+  background-size: cover;
+  border-radius: 50%;
   img {
     width: 100%;
     height: auto;
@@ -115,6 +117,10 @@ const UserCart = ({ products, orders, subscribtions, emails }) => {
   const user = useSelector(selectUser);
   const router = useRouter();
   const { variant, message, clearMessage } = useAlert();
+  const userImage =
+    user.user &&
+    "https://online-gaming-shop.herokuapp.com/" +
+      user.user.avatar.replace("images\\", "images/");
 
   useEffect(() => {
     let isMounted = true;
@@ -141,12 +147,7 @@ const UserCart = ({ products, orders, subscribtions, emails }) => {
           }
         >
           <UserBox>
-            <UserAvatar>
-              <img
-                src={`https://online-gaming-shop.herokuapp.com/${user.user.avatar}`}
-                alt={user.user.firstName}
-              />
-            </UserAvatar>
+            <UserAvatar background={userImage} />
             <UserDescription>
               <CardParagraph>
                 {user.user.firstName}

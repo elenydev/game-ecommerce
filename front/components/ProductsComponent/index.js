@@ -82,19 +82,19 @@ const ProductsComponent = ({ products }) => {
               <Span>of</Span>
               <Span>{arrayLength}</Span>
             </Paragraph>
-            <Paragraph>
-              <Span>
-                <IconButton onClick={() => decrementRange()}>
-                  <KeyboardArrowLeftIcon />
-                </IconButton>
-              </Span>
-              <Span>
-                <IconButton onClick={() => incrementRange()}>
-                  <KeyboardArrowRightIcon />
-                </IconButton>
-              </Span>
-            </Paragraph>
           </FooterRows>
+          <Paragraph>
+            <Span>
+              <IconButton onClick={() => decrementRange()}>
+                <KeyboardArrowLeftIcon />
+              </IconButton>
+            </Span>
+            <Span>
+              <IconButton onClick={() => incrementRange()}>
+                <KeyboardArrowRightIcon />
+              </IconButton>
+            </Span>
+          </Paragraph>
         </FooterContent>
         <FooterContent>
           <FooterRows>

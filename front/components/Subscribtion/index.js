@@ -7,6 +7,13 @@ import useAlert from "../../hooks/useAlert";
 const SubscribtionWrapper = styled.div`
   display: flex;
   min-width: 100%;
+  border: 1px solid rgb(255 90 90 /60%);
+  border-right: none;
+  border-left: none;
+
+  &:nth-child(even) {
+    border-top: none;
+  }
 `;
 
 const SubscribtionCard = styled.p`
@@ -16,13 +23,8 @@ const SubscribtionCard = styled.p`
   justify-content: flex-start;
   color: rgb(255 90 90 /90%);
   font-size: 1.2em;
-  border: 1px solid rgb(255 90 90 /60%);
-  border-right: none;
-  border-left: none;
 
-  &:nth-child(odd) {
-    border-top: none;
-  }
+  
 `;
 
 const DeleteWrapper = styled.div`
