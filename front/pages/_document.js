@@ -16,7 +16,12 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>{this.props.styleTags}</Head>
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta charSet="utf-8" />
+          <title>Online-Gaming</title>
+          {this.props.styleTags}
+        </Head>
         <body>
           <Main />
           <NextScript />

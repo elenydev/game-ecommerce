@@ -93,11 +93,11 @@ const DeleteWrapper = styled.div`
   & > .MuiIconButton-root {
     color: rgb(255 90 90 /90%) !important;
   }
-  &> a{
-    padding-top: 8px;
+  .MuiIconButton-label > a {
+    padding-top: 8px !important;
   }
 
-  @media(min-width: 960px){
+  @media (min-width: 960px) {
     flex-direction: column;
   }
 `;

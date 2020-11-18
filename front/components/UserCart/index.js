@@ -22,10 +22,15 @@ const Wrapper = styled.div`
   width: ${({ isAdmin }) => (isAdmin ? "100%" : "90%")};
   background: ${({ isAdmin }) => (isAdmin ? "rgba(0,0,0,0.3)" : "#24272e")};
   padding-top: 25%;
+  
+  @media   (min-width: 280px)   and (orientation: landscape)   {
+    padding-top: 5%
+    ;
+  }
   @media (min-width: 960px) {
     flex-direction: row;
-    padding-top: 10%;
     width: 100%;
+    padding-top: 0;
     align-items: flex-start;
   }
 
