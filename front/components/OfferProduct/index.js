@@ -16,6 +16,8 @@ const Card = styled.div`
   background: #24272e;
   transition: 0.2s all linear;
   border: 1px solid transparent;
+  max-width: 250px;
+  height: 100%;
 
   & > span {
     display: flex;
@@ -41,7 +43,7 @@ const Card = styled.div`
     color: rgba(255, 255, 255, 0.6);
   }
 
-  @media (min-width: 960px) {
+  @media  (min-width: 960px)  {
     max-width: 300px;
   }
 
