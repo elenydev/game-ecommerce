@@ -22,16 +22,24 @@ const Wrapper = styled.div`
   width: ${({ isAdmin }) => (isAdmin ? "100%" : "90%")};
   background: ${({ isAdmin }) => (isAdmin ? "rgba(0,0,0,0.3)" : "#24272e")};
   padding-top: 25%;
-  
-  @media   (min-width: 280px)   and (orientation: landscape)   {
-    padding-top: 5%
-    ;
+
+  @media (min-width: 280px) and (orientation: landscape) {
+    padding-top: 10%;
   }
   @media (min-width: 960px) {
-    flex-direction: row;
     width: 100%;
-    padding-top: 0;
+    padding: 0 5%;
+    padding-top: 10%;
+  }
+
+  @media (min-width: 1080px) {
+    flex-direction: row;
     align-items: flex-start;
+  }
+
+  @media (min-width: 1480px) {
+    padding: 0 10%;
+    padding-top: 10%;
   }
 
   & > .MuiButton-containedSecondary {

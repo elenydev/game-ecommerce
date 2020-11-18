@@ -21,8 +21,7 @@ const ProductContainer = styled.div`
   padding: 15px;
   flex-direction: column;
   border: 1px solid rgb(255 90 90 /60%);
-  border-right: none;
-  border-left: none;
+  margin: 5px 0px;
 
   @media (min-width: 960px) {
     flex-direction: row;
@@ -68,6 +67,7 @@ const ProductName = styled.h2`
 
   @media (min-width: 960px) {
     justify-content: flex-start;
+    text-align: left;
   }
 `;
 
@@ -76,6 +76,7 @@ const ProductDescription = styled.p`
   font-size: 0.9em;
   justify-content: center;
   word-break: break-word;
+  text-align: center;
 
   @media (min-width: 960px) {
     justify-content: flex-start;
@@ -85,7 +86,6 @@ const ProductDescription = styled.p`
 
 const ProductPrizeInfo = styled.div`
   display: flex;
-  flex-direction: column;
   min-height: 100%;
   align-items: center;
   justify-content: space-between;
@@ -202,7 +202,9 @@ const AdminProductListItem = ({ product, productIndex }) => {
         </ProductImage>
         <ProductDescriptionBox>
           <ProductName>{productName}</ProductName>
-          <ProductDescription>{productDescription}</ProductDescription>
+          <ProductDescription>
+            {productDescription.substring(0, 60) + "..."}
+          </ProductDescription>
           <ProductDescription>Type: {gameType}</ProductDescription>
           <ProductDescription>Device: {device}</ProductDescription>
         </ProductDescriptionBox>
