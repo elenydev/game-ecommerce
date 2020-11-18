@@ -7,7 +7,6 @@ import {
   addProductToCart,
   selectProducts,
 } from "../../Reducers/productsSlice.js";
-import useAlert from "../../hooks/useAlert.js";
 
 const Card = styled.div`
   display: flex;

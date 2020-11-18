@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
@@ -9,8 +9,8 @@ import EmailsCart from "../EmailsCart/index.js";
 import OrdersCart from "../OrdersCart/index.js";
 import AdminProductsList from "../AdminProductsList/index.js";
 import SubscribtionsList from "../SubscribtionsList/index.js";
-import useAlert from "../../hooks/useAlert.js";
-import Alert from "../Alert/index.js";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import IconButton from "@material-ui/core/IconButton";
 
 const Wrapper = styled.div`
   display: flex;
@@ -67,24 +67,18 @@ const UserBox = styled.div`
 
   @media (min-width: 960px) {
     margin-right: 50px;
-    margin-bottom: 0px;
   }
 `;
 
 const UserAvatar = styled.div`
+  position: relative;
   width: 75px;
   height: 75px;
   flex: 0 0 auto;
   margin-right: 20px;
-  overflow: hidden;
   background: ${({ background }) => `url('${background}') no-repeat center`};
   background-size: cover;
   border-radius: 50%;
-  img {
-    width: 100%;
-    height: auto;
-    border-radius: 50%;
-  }
 
   @media (min-width: 960px) {
     width: 100px;
@@ -93,6 +87,32 @@ const UserAvatar = styled.div`
   @media (min-width: 1280px) {
     width: 150px;
     height: 150px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  & > .MuiIconButton-root {
+    padding: 0;
+  }
+
+  & > label > .MuiIconButton-colorPrimary {
+    color: rgb(255 90 90 /80%) !important;
+  }
+
+  & > label {
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%);
+    bottom: -35%;
+
+    @media (min-width: 960px) {
+      bottom: -25%;
+    }
+    @media(min-width: 1280px){
+      bottom: -18%;
+    }
   }
 `;
 
@@ -126,14 +146,45 @@ const CardParagraphDescription = styled.p`
   }
 `;
 
-const UserCart = ({ products, orders, subscribtions, emails }) => {
+const UserCart = (props) => {
   const user = useSelector(selectUser);
   const router = useRouter();
-  const { variant, message, clearMessage } = useAlert();
-  const userImage =
+  const { products, orders, subscribtions, emails,setMessage,setVariant,setErrorAlert } = props;
+
+  const [userImage, setUserImage] = useState(
     user.user &&
-    "https://online-gaming-shop.herokuapp.com/" +
-      user.user.avatar.replace("images\\", "images/");
+      "https://online-gaming-shop.herokuapp.com/" +
+        user.user.avatar.replace("images\\", "images/")
+  );
+
+  const changeAvatar = async (avatar) => {
+    const data = new FormData();
+    data.append("avatar", avatar);
+    data.append("email", user.user.email);
+
+    try {
+      const send = await fetch(
+        "https://online-gaming-shop.herokuapp.com/changeAvatar",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      const response = await send.json();
+      if (response.imageUrl) {
+        setUserImage(
+          "https://online-gaming-shop.herokuapp.com/" +
+            response.imageUrl.replace("images\\", "images/")
+        );
+        setVariant("success");
+        setMessage("Avatar changed");
+      } else {
+        setErrorAlert();
+      }
+    } catch (err) {
+      setErrorAlert();
+    }
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -144,10 +195,6 @@ const UserCart = ({ products, orders, subscribtions, emails }) => {
       isMounted = false;
     };
   }, []);
-
-  useEffect(() => {
-    clearMessage();
-  }, [message]);
 
   return (
     <>
@@ -160,7 +207,27 @@ const UserCart = ({ products, orders, subscribtions, emails }) => {
           }
         >
           <UserBox>
-            <UserAvatar background={userImage} />
+            <UserAvatar background={userImage}>
+              <input
+                name="avatar"
+                type="file"
+                accept=".png, .jpg, .jpeg"
+                id="avatar"
+                className="hidden"
+                onChange={(e) => {
+                  changeAvatar(e.target.files[0]);
+                }}
+              />
+              <label htmlFor="avatar">
+                <IconButton
+                  color="primary"
+                  aria-label="upload picture"
+                  component="span"
+                >
+                  <PhotoCamera />
+                </IconButton>
+              </label>
+            </UserAvatar>
             <UserDescription>
               <CardParagraph>
                 {user.user.firstName}
@@ -189,10 +256,8 @@ const UserCart = ({ products, orders, subscribtions, emails }) => {
           {router.pathname === "/auth/account/subscribtions" && (
             <SubscribtionsList subscribtionsList={subscribtions} />
           )}
+          
         </Wrapper>
-      )}
-      {message && (
-        <Alert message={message} variant={variant} shouldOpen={true} />
       )}
     </>
   );
