@@ -28,7 +28,7 @@ const sendEmailAfterOrder = (products, customerEmail, prize) => {
       (product) => `<p>${product.productName} x${product.amount}</p>`
     )}
     <h3>Your order prize is: ${prize}$</h3>
-    <small>Have a nice day! Online-Gaming team. You can reply direct to this email or catch us on: online.gaming.dummy@gmail.com</small></p>
+    <small>Have a nice day! Online-Gaming team. You can reply directly to this email or catch us on: online.gaming.dummy@gmail.com</small></p>
     </div>`,
   };
 
