@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import useAlert from "../../hooks/useAlert";
+import useCookie from "../../hooks/useCookie";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../Reducers/userSlice";
 
 const SubscribtionWrapper = styled.div`
   display: flex;
@@ -23,8 +26,6 @@ const SubscribtionCard = styled.p`
   justify-content: flex-start;
   color: rgb(255 90 90 /90%);
   font-size: 1.2em;
-
-  
 `;
 
 const DeleteWrapper = styled.div`
@@ -46,6 +47,12 @@ const Subscribtion = (props) => {
     setMessage,
     setErrorAlert,
   } = props;
+
+  const { tokenCookie } = useCookie();
+  const {
+    user: { userId },
+  } = useSelector(selectUser);
+
   const fetchSubscribtions = async () => {
     try {
       const query = await fetch(
@@ -64,8 +71,12 @@ const Subscribtion = (props) => {
         "https://online-gaming-shop.herokuapp.com/removeSubscribtion",
         {
           method: "POST",
-          body: JSON.stringify({ email: email.email }),
+          body: JSON.stringify({
+            email: email.email,
+            userId,
+          }),
           headers: {
+            Authorization: "Bearer " + tokenCookie,
             "Content-Type": "application/json",
           },
         }

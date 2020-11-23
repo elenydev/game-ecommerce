@@ -8,8 +8,8 @@ import Link from "next/link";
 import Alert from "../Alert/index";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../Reducers/userSlice.js";
-import Cookies from "universal-cookie";
 import useAlert from "../../hooks/useAlert";
+import useCookie from "../../hooks/useCookie";
 
 const Wrapper = styled.div`
   display: flex;
@@ -109,7 +109,7 @@ const Login = () => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues,
   });
-  
+
   const {
     message,
     setMessage,
@@ -119,9 +119,10 @@ const Login = () => {
     setErrorAlert,
   } = useAlert();
 
+  const { setCookie } = useCookie();
+
   const router = useRouter();
   const dispatch = useDispatch();
-  const cookies = new Cookies();
 
   const loginUser = async (data, event) => {
     event.preventDefault();
@@ -142,18 +143,15 @@ const Login = () => {
         if (response.user) {
           setTimeout(() => {
             dispatch(setUser(response.user));
-            const date = new Date(new Date().getTime() + 15 * 60 * 1000);
-            cookies.set("User", response.user, {
-              expires: date,
-            });
+            setCookie("User", response.user);
+            setCookie("Token", response.token);
             reset();
             setVariant("success");
             setMessage("You are logged in");
             router.push("/auth/account/cart");
           }, 600);
-        }
-        else{
-          setErrorAlert()
+        } else {
+          setErrorAlert();
         }
       } else {
         setVariant("error");
@@ -164,11 +162,9 @@ const Login = () => {
     }
   };
 
-  
   useEffect(() => {
     clearMessage();
   }, [message]);
-
 
   return (
     <Wrapper>

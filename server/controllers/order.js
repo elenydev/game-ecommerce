@@ -39,6 +39,26 @@ const sendEmailAfterOrder = (products, customerEmail, prize) => {
   });
 };
 
+const checkIfProductsAreAvailable = async (userProducts) => {
+  const availableProducts = await Product.find();
+  const unvailableProducts = [];
+
+  userProducts.filter((userProduct) => {
+    availableProducts.map((availableProduct) => {
+      if (
+        userProduct.device === availableProduct.device &&
+        userProduct.productName === availableProduct.productName
+      ) {
+        if (availableProduct.availableAmount < userProduct.amount) {
+          unvailableProducts.push(userProduct);
+        }
+      }
+    });
+  });
+
+  return unvailableProducts;
+};
+
 const handleAmountOfLeftProducts = (productsArray) => {
   productsArray.map(async (product) => {
     const exisitingProduct = await Product.findOne({
@@ -56,6 +76,18 @@ export const createOrder = async (req, res, next) => {
   const products = req.body.products;
   const user = req.body.user;
   const prize = req.body.prize;
+
+  const notAvailableProducts = await checkIfProductsAreAvailable(products);
+
+  if (notAvailableProducts.length > 0) {
+    res.statusCode = 500;
+    res.send({
+      unavailableProducts: `Someone just bought ${notAvailableProducts.map(
+        (product) => `${product.productName}, `
+      )} delete it from the cart to make the order.`,
+    });
+    return;
+  }
 
   try {
     const order = new Order({

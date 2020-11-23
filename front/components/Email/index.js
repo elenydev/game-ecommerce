@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EmailIcon from "@material-ui/icons/Email";
+import useCookie from "../../hooks/useCookie";
+import { selectUser } from "../../Reducers/userSlice";
+import { useSelector } from "react-redux";
 
 const Wrapper = styled.div`
   display: flex;
@@ -105,6 +108,10 @@ const DeleteWrapper = styled.div`
 const Email = (props) => {
   const { customerName, email, message, date } = props.emailMessage;
   const { setEmails, emailId, setMessage, setVariant, setErrorAlert } = props;
+  const { tokenCookie } = useCookie();
+  const {
+    user: { userId },
+  } = useSelector(selectUser);
 
   const fetchEmails = async () => {
     try {
@@ -124,8 +131,9 @@ const Email = (props) => {
         "https://online-gaming-shop.herokuapp.com/removeEmail",
         {
           method: "POST",
-          body: JSON.stringify({ emailId: emailId }),
+          body: JSON.stringify({ emailId: emailId, userId }),
           headers: {
+            Authorization: "Bearer " + tokenCookie,
             "Content-Type": "application/json",
           },
         }

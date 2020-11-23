@@ -9,6 +9,9 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Alert from "../../components/Alert/index.js";
 import useAlert from "../../hooks/useAlert";
+import useCookie from "../../hooks/useCookie";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../Reducers/userSlice";
 
 const Form = styled.form`
   display: flex;
@@ -111,6 +114,10 @@ const AddProductForm = () => {
   const { register, handleSubmit, errors, setError, reset, control } = useForm({
     defaultValues,
   });
+  const { tokenCookie } = useCookie();
+  const {
+    user: { userId },
+  } = useSelector(selectUser);
 
   const {
     message,
@@ -151,6 +158,7 @@ const AddProductForm = () => {
     product.append("availableAmount", availableAmount);
     product.append("productImg", productImg[0]);
     product.append("device", device);
+    product.append("userId", userId);
 
     try {
       const send = await fetch(
@@ -158,6 +166,9 @@ const AddProductForm = () => {
         {
           method: "POST",
           body: product,
+          headers: {
+            Authorization: "Bearer " + tokenCookie,
+          },
         }
       );
       const response = await send.json();

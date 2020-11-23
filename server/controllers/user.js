@@ -2,6 +2,8 @@ import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
@@ -88,19 +90,27 @@ export const signIn = async (req, res, next) => {
   const password = req.body.password;
 
   try {
-    const user = await User.find({ email: email });
-    if (user.length !== 0) {
+    const user = await User.findOne({ email: email });
+    if (user !== null) {
       await bcrypt
-        .compare(password, user[0].password)
+        .compare(password, user.password)
         .then((match) => {
           if (match === true) {
+            const { firstName, lastName, email, avatar, _id } = user;
+            const token = jwt.sign(
+              { email: email, userId: _id.toString() },
+              process.env.SECRET,
+              { expiresIn: "1h" }
+            );
             return res.send({
               user: {
-                firstName: user[0].firstName,
-                lastName: user[0].lastName,
-                email: user[0].email,
-                avatar: user[0].avatar,
+                firstName,
+                lastName,
+                email,
+                avatar,
+                userId: user._id,
               },
+              token,
             });
           } else {
             res.send({ message: "Wrong password provided, try again" });
@@ -138,7 +148,7 @@ export const changeAvatar = async (req, res, next) => {
     try {
       specificUser.avatar = imageUrl;
       await specificUser.save();
-      res.send({ imageUrl });
+      res.send({ imageUrl, user: specificUser });
       return;
     } catch (err) {
       res.send({ message: "Something went wrong, try again" });

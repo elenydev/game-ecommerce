@@ -3,6 +3,9 @@ import styled from "styled-components";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { IconButton } from "@material-ui/core";
+import useCookie from "../../hooks/useCookie";
+import { selectUser } from "../../Reducers/userSlice";
+import { useSelector } from "react-redux";
 
 const Wrapper = styled.div`
   display: flex;
@@ -147,6 +150,10 @@ const AdminProductListItem = ({ product, productIndex }) => {
     device,
   } = product;
 
+  const { tokenCookie } = useCookie();
+  const {
+    user: { userId },
+  } = useSelector(selectUser);
   const [productAmount, setProductAmount] = useState(availableAmount);
   let newAmount = 0;
 
@@ -173,6 +180,7 @@ const AdminProductListItem = ({ product, productIndex }) => {
     const data = {
       productId: product._id,
       productAmount: newAmount,
+      userId,
     };
     try {
       const query = await fetch(
@@ -181,6 +189,7 @@ const AdminProductListItem = ({ product, productIndex }) => {
           method: "POST",
           body: JSON.stringify(data),
           headers: {
+            Authorization: "Bearer " + tokenCookie,
             "Content-Type": "application/json",
           },
         }
