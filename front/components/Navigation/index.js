@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import {
   Wrapper,
   Container,
@@ -25,6 +26,7 @@ const Navigation = () => {
   const productsArray = useSelector(selectProducts);
   const dispatch = useDispatch();
   const { deleteCookie } = useCookie();
+  const router = useRouter();
 
   const handleClick = () => {
     const hamburger = document.querySelector(".hamburger__inner");
@@ -41,6 +43,9 @@ const Navigation = () => {
       dispatch(clearCart());
       setUser({ user: null });
     }, 300);
+    setTimeout(() => {
+      router.push("/");
+    }, 400);
   };
 
   useEffect(() => {

@@ -1,0 +1,210 @@
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import useCookie from "../../hooks/useCookie";
+
+import Input from "@material-ui/core/Input";
+import { FormLabel, Button } from "@material-ui/core";
+import styled from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import { selectUser } from "../../Reducers/userSlice";
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    position: "absolute",
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    boxShadow: "2px 2px 8px 0 rgb(0 0 0 / 60%)",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%,-50%)",
+  },
+}));
+
+const Form = styled.form`
+  display: flex;
+
+  width: 90%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+
+  & > .MuiButton-containedSecondary {
+    margin: 15px;
+    background-color: #b73d1cbf;
+
+    &:hover {
+      background-color: #ff3600bf;
+    }
+  }
+
+  & > .MuiFormLabel-root {
+    color: white;
+  }
+
+  & > .hidden {
+    display: none;
+  }
+
+  & > label > .MuiIconButton-colorPrimary {
+    color: #ff3600bf !important;
+  }
+
+  @media (min-width: 650px) {
+    width: fit-content;
+  }
+`;
+
+const ErrorSpan = styled.span`
+  color: #ff5a5a;
+  font-size: 12px;
+`;
+
+const InputElement = styled(Input)`
+  margin: 8px 0;
+  color: white;
+
+  & > .MuiInputBase-input {
+    color: white;
+  }
+`;
+
+const Paragraph = styled.p`
+  cursor: pointer;
+  margin-right: 7px;
+  color: rgb(255 90 90 /85%);
+  min-height: 100%;
+`;
+
+const Header = styled.h4`
+  display: flex;
+  font-weight: 700;
+  color: rgb(255 90 90 /85%);
+  margin-bottom: 7px;
+`;
+
+const defaultValues = {
+  password: null,
+  newPassword: null,
+};
+
+const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
+  const { register, handleSubmit, errors, setError, reset } = useForm({
+    defaultValues,
+  });
+
+  const {
+    user: { email },
+  } = useSelector(selectUser);
+  const { tokenCookie } = useCookie();
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const changePassword = async (data, event) => {
+    event.preventDefault();
+    const queryData = {
+      password: data.password,
+      newPassword: data.newPassword,
+      email,
+    };
+
+    try {
+      const query = await fetch(
+        "https://online-gaming-shop.herokuapp.com/changePassword",
+        {
+          method: "POST",
+          body: JSON.stringify(queryData),
+          headers: {
+            Authorization: "Bearer " + tokenCookie,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const response = await query.json();
+      if (response.user) {
+        setVariant("success");
+        setMessage("Password changed");
+        handleClose();
+        reset();
+      }
+      if (response.message) {
+        setVariant("error");
+        setMessage(response.message);
+      }
+    } catch (err) {
+      setErrorAlert();
+    }
+  };
+
+  return (
+    <>
+      <Paragraph onClick={handleOpen}>Password</Paragraph>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <Form onSubmit={handleSubmit(changePassword)} className={classes.paper}>
+          <Header>Change Password</Header>
+
+          <FormLabel>
+            <InputElement
+              type="password"
+              name="password"
+              placeholder="Current Password"
+              inputRef={register({ required: true })}
+              onChange={() => {
+                setError("password", {
+                  type: "manual",
+                  message: "You have to provide a current password",
+                });
+              }}
+            />
+          </FormLabel>
+          {errors.password && errors.password.type === "required" && (
+            <ErrorSpan>Please provide a current password</ErrorSpan>
+          )}
+          <FormLabel>
+            <InputElement
+              type="password"
+              name="newPassword"
+              placeholder="New Password"
+              inputRef={register({ required: true })}
+              onChange={() => {
+                setError("password", {
+                  type: "manual",
+                  message: "You have to provide a new password",
+                });
+              }}
+            />
+          </FormLabel>
+          {errors.newPassword && errors.newPassword.type === "required" && (
+            <ErrorSpan>Please provide a new password</ErrorSpan>
+          )}
+
+          <Button type="submit" variant="contained" color="secondary">
+            Change
+          </Button>
+        </Form>
+      </Modal>
+    </>
+  );
+};
+
+export default ChangePasswordCart;

@@ -16,6 +16,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   background: ${({ isAdmin }) =>
     isAdmin ? 'url("/images/register.jpg") no-repeat center' : "#24272e"};
+  background: url("/images/register.jpg") no-repeat center;
   background-size: cover;
   min-height: 100vh;
   box-shadow: 2px 2px 8px 0 rgb(255 90 90 /60%);

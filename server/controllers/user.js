@@ -22,7 +22,6 @@ const sendEmailAfterUserRegister = (userFirstName, email) => {
     from: "online.gaming.dummy@gmail.com",
     to: email,
     subject: "Online-gaming shop account",
-    text: "It works",
     html: `<h3>Thank you for joining our Online-Gaming ${userFirstName}</h3>
     <br/>
     <div>
@@ -31,6 +30,28 @@ const sendEmailAfterUserRegister = (userFirstName, email) => {
     <p>Stay tuned for new products and check your email carefully for getting discount codes from us :)</p>
     <br/>
     <br/>
+    <small>Have a nice day! Online-Gaming team. You can reply direct to this email or catch us on: online.gaming.dummy@gmail.com</small></p>
+    </div>`,
+  };
+  transporter.sendMail(mailOptions, function (err, data) {
+    if (err) {
+      console.log(err);
+    }
+  });
+};
+
+const sendEmailAfterRemindPassword = (email, newPassword) => {
+  const mailOptions = {
+    from: "online.gaming.dummy@gmail.com",
+    to: email,
+    subject: "Online-gaming shop account",
+    html: `<h3>It looks like you forgot your password</h3>
+    <br/>
+    <div>
+    <p>Hi ${email},</p>
+    <p>Your new password is: ${newPassword}. You can now log in and change it for your own :)</p>
+    <br/>
+    <p>If you doesn't tried to remind your password, immediately contact with us!</p>
     <small>Have a nice day! Online-Gaming team. You can reply direct to this email or catch us on: online.gaming.dummy@gmail.com</small></p>
     </div>`,
   };
@@ -157,5 +178,79 @@ export const changeAvatar = async (req, res, next) => {
   } else {
     res.send({ message: "Something went wrong, try again" });
     next();
+  }
+};
+
+export const changePassword = async (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const newPassword = req.body.newPassword;
+
+  if (password === newPassword) {
+    res.statusCode = 500;
+    res.send({ message: "You provided the same password " });
+    return;
+  }
+
+  try {
+    const user = await User.findOne({ email: email });
+    if (user !== null) {
+      await bcrypt
+        .compare(password, user.password)
+        .then(async (match) => {
+          if (match === true) {
+            const hashedPw = await bcrypt.hash(newPassword, 12);
+            user.password = hashedPw;
+            await user.save();
+            const { firstName, lastName, email, avatar, _id } = user;
+
+            return res.send({
+              user: {
+                firstName,
+                lastName,
+                email,
+                avatar,
+                userId: _id,
+              },
+            });
+          } else {
+            res.send({ message: "Wrong password provided, try again" });
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+    next();
+  } catch (err) {
+    res.status(404).send({ message: "Something went wrong, try again" });
+    next(err);
+  }
+};
+
+
+export const remindPassword = async (req, res, next) => {
+  const email = req.body.email;
+
+  try {
+    const user = await User.findOne({ email: email });
+    if (user) {
+      const generatedRandomPassword =
+        Math.random().toString(36).substring(2, 15) +
+        Math.random().toString(36).substring(2, 15);
+      const hashedPw = await bcrypt.hash(generatedRandomPassword, 12);
+      user.password = hashedPw;
+      await user.save();
+      sendEmailAfterRemindPassword(email, generatedRandomPassword);
+      res.send({
+        user: {
+          email: user.email,
+        },
+      });
+    } else {
+      res.statusCode = 500;
+      res.send({ message: "We don't have user with this email" });
+    }
+  } catch (err) {
+    res.statusCode = 404;
+    res.send({ message: "Something went wrong, try again later" });
   }
 };

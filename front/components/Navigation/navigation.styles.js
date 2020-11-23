@@ -139,6 +139,7 @@ export const Hamburger = styled.button`
   background-color: transparent;
   z-index: 100;
   border: 0;
+  outline: 1px solid rgb(255 90 90 /85%);
   margin: 0;
   transition: transform 0.3s 0.1s ease-in-out;
   @media (min-width: 960px) {
