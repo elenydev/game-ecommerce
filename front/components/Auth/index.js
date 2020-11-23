@@ -3,13 +3,14 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import Input from "@material-ui/core/Input";
-import { FormLabel, Button, Checkbox } from "@material-ui/core";
+import { FormLabel, Button } from "@material-ui/core";
 import Link from "next/link";
 import Alert from "../Alert/index";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../Reducers/userSlice.js";
 import useAlert from "../../hooks/useAlert";
 import useCookie from "../../hooks/useCookie";
+import RemindPassword from "../RemindPasswordCart";
 
 const Wrapper = styled.div`
   display: flex;
@@ -60,6 +61,7 @@ const LoginDiv = styled.div`
   margin: 5px 0;
   transition: 0.3s ease-in-out;
   position: relative;
+  cursor: pointer;
 
   &:before {
     bottom: 0;
@@ -149,7 +151,7 @@ const Login = () => {
             setVariant("success");
             setMessage("You are logged in");
             router.push("/auth/account/cart");
-          }, 600);
+          }, 100);
         } else {
           setErrorAlert();
         }
@@ -214,16 +216,21 @@ const Login = () => {
         {errors.password && errors.password.type === "required" && (
           <ErrorSpan>Please provide a password</ErrorSpan>
         )}
-
         <Button type="submit" variant="contained" color="secondary">
           Sign in
         </Button>
+
         <LoginDiv>
           <Link href="/auth/register">
             <a>Back to sign up</a>
           </Link>
         </LoginDiv>
       </Form>
+      <RemindPassword
+        setMessage={setMessage}
+        setVariant={setVariant}
+        setErrorAlert={setErrorAlert}
+      />
 
       {message && (
         <Alert message={message} variant={variant} shouldOpen={true} />

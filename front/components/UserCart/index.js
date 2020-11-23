@@ -12,6 +12,7 @@ import SubscribtionsList from "../SubscribtionsList/index.js";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import IconButton from "@material-ui/core/IconButton";
 import useCookie from "../../hooks/useCookie";
+import ChangePasswordCart from "../ChangePasswordCart/index.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,8 +21,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   padding: 5%;
   min-height: 100vh;
-  width: ${({ isAdmin }) => (isAdmin ? "100%" : "90%")};
-  background: ${({ isAdmin }) => (isAdmin ? "rgba(0,0,0,0.3)" : "#24272e")};
+  width: 100%;
+  background: ${({ isAdmin }) =>
+    isAdmin ? "rgba(0,0,0,0.3)" : "rgba(0,0,0, 0.7)"};
+  background: ${({ subCart }) => subCart && "#24272e"};
   padding-top: 25%;
 
   @media (min-width: 280px) and (orientation: landscape) {
@@ -52,6 +55,8 @@ const Wrapper = styled.div`
     }
   }
 `;
+
+const SubRoadsWrapper = styled.div``;
 
 const UserBox = styled.div`
   display: flex;
@@ -118,15 +123,23 @@ const UserAvatar = styled.div`
 `;
 
 const MenuBox = styled.div`
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -40px;
+  padding: 5px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  font-size: 0.8em;
+
+  @media (min-width: 960px) {
+    font-size: 1em;
+  }
 `;
 
 const UserDescription = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 5px;
 `;
 
 const CardParagraph = styled.p`
@@ -214,11 +227,8 @@ const UserCart = (props) => {
     <>
       {user.user && (
         <Wrapper
-          isAdmin={
-            user.user.email === "admin@admin.com" &&
-            router.pathname === "/auth/account/cart" &&
-            true
-          }
+          isAdmin={user.user.email === "admin@admin.com" && true}
+          subCart={router.pathname !== "/auth/account/cart" && true}
         >
           <UserBox>
             <UserAvatar background={userImage}>
@@ -252,15 +262,18 @@ const UserCart = (props) => {
               <CardParagraphDescription>
                 {user.user.email}
               </CardParagraphDescription>
+
+              <MenuBox>
+                <ChangePasswordCart
+                  setMessage={setMessage}
+                  setVariant={setVariant}
+                  setErrorAlert={setErrorAlert}
+                />
+                {user.user.email === "admin@admin.com" && <Sidebar />}
+              </MenuBox>
             </UserDescription>
-
-            <MenuBox>
-              {user.user.email === "admin@admin.com" && <Sidebar />}
-            </MenuBox>
           </UserBox>
-
           {router.pathname === "/auth/account/cart" && <ProductsCart />}
-
           {router.pathname === "/auth/account/emails" && (
             <EmailsCart emailsList={emails} />
           )}
@@ -279,6 +292,6 @@ const UserCart = (props) => {
       )}
     </>
   );
-};;;
+};
 
 export default UserCart;
