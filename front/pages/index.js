@@ -12,14 +12,13 @@ import ContactForm from "../components/ContactForm/index.js";
 import ProductsComponent from "../components/ProductsComponent/index.js";
 import { useDispatch } from "react-redux";
 import { setUser } from "../Reducers/userSlice.js";
-import Cookies from "universal-cookie";
+import useCookie from "../hooks/useCookie";
 
 const Home = React.memo(({  products  }) => {
   const dispatch = useDispatch();
-  const cookies = new Cookies();
+  const { userCookie } = useCookie();
 
   useEffect(() => {
-    const userCookie = cookies.get("User");
     if (!userCookie) {
       return;
     }
@@ -40,7 +39,7 @@ const Home = React.memo(({  products  }) => {
       <Hero />
       <GameTypes />
       <Devices />
-      <ProductsComponent products={products}/>
+      <ProductsComponent products={products} />
       <OurTeam />
       <ContactForm />
       <Footer />
@@ -52,6 +51,7 @@ export async function getStaticProps() {
   const query = await fetch(
     "https://online-gaming-shop.herokuapp.com/getProducts"
   );
+
   const response = await query.json();
   const products = response.products ? response.products : [];
 

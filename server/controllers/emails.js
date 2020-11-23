@@ -15,7 +15,25 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-
+const sendEmail = (email, customerName) => {
+  const mailOptions = {
+    from: email,
+    to: "online.gaming.dummy@gmail.com",
+    subject: `Email from site: ${customerName}`,
+    html: `<h3>Email from: ${customerName}</h3>
+    <br/>
+    <div>
+    <p>${message}</p>
+    <br/>
+    <small>Reply to the customer: ${email}</small></p>
+    </div>`,
+  };
+  transporter.sendMail(mailOptions, function (err, data) {
+    if (err) {
+      console.log(err);
+    }
+  });
+};
 
 export const receiveEmail = async (req, res, next) => {
   const customerName = req.body.customerName;
@@ -23,18 +41,6 @@ export const receiveEmail = async (req, res, next) => {
   const message = req.body.message;
   const date = new Date().toLocaleString();
 
-   const mailOptions = {
-     from: email,
-     to: "online.gaming.dummy@gmail.com",
-     subject: `Email from site: ${customerName}`,
-     html: `<h3>Email from: ${customerName}</h3>
-    <br/>
-    <div>
-    <p>${message}</p>
-    <br/>
-    <small>Reply to the customer: ${email}</small></p>
-    </div>`,
-   };
   try {
     const newEmail = new Email({
       customerName,
@@ -44,11 +50,7 @@ export const receiveEmail = async (req, res, next) => {
     });
     await newEmail.save();
     res.send({ newEmail });
-    transporter.sendMail(mailOptions, function (err, data) {
-      if (err) {
-        console.log(err);
-      }
-    });
+    sendEmail(email, customerName);
     next();
   } catch (err) {
     res.send({ message: "Something went wrong, try again" });

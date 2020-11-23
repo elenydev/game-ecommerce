@@ -17,14 +17,14 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser, deleteUser } from "../../Reducers/userSlice.js";
 import { clearCart, selectProducts } from "../../Reducers/productsSlice.js";
-import Cookies from "universal-cookie";
+import useCookie from "../../hooks/useCookie.js";
 
 const Navigation = () => {
   const [user, setUser] = useState({ user: null });
   const sliceUser = useSelector(selectUser);
   const productsArray = useSelector(selectProducts);
   const dispatch = useDispatch();
-  const cookies = new Cookies();
+  const { deleteCookie } = useCookie();
 
   const handleClick = () => {
     const hamburger = document.querySelector(".hamburger__inner");
@@ -34,10 +34,13 @@ const Navigation = () => {
   };
 
   const logOut = () => {
-    cookies.remove("User");
-    dispatch(deleteUser());
-    dispatch(clearCart());
-    setUser({ user: null });
+    deleteCookie("User");
+    deleteCookie("Token");
+    setTimeout(() => {
+      dispatch(deleteUser());
+      dispatch(clearCart());
+      setUser({ user: null });
+    }, 300);
   };
 
   useEffect(() => {

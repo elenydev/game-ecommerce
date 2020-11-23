@@ -15,6 +15,50 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+const sendEmailAfterOrder = (products, customerEmail, prize) => {
+  const mailOptions = {
+    from: "online.gaming.dummy@gmail.com",
+    to: customerEmail,
+    subject: "Order",
+    text: "It works",
+    html: `<h2>Thank you for selecting Online-Gaming </h2>
+    <div>
+    <h3>Your order:</h3>
+    ${products.map(
+      (product) => `<p>${product.productName} x${product.amount}</p>`
+    )}
+    <h3>Your order prize is: ${prize}$</h3>
+    <small>Have a nice day! Online-Gaming team. You can reply directly to this email or catch us on: online.gaming.dummy@gmail.com</small></p>
+    </div>`,
+  };
+
+  transporter.sendMail(mailOptions, function (err, data) {
+    if (err) {
+      console.log(err);
+    }
+  });
+};
+
+const checkIfProductsAreAvailable = async (userProducts) => {
+  const availableProducts = await Product.find();
+  const unvailableProducts = [];
+
+  userProducts.filter((userProduct) => {
+    availableProducts.map((availableProduct) => {
+      if (
+        userProduct.device === availableProduct.device &&
+        userProduct.productName === availableProduct.productName
+      ) {
+        if (availableProduct.availableAmount < userProduct.amount) {
+          unvailableProducts.push(userProduct);
+        }
+      }
+    });
+  });
+
+  return unvailableProducts;
+};
+
 const handleAmountOfLeftProducts = (productsArray) => {
   productsArray.map(async (product) => {
     const exisitingProduct = await Product.findOne({
@@ -24,7 +68,6 @@ const handleAmountOfLeftProducts = (productsArray) => {
 
     exisitingProduct.availableAmount =
       exisitingProduct.availableAmount - product.amount;
-
     await exisitingProduct.save();
   });
 };
@@ -34,22 +77,17 @@ export const createOrder = async (req, res, next) => {
   const user = req.body.user;
   const prize = req.body.prize;
 
-  const mailOptions = {
-    from: "online.gaming.dummy@gmail.com",
-    to: user.email,
-    subject: "Order",
-    text: "It works",
-    html: `<h2>Thank you for selecting Online-Gaming </h2>
-    <div>
-    <h3>Your order:</h3>
-    ${products.map(
-      (product) => `<p>${product.productName} x${product.amount}</p>`
-    )}
+  const notAvailableProducts = await checkIfProductsAreAvailable(products);
 
-    <h3>Your order prize is: ${prize}$</h3>
-    <small>Have a nice day! Online-Gaming team. You can reply direct to this email or catch us on: online.gaming.dummy@gmail.com</small></p>
-    </div>`,
-  };
+  if (notAvailableProducts.length > 0) {
+    res.statusCode = 500;
+    res.send({
+      unavailableProducts: `Someone just bought ${notAvailableProducts.map(
+        (product) => `${product.productName}, `
+      )} delete it from the cart to make the order.`,
+    });
+    return;
+  }
 
   try {
     const order = new Order({
@@ -63,11 +101,7 @@ export const createOrder = async (req, res, next) => {
     });
     await order.save();
     res.send({ order });
-    transporter.sendMail(mailOptions, function (err, data) {
-      if (err) {
-        console.log(err);
-      }
-    });
+    sendEmailAfterOrder(products, user.email, prize);
     handleAmountOfLeftProducts(products);
     next();
   } catch (err) {

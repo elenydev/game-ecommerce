@@ -25,6 +25,7 @@ import {
   getSubscribtions,
   removeSubscribtion,
 } from "./controllers/subscriptions.js";
+import isAuth from "./middleware/is-auth.js";
 import { get } from "http";
 
 dotenv.config();
@@ -93,24 +94,24 @@ router.get("/", (req, res, next) => {
 
 router.use("/signUp", upload.single("avatar"), signUp);
 router.use("/signIn", signIn);
-router.use("/changeAvatar", upload.single("avatar"), changeAvatar);
+router.use("/changeAvatar", isAuth, upload.single("avatar"), changeAvatar);
 
 
 router.use("/getProducts", getProducts);
-router.use("/addProduct", upload.single("productImg"), addProduct);
-router.use("/changeAmount", changeAmount);
+router.use("/addProduct", isAuth, upload.single("productImg"), addProduct);
+router.use("/changeAmount", isAuth, changeAmount);
 
-router.use("/createOrder", createOrder);
+router.use("/createOrder", isAuth, createOrder);
 router.use("/getOrders", getOrders);
-router.use("/changeStatus", changeStatus);
+router.use("/changeStatus", isAuth, changeStatus);
 
 router.use("/receiveEmail", receiveEmail);
 router.use("/getEmails", getEmails);
-router.use("/removeEmail", removeEmail);
+router.use("/removeEmail", isAuth, removeEmail);
 
 router.use("/addSubscriber", addSubscriber);
 router.use("/getSubscribtions", getSubscribtions);
-router.use("/removeSubscribtion", removeSubscribtion);
+router.use("/removeSubscribtion", isAuth, removeSubscribtion);
 
 
 app.use("/", router);

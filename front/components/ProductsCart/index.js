@@ -8,6 +8,7 @@ import { selectUser } from "../../Reducers/userSlice.js";
 import AddProductForm from "../../components/AddProductForm/index.js";
 import Alert from "../Alert/index.js";
 import useAlert from "../../hooks/useAlert.js";
+import useCookie from "../../hooks/useCookie.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -54,6 +55,7 @@ const TotalPrize = styled.p`
 const ProductsCart = () => {
   const { products } = useSelector(selectProducts);
   const { user } = useSelector(selectUser);
+  const { tokenCookie } = useCookie();
   const dispatch = useDispatch();
   const {
     message,
@@ -77,6 +79,7 @@ const ProductsCart = () => {
       products,
       user,
       prize: getPrize(),
+      userId: user.userId,
     };
     try {
       const request = await fetch(
@@ -85,6 +88,7 @@ const ProductsCart = () => {
           method: "POST",
           body: JSON.stringify(data),
           headers: {
+            Authorization: "Bearer " + tokenCookie,
             "Content-Type": "application/json",
           },
         }
@@ -97,6 +101,10 @@ const ProductsCart = () => {
       }
       if (response.message) {
         setErrorAlert();
+      }
+      if (response.unavailableProducts) {
+        setVariant("error");
+        setMessage(response.unavailableProducts);
       }
     } catch (err) {
       setErrorAlert();

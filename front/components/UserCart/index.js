@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../Reducers/userSlice.js";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, setUser } from "../../Reducers/userSlice.js";
 import ProductsCart from "../ProductsCart/index.js";
 import Sidebar from "../Sidebar/index.js";
 import EmailsCart from "../EmailsCart/index.js";
@@ -11,6 +11,7 @@ import AdminProductsList from "../AdminProductsList/index.js";
 import SubscribtionsList from "../SubscribtionsList/index.js";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import IconButton from "@material-ui/core/IconButton";
+import useCookie from "../../hooks/useCookie";
 
 const Wrapper = styled.div`
   display: flex;
@@ -110,7 +111,7 @@ const UserAvatar = styled.div`
     @media (min-width: 960px) {
       bottom: -25%;
     }
-    @media(min-width: 1280px){
+    @media (min-width: 1280px) {
       bottom: -18%;
     }
   }
@@ -148,9 +149,18 @@ const CardParagraphDescription = styled.p`
 
 const UserCart = (props) => {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   const router = useRouter();
-  const { products, orders, subscribtions, emails,setMessage,setVariant,setErrorAlert } = props;
-
+  const {
+    products,
+    orders,
+    subscribtions,
+    emails,
+    setMessage,
+    setVariant,
+    setErrorAlert,
+  } = props;
+  const { tokenCookie } = useCookie();
   const [userImage, setUserImage] = useState(
     user.user &&
       "https://online-gaming-shop.herokuapp.com/" +
@@ -161,13 +171,16 @@ const UserCart = (props) => {
     const data = new FormData();
     data.append("avatar", avatar);
     data.append("email", user.user.email);
-
+    data.append("userId", user.user.userId);
     try {
       const send = await fetch(
         "https://online-gaming-shop.herokuapp.com/changeAvatar",
         {
           method: "POST",
           body: data,
+          headers: {
+            Authorization: "Bearer " + tokenCookie,
+          },
         }
       );
       const response = await send.json();
@@ -176,6 +189,7 @@ const UserCart = (props) => {
           "https://online-gaming-shop.herokuapp.com/" +
             response.imageUrl.replace("images\\", "images/")
         );
+        setUser(user);
         setVariant("success");
         setMessage("Avatar changed");
       } else {
@@ -228,6 +242,7 @@ const UserCart = (props) => {
                 </IconButton>
               </label>
             </UserAvatar>
+
             <UserDescription>
               <CardParagraph>
                 {user.user.firstName}
@@ -238,29 +253,32 @@ const UserCart = (props) => {
                 {user.user.email}
               </CardParagraphDescription>
             </UserDescription>
+
             <MenuBox>
               {user.user.email === "admin@admin.com" && <Sidebar />}
             </MenuBox>
           </UserBox>
 
           {router.pathname === "/auth/account/cart" && <ProductsCart />}
+
           {router.pathname === "/auth/account/emails" && (
             <EmailsCart emailsList={emails} />
           )}
+
           {router.pathname === "/auth/account/orders" && (
             <OrdersCart orders={orders} />
           )}
+
           {router.pathname === "/auth/account/products" && (
             <AdminProductsList products={products} />
           )}
           {router.pathname === "/auth/account/subscribtions" && (
             <SubscribtionsList subscribtionsList={subscribtions} />
           )}
-          
         </Wrapper>
       )}
     </>
   );
-};
+};;;
 
 export default UserCart;

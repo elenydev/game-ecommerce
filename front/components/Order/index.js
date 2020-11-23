@@ -2,11 +2,14 @@ import { Select, MenuItem, FormControlLabel } from "@material-ui/core";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FormLabel } from "@material-ui/core";
+import {useSelector} from 'react-redux'
 
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { selectUser } from "../../Reducers/userSlice";
+import useCookie from "../../hooks/useCookie";
 
 const Wrapper = styled.div`
   display: flex;
@@ -180,6 +183,8 @@ const Order = ({ specificOrder, index }) => {
     date,
     status,
   } = specificOrder;
+  const {user: {userId}} = useSelector(selectUser)
+  const {tokenCookie} = useCookie()
 
   const [orderStatus, setOrderStatus] = useState(status);
 
@@ -187,6 +192,7 @@ const Order = ({ specificOrder, index }) => {
     const data = {
       order: specificOrder,
       status: e.target.value,
+      userId
     };
     const query = await fetch(
       "https://online-gaming-shop.herokuapp.com/changeStatus",
@@ -194,6 +200,7 @@ const Order = ({ specificOrder, index }) => {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
+          Authorization: "Bearer " + tokenCookie,
           "Content-Type": "application/json",
         },
       }
@@ -205,11 +212,14 @@ const Order = ({ specificOrder, index }) => {
   return (
     <Wrapper>
       <OrderContainer>
+        
         <OrderDescriptionBox>
           <CustomerEmail>{customerEmail}</CustomerEmail>
+          
           <CustomerName>
             {customerFirstName} {customerLastName} {date}
           </CustomerName>
+          
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -218,6 +228,7 @@ const Order = ({ specificOrder, index }) => {
             >
               Products
             </AccordionSummary>
+            
             <AccordionDetails>
               <ProductsList>
                 {products
@@ -240,6 +251,7 @@ const Order = ({ specificOrder, index }) => {
                   : "There are no products"}
               </ProductsList>
             </AccordionDetails>
+            
           </Accordion>
 
           <OrderInfo status={orderStatus}>
@@ -251,9 +263,7 @@ const Order = ({ specificOrder, index }) => {
                 <MenuItem value="Delivered">Delivered</MenuItem>
               </Select>
             </div>
-            <p>
-              Total prize: {prize}$
-            </p>
+            <p>Total prize: {prize}$</p>
           </OrderInfo>
         </OrderDescriptionBox>
       </OrderContainer>

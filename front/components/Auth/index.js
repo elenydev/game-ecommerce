@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
@@ -6,12 +6,10 @@ import Input from "@material-ui/core/Input";
 import { FormLabel, Button, Checkbox } from "@material-ui/core";
 import Link from "next/link";
 import Alert from "../Alert/index";
-import IconButton from "@material-ui/core/IconButton";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../Reducers/userSlice.js";
-import Cookies from "universal-cookie";
 import useAlert from "../../hooks/useAlert";
+import useCookie from "../../hooks/useCookie";
 
 const Wrapper = styled.div`
   display: flex;
@@ -57,6 +55,28 @@ const Form = styled.form`
   }
 `;
 
+const LoginDiv = styled.div`
+  text-align: center;
+  margin: 5px 0;
+  transition: 0.3s ease-in-out;
+  position: relative;
+
+  &:before {
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    content: "";
+    position: absolute;
+    transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+  }
+
+  &:hover::before {
+    border-bottom: 1px solid white;
+  }
+`;
+
 const ErrorSpan = styled.span`
   color: #ff5a5a;
   font-size: 12px;
@@ -89,7 +109,7 @@ const Login = () => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues,
   });
-  
+
   const {
     message,
     setMessage,
@@ -99,9 +119,10 @@ const Login = () => {
     setErrorAlert,
   } = useAlert();
 
+  const { setCookie } = useCookie();
+
   const router = useRouter();
   const dispatch = useDispatch();
-  const cookies = new Cookies();
 
   const loginUser = async (data, event) => {
     event.preventDefault();
@@ -122,18 +143,15 @@ const Login = () => {
         if (response.user) {
           setTimeout(() => {
             dispatch(setUser(response.user));
-            const date = new Date(new Date().getTime() + 15 * 60 * 1000);
-            cookies.set("User", response.user, {
-              expires: date,
-            });
+            setCookie("User", response.user);
+            setCookie("Token", response.token);
             reset();
             setVariant("success");
             setMessage("You are logged in");
             router.push("/auth/account/cart");
           }, 600);
-        }
-        else{
-          setErrorAlert()
+        } else {
+          setErrorAlert();
         }
       } else {
         setVariant("error");
@@ -144,11 +162,9 @@ const Login = () => {
     }
   };
 
-  
   useEffect(() => {
     clearMessage();
   }, [message]);
-
 
   return (
     <Wrapper>
@@ -202,6 +218,11 @@ const Login = () => {
         <Button type="submit" variant="contained" color="secondary">
           Sign in
         </Button>
+        <LoginDiv>
+          <Link href="/auth/register">
+            <a>Back to sign up</a>
+          </Link>
+        </LoginDiv>
       </Form>
 
       {message && (
