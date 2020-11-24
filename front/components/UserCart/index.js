@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useSelector, useDispatch } from "react-redux";
-import { selectUser, setUser } from "../../Reducers/userSlice.js";
 import ProductsCart from "../ProductsCart/index.js";
 import Sidebar from "../Sidebar/index.js";
 import EmailsCart from "../EmailsCart/index.js";
@@ -13,6 +11,7 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import IconButton from "@material-ui/core/IconButton";
 import useCookie from "../../hooks/useCookie";
 import ChangePasswordCart from "../ChangePasswordCart/index.js";
+import useAuth from "../../hooks/useAuth.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -161,8 +160,10 @@ const CardParagraphDescription = styled.p`
 `;
 
 const UserCart = (props) => {
-  const user = useSelector(selectUser);
-  const dispatch = useDispatch();
+ const {
+   currentUser: { user },
+   setCurrentUser,
+ } = useAuth();
   const router = useRouter();
   const {
     products,
@@ -173,18 +174,19 @@ const UserCart = (props) => {
     setVariant,
     setErrorAlert,
   } = props;
+
   const { tokenCookie } = useCookie();
   const [userImage, setUserImage] = useState(
-    user.user &&
+    user &&
       "https://online-gaming-shop.herokuapp.com/" +
-        user.user.avatar.replace("images\\", "images/")
+        user.avatar.replace("images\\", "images/")
   );
 
   const changeAvatar = async (avatar) => {
     const data = new FormData();
     data.append("avatar", avatar);
-    data.append("email", user.user.email);
-    data.append("userId", user.user.userId);
+    data.append("email", user.email);
+    data.append("userId", user.userId);
     try {
       const send = await fetch(
         "https://online-gaming-shop.herokuapp.com/changeAvatar",
@@ -202,7 +204,7 @@ const UserCart = (props) => {
           "https://online-gaming-shop.herokuapp.com/" +
             response.imageUrl.replace("images\\", "images/")
         );
-        setUser(user);
+        setCurrentUser(user);
         setVariant("success");
         setMessage("Avatar changed");
       } else {
@@ -215,7 +217,7 @@ const UserCart = (props) => {
 
   useEffect(() => {
     let isMounted = true;
-    if (user.user === null) {
+    if (user === null) {
       router.push("/");
     }
     return () => {
@@ -225,9 +227,9 @@ const UserCart = (props) => {
 
   return (
     <>
-      {user.user && (
+      {user && (
         <Wrapper
-          isAdmin={user.user.email === "admin@admin.com" && true}
+          isAdmin={user.email === "admin@admin.com" && true}
           subCart={router.pathname !== "/auth/account/cart" && true}
         >
           <UserBox>
@@ -255,12 +257,12 @@ const UserCart = (props) => {
 
             <UserDescription>
               <CardParagraph>
-                {user.user.firstName}
+                {user.firstName}
                 <span> </span>
-                {user.user.lastName}
+                {user.lastName}
               </CardParagraph>
               <CardParagraphDescription>
-                {user.user.email}
+                {user.email}
               </CardParagraphDescription>
 
               <MenuBox>
@@ -269,7 +271,7 @@ const UserCart = (props) => {
                   setVariant={setVariant}
                   setErrorAlert={setErrorAlert}
                 />
-                {user.user.email === "admin@admin.com" && <Sidebar />}
+                {user.email === "admin@admin.com" && <Sidebar />}
               </MenuBox>
             </UserDescription>
           </UserBox>

@@ -10,8 +10,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Alert from "../../components/Alert/index.js";
 import useAlert from "../../hooks/useAlert";
 import useCookie from "../../hooks/useCookie";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../Reducers/userSlice";
+import useAuth from "../../hooks/useAuth";
 
 const Form = styled.form`
   display: flex;
@@ -115,9 +114,12 @@ const AddProductForm = () => {
     defaultValues,
   });
   const { tokenCookie } = useCookie();
+
   const {
-    user: { userId },
-  } = useSelector(selectUser);
+    currentUser: {
+      user: { userId },
+    },
+  } = useAuth();
 
   const {
     message,

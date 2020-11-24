@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../../../Reducers/userSlice.js";
 import Navigation from "../../../components/Navigation/index.js";
 import UserCart from "../../../components/UserCart/index.js";
+import useAuth from "../../../hooks/useAuth.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,10 +21,12 @@ const Wrapper = styled.div`
 `;
 
 const Orders = ({ orders }) => {
-  const user = useSelector(selectUser);
+  const {
+    currentUser: { user },
+  } = useAuth();
   const router = useRouter();
   useEffect(() => {
-    if (user.user === null || user.user.email !== "admin@admin.com") {
+    if (user === null || user.email !== "admin@admin.com") {
       router.push("/");
     }
   }, []);

@@ -3,8 +3,7 @@ import styled from "styled-components";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { IconButton } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import { increaseAmount, decreaseAmount } from "../../Reducers/productsSlice";
+import useProducts from "../../hooks/useProducts.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -145,8 +144,7 @@ const ActionsBox = styled.div`
 `;
 
 const Product = ({ product, productIndex }) => {
-  const dispatch = useDispatch();
-
+  const { increaseProductAmount, decreaseProductAmount } = useProducts();
   const {
     productImg,
     productName,
@@ -182,16 +180,12 @@ const Product = ({ product, productIndex }) => {
 
           <ActionsBox>
             <span>
-              <IconButton
-                onClick={() => dispatch(increaseAmount(productIndex))}
-              >
+              <IconButton onClick={() => increaseProductAmount(productIndex)}>
                 <ExpandLessIcon />
               </IconButton>
             </span>
             <span>
-              <IconButton
-                onClick={() => dispatch(decreaseAmount(productIndex))}
-              >
+              <IconButton onClick={() => decreaseProductAmount(productIndex)}>
                 <ExpandMoreIcon />
               </IconButton>
             </span>

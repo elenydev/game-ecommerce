@@ -4,8 +4,7 @@ import { IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EmailIcon from "@material-ui/icons/Email";
 import useCookie from "../../hooks/useCookie";
-import { selectUser } from "../../Reducers/userSlice";
-import { useSelector } from "react-redux";
+import useAuth from "../../hooks/useAuth";
 
 const Wrapper = styled.div`
   display: flex;
@@ -110,8 +109,10 @@ const Email = (props) => {
   const { setEmails, emailId, setMessage, setVariant, setErrorAlert } = props;
   const { tokenCookie } = useCookie();
   const {
-    user: { userId },
-  } = useSelector(selectUser);
+    currentUser: {
+      user: { userId },
+    },
+  } = useAuth();
 
   const fetchEmails = async () => {
     try {

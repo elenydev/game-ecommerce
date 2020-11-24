@@ -81,7 +81,7 @@ const EmailsCart = ({ emailsList }) => {
 
   useEffect(() => {
     clearMessage();
-    checkRanges();;
+    checkRanges();
   }, [message]);
 
   return (
@@ -106,11 +106,13 @@ const EmailsCart = ({ emailsList }) => {
             ))}
           </>
         )}
+
         {emails.length > 0 && (
           <Footer>
             <FooterContent>
               <FooterRows>
                 <Paragraph>Emails displayed:</Paragraph>
+
                 <Paragraph>
                   <select
                     onChange={(e) => {
@@ -122,6 +124,7 @@ const EmailsCart = ({ emailsList }) => {
                     <option value={15}>15</option>
                   </select>
                 </Paragraph>
+                
                 <Paragraph>
                   <Span>{startRange}</Span>
                   <Span>-</Span>
@@ -129,19 +132,24 @@ const EmailsCart = ({ emailsList }) => {
                   <Span>of</Span>
                   <Span> {arrayLength} </Span>
                 </Paragraph>
+                
               </FooterRows>
               <Paragraph>
+                
                 <Span>
                   <IconButton onClick={() => decrementRange()}>
                     <KeyboardArrowLeftIcon />
                   </IconButton>
                 </Span>
+                
                 <Span>
                   <IconButton onClick={() => incrementRange()}>
                     <KeyboardArrowRightIcon />
                   </IconButton>
                 </Span>
+                
               </Paragraph>
+              
             </FooterContent>
           </Footer>
         )}
