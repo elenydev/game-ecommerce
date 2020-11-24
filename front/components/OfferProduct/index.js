@@ -2,11 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addProductToCart,
-  selectProducts,
-} from "../../Reducers/productsSlice.js";
+import useProducts from "../../hooks/useProducts.js";
+
 
 const Card = styled.div`
   display: flex;
@@ -131,12 +128,11 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
 
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const dispatch = useDispatch();
-  const cardProducts = useSelector(selectProducts).products;
+  const { putProductToCart } = useProducts();
 
   useEffect(() => {
     let isMounted = true;
-    if (user.user !== null) {
+    if (user !== null) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
@@ -151,7 +147,7 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
     if (!cardProducts.includes(product)) {
       setMessage("Product added to cart");
       setVariant("success");
-      dispatch(addProductToCart(product));
+      putProductToCart(product);
       return;
     }
     setMessage("Product already in card");

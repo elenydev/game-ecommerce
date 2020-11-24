@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Product from "../Product/index.js";
-import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@material-ui/core";
-import { clearCart, selectProducts } from "../../Reducers/productsSlice.js";
-import { selectUser } from "../../Reducers/userSlice.js";
 import AddProductForm from "../../components/AddProductForm/index.js";
 import Alert from "../Alert/index.js";
 import useAlert from "../../hooks/useAlert.js";
 import useCookie from "../../hooks/useCookie.js";
+import useAuth from "../../hooks/useAuth.js";
+import useProducts from "../../hooks/useProducts.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -53,8 +52,13 @@ const TotalPrize = styled.p`
 `;
 
 const ProductsCart = () => {
-  const { products } = useSelector(selectProducts);
-  const { user } = useSelector(selectUser);
+  const {
+    selectProducts: { products },
+    clearProducts,
+  } = useProducts();
+  const {
+    currentUser: { user },
+  } = useAuth();
   const { tokenCookie } = useCookie();
   const dispatch = useDispatch();
   const {
@@ -95,7 +99,7 @@ const ProductsCart = () => {
       );
       const response = await request.json();
       if (response.order) {
-        dispatch(clearCart());
+        clearProducts();
         setVariant("success");
         setMessage("Order created");
       }

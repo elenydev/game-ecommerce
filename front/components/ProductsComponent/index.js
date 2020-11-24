@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import OfferProduct from "../OfferProduct";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../Reducers/userSlice.js";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import IconButton from "@material-ui/core/IconButton";
@@ -19,9 +17,12 @@ import {
 import Alert from "../Alert/index.js";
 import useAlert from "../../hooks/useAlert";
 import useArrayRange from "../../hooks/useArrayRange";
+import useAuth from "../../hooks/useAuth";
 
 const ProductsComponent = ({ products }) => {
-  const user = useSelector(selectUser);
+  const {
+    currentUser: { user },
+  } = useAuth();
   const [categoryDisplayed, setCategoryDisplayed] = useState("Desktop");
   const {
     startRange,

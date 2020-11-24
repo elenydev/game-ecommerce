@@ -6,11 +6,10 @@ import Input from "@material-ui/core/Input";
 import { FormLabel, Button } from "@material-ui/core";
 import Link from "next/link";
 import Alert from "../Alert/index";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../Reducers/userSlice.js";
 import useAlert from "../../hooks/useAlert";
 import useCookie from "../../hooks/useCookie";
 import RemindPassword from "../RemindPasswordCart";
+import useAuth from "../../hooks/useAuth";
 
 const Wrapper = styled.div`
   display: flex;
@@ -124,7 +123,7 @@ const Login = () => {
   const { setCookie } = useCookie();
 
   const router = useRouter();
-  const dispatch = useDispatch();
+  const { setCurrentUser } = useAuth();
 
   const loginUser = async (data, event) => {
     event.preventDefault();
@@ -144,7 +143,7 @@ const Login = () => {
       if (response) {
         if (response.user) {
           setTimeout(() => {
-            dispatch(setUser(response.user));
+            setCurrentUser(response.user);
             setCookie("User", response.user);
             setCookie("Token", response.token);
             reset();

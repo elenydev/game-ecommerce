@@ -100,12 +100,12 @@ router.get("/", (req, res, next) => {
 
 router.use("/signUp", upload.single("avatar"), signUp);
 router.use("/signIn", signIn);
-router.use("/changeAvatar", isAuth, upload.single("avatar"), changeAvatar);
+router.use("/changeAvatar", upload.single("avatar"), changeAvatar);
 router.use("/changePassword", isAuth, changePassword);
 router.use("/remindPassword", remindPassword);
 
 router.use("/getProducts", getProducts);
-router.use("/addProduct", isAuth, upload.single("productImg"), addProduct);
+router.use("/addProduct", upload.single("productImg"), addProduct);
 router.use("/changeAmount", isAuth, changeAmount);
 
 router.use("/createOrder", isAuth, createOrder);

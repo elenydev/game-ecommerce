@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import useCookie from "../../hooks/useCookie";
 
@@ -8,7 +7,7 @@ import { FormLabel, Button } from "@material-ui/core";
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import { selectUser } from "../../Reducers/userSlice";
+import useAuth from "../../hooks/useAuth";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -101,8 +100,10 @@ const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
   });
 
   const {
-    user: { email },
-  } = useSelector(selectUser);
+    currentUser: {
+      user: { email },
+    },
+  } = useAuth();
   const { tokenCookie } = useCookie();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -180,6 +181,7 @@ const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
           {errors.password && errors.password.type === "required" && (
             <ErrorSpan>Please provide a current password</ErrorSpan>
           )}
+
           <FormLabel>
             <InputElement
               type="password"

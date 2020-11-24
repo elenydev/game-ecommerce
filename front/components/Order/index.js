@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FormLabel } from "@material-ui/core";
-import {useSelector} from 'react-redux'
 import { Select, MenuItem, FormControlLabel } from "@material-ui/core";
 
 
@@ -9,8 +8,8 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { selectUser } from "../../Reducers/userSlice";
 import useCookie from "../../hooks/useCookie";
+import useAuth from "../../hooks/useAuth";
 
 const Wrapper = styled.div`
   display: flex;
@@ -184,7 +183,11 @@ const Order = ({ specificOrder, index }) => {
     date,
     status,
   } = specificOrder;
-  const {user: {userId}} = useSelector(selectUser)
+  const {
+    currentUser: {
+      user: { userId },
+    },
+  } = useAuth();
   const {tokenCookie} = useCookie()
 
   const [orderStatus, setOrderStatus] = useState(status);

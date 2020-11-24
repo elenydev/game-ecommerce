@@ -4,8 +4,7 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { IconButton } from "@material-ui/core";
 import useCookie from "../../hooks/useCookie";
-import { selectUser } from "../../Reducers/userSlice";
-import { useSelector } from "react-redux";
+import useAuth from "../../hooks/useAuth";
 
 const Wrapper = styled.div`
   display: flex;
@@ -152,8 +151,10 @@ const AdminProductListItem = ({ product, productIndex }) => {
 
   const { tokenCookie } = useCookie();
   const {
-    user: { userId },
-  } = useSelector(selectUser);
+    currentUser: {
+      user: { userId },
+    },
+  } = useAuth();
   const [productAmount, setProductAmount] = useState(availableAmount);
   let newAmount = 0;
 
@@ -183,18 +184,14 @@ const AdminProductListItem = ({ product, productIndex }) => {
       userId,
     };
     try {
-      const query = await fetch(
-        "https://online-gaming-shop.herokuapp.com/changeAmount",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            Authorization: "Bearer " + tokenCookie,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const response = await query;
+      await fetch("https://online-gaming-shop.herokuapp.com/changeAmount", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          Authorization: "Bearer " + tokenCookie,
+          "Content-Type": "application/json",
+        },
+      });
     } catch (err) {
       console.log(err);
     }

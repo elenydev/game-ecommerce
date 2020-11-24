@@ -4,8 +4,8 @@ import { IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import useAlert from "../../hooks/useAlert";
 import useCookie from "../../hooks/useCookie";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../Reducers/userSlice";
+import useAuth from "../../hooks/useAuth";
+
 
 const SubscribtionWrapper = styled.div`
   display: flex;
@@ -50,8 +50,10 @@ const Subscribtion = (props) => {
 
   const { tokenCookie } = useCookie();
   const {
-    user: { userId },
-  } = useSelector(selectUser);
+    currentUser: {
+      user: { userId },
+    },
+  } = useAuth();
 
   const fetchSubscribtions = async () => {
     try {

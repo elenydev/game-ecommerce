@@ -15,16 +15,14 @@ import {
 } from "./navigation.styles.js";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Link from "next/link";
-import { useSelector, useDispatch } from "react-redux";
-import { selectUser, deleteUser } from "../../Reducers/userSlice.js";
-import { clearCart, selectProducts } from "../../Reducers/productsSlice.js";
 import useCookie from "../../hooks/useCookie.js";
+import useAuth from "../../hooks/useAuth.js";
+import useProducts from '../../hooks/useProducts.js'
 
 const Navigation = () => {
   const [user, setUser] = useState({ user: null });
-  const sliceUser = useSelector(selectUser);
-  const productsArray = useSelector(selectProducts);
-  const dispatch = useDispatch();
+  const {currentUser, deleteCurrentUser, setCurrentUser} = useAuth()
+  const {productsList:{products}, clearProducts} = useProducts()
   const { deleteCookie } = useCookie();
   const router = useRouter();
 
@@ -39,8 +37,8 @@ const Navigation = () => {
     deleteCookie("User");
     deleteCookie("Token");
     setTimeout(() => {
-      dispatch(deleteUser());
-      dispatch(clearCart());
+      deleteCurrentUser();
+      clearProducts()
       setUser({ user: null });
     }, 300);
     setTimeout(() => {
@@ -50,12 +48,12 @@ const Navigation = () => {
 
   useEffect(() => {
     let isMounted = true;
-    setUser(sliceUser);
+    setUser(currentUser);
 
     return () => {
       isMounted = false;
     };
-  }, [sliceUser]);
+  }, [currentUser]);
 
   return (
     <>
@@ -68,11 +66,13 @@ const Navigation = () => {
           </Link>
         </NavLogo>
       </MobileNav>
+      
       <Hamburger className="hamburger" onClick={() => handleClick()}>
         <HamburgerBox className="hamburger__box">
           <HamburgerInner className="hamburger__inner"></HamburgerInner>
         </HamburgerBox>
       </Hamburger>
+
       <Wrapper className="nav">
         <Container>
           <Nav>
@@ -129,7 +129,7 @@ const Navigation = () => {
                   <Link href="/auth/account/cart">
                     <a>
                       <ShoppingCartIcon />
-                      <span>({productsArray.products.length})</span>
+                      <span>({products.length})</span>
                     </a>
                   </Link>
                 </NavListItem>

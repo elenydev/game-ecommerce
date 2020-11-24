@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../../../Reducers/userSlice.js";
 import Navigation from "../../../components/Navigation/index.js";
 import UserCart from "../../../components/UserCart/index.js";
 import useAlert from "../../../hooks/useAlert.js";
 import Alert from "../../../components/Alert/index.js";
+import useAuth from "../../../hooks/useAuth.js";
 
 
 const Wrapper = styled.div`
@@ -27,7 +26,9 @@ const Wrapper = styled.div`
 `;
 
 const Account = () => {
-  const user = useSelector(selectUser);
+  const {
+    currentUser: { user },
+  } = useAuth();
   const router = useRouter();
   const {
     variant,
@@ -39,7 +40,7 @@ const Account = () => {
   } = useAlert();
 
   useEffect(() => {
-    if (user.user === null) {
+    if (user === null) {
       router.push("/");
     }
   }, []);
@@ -51,9 +52,7 @@ const Account = () => {
   return (
     <>
       <Navigation />
-      <Wrapper
-        isAdmin={user.user && user.user.email === "admin@admin.com" && true}
-      >
+      <Wrapper isAdmin={user && user.email === "admin@admin.com" && true}>
         <UserCart
           setMessage={setMessage}
           setVariant={setVariant}
