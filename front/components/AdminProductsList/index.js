@@ -60,7 +60,6 @@ const AdminProductsList = ({ products }) => {
     startRange,
     endRange,
     incrementRange,
-    checkRanges,
     decrementRange,
     handleArrayRange,
     setVisibleProducts,

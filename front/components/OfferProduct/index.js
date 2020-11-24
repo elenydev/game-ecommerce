@@ -128,7 +128,10 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
 
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const { putProductToCart } = useProducts();
+  const {
+    productsList: { products },
+    putProductToCart,
+  } = useProducts();
 
   useEffect(() => {
     let isMounted = true;
@@ -144,7 +147,7 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
   }, [user]);
 
   const addProduct = () => {
-    if (!cardProducts.includes(product)) {
+    if (!products.includes(product)) {
       setMessage("Product added to cart");
       setVariant("success");
       putProductToCart(product);

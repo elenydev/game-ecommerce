@@ -8,6 +8,16 @@ import useAlert from "../../hooks/useAlert.js";
 import useCookie from "../../hooks/useCookie.js";
 import useAuth from "../../hooks/useAuth.js";
 import useProducts from "../../hooks/useProducts.js";
+import useArrayRange from "../../hooks/useArrayRange.js";
+import {
+  FooterContent,
+  FooterRows,
+  Paragraph,
+  Span,
+} from "../ProductsComponent/productsComponent.styles.js";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
+import IconButton from "@material-ui/core/IconButton";
 
 const Wrapper = styled.div`
   display: flex;
@@ -51,16 +61,42 @@ const TotalPrize = styled.p`
   }
 `;
 
+const Footer = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8em;
+  width: 100%;
+  font-family: "Black Ops One", normal;
+  font-weight: 500;
+  padding: 10px;
+  color: rgba(255, 255, 255, 1);
+
+  @media (min-width: 960px) {
+    flex-direction: row;
+    justify-content: flex-end;
+    font-size: 1em;
+  }
+
+  & > div > div > p > select {
+    background-color: #24272e;
+    color: white;
+    font-size: 1em;
+  }
+
+  .MuiIconButton-root {
+    color: white;
+  }
+`;
+
 const ProductsCart = () => {
   const {
-    selectProducts: { products },
+    productsList: { products },
     clearProducts,
   } = useProducts();
   const {
     currentUser: { user },
   } = useAuth();
   const { tokenCookie } = useCookie();
-  const dispatch = useDispatch();
   const {
     message,
     setMessage,
@@ -69,6 +105,16 @@ const ProductsCart = () => {
     clearMessage,
     setErrorAlert,
   } = useAlert();
+
+  const {
+    startRange,
+    endRange,
+    incrementRange,
+    decrementRange,
+    checkRanges,
+    handleArrayRange,
+  } = useArrayRange();
+  const { slicedArray, arrayLength } = handleArrayRange(products);
 
   const getPrize = () => {
     let prize = 0;
@@ -119,16 +165,47 @@ const ProductsCart = () => {
     clearMessage();
   }, [message]);
 
+  useEffect(() => {
+    checkRanges();
+  }, [products]);
+
   return (
     <Wrapper>
       {user.email === "admin@admin.com" && <AddProductForm />}
       {user.email !== "admin@admin.com" && products.length >= 1 ? (
         <>
           <Heading>Your products: </Heading>
-          {products.map((product, index) => (
+          {slicedArray.map((product, index) => (
             <Product key={index} product={product} productIndex={index} />
           ))}
           <TotalPrize>Total prize: {getPrize()} $</TotalPrize>
+          {products.length > 0 && (
+            <Footer>
+              <FooterContent>
+                <FooterRows>
+                  <Paragraph>
+                    <Span>{startRange}</Span>
+                    <Span>-</Span>
+                    <Span>{endRange}</Span>
+                    <Span>of</Span>
+                    <Span> {arrayLength} </Span>
+                  </Paragraph>
+                  <Paragraph>
+                    <Span>
+                      <IconButton onClick={() => decrementRange()}>
+                        <KeyboardArrowLeftIcon />
+                      </IconButton>
+                    </Span>
+                    <Span>
+                      <IconButton onClick={() => incrementRange()}>
+                        <KeyboardArrowRightIcon />
+                      </IconButton>
+                    </Span>
+                  </Paragraph>
+                </FooterRows>
+              </FooterContent>
+            </Footer>
+          )}
         </>
       ) : (
         user.email !== "admin@admin.com" && (
