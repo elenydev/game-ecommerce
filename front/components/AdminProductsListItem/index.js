@@ -112,26 +112,37 @@ const AdminProductListItem = (props) => {
 
   return (
     <Wrapper>
+
       <ProductContainer>
+
         <ProductImage>
           <img
             src={`https://online-gaming-shop.herokuapp.com/images/${productImg}`}
             alt={productName}
           />
         </ProductImage>
+
         <ProductDescriptionBox>
+
           <ProductName>{productName}</ProductName>
+
           <ProductDescription>
             {productDescription.substring(0, 60) + "..."}
           </ProductDescription>
+
           <ProductDescription>Type: {gameType}</ProductDescription>
+
           <ProductDescription>Device: {device}</ProductDescription>
+
         </ProductDescriptionBox>
+
         <ProductPrizeInfo>
+
           <ProductPrize>
             <span>{prize * amount} </span>
             <span>$</span>
           </ProductPrize>
+
           <ProductAmount>
             <span>Amount: </span>
             <span> {productAmount}</span>
@@ -149,6 +160,7 @@ const AdminProductListItem = (props) => {
               </IconButton>
             </span>
           </ActionsBox>
+
           <ActionsBox>
             <span>
               <IconButton onClick={deleteProduct}>
@@ -156,7 +168,9 @@ const AdminProductListItem = (props) => {
               </IconButton>
             </span>
           </ActionsBox>
+
         </ProductPrizeInfo>
+        
       </ProductContainer>
     </Wrapper>
   );

@@ -68,16 +68,23 @@ const Email = (props) => {
   return (
     <Wrapper>
       <EmailWrapper>
+
         <EmailContainer>
+
           <EmailDescriptionBox>
+
             <CustomerEmail>{email}</CustomerEmail>
+
             <EmailCustomerName>
               {customerName} {date}
             </EmailCustomerName>
+
             <EmailMessage>Message:</EmailMessage>
             <EmailMessage>{message}</EmailMessage>
           </EmailDescriptionBox>
+
         </EmailContainer>
+
         <DeleteWrapper>
           <IconButton onClick={() => deleteEmailFromDatabase(emailId)}>
             <DeleteForeverIcon />
@@ -86,6 +93,7 @@ const Email = (props) => {
             <a href={`mailto:${email}`}><EmailIcon/></a>
           </IconButton>
         </DeleteWrapper>
+        
       </EmailWrapper>
     </Wrapper>
   );

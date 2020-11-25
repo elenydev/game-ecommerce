@@ -34,7 +34,6 @@ const AddProductForm = () => {
     defaultValues,
   });
   const { tokenCookie } = useCookie();
-
   const {
     currentUser: {
       user: { userId },
@@ -118,6 +117,7 @@ const AddProductForm = () => {
   return (
     <div>
       <Header>Add product</Header>
+
       <Form onSubmit={handleSubmit(registerProduct)} encType="">
         <FormLabel>
           <InputElement
@@ -133,6 +133,7 @@ const AddProductForm = () => {
             }}
           />
         </FormLabel>
+
         {errors.productName && errors.productName.type === "required" && (
           <ErrorSpan>Please provide a product name</ErrorSpan>
         )}
@@ -151,12 +152,14 @@ const AddProductForm = () => {
             }}
           />
         </FormLabel>
+
         {errors.productDescription &&
           errors.productDescription.type === "required" && (
             <ErrorSpan>Please provide a product description</ErrorSpan>
           )}
 
         <SelectBox>
+
           <FormLabel>
             <p>Select game type</p>
             <Controller
@@ -179,6 +182,7 @@ const AddProductForm = () => {
               control={control}
             />
           </FormLabel>
+          
         </SelectBox>
         {errors.gameType && errors.gameType.type === "required" && (
           <ErrorSpan>Please provide a game type</ErrorSpan>
@@ -198,6 +202,7 @@ const AddProductForm = () => {
             }}
           />
         </FormLabel>
+        
         {errors.prize && errors.prize.type === "required" && (
           <ErrorSpan>Please provide a prize</ErrorSpan>
         )}
@@ -216,6 +221,7 @@ const AddProductForm = () => {
             }}
           />
         </FormLabel>
+        
         {errors.availableAmount &&
           errors.availableAmount.type === "required" && (
             <ErrorSpan>Please provide a amount of products</ErrorSpan>
@@ -235,6 +241,7 @@ const AddProductForm = () => {
             });
           }}
         />
+        
         <label htmlFor="productImg">
           <IconButton
             color="primary"
@@ -244,10 +251,13 @@ const AddProductForm = () => {
             <PhotoCamera />
           </IconButton>
         </label>
+        
         {errors.productImg && errors.productImg.type === "required" && (
           <ErrorSpan>Please provide a product image</ErrorSpan>
         )}
+        
         <SelectBox>
+          
           <FormLabel>
             <p>Select device</p>
             <Controller
@@ -263,7 +273,9 @@ const AddProductForm = () => {
               control={control}
             />
           </FormLabel>
+          
         </SelectBox>
+        
         {errors.device && errors.device.type === "required" && (
           <ErrorSpan>Please provide a device</ErrorSpan>
         )}

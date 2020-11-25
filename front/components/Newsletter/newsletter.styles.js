@@ -7,7 +7,7 @@ export const NewsletterContainer = styled.div`
   justify-content: space-between;
   width: 100%;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     width: auto;
   }
 `;
@@ -15,9 +15,9 @@ export const NewsletterContainer = styled.div`
 export const Heading = styled.h3`
   display: block;
   letter-spacing: 2px;
-  color: #5bb2fc;
+  color: ${({ theme }) =>  theme.colors.cyanBlue};
   font-family: "Black Ops One", normal;
-  font-weight: 500;
+  font-weight: ${({ theme }) =>  theme.font.weight.medium};
 `;
 
 export const Form = styled.form`
@@ -28,7 +28,7 @@ export const Form = styled.form`
   background-color: transparent;
   width: fit-content;
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     width: 100%;
   }
 `;
@@ -38,47 +38,47 @@ export const Input = styled.input`
   border-bottom: 2px solid white;
   outline: none;
   background-color: transparent;
-  color: rgba(255, 255, 255, 0.9);
+  color: ${({ theme }) =>theme.colors.darkerWhite};
   padding: 5px;
-  font-size: 1em;
+  font-size: ${({ theme }) =>theme.font.size.xs};
   margin-right: 4px;
 
   &::placeholder {
-    color: white;
+    color: ${({ theme }) =>theme.colors.white};
   }
 
   &:focus {
-    outline: 1px solid white;
+    outline: 1px solid ${({ theme }) =>theme.colors.white};
   }
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     padding: 12px;
   }
 `;
 
 export const Button = styled.button`
   padding: 5px 8px;
-  color: white;
+  color: ${({ theme }) =>theme.colors.white};
   background-color: transparent;
   height: 100%;
-  border: 2px solid white;
+  border: 2px solid ${({ theme }) =>theme.colors.white};
   outline: none;
-  font-size: 1em;
+  font-size: ${({ theme }) =>theme.font.size.xs};
   cursor: pointer;
   transition: 0.5s all linear;
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     padding: 12px;
   }
 
   &:hover,
   &:focus {
-    background-color: #ff5a5a;
+    background-color: ${({ theme }) =>theme.colors.bittersweet};
   }
 `;
 
 export const ErrorSpan = styled.span`
-  color: #ff5a5a;
+  color: ${({ theme }) =>theme.colors.bittersweet};
   font-size: 12px;
   display: block;
 

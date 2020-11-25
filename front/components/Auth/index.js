@@ -112,12 +112,15 @@ const Login = () => {
             }}
           />
         </FormLabel>
+
         {errors.email && errors.email.type === "required" && (
           <ErrorSpan>Please provide a email</ErrorSpan>
         )}
+
         {errors.email && errors.email.type === "pattern" && (
           <ErrorSpan>Please provide a correct email</ErrorSpan>
         )}
+
         <FormLabel>
           <InputElement
             type="password"
@@ -132,9 +135,11 @@ const Login = () => {
             }}
           />
         </FormLabel>
+
         {errors.password && errors.password.type === "required" && (
           <ErrorSpan>Please provide a password</ErrorSpan>
         )}
+
         <Button type="submit" variant="contained" color="secondary">
           Sign in
         </Button>
@@ -144,6 +149,7 @@ const Login = () => {
             <a>Back to sign up</a>
           </Link>
         </LoginDiv>
+        
       </Form>
       <RemindPassword
         setMessage={setMessage}

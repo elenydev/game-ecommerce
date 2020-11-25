@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
 html,
 body {
   padding: 0;
@@ -34,3 +37,6 @@ select:-webkit-autofill:focus {
   box-shadow: none;
   transition: background-color 5000s ease-in-out 0s;
 }
+`;
+
+export default GlobalStyle;

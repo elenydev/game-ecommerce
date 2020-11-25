@@ -31,6 +31,7 @@ const Hero = () => {
   return (
     <Wrapper id="home">
       <HeaderContainer>
+        
         <Header>
           <Typewriter
             string="All of us love gaming"
@@ -38,6 +39,7 @@ const Hero = () => {
             cursor=""
           />
         </Header>
+
         <SubHeader>
           {render && (
             <Typewriter

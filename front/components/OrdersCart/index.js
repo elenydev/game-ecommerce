@@ -28,21 +28,26 @@ const OrdersCart = ({ orders }) => {
 
   return (
     <Wrapper>
+
       {orders && orders.length === 0 ? (
         <Heading>We don't have any orders</Heading>
       ) : (
         <>
           <Heading>Orders: </Heading>
+
           {slicedArray.map((order, index) => (
             <OrderWrapper key={index}>
               <Order specificOrder={order} index={index} />
             </OrderWrapper>
           ))}
+
           {orders.length > 0 && (
             <Footer>
               <FooterContent>
+
                 <FooterRows>
                   <Paragraph>Orders displayed:</Paragraph>
+
                   <Paragraph>
                     <select
                       onChange={(e) => {
@@ -54,6 +59,7 @@ const OrdersCart = ({ orders }) => {
                       <option value={12}>12</option>
                     </select>
                   </Paragraph>
+
                   <Paragraph>
                     <Span>{startRange}</Span>
                     <Span>-</Span>
@@ -61,6 +67,7 @@ const OrdersCart = ({ orders }) => {
                     <Span>of</Span>
                     <Span> {arrayLength} </Span>
                   </Paragraph>
+
                   <Paragraph>
                     <Span>
                       <KeyboardArrowLeftIcon onClick={() => decrementRange()} />
@@ -71,6 +78,7 @@ const OrdersCart = ({ orders }) => {
                       />
                     </Span>
                   </Paragraph>
+                  
                 </FooterRows>
               </FooterContent>
             </Footer>

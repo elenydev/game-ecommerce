@@ -8,19 +8,18 @@ export const Form = styled.form`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  color: white;
-
+  color: ${({ theme }) => theme.colors.white};
   & > .MuiButton-containedSecondary {
     margin: 15px;
-    background-color: #b73d1cbf;
+    background-color: ${({ theme }) =>   theme.colors.darkOrange};
 
     &:hover {
-      background-color: #ff3600bf;
+      background-color: ${({ theme }) =>   theme.colors.lightOrange};
     }
   }
 
   & > .MuiFormLabel-root {
-    color: white;
+    color: ${({ theme }) =>theme.colors.white};
   }
 
   & > .hidden {
@@ -28,38 +27,38 @@ export const Form = styled.form`
   }
 
   & > label > .MuiIconButton-colorPrimary {
-    color: #ff3600bf !important;
+    color: ${({ theme }) =>theme.colors.lightOrange} !important;
   }
 
-  @media (min-width: 650px) {
+ ${({ theme }) => theme.mq.xs }{
     width: fit-content;
   }
 `;
 
 export const ErrorSpan = styled.span`
-  color: #ff5a5a;
+  color: ${({ theme }) =>theme.colors.bittersweet};
   font-size: 12px;
 `;
 
 export const InputElement = styled(Input)`
   margin: 8px 0;
-  color: white;
+  color: ${({ theme }) =>theme.colors.white};
 
   & > .MuiInputBase-input {
-    color: white;
+    color: ${({ theme }) =>theme.colors.white}
   }
 `;
 
 export const Paragraph = styled.p`
   cursor: pointer;
   margin-right: 7px;
-  color: rgb(255 90 90 /85%);
+  color:${({ theme }) =>theme.colors.bittersweet};
   min-height: 100%;
 `;
 
 export const Header = styled.h4`
   display: flex;
-  font-weight: 700;
-  color: rgb(255 90 90 /85%);
+  font-weight: ${({ theme }) => theme.font.weight.bold};
+  color: ${({ theme }) =>theme.colors.bittersweet};
   margin-bottom: 7px;
 `;

@@ -64,6 +64,7 @@ const ContactForm = () => {
       <Heading>Have question?</Heading>
 
       <Form onSubmit={handleSubmit(handleSendEmail)}>
+
         <FormLabel>
           <Input
             type="text"
@@ -78,9 +79,11 @@ const ContactForm = () => {
             }}
           />
         </FormLabel>
+
         {errors.customerName && errors.customerName.type === "required" && (
           <ErrorSpan>Please provide a name</ErrorSpan>
         )}
+
         <FormLabel>
           <Input
             type="email"
@@ -101,12 +104,14 @@ const ContactForm = () => {
             }}
           />
         </FormLabel>
+
         {errors.email && errors.email.type === "required" && (
           <ErrorSpan>Please provide a email</ErrorSpan>
         )}
         {errors.email && errors.email.type === "pattern" && (
           <ErrorSpan>Please provide a correct email</ErrorSpan>
         )}
+
         <FormLabel>
           <TextInput
             placeholder="Your message..."
@@ -120,6 +125,7 @@ const ContactForm = () => {
             }}
           ></TextInput>
         </FormLabel>
+
         {errors.message && errors.message.type === "required" && (
           <ErrorSpan>Please provide a message</ErrorSpan>
         )}

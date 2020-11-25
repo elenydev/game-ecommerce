@@ -78,6 +78,7 @@ const Navigation = () => {
       <Wrapper className="nav">
         <Container>
           <Nav>
+
             <NavLogo>
               <Link href="/">
                 <a>
@@ -87,6 +88,7 @@ const Navigation = () => {
             </NavLogo>
 
             <NavList>
+
               <NavListItem onClick={() => handleClick()}>
                 <Link href="/#home">
                   <a>Home</a>
@@ -98,16 +100,19 @@ const Navigation = () => {
                   <a>Games</a>
                 </Link>
               </NavListItem>
+
               <NavListItem onClick={() => handleClick()}>
                 <Link href="/#team">
                   <a>Team</a>
                 </Link>
               </NavListItem>
+
               <NavListItem onClick={() => handleClick()}>
                 <Link href="/#contact">
                   <a>Contact</a>
                 </Link>
               </NavListItem>
+              
               {user.user !== null ? (
                 <NavListItem
                   onClick={() => {
@@ -136,6 +141,7 @@ const Navigation = () => {
                   </Link>
                 </NavListItem>
               )}
+              
               {user.user !== null && user.user.email === "admin@admin.com" && (
                 <NavListItem onClick={() => handleClick()}>
                   <Link href="/auth/account/cart">
@@ -143,8 +149,8 @@ const Navigation = () => {
                   </Link>
                 </NavListItem>
               )}
+              
             </NavList>
-            <NavActions></NavActions>
           </Nav>
         </Container>
       </Wrapper>

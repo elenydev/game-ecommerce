@@ -19,21 +19,21 @@ export const Wrapper = styled.div`
   display: flex;
 
   & > .MuiButton-containedSecondary {
-    background-color: #b73d1cbf;
+    background-color: ${({ theme }) => theme.colors.darkOrange};
     font-size: 0.8em;
 
     &:hover {
-      background-color: #ff3600bf;
+      background-color: ${({ theme }) =>  theme.colors.lightOrange};;
     }
   }
 `;
 
 export const StyledPaper = styled.div`
   justify-content: space-around;
-  color: rgb(255 90 90 /90%) !important;
-  background: #24272e !important;
+  color: ${({ theme }) => theme.colors.bittersweet} !important;
+  background: ${({ theme }) => theme.colors.mostlyBlackBlue} !important;
   .MuiListItemIcon-root {
-    color: rgb(255 90 90 /90%) !important;
+    color: ${({ theme }) => theme.colors.bittersweet} !important;
   }
   & > .MuiTypography-body1 {
     text-align: center !important;

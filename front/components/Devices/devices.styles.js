@@ -23,13 +23,13 @@ export const Header = styled.h2`
   text-align: center;
   width: 80%;
   padding: 10px;
-  font-size: 2em;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: ${({ theme }) => theme.font.size.md};
+  color: ${({ theme }) => theme.colors.darkerWhite};
   margin-bottom: 70px;
-  font-weight: 500;
+  font-weight: ${({ theme }) => theme.font.weight.medium};
 
-  @media (min-width: 960px) {
-    font-size: 2.5em;
+  ${({ theme }) => theme.mq.md} {
+    font-size: ${({ theme }) => theme.font.size.lg};
     width: 100%;
     margin-bottom: 150px;
   }
@@ -42,7 +42,7 @@ export const CardsContainer = styled.div`
   grid-gap: 30px;
   max-width: 90%;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
     grid-gap: 40px;
@@ -58,7 +58,7 @@ export const Card = styled.div`
   flex-direction: column;
   padding: 10px;
 
-  box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 60%);
+  box-shadow: ${({ theme }) => theme.boxShadow.light};
   background-color: rgba(0, 0, 0, 0.3);
 
   i {
@@ -78,7 +78,7 @@ export const Card = styled.div`
   .third {
     background-position: 0px 0px;
   }
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     padding: 20px;
   }
 `;
@@ -88,23 +88,23 @@ export const CardTitle = styled.h4`
   align-content: center;
   justify-content: center;
   text-align: center;
-  font-size: 1.1em;
+  font-size: ${({ theme }) => theme.font.size.xs};
   width: 100%;
-  font-weight: 500;
+  font-weight: ${({ theme }) =>  theme.font.weight.medium};
   padding: 10px 15px;
-  color: rgba(255, 255, 255, 0.7);
+  color: ${({ theme }) =>theme.colors.darkerWhite};
 
-  @media (min-width: 960px) {
-    font-size: 1.5em;
+  ${({ theme }) =>theme.mq.md} {
+    font-size: ${({ theme }) =>theme.font.size.sm};
   }
 `;
 
 export const CardContent = styled.p`
   font-family: "Roboto";
-  color: rgba(255, 255, 255, 0.7);
+  color: ${({ theme }) =>theme.colors.darkerWhite};
   padding: 0px 15px;
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     padding: 0px 25px;
   }
 `;

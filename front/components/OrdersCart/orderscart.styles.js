@@ -13,7 +13,7 @@ export const Heading = styled.h1`
   width: 100%;
   text-align: center;
   padding: 40px;
-  color: rgb(255 90 90 /90%);
+  color: ${({ theme }) => theme.colors.bittersweet};
 `;
 
 export const OrderWrapper = styled.div`
@@ -24,7 +24,7 @@ export const OrderWrapper = styled.div`
   border-right: none;
   border-left: none;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     flex-direction: row;
   }
 `;
@@ -32,25 +32,25 @@ export const OrderWrapper = styled.div`
 export const Footer = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 0.8em;
+  font-size: ${({ theme }) => theme.font.size.xxs};
   width: 100%;
   font-family: "Black Ops One", normal;
-  font-weight: 500;
+  font-weight: ${({ theme }) =>  theme.font.weight.medium};
   padding: 10px;
-  color: rgba(255, 255, 255, 1);
+  color: ${({ theme }) =>theme.colors.white};
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     flex-direction: row;
     justify-content: flex-end;
-    font-size: 1em;
+    font-size: ${({ theme }) =>theme.font.size.xs};
   }
 
   & > div > div > p > select {
-    background-color: #24272e;
-    color: white;
-    font-size: 1em;
+    background-color: ${({ theme }) =>theme.mostlyBlackBlue};
+    color: ${({ theme }) =>theme.colors.white};
+    font-size: ${({ theme }) =>theme.font.size.xs};
   }
   .MuiIconButton-root {
-    color: white;
+    color: ${({ theme }) =>theme.colors.white};
   }
 `;

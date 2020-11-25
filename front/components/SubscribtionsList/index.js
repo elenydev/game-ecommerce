@@ -47,6 +47,7 @@ const SubscribtionsList = ({ subscribtionsList }) => {
   return (
     <>
       <Wrapper>
+
         {subscribtions && subscribtions.length === 0 ? (
           <Heading>We don't have any subscribtions</Heading>
         ) : (
@@ -65,11 +66,14 @@ const SubscribtionsList = ({ subscribtionsList }) => {
             ))}
           </>
         )}
+
         {subscribtions.length > 0 && (
           <Footer>
             <FooterContent>
               <FooterRows>
+
                 <Paragraph>Subscribtions displayed:</Paragraph>
+
                 <Paragraph>
                   <select
                     onChange={(e) => {
@@ -81,6 +85,7 @@ const SubscribtionsList = ({ subscribtionsList }) => {
                     <option value={15}>15</option>
                   </select>
                 </Paragraph>
+
                 <Paragraph>
                   <Span>{startRange}</Span>
                   <Span>-</Span>
@@ -89,6 +94,7 @@ const SubscribtionsList = ({ subscribtionsList }) => {
                   <Span> {arrayLength} </Span>
                 </Paragraph>
               </FooterRows>
+
               <Paragraph>
                 <Span>
                   <IconButton onClick={() => decrementRange()}>
@@ -101,6 +107,7 @@ const SubscribtionsList = ({ subscribtionsList }) => {
                   </IconButton>
                 </Span>
               </Paragraph>
+              
             </FooterContent>
           </Footer>
         )}

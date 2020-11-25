@@ -15,10 +15,10 @@ export const OrderBox = styled.div`
 
   & > .MuiButton-containedSecondary {
     margin: 15px;
-    background-color: #b73d1cbf;
+    background-color: ${({ theme }) => theme.colors.darkOrange};
 
     &:hover {
-      background-color: #ff3600bf;
+      background-color: ${({ theme }) => theme.colors.lightOrange};
     }
   }
 `;
@@ -27,17 +27,17 @@ export const Heading = styled.h1`
   width: 100%;
   text-align: center;
   padding: 10px;
-  color: rgb(255 90 90 /90%);
+  color: ${({ theme }) => theme.colors.lightOrange};
 `;
 
 export const TotalPrize = styled.p`
-  color: rgb(255 90 90 /90%);
+  color: ${({ theme }) => theme.colors.lightOrange};
   align-self: flex-end;
   font-size: 1.2em;
   margin: 20px;
   border-bottom: 1px solid rgb(255 90 90 /60%);
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     margin: 20px 40px;
   }
 `;
@@ -45,26 +45,26 @@ export const TotalPrize = styled.p`
 export const Footer = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 0.8em;
+  font-size: ${({ theme }) => theme.font.size.xxs};
   width: 100%;
   font-family: "Black Ops One", normal;
-  font-weight: 500;
+  font-weight: ${({ theme }) => theme.font.weight.medium};
   padding: 10px;
-  color: rgba(255, 255, 255, 1);
+  color: ${({ theme }) => theme.colors.white};
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     flex-direction: row;
     justify-content: flex-end;
-    font-size: 1em;
+    font-size: ${({ theme }) => theme.font.size.xs};
   }
 
   & > div > div > p > select {
-    background-color: #24272e;
-    color: white;
-    font-size: 1em;
+    background-color: ${({ theme }) => theme.colors.mostlyBlackBlue};
+    color: ${({ theme }) => theme.colors.white};
+    font-size: ${({ theme }) => theme.font.size.xs};
   }
 
   .MuiIconButton-root {
-    color: white;
+    color: ${({ theme }) => theme.colors.white};
   }
 `;

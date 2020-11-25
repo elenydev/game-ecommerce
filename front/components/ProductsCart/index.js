@@ -110,18 +110,23 @@ const ProductsCart = () => {
 
   return (
     <Wrapper>
+
       {user.email === "admin@admin.com" && <AddProductForm />}
+
       {user.email !== "admin@admin.com" && products.length >= 1 ? (
         <>
           <Heading>Your products: </Heading>
+
           {slicedArray.map((product, index) => (
             <Product key={index} product={product} productIndex={index} />
           ))}
           <TotalPrize>Total prize: {getPrize()} $</TotalPrize>
+
           {products.length > 0 && (
             <Footer>
               <FooterContent>
                 <FooterRows>
+
                   <Paragraph>
                     <Span>{startRange}</Span>
                     <Span>-</Span>
@@ -129,18 +134,21 @@ const ProductsCart = () => {
                     <Span>of</Span>
                     <Span> {arrayLength} </Span>
                   </Paragraph>
+
                   <Paragraph>
                     <Span>
                       <IconButton onClick={() => decrementRange()}>
                         <KeyboardArrowLeftIcon />
                       </IconButton>
                     </Span>
+
                     <Span>
                       <IconButton onClick={() => incrementRange()}>
                         <KeyboardArrowRightIcon />
                       </IconButton>
                     </Span>
                   </Paragraph>
+                  
                 </FooterRows>
               </FooterContent>
             </Footer>

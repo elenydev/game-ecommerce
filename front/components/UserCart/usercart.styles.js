@@ -16,7 +16,8 @@ export const Wrapper = styled.div`
   @media (min-width: 280px) and (orientation: landscape) {
     padding-top: 10%;
   }
-  @media (min-width: 960px) {
+
+  ${({ theme }) => theme.mq.md} {
     width: 100%;
     padding: 0 5%;
     padding-top: 10%;
@@ -27,17 +28,17 @@ export const Wrapper = styled.div`
     align-items: flex-start;
   }
 
-  @media (min-width: 1480px) {
+   ${({ theme }) =>  theme.mq.xlg} {
     padding: 0 10%;
     padding-top: 10%;
   }
 
   & > .MuiButton-containedSecondary {
     margin: 15px;
-    background-color: #b73d1cbf;
+    background-color:${({ theme }) =>theme.colors.darkOrange};
 
     &:hover {
-      background-color: #ff3600bf;
+      background-color: ${({ theme }) =>theme.colors.lightOrange};
     }
   }
 `;
@@ -55,7 +56,7 @@ export const UserBox = styled.div`
   transition: all 0.4s ease 0s;
   border: 0.5px solid transparent;
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     margin-right: 50px;
   }
 `;
@@ -70,11 +71,11 @@ export const UserAvatar = styled.div`
   background-size: cover;
   border-radius: 50%;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     width: 100px;
     height: 100px;
   }
-  @media (min-width: 1280px) {
+  ${({ theme }) => theme.mq.lg} {
     width: 150px;
     height: 150px;
   }
@@ -88,7 +89,7 @@ export const UserAvatar = styled.div`
   }
 
   & > label > .MuiIconButton-colorPrimary {
-    color: rgb(255 90 90 /80%) !important;
+    color: ${({ theme }) => theme.colors.bittersweet} !important;
   }
 
   & > label {
@@ -97,10 +98,10 @@ export const UserAvatar = styled.div`
     transform: translateX(50%);
     bottom: -35%;
 
-    @media (min-width: 960px) {
+    ${({ theme }) => theme.mq.md} {
       bottom: -25%;
     }
-    @media (min-width: 1280px) {
+    ${({ theme }) => theme.mq.lg} {
       bottom: -18%;
     }
   }
@@ -113,10 +114,10 @@ export const MenuBox = styled.div`
   justify-content: space-between;
   width: 100%;
 
-  font-size: 0.8em;
+  font-size: ${({ theme }) =>theme.font.size.xxs};
 
-  @media (min-width: 960px) {
-    font-size: 1em;
+  ${({ theme }) =>theme.mq.md} {
+    font-size: ${({ theme }) =>theme.font.size.xs};
   }
 `;
 
@@ -131,15 +132,15 @@ export const CardParagraph = styled.p`
   color: rgba(255, 255, 255, 0.9);
   font-size: 1.3em;
 
-  @media (min-width: 960px) {
-    font-size: 2.5em;
+  ${({ theme }) =>theme.mq.md} {
+    font-size: ${({ theme }) =>theme.font.size.lg};
   }
 `;
 
 export const CardParagraphDescription = styled.p`
-  font-size: 0.8em;
-  color: rgba(255, 255, 255, 0.8);
-  @media (min-width: 960px) {
-    font-size: 1em;
+  font-size: ${({ theme }) =>theme.font.size.xxs};
+  color: ${({ theme }) =>theme.colors.darkerWhite};
+  ${({ theme }) =>theme.mq.md} {
+    font-size: ${({ theme }) =>theme.font.size.xs};
   }
 `;

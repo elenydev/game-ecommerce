@@ -37,7 +37,7 @@ export const ProductImage = styled.div`
 
   img {
     width: 100%;
-    box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 60%);
+    box-shadow: ${({ theme }) => theme.boxShadow.light};
     height: auto;
   }
 `;
@@ -47,7 +47,7 @@ export const ProductDescriptionBox = styled.div`
   flex-direction: column;
   min-height: 100%;
   width: 100%;
-  color: #5bb2fc;
+  color: ${({ theme }) => theme.colors.cyanBlue};
 
   @media (min-width: 960px) {
     margin: 0 25px;
@@ -69,7 +69,7 @@ export const ProductName = styled.h2`
 
 export const ProductDescription = styled.p`
   display: flex;
-  font-size: 0.9em;
+  font-size: ${({ theme }) => theme.font.size.xxs};
   justify-content: center;
   word-break: break-word;
   text-align: center;
@@ -99,7 +99,7 @@ export const ProductPrize = styled.p`
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 1.4em;
+  font-size: ${({ theme }) => theme.font.size.sm};
   @media (min-width: 960px) {
     margin: 0;
   }

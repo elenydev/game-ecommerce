@@ -3,13 +3,13 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  background-color: #24272e;
+  background-color: ${({ theme }) => theme.colors.mostlyBlackBlue};
   justify-content: center;
   flex-direction: column;
-  box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 60%);
+  box-shadow: ${({ theme }) => theme.boxShadow.light};
   padding: 10px;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     padding: 30px 0;
   }
 `;
@@ -21,14 +21,14 @@ export const FooterContainer = styled.footer`
   width: 100%;
   padding: 5px;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     width: 90%;
     flex-direction: row;
     flex-wrap: wrap;
     padding: 15px;
   }
 
-  @media (min-width: 1280px) {
+  ${({ theme }) => theme.mq.lg} {
     width: 80%;
   }
 `;
@@ -36,15 +36,15 @@ export const FooterContainer = styled.footer`
 export const Heading = styled.h3`
   display: block;
   letter-spacing: 2px;
-  color: #5bb2fc;
+  color: ${({ theme }) =>  theme.colors.cyanBlue};
   font-family: "Black Ops One", normal;
-  font-weight: 500;
+  font-weight: ${({ theme }) => theme.font.weight.medium};
 `;
 
 export const AdressContainer = styled.div`
   display: flex;
   flex-direction: column;
-  color: rgba(255, 255, 255, 0.8);
+  color: ${({ theme }) =>theme.colors.darkerWhite};
   min-height: 15vh;
 `;
 
@@ -54,7 +54,7 @@ export const AdressContent = styled.div`
 
   span {
     margin: 10px 0;
-    color: #ff5a5a;
+    color: ${({ theme }) =>theme.colors.bittersweet};
   }
 `;
 
@@ -65,7 +65,7 @@ export const FollowUsContainer = styled.div`
   margin: 25px 0;
   flex-direction: column;
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     margin: 0;
   }
 `;
@@ -133,13 +133,13 @@ export const FooterDescription = styled.p`
   font-family: "Roboto";
   text-align: center;
   margin: 25px 0;
-  color: rgba(255, 255, 255, 0.8);
-  @media (min-width: 960px) {
+  color: ${({ theme }) =>theme.colors.darkerWhite};
+  ${({ theme }) =>theme.mq.md} {
     margin-top: 40px;
   }
 
   & > a {
     cursor: pointer;
-    color: #5bb2fc;
+    color: ${({ theme }) =>theme.colors.cyanBlue};
   }
 `;

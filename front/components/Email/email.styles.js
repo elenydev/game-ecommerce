@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   height: 100%;
   margin-top: 50px;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     margin: 5px 0px;
   }
 `;
@@ -19,7 +19,7 @@ export const EmailContainer = styled.div`
   align-items: flex-start;
   flex: 1;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     flex-direction: row;
   }
 `;
@@ -29,9 +29,9 @@ export const EmailDescriptionBox = styled.div`
   flex-direction: column;
   min-height: 100%;
   width: 100%;
-  color: #5bb2fc;
+  color: ${({ theme }) => theme.colors.cyanBlue};
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>  theme.mq.md} {
     margin: 0 25px;
     max-width: 450px;
     align-items: flex-start;
@@ -41,20 +41,20 @@ export const EmailDescriptionBox = styled.div`
 export const CustomerEmail = styled.h2`
   display: flex;
   margin: 10px 0;
-  font-size: 1.1em;
+  font-size: ${({ theme }) =>theme.font.size.xs};
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     justify-content: flex-start;
-    font-size: 1.5em;
+    font-size: ${({ theme }) =>theme.font.size.sm};
     text-align: center;
   }
 `;
 
 export const EmailCustomerName = styled.p`
   display: flex;
-  font-size: 0.8em;
+  font-size: ${({ theme }) =>theme.font.size.xxs};
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     justify-content: flex-start;
     margin-bottom: 10px;
   }
@@ -63,7 +63,7 @@ export const EmailCustomerName = styled.p`
 export const EmailMessage = styled.p`
   display: flex;
   align-items: flex-start;
-  color: rgb(255 90 90 /90%);
+  color: ${({ theme }) =>theme.colors.bittersweet};
   margin-top: 10px;
   word-break: break-word;
 `;
@@ -72,9 +72,9 @@ export const EmailWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: 1px solid rgb(255 90 90 /60%);
+  border: 1px solid ${({ theme }) =>theme.colors.bittersweet};
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     flex-direction: row;
   }
 `;
@@ -85,13 +85,13 @@ export const DeleteWrapper = styled.div`
   align-items: center;
   justify-content: center;
   & > .MuiIconButton-root {
-    color: rgb(255 90 90 /90%) !important;
+    color: ${({ theme }) =>theme.colors.bittersweet} !important;
   }
   .MuiIconButton-label > a {
     padding-top: 8px !important;
   }
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     flex-direction: column;
   }
 `;

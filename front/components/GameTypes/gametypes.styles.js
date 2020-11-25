@@ -8,20 +8,20 @@ export const Wrapper = styled.div`
   width: 100%;
   padding: 15px;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     padding: 35px;
   }
 `;
 
 export const SubHeader = styled.h3`
   display: flex;
-  font-weight: 500;
-  font-size: 1.2em;
+  font-weight: ${({ theme }) => theme.font.weight.medium};
+  font-size: ${({ theme }) => theme.font.size.xs};
   text-align: center;
   font-family: "Black Ops One", cursive;
 
-  @media (min-width: 960px) {
-    font-size: 2.5em;
+  ${({ theme }) => theme.mq.md} {
+    font-size: ${({ theme }) => theme.font.size.lg};
   }
 `;
 
@@ -33,8 +33,8 @@ export const Header = styled.h2`
   letter-spacing: 1px;
   text-transform: uppercase;
 
-  @media (min-width: 960px) {
-    font-size: 3em;
+  ${({ theme }) => theme.mq.md} {
+    font-size: ${({ theme }) => theme.font.size.xlg};
   }
 `;
 
@@ -42,10 +42,10 @@ export const Description = styled.p`
   margin: 25px 15px;
   display: block;
   text-align: center;
-  font-size: 0.9em;
+  font-size: ${({ theme }) => theme.font.size.xxs};
   color: rgba(0, 0, 0, 0.8);
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     padding: 50px 15px;
     font-size: 1.1em;
     width: 70%;
@@ -60,12 +60,12 @@ export const CardsWrapper = styled.div`
   grid-template-rows: repeat(3, 1fr);
   width: 90%;
 
-  @media (min-width: 640px) {
+  ${({ theme }) => theme.mq.xs} {
     width: 60%;
     margin: 0 auto;
   }
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     width: 90%;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
@@ -73,7 +73,7 @@ export const CardsWrapper = styled.div`
     margin-top: 50px;
   }
 
-  @media (min-width: 1280px) {
+  ${({ theme }) => theme.mq.lg} {
     width: 80%;
   }
 `;
@@ -91,7 +91,7 @@ export const CardImage = styled.div`
   position: relative;
   img {
     max-width: 100%;
-    box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 60%);
+    box-shadow: ${({ theme }) => theme.boxShadow.light};
   }
 
   &:before {
@@ -103,8 +103,8 @@ export const CardImage = styled.div`
     width: 50%;
     top: 80%;
     max-width: 300px;
-    background: #fff;
-    box-shadow: 0 15px 10px #000;
+    background: ${({ theme }) => theme.colors.white};
+    box-shadow: ${({ theme }) => theme.boxShadow.dark};
     transform: rotate(-3deg);
   }
   &:after {
@@ -117,8 +117,8 @@ export const CardImage = styled.div`
     width: 50%;
     top: 80%;
     max-width: 300px;
-    background: #fff;
-    box-shadow: 0 15px 10px #000;
+    background: ${({ theme }) => theme.colors.white};
+    box-shadow: ${({ theme }) => theme.boxShadow.dark};
     transform: rotate(3deg);
   }
 `;
@@ -128,13 +128,13 @@ export const CardTitle = styled.h4`
   width: 100%;
   font-size: 1.2em;
   text-align: center;
-  font-weight: 500;
+  font-weight: ${({ theme }) => theme.font.weight.medium};
   letter-spacing: 1px;
   padding: 10px;
   font-family: "Black Ops One", cursive;
 
-  @media (min-width: 960px) {
-    font-size: 1.5em;
+  ${({ theme }) => theme.mq.md} {
+    font-size: ${({ theme }) => theme.font.size.sm};
     padding: 20px;
   }
 `;
@@ -145,10 +145,10 @@ export const CardContent = styled.p`
   text-align: center;
   padding: 5px;
   color: rgba(0, 0, 0, 0.8);
-  font-size: 0.9em;
+  font-size: ${({ theme }) => theme.font.size.xxs};
 
-  @media (min-width: 960px) {
-    font-size: 1em;
+  ${({ theme }) =>  theme.mq.md} {
+    font-size: ${({ theme }) =>theme.font.size.xs};
     line-height: 1.5;
   }
 `;

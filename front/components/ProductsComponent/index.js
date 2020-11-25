@@ -50,7 +50,9 @@ const ProductsComponent = ({ products }) => {
 
   return (
     <Wrapper id="games">
+
       <Header>Our offer</Header>
+
       <ItemsContainer>
         {currentCategoryProducts.map((product, index) => (
           <OfferProduct
@@ -62,10 +64,13 @@ const ProductsComponent = ({ products }) => {
           />
         ))}
       </ItemsContainer>
+
       <Footer>
         <FooterContent>
           <FooterRows>
+            
             <Paragraph>Products displayed:</Paragraph>
+
             <Paragraph>
               <select
                 onChange={(e) => {
@@ -77,6 +82,7 @@ const ProductsComponent = ({ products }) => {
                 <option value={12}>12</option>
               </select>
             </Paragraph>
+
             <Paragraph>
               <Span>{startRange}</Span>
               <Span>-</Span>
@@ -84,23 +90,29 @@ const ProductsComponent = ({ products }) => {
               <Span>of</Span>
               <Span>{arrayLength}</Span>
             </Paragraph>
+
           </FooterRows>
+
           <Paragraph>
             <Span>
               <IconButton onClick={() => decrementRange()}>
                 <KeyboardArrowLeftIcon />
               </IconButton>
             </Span>
+
             <Span>
               <IconButton onClick={() => incrementRange()}>
                 <KeyboardArrowRightIcon />
               </IconButton>
             </Span>
           </Paragraph>
+
         </FooterContent>
         <FooterContent>
           <FooterRows>
+
             <Paragraph>Device:</Paragraph>
+
             <Paragraph>
               <select
                 onChange={(e) => {
@@ -112,6 +124,7 @@ const ProductsComponent = ({ products }) => {
                 <option value="Xbox">Xbox</option>
               </select>
             </Paragraph>
+            
           </FooterRows>
         </FooterContent>
       </Footer>

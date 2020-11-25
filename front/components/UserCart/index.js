@@ -123,9 +123,8 @@ const UserCart = (props) => {
                 <span> </span>
                 {user.lastName}
               </CardParagraph>
-              <CardParagraphDescription>
-                {user.email}
-              </CardParagraphDescription>
+
+              <CardParagraphDescription>{user.email}</CardParagraphDescription>
 
               <MenuBox>
                 <ChangePasswordCart
@@ -137,7 +136,9 @@ const UserCart = (props) => {
               </MenuBox>
             </UserDescription>
           </UserBox>
+
           {router.pathname === "/auth/account/cart" && <ProductsCart />}
+
           {router.pathname === "/auth/account/emails" && (
             <EmailsCart emailsList={emails} />
           )}
@@ -149,6 +150,7 @@ const UserCart = (props) => {
           {router.pathname === "/auth/account/products" && (
             <AdminProductsList products={products} />
           )}
+
           {router.pathname === "/auth/account/subscribtions" && (
             <SubscribtionsList subscribtionsList={subscribtions} />
           )}

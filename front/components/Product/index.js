@@ -33,38 +33,49 @@ const Product = ({ product, productIndex }) => {
   return (
     <Wrapper>
       <ProductContainer>
+
         <ProductImage>
           <img
             src={`https://online-gaming-shop.herokuapp.com/images/${productImg}`}
             alt={productName}
           />
         </ProductImage>
+
         <ProductDescriptionBox>
+
           <ProductName>{productName}</ProductName>
           <ProductDescription>{productDescription}</ProductDescription>
+
           <ProductDescription>Type: {gameType}</ProductDescription>
+
         </ProductDescriptionBox>
+
         <ProductPrizeInfo>
+
           <ProductPrize>
             <span>{prize * amount} </span>
             <span>$</span>
           </ProductPrize>
+
           <ProductAmount>
             <span>Amount: </span>
             <span> {amount}</span>
           </ProductAmount>
 
           <ActionsBox>
+
             <span>
               <IconButton onClick={() => increaseProductAmount(productIndex)}>
                 <ExpandLessIcon />
               </IconButton>
             </span>
+
             <span>
               <IconButton onClick={() => decreaseProductAmount(productIndex)}>
                 <ExpandMoreIcon />
               </IconButton>
             </span>
+            
           </ActionsBox>
         </ProductPrizeInfo>
       </ProductContainer>
