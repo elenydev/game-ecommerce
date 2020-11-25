@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useCookie from "../../hooks/useCookie";
+import useAuth from "../../hooks/useAuth";
 
 import { FormLabel, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import useAuth from "../../hooks/useAuth";
 import {
   Paragraph,
   Form,

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import useCookie from "../../hooks/useCookie.js";
+import useAuth from "../../hooks/useAuth.js";
+import useProducts from "../../hooks/useProducts.js";
 import { useRouter } from "next/router";
+
 import {
   Wrapper,
   Container,
@@ -14,10 +19,7 @@ import {
   HamburgerInner,
 } from "./navigation.styles.js";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import Link from "next/link";
-import useCookie from "../../hooks/useCookie.js";
-import useAuth from "../../hooks/useAuth.js";
-import useProducts from '../../hooks/useProducts.js'
+
 
 const Navigation = () => {
   const [user, setUser] = useState({ user: null });

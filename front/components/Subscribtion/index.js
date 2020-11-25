@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { IconButton } from "@material-ui/core";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import useCookie from "../../hooks/useCookie";
 import useAuth from "../../hooks/useAuth";
+
+import { IconButton } from "@material-ui/core";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
   SubscribtionWrapper,
   SubscribtionCard,

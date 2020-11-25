@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import useAlert from "../../hooks/useAlert.js";
+import useArrayRange from "../../hooks/useArrayRange";
+
 import Email from "../Email/index.js";
 import { Wrapper, Heading, Footer } from "./emailscart.styles";
 import {
@@ -10,8 +13,6 @@ import {
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import Alert from "../Alert/index.js";
-import useAlert from "../../hooks/useAlert.js";
-import useArrayRange from "../../hooks/useArrayRange";
 import IconButton from "@material-ui/core/IconButton";
 
 

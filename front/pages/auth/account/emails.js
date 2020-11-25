@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
+import useAuth from "../../../hooks/useAuth.js";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+
 import Navigation from "../../../components/Navigation/index.js";
 import UserCart from "../../../components/UserCart/index.js";
-import useAuth from "../../../hooks/useAuth.js";
 
 const Wrapper = styled.div`
   display: flex;

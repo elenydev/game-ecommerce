@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import useAlert from "../../hooks/useAlert.js";
+import useArrayRange from "../../hooks/useArrayRange";
+
 import {
   FooterContent,
   FooterRows,
@@ -9,8 +12,6 @@ import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import Subscribtion from "../Subscribtion/index.js";
 import Alert from "../Alert/index.js";
-import useAlert from "../../hooks/useAlert.js";
-import useArrayRange from "../../hooks/useArrayRange";
 import IconButton from "@material-ui/core/IconButton";
 import { Wrapper, Heading, Footer } from "./subscribtions.styles";
 

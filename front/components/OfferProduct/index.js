@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import useProducts from "../../hooks/useProducts.js";
+
 import { Button } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
-import useProducts from "../../hooks/useProducts.js";
 import {
   Card,
   CardImage,

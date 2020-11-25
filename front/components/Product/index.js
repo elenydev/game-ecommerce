@@ -1,8 +1,10 @@
 import React from "react";
+import useProducts from "../../hooks/useProducts.js";
+
+
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { IconButton } from "@material-ui/core";
-import useProducts from "../../hooks/useProducts.js";
 import {
   Wrapper,
   ProductContainer,

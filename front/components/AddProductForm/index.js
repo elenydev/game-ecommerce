@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+import useAlert from "../../hooks/useAlert";
+import useCookie from "../../hooks/useCookie";
+import useAuth from "../../hooks/useAuth";
+
 import { FormLabel, Button, Checkbox } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Alert from "../../components/Alert/index.js";
-import useAlert from "../../hooks/useAlert";
-import useCookie from "../../hooks/useCookie";
-import useAuth from "../../hooks/useAuth";
 import {
   Form,
   Header,

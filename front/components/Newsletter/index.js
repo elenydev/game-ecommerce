@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Alert from "../Alert/index.js";
 import useAlert from "../../hooks/useAlert.js";
+
+import Alert from "../Alert/index.js";
 import {
   NewsletterContainer,
   Heading,
