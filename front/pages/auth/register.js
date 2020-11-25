@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   background-size: cover;
   padding-top: 25%;
   padding-bottom: 3%;
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     padding-top: 5%;
   }
 `;

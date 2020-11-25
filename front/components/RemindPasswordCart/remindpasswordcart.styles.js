@@ -8,15 +8,15 @@ export const LoginDiv = styled.div`
   position: relative;
   cursor: pointer;
   font-size: 0.6em;
-  color: white;
+  color: ${({ theme }) => theme.colors.white};
 
   .MuiPaper-root {
-    color: rgba(255, 255, 255, 0.8);
+    color: ${({ theme }) =>  theme.colors.darkerWhite};
     min-height: 0px;
     background: transparent;
   }
   .MuiIconButton-root {
-    color: rgba(255, 255, 255, 0.8);
+    color: ${({ theme }) =>theme.colors.darkerWhite};
   }
   .MuiPaper-elevation1 {
     box-shadow: none;
@@ -30,15 +30,15 @@ export const LoginDiv = styled.div`
 
 export const InputElement = styled(Input)`
   margin: 8px 0;
-  color: white;
+  color: ${({ theme }) =>theme.colors.white};
 
   & > .MuiInputBase-input {
-    color: white;
+    color: ${({ theme }) =>theme.colors.white};
   }
 `;
 
 export const ErrorSpan = styled.span`
-  color: #ff5a5a;
+  color: ${({ theme }) =>theme.colors.bittersweet};
   font-size: 12px;
 `;
 
@@ -50,10 +50,10 @@ export const Form = styled.form`
   & > .MuiButton-containedSecondary {
     margin: 15px;
     width: fit-content;
-    background-color: #b73d1cbf;
+    background-color:${({ theme }) =>theme.colors.darkOrange};
 
     &:hover {
-      background-color: #ff3600bf;
+      background-color: ${({ theme }) =>theme.colors.lightOrange};
     }
   }
 `;

@@ -5,21 +5,21 @@ export const Wrapper = styled.div`
   padding: 15px;
   width: 100%;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     padding: 40px;
   }
 `;
 
 export const Header = styled.h2`
   font-family: "Black Ops One", normal;
-  font-weight: 500;
-  font-size: 2.5em;
+  font-weight: ${({ theme }) => theme.font.weight.medium};
+  font-size: ${({ theme }) => theme.font.size.lg};
   color: rgba(0, 0, 0, 0.8);
   margin: 20px 0px;
   width: 100%;
   text-align: center;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     margin-bottom: 45px;
   }
 `;
@@ -33,17 +33,16 @@ export const ItemsContainer = styled.div`
   margin: 0 auto;
   place-items: center;
 
-  @media (min-width: 720px) {
+  ${({ theme }) => theme.mq.sm} {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (min-width: 1024px) {
+  ${({ theme }) => theme.mq.md} {
     width: 90%;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 30px;
   }
 
-  @media (min-width: 1280px) {
+  ${({ theme }) => theme.mq.lg} {
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 35px;
   }
@@ -52,16 +51,16 @@ export const ItemsContainer = styled.div`
 export const Footer = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 0.8em;
+  font-size: ${({ theme }) => theme.font.size.xxs};
   width: 100%;
   font-family: "Black Ops One", normal;
-  font-weight: 500;
+  font-weight:  ${({ theme }) =>  theme.font.weight.medium};
   padding: 10px;
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     flex-direction: row;
     justify-content: flex-end;
-    font-size: 1em;
+    font-size: ${({ theme }) =>theme.font.size.xs};
   }
 `;
 
@@ -71,7 +70,7 @@ export const FooterContent = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     width: fit-content;
     flex-direction: row;
   }
@@ -94,9 +93,9 @@ export const Paragraph = styled.p`
     margin: 0 5px;
     font-family: "Black Ops One", normal;
     background-color: transparent;
-    font-weight: 500;
+    font-weight: ${({ theme }) =>theme.font.weight.medium};
     padding-top: 3px;
-    @media (min-width: 960px) {
+    ${({ theme }) =>theme.mq.md} {
       margin: 0 20px;
     }
   }
@@ -111,7 +110,7 @@ export const Span = styled.span`
   justify-content: center;
   padding: 3px;
   & > .MuiSvgIcon-root {
-    font-size: 2em;
+    font-size: ${({ theme }) =>theme.font.size.md};
     &:hover {
       cursor: pointer;
     }

@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   font-family: "Roboto";
-  background-color: #24272e;
+  background-color: ${({ theme }) => theme.colors.mostlyBlackBlue};
   flex-direction: column;
 
   @media (min-width: 960px) {
@@ -16,10 +16,9 @@ export const Wrapper = styled.div`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  background-color: #24272e;
+  background-color: ${({ theme }) => theme.colors.mostlyBlackBlue};
   padding: 15px 25px;
-  border: 0.5px solid (255, 255, 255, 0.8);
-  box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 60%);
+  box-shadow: ${({ theme }) =>  theme.boxShadow.light};
   width: 100%;
   height: 100%;
 
@@ -33,9 +32,9 @@ export const Form = styled.form`
 export const Heading = styled.h3`
   display: block;
   letter-spacing: 2px;
-  color: #5bb2fc;
+  color: ${({ theme }) =>  theme.colors.cyanBlue};
   font-family: "Black Ops One", normal;
-  font-weight: 500;
+  font-weight: ${({ theme }) =>  theme.font.weight.medium};
   margin: 10px 0;
   width: 100%;
   text-align: center;
@@ -43,21 +42,21 @@ export const Heading = styled.h3`
 
 export const Input = styled.input`
   border: none;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid ${({ theme }) =>     theme.colors.white};
   outline: none;
   background-color: transparent;
-  color: rgba(255, 255, 255, 0.9);
+  color: ${({ theme }) =>     theme.colors.darkerWhite};
   padding: 5px;
-  font-size: 1em;
+  font-size: ${({ theme }) =>     theme.font.size.xs};
   margin: 5px;
   width: 100%;
 
   &::placeholder {
-    color: white;
+    color: ${({ theme }) =>     theme.colors.white};
   }
 
   &:focus {
-    outline: 1px solid white;
+    outline: 1px solid ${({ theme }) =>     theme.colors.white};
   }
 
   @media (min-width: 960px) {
@@ -67,12 +66,12 @@ export const Input = styled.input`
 
 export const TextInput = styled.textarea`
   border: none;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid ${({ theme }) =>     theme.colors.white};
   outline: none;
   background-color: transparent;
-  color: rgba(255, 255, 255, 0.9);
+  color: ${({ theme }) =>     theme.colors.darkerWhite};
   padding: 5px;
-  font-size: 1em;
+  font-size: ${({ theme }) =>     theme.font.size.xs};
   text-decoration: none;
   font-family: "Roboto";
   margin: 10px 5px;
@@ -80,11 +79,11 @@ export const TextInput = styled.textarea`
   resize: none;
 
   &::placeholder {
-    color: white;
+    color: ${({ theme }) =>     theme.colors.white};
   }
 
   &:focus {
-    outline: 1px solid white;
+    outline: 1px solid ${({ theme }) =>     theme.colors.white};
   }
 
   @media (min-width: 960px) {
@@ -94,7 +93,7 @@ export const TextInput = styled.textarea`
 `;
 
 export const ErrorSpan = styled.span`
-  color: #ff5a5a;
+  color: ${({ theme }) => theme.colors.bittersweet};
   font-size: 12px;
 
   & > a {
@@ -104,12 +103,12 @@ export const ErrorSpan = styled.span`
 
 export const Button = styled.button`
   padding: 5px 8px;
-  color: white;
+  color: ${({ theme }) =>    theme.colors.white};
   background-color: transparent;
   height: 100%;
-  border: 2px solid white;
+  border: 2px solid ${({ theme }) =>    theme.colors.white};
   outline: none;
-  font-size: 1em;
+  font-size: ${({ theme }) =>    theme.font.size.xs};
   cursor: pointer;
   transition: 0.5s all linear;
   align-self: center;
@@ -120,6 +119,6 @@ export const Button = styled.button`
 
   &:hover,
   &:focus {
-    background-color: #ff5a5a;
+    background-color: ${({ theme }) =>    theme.colors.bittersweet};
   }
 `;

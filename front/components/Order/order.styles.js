@@ -7,13 +7,13 @@ export const Wrapper = styled.div`
   height: 100%;
   margin-top: 50px;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     margin: 0;
   }
 
   .MuiPaper-root {
     background: transparent;
-    color: rgb(255 90 90 /90%);
+    color: ${({ theme }) => theme.colors.bittersweet};
   }
   .MuiAccordionSummary-root {
     padding: 5px 0px;
@@ -21,12 +21,15 @@ export const Wrapper = styled.div`
   .MuiPaper-elevation1 {
     box-shadow: none;
   }
+  .MuiFormLabel-root {
+    color: inherit;
+  }
 
   .MuiIconButton-root {
-    color: white;
+    color: ${({ theme }) => theme.colors.white};
   }
   .MuiFormLabel-root {
-    color: rgb(255 90 90 /90%);
+    color: ${({ theme }) => theme.colors.lighOrange};
     margin-right: 5px;
   }
 `;
@@ -37,7 +40,7 @@ export const OrderContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     flex-direction: row;
   }
 `;
@@ -47,9 +50,9 @@ export const OrderDescriptionBox = styled.div`
   flex-direction: column;
   min-height: 100%;
   width: 100%;
-  color: #5bb2fc;
+  color: ${({ theme }) => theme.colors.cyanBlue};
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     margin: 0 25px;
   }
 `;
@@ -59,18 +62,18 @@ export const CustomerEmail = styled.h2`
   margin: 10px 0;
   font-size: 1.1em;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     justify-content: flex-start;
-    font-size: 1.5em;
+    font-size: ${({ theme }) => theme.font.size.sm};
     text-align: center;
   }
 `;
 
 export const CustomerName = styled.p`
   display: flex;
-  font-size: 0.8em;
+  font-size: ${({ theme }) => theme.font.size.xxs};
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     justify-content: flex-start;
     margin-bottom: 10px;
   }
@@ -78,7 +81,7 @@ export const CustomerName = styled.p`
 
 export const ProductsList = styled.div`
   display: flex;
-  color: rgb(255 90 90 /90%);
+  color: ${({ theme }) => theme.colors.bittersweet};
   margin: 10px 0;
   word-break: break-word;
   flex-direction: column;
@@ -119,7 +122,7 @@ export const OrderInfo = styled.div`
   align-items: center;
   justify-content: space-between;
   min-width: 100%;
-  color: rgb(255 90 90 /90%);
+  color: ${({ theme }) => theme.colors.bittersweet};
 
   & > p {
     display: flex;
@@ -128,7 +131,7 @@ export const OrderInfo = styled.div`
   }
 
   & > div > .MuiInputBase-root {
-    color: #5bb2fc !important;
+    color: ${({ theme }) => theme.colors.cyanBlue} !important;
 
     color: ${({ status }) =>
       status === "In progress" && "rgb(255 90 90 /90%)!important"};

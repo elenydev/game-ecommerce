@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   height: 100%;
   margin-top: 50px;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     margin: 0;
   }
 `;
@@ -16,17 +16,17 @@ export const ProductContainer = styled.div`
   display: flex;
   padding: 15px;
   flex-direction: column;
-  border: 1px solid rgb(255 90 90 /60%);
+  border: 1px solid ${({ theme }) => theme.colors.lightOrange};
   border-radius: 50px;
   margin-bottom: 5px;
   transition: all 0.4s ease 0s;
 
   &:hover {
     transform: scale(1.02);
-    border: 1.5px solid #ff5a5a;
+    border: 1.5px solid ${({ theme }) =>  theme.colors.bittersweet};
   }
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     flex-direction: row;
   }
 `;
@@ -37,14 +37,14 @@ export const ProductImage = styled.div`
   width: 120px;
   align-self: center;
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     height: 150px;
     min-width: 150px;
   }
 
   img {
     width: 100%;
-    box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 60%);
+    box-shadow: ${({ theme }) =>theme.boxShadow.light};
     height: auto;
     border-radius: 50%;
   }
@@ -55,9 +55,9 @@ export const ProductDescriptionBox = styled.div`
   flex-direction: column;
   min-height: 100%;
   width: 100%;
-  color: #5bb2fc;
+  color: ${({ theme }) =>theme.colors.cyanBlue};
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     margin: 0 25px;
     max-width: 450px;
   }
@@ -69,7 +69,7 @@ export const ProductName = styled.h2`
   justify-content: center;
   text-align: center;
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     justify-content: flex-start;
   }
 `;
@@ -80,7 +80,7 @@ export const ProductDescription = styled.p`
   justify-content: center;
   word-break: break-word;
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     justify-content: flex-start;
     margin-bottom: 10px;
   }
@@ -92,9 +92,9 @@ export const ProductPrizeInfo = styled.div`
   min-height: 100%;
   align-items: center;
   justify-content: space-between;
-  color: rgb(255 90 90 /90%);
+  color: ${({ theme }) =>theme.colors.lightOrange};
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     flex-direction: row;
     margin-left: auto;
   }
@@ -106,8 +106,8 @@ export const ProductPrize = styled.p`
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 1.4em;
-  @media (min-width: 960px) {
+  font-size:${({ theme }) =>theme.font.size.sm};
+  ${({ theme }) =>theme.mq.md} {
     margin: 0;
   }
 `;
@@ -121,7 +121,7 @@ export const ProductAmount = styled.p`
     display: block;
   }
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     margin: 0 20px;
   }
 `;
@@ -134,6 +134,6 @@ export const ActionsBox = styled.div`
 
   span {
     display: flex;
-    color: rgb(255 90 90 /80%);
+    color: ${({ theme }) =>theme.colors.lightOrange};
   }
 `;

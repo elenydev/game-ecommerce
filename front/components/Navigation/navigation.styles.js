@@ -22,10 +22,10 @@ export const Wrapper = styled.div`
   transform: translateX(100%);
   box-shadow: 0px 3px 11px -9px rgba(0, 0, 0, 0.75);
   transition: transform 0.3s 0.1s ease-in-out;
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     transform: translateX(-50%);
     height: fit-content;
-    background: #24272e;
+    background: ${({ theme }) =>  theme.colors.mostlyBlackBlue};
   }
   &.active {
     transform: translateX(-50%) !important;
@@ -43,14 +43,14 @@ export const Nav = styled.nav`
   z-index: 99;
   height: 100%;
   flex-wrap: wrap;
-  color: white;
+  color: ${({ theme }) =>theme.colors.white};
   div,
   ul,
   li {
     width: 100%;
     text-align: center;
   }
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     flex-wrap: nowrap;
     div,
     ul,
@@ -69,12 +69,12 @@ export const MobileNav = styled.div`
   top: 0;
   height: 65px;
   padding: 5px;
-  background-color: #24272e;
+  background-color: ${({ theme }) =>theme.colors.mostlyDarkBlue};
   align-items: center;
-  @media (min-width: 960px) {
+  @media ${({ theme }) =>theme.mq.md} {
     display: none;
   } ;
-`; 
+`;
 
 export const NavLogo = styled.div`
   display: block;
@@ -93,7 +93,7 @@ export const NavList = styled.ul`
 `;
 
 export const NavListItem = styled.li`
-  font-weight: 500;
+  font-weight: ${({ theme }) =>theme.font.weight.medium};
   font-size: 1.1em;
   margin: 10px 0;
   cursor: pointer;
@@ -101,9 +101,9 @@ export const NavListItem = styled.li`
 
   &:hover,
   :focus {
-    color: #ff5a5a;
+    color: ${({ theme }) =>theme.colors.bittersweet};
   }
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     margin: 0 20px;
   }
   & > span {
@@ -120,11 +120,11 @@ export const Container = styled.div`
   display: flex;
   width: 100%;
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     width: 90%;
   }
 
-  @media (min-width: 1280px) {
+  ${({ theme }) =>theme.mq.lg} {
     width: 80%;
   }
 `;
@@ -139,10 +139,10 @@ export const Hamburger = styled.button`
   background-color: transparent;
   z-index: 100;
   border: 0;
-  outline: 1px solid rgb(255 90 90 /85%);
+  outline: 1px solid ${({ theme }) =>theme.colors.lightOrange};
   margin: 0;
   transition: transform 0.3s 0.1s ease-in-out;
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     display: none;
   }
 `;
@@ -157,7 +157,7 @@ export const HamburgerBox = styled.span`
 export const HamburgerInner = styled.span`
   width: 100%;
   height: 3px;
-  background-color: white;
+  background-color: ${({ theme }) =>theme.colors.white};
   position: absolute;
   left: 0;
   top: 50%;
@@ -169,7 +169,7 @@ export const HamburgerInner = styled.span`
     transition: transform 0.2s 0.2s ease-in-out;
     width: 100%;
     height: 3px;
-    background-color: white;
+    background-color: ${({ theme }) =>theme.colors.white};
     position: absolute;
   }
   &:after {
@@ -178,7 +178,7 @@ export const HamburgerInner = styled.span`
     transition: transform 0.2s 0.2s ease-in-out;
     width: 100%;
     height: 3px;
-    background-color: white;
+    background-color: ${({ theme }) =>theme.colors.white};
     position: absolute;
   }
   &:before {
@@ -194,7 +194,7 @@ export const HamburgerInner = styled.span`
     }
     &:before {
       transform: translateY(10px) rotate(45deg);
-
     }
   }
 `;
+ 

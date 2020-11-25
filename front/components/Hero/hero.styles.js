@@ -24,7 +24,7 @@ export const HeaderContainer = styled.div`
   justify-content: center;
   width: 90%;
   margin: 0 auto;
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     width: 100%;
   }
 `;
@@ -33,24 +33,24 @@ export const Header = styled.h1`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
+  color: ${({ theme }) => theme.colors.darkerWhite};
+  font-weight: ${({ theme }) => theme.font.weight.medium};
   text-align: center;
-  font-size: 2em;
+  font-size: ${({ theme }) =>  theme.font.size.md};
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     font-size: 3.5em;
   }
 `;
 
 export const SubHeader = styled.h3`
-  color: rgba(255, 255, 255, 0.8);
+  color: ${({ theme }) =>theme.colors.darkerWhite};
   text-align: center;
-  font-weight: 500;
-  font-size: 1em;
+  font-weight: ${({ theme }) =>theme.font.weight.medium};
+  font-size: ${({ theme }) =>theme.font.size.xs};
 
-  @media (min-width: 960px) {
-    font-size: 1.5em;
+  ${({ theme }) =>theme.mq.md} {
+    font-size: ${({ theme }) =>theme.font.size.sm};
   }
 `;
 
@@ -63,7 +63,7 @@ export const PlayIconContainer = styled.div`
   .MuiSvgIcon-root {
     width: 45px;
     height: 45px;
-    fill: rgba(255, 255, 255, 0.8);
+    fill: ${({ theme }) =>theme.colors.darkerWhite};
   }
 
   animation: showIcon 2s linear 5.5s infinite;

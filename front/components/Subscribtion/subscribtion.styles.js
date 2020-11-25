@@ -17,7 +17,7 @@ export const SubscribtionCard = styled.p`
   flex: 1;
   align-items: center;
   justify-content: flex-start;
-  color: rgb(255 90 90 /90%);
+  color: ${({ theme }) => theme.colors.bittersweet};
   font-size: 1.2em;
 `;
 
@@ -27,6 +27,6 @@ export const DeleteWrapper = styled.div`
   align-items: center;
   justify-content: center;
   & > .MuiIconButton-root {
-    color: rgb(255 90 90 /90%) !important;
+    color: ${({ theme }) => theme.colors.bittersweet} !important;
   }
 `;

@@ -11,9 +11,9 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #24272e;
+  background-color: ${({ theme }) => theme.colors.mostlyBlackBlue};
   min-height: 100vh;
-  box-shadow: 2px 2px 8px 0 rgb(255 90 90 /60%);
+  box-shadow: ${({ theme }) => theme.boxShadow.light};
 
   @media (min-width: 960px) {
     flex-direction: row;

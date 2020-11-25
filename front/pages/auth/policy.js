@@ -24,34 +24,34 @@ const PolicyWrapper = styled.div`
   justify-content: space-between;
   width: 80%;
   height: 100%;
-  color: rgba(255, 255, 255, 0.8);
+  color: ${({ theme }) => theme.colors.darkerWhite};
   padding-bottom: 5%;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     width: 50%;
     padding-top: 0%;
   }
 
   & > .MuiButton-containedSecondary {
     margin: 15px;
-    background-color: #b73d1cbf;
+    background-color: ${({ theme }) => theme.colors.darkOrange};
 
     &:hover {
-      background-color: #ff3600bf;
+      background-color: ${({ theme }) => theme.colors.lightOrange};
     }
   }
 `;
 
 export const Header = styled.h2`
   font-family: "Black Ops One", normal;
-  font-weight: 500;
-  font-size: 2.5em;
-  color: rgba(255, 255, 255, 0.8);
+  font-weight: ${({ theme }) =>  theme.font.weight.medium};
+  font-size: ${({ theme }) =>  theme.font.size.lg};
+  color: ${({ theme }) =>  theme.colors.darkerWhite};
   margin: 20px 0px;
   width: 100%;
   text-align: center;
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>  theme.mq.md} {
     margin-bottom: 45px;
   }
 `;
@@ -68,8 +68,9 @@ const ContentParagraph = styled.li`
   margin: 7px 0px;
   text-align: center;
   width: fit-content;
+  list-style-position: inside;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     margin: 15px 0px;
   }
 `;

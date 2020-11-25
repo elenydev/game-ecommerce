@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   background-size: cover;
   padding: 10%;
   min-height: 100vh;
-  box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 60%);
+  box-shadow: ${({ theme }) => theme.boxShadow.light};
 `;
 
 export const ContentWrapper = styled.div`
@@ -22,12 +22,12 @@ export const ContentWrapper = styled.div`
   min-height: 80%;
   width: 100%;
 
-  @media (min-width: 960px) {
+  ${({ theme }) => theme.mq.md} {
     width: 60%;
     height: 70%;
   }
 
-  @media (min-width: 1280px) {
+  ${({ theme }) =>  theme.mq.lg} {
     width: 40%;
     min-height: 60%;
   }
@@ -35,12 +35,12 @@ export const ContentWrapper = styled.div`
 
 export const Header = styled.h2`
   font-family: "Black Ops One", normal;
-  font-weight: 500;
-  font-size: 2.5em;
-  color: rgba(255, 255, 255, 0.8);
+  font-weight: ${({ theme }) =>theme.font.weight.medium};
+  font-size: ${({ theme }) =>theme.font.size.lg};
+  color: ${({ theme }) =>theme.colors.darkerWhite};
   margin: 20px 0px;
 
-  @media (min-width: 960px) {
+  ${({ theme }) =>theme.mq.md} {
     margin-bottom: 45px;
   }
 `;
@@ -64,11 +64,11 @@ export const Card = styled.div`
   flex: 0 0 auto;
   transition: all 0.4s ease 0s;
   border: 0.5px solid transparent;
-  box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 60%);
+  box-shadow: ${({ theme }) =>theme.boxShadow.light};
 
   &:hover {
     transform: scale(1.07);
-    border: 0.5px solid #ff5a5a;
+    border: 0.5px solid ${({ theme }) =>theme.colors.bittersweet};
   }
 
   .first {
@@ -106,17 +106,17 @@ export const ParagraphContainer = styled.div`
 export const CardParagraph = styled.p`
   font-family: "Roboto";
   color: rgba(255, 255, 255, 0.9);
-  font-size: 1em;
+  font-size: ${({ theme }) =>theme.font.size.xs};
 
-  @media (min-width: 960px) {
-    font-size: 1.4em;
+  ${({ theme }) =>theme.mq.md} {
+    ${({ theme }) =>theme.font.size.sm};
   }
 `;
 
 export const CardParagraphDescription = styled.p`
   font-size: 0.6em;
-  color: rgba(255, 255, 255, 0.8);
-  @media (min-width: 960px) {
-    font-size: 0.8em;
+  color: ${({ theme }) =>theme.colors.darkerWhite};
+  ${({ theme }) =>theme.mq.md} {
+    font-size: ${({ theme }) =>theme.font.size.xxs};
   }
 `;

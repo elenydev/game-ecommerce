@@ -8,20 +8,20 @@ export const Form = styled.form`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  color: white;
+  color: ${({ theme }) => theme.colors.white};
 
   & > .MuiButton-containedSecondary {
     margin: 15px;
-    background-color: #b73d1cbf;
-    font-size: 0.8em;
+    background-color: ${({ theme }) =>  theme.colors.darkOrange};
+    font-size: ${({ theme }) => theme.font.size.xxs};
 
     &:hover {
-      background-color: #ff3600bf;
+      background-color: ${({ theme }) =>theme.colors.lightOrange};
     }
   }
 
   & > .MuiFormLabel-root {
-    color: white;
+    color: ${({ theme }) => theme.colors.white};
   }
 
   & > .hidden {
@@ -29,20 +29,20 @@ export const Form = styled.form`
   }
 
   & > label > .MuiIconButton-colorPrimary {
-    color: #ff3600bf !important;
+    color: ${({ theme }) =>theme.colors.lightOrange} !important;
   }
 
   & > .MuiInputBase-root {
-    color: white !important;
+    color: ${({ theme }) =>theme.colors.white} !important;
 
     &::placeholder {
-      color: white !important;
+      color: ${({ theme }) => theme.colors.white} !important;
     }
   }
 `;
 
 export const ErrorSpan = styled.span`
-  color: #ff5a5a;
+  color: ${({ theme }) =>theme.colors.bittersweet};
   font-size: 12px;
 
   & > a {
@@ -52,19 +52,19 @@ export const ErrorSpan = styled.span`
 
 export const Header = styled.h2`
   display: flex;
-  font-weight: 700;
+  font-weight: ${({ theme }) =>theme.font.weight.bold};
   width: 100%;
   padding: 10px;
   justify-content: center;
-  color: rgb(255 90 90 /85%);
+  color: ${({ theme }) => theme.colors.bittersweet};
 `;
 
 export const InputElement = styled(Input)`
   margin: 8px 0;
-  color: white;
+  color: ${({ theme }) =>theme.colors.white};
 
   & > .MuiInputBase-input {
-    color: white;
+    color: ${({ theme }) =>theme.colors.white};
   }
 `;
 
@@ -84,6 +84,6 @@ export const SelectBox = styled.div`
   }
 
   & > label > .MuiInputBase-root {
-    color: #ff3600bf !important;
+    color: ${({ theme }) =>theme.colors.lightOrange} !important;
   }
 `;
