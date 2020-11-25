@@ -35,6 +35,7 @@ export const StyledPaper = styled.div`
   .MuiListItemIcon-root {
     color: ${({ theme }) => theme.colors.bittersweet} !important;
   }
+
   & > .MuiTypography-body1 {
     text-align: center !important;
   }
