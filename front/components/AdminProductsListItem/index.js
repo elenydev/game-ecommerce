@@ -1,143 +1,25 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { IconButton } from "@material-ui/core";
 import useCookie from "../../hooks/useCookie";
 import useAuth from "../../hooks/useAuth";
+import {
+  Wrapper,
+  ProductContainer,
+  ProductImage,
+  ProductDescription,
+  ProductDescriptionBox,
+  ProductName,
+  ProductPrizeInfo,
+  ProductPrize,
+  ProductAmount,
+  ActionsBox,
+} from "./adminproductslistitem.styles";
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  margin-top: 50px;
-
-  @media (min-width: 960px) {
-    margin: 0;
-  }
-`;
-
-const ProductContainer = styled.div`
-  display: flex;
-  padding: 15px;
-  flex-direction: column;
-  border: 1px solid rgb(255 90 90 /60%);
-  margin: 5px 0px;
-
-  @media (min-width: 960px) {
-    flex-direction: row;
-  }
-`;
-
-const ProductImage = styled.div`
-  display: flex;
-  height: 120px;
-  width: 120px;
-  align-self: center;
-
-  @media (min-width: 960px) {
-    height: 150px;
-    min-width: 150px;
-  }
-
-  img {
-    width: 100%;
-    box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 60%);
-    height: auto;
-  }
-`;
-
-const ProductDescriptionBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  width: 100%;
-  color: #5bb2fc;
-
-  @media (min-width: 960px) {
-    margin: 0 25px;
-    max-width: 450px;
-  }
-`;
-
-const ProductName = styled.h2`
-  display: flex;
-  margin: 10px 0;
-  justify-content: center;
-  text-align: center;
-
-  @media (min-width: 960px) {
-    justify-content: flex-start;
-    text-align: left;
-  }
-`;
-
-const ProductDescription = styled.p`
-  display: flex;
-  font-size: 0.9em;
-  justify-content: center;
-  word-break: break-word;
-  text-align: center;
-
-  @media (min-width: 960px) {
-    justify-content: flex-start;
-    margin-bottom: 10px;
-  }
-`;
-
-const ProductPrizeInfo = styled.div`
-  display: flex;
-  min-height: 100%;
-  align-items: center;
-  justify-content: space-between;
-  color: rgb(255 90 90 /90%);
-
-  @media (min-width: 960px) {
-    flex-direction: row;
-    margin-left: auto;
-  }
-`;
-
-const ProductPrice = styled.p`
-  display: flex;
-  margin: 10px;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 1.4em;
-  @media (min-width: 960px) {
-    margin: 0;
-  }
-`;
-
-const ProductAmount = styled.p`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  span {
-    display: block;
-  }
-
-  @media (min-width: 960px) {
-    margin: 0 20px;
-  }
-`;
-
-const ActionsBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 5px;
-
-  span {
-    display: flex;
-    color: rgb(255 90 90 /80%);
-  }
-`;
-
-const AdminProductListItem = ({ product, productIndex }) => {
+const AdminProductListItem = (props) => {
+  const { product, setMessage, setVariant, setErrorAlert } = props;
   const {
     productImg,
     productName,
@@ -197,12 +79,42 @@ const AdminProductListItem = ({ product, productIndex }) => {
     }
   };
 
+  const deleteProduct = async () => {
+    const data = {
+      productId: product._id,
+    };
+    try {
+      const query = await fetch(
+        "https://online-gaming-shop.herokuapp.com/deleteProduct",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            Authorization: "Bearer " + tokenCookie,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const response = await query.json();
+      if (response.productId) {
+        setVariant("success");
+        setMessage("Product deleted");
+      } else {
+        setVariant("error");
+        setMessage(response.message);
+      }
+    } catch (err) {
+      setErrorAlert();
+      console.log(err);
+    }
+  };
+
   return (
     <Wrapper>
       <ProductContainer>
         <ProductImage>
           <img
-            src={`https://online-gaming-shop.herokuapp.com/${productImg}`}
+            src={`https://online-gaming-shop.herokuapp.com/images/${productImg}`}
             alt={productName}
           />
         </ProductImage>
@@ -215,10 +127,10 @@ const AdminProductListItem = ({ product, productIndex }) => {
           <ProductDescription>Device: {device}</ProductDescription>
         </ProductDescriptionBox>
         <ProductPrizeInfo>
-          <ProductPrice>
+          <ProductPrize>
             <span>{prize * amount} </span>
             <span>$</span>
-          </ProductPrice>
+          </ProductPrize>
           <ProductAmount>
             <span>Amount: </span>
             <span> {productAmount}</span>
@@ -233,6 +145,13 @@ const AdminProductListItem = ({ product, productIndex }) => {
             <span>
               <IconButton onClick={decreaseAmount}>
                 <ExpandMoreIcon />
+              </IconButton>
+            </span>
+          </ActionsBox>
+          <ActionsBox>
+            <span>
+              <IconButton onClick={deleteProduct}>
+                <DeleteForeverIcon />
               </IconButton>
             </span>
           </ActionsBox>

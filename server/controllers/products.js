@@ -23,7 +23,8 @@ export const addProduct = async (req, res, next) => {
       device: device,
     });
     if (existingProduct.length === 0) {
-      const productImg = productFile.path;
+      const productImg = productFile.filename;
+      console.log(productImg);
       const product = new Product({
         productName,
         productDescription,
@@ -71,5 +72,22 @@ export const changeAmount = async (req, res, next) => {
   } catch (err) {
     res.send({ message: "Something went wrong, try again" });
     next();
+  }
+};
+
+
+export const deleteProduct = async (req, res, next) => {
+  const productId = req.body.productId;
+
+  const checkIfExist = await Product.findOne({ _id: productId });
+  if (checkIfExist) {
+    try {
+      await checkIfExist.deleteOne();
+      res.status(201).send({ productId });
+    } catch (err) {
+      res.status(500).send({ message: "Some error occured, please try again" });
+    }
+  } else {
+    res.status(500).send({ message: "We can't find that product, try again" });
   }
 };

@@ -76,7 +76,7 @@ export const signUp = async (req, res, next) => {
   try {
     const existingUser = await User.find({ email: email });
     if (existingUser.length === 0) {
-      const imageUrl = avatar.path;
+      const imageUrl = avatar.filename;
       const hashedPw = await bcrypt.hash(password, 12);
       const user = new User({
         firstName,
@@ -162,9 +162,8 @@ export const logOut = async (req, res, next) => {
 export const changeAvatar = async (req, res, next) => {
   const userEmail = req.body.email;
   const avatar = req.file;
-  const imageUrl = avatar.path;
+  const imageUrl = avatar.filename;
   const specificUser = await User.findOne({ email: userEmail });
-
   if (specificUser) {
     try {
       specificUser.avatar = imageUrl;

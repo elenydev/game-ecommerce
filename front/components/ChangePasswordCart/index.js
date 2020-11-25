@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useCookie from "../../hooks/useCookie";
 
-import Input from "@material-ui/core/Input";
 import { FormLabel, Button } from "@material-ui/core";
-import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import useAuth from "../../hooks/useAuth";
+import {
+  Paragraph,
+  Form,
+  ErrorSpan,
+  InputElement,
+  Header,
+} from "./changepasswordcart.styles";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -26,68 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Form = styled.form`
-  display: flex;
 
-  width: 90%;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-
-  & > .MuiButton-containedSecondary {
-    margin: 15px;
-    background-color: #b73d1cbf;
-
-    &:hover {
-      background-color: #ff3600bf;
-    }
-  }
-
-  & > .MuiFormLabel-root {
-    color: white;
-  }
-
-  & > .hidden {
-    display: none;
-  }
-
-  & > label > .MuiIconButton-colorPrimary {
-    color: #ff3600bf !important;
-  }
-
-  @media (min-width: 650px) {
-    width: fit-content;
-  }
-`;
-
-const ErrorSpan = styled.span`
-  color: #ff5a5a;
-  font-size: 12px;
-`;
-
-const InputElement = styled(Input)`
-  margin: 8px 0;
-  color: white;
-
-  & > .MuiInputBase-input {
-    color: white;
-  }
-`;
-
-const Paragraph = styled.p`
-  cursor: pointer;
-  margin-right: 7px;
-  color: rgb(255 90 90 /85%);
-  min-height: 100%;
-`;
-
-const Header = styled.h4`
-  display: flex;
-  font-weight: 700;
-  color: rgb(255 90 90 /85%);
-  margin-bottom: 7px;
-`;
 
 const defaultValues = {
   password: null,

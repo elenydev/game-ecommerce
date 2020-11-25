@@ -1,42 +1,15 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import useAlert from "../../hooks/useAlert";
 import useCookie from "../../hooks/useCookie";
 import useAuth from "../../hooks/useAuth";
+import {
+  SubscribtionWrapper,
+  SubscribtionCard,
+  DeleteWrapper,
+} from "./subscribtion.styles";
 
 
-const SubscribtionWrapper = styled.div`
-  display: flex;
-  min-width: 100%;
-  border: 1px solid rgb(255 90 90 /60%);
-  border-right: none;
-  border-left: none;
-
-  &:nth-child(even) {
-    border-top: none;
-  }
-`;
-
-const SubscribtionCard = styled.p`
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: flex-start;
-  color: rgb(255 90 90 /90%);
-  font-size: 1.2em;
-`;
-
-const DeleteWrapper = styled.div`
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  & > .MuiIconButton-root {
-    color: rgb(255 90 90 /90%) !important;
-  }
-`;
 
 const Subscribtion = (props) => {
   const {
