@@ -99,6 +99,7 @@ const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
   return (
     <>
       <Paragraph onClick={handleOpen}>Password</Paragraph>
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -122,6 +123,7 @@ const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
               }}
             />
           </FormLabel>
+
           {errors.password && errors.password.type === "required" && (
             <ErrorSpan>Please provide a current password</ErrorSpan>
           )}
@@ -140,6 +142,7 @@ const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
               }}
             />
           </FormLabel>
+          
           {errors.newPassword && errors.newPassword.type === "required" && (
             <ErrorSpan>Please provide a new password</ErrorSpan>
           )}

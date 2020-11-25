@@ -72,7 +72,9 @@ const Subscribtion = (props) => {
   return (
     <>
       <SubscribtionWrapper key={index}>
+
         <SubscribtionCard>{email.email}</SubscribtionCard>
+        
         <DeleteWrapper>
           <IconButton onClick={() => deleteSubscribtionFromDatabase(email)}>
             <DeleteForeverIcon />

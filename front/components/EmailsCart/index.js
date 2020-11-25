@@ -47,11 +47,13 @@ const EmailsCart = ({ emailsList }) => {
   return (
     <>
       <Wrapper>
+
         {emails && emails.length === 0 ? (
           <Heading>We don't have any emails</Heading>
         ) : (
           <>
             <Heading>Emails: </Heading>
+            
             {slicedArray.map((email, index) => (
               <Email
                 emailMessage={email}

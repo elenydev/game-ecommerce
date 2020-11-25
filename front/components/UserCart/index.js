@@ -95,6 +95,7 @@ const UserCart = (props) => {
           subCart={router.pathname !== "/auth/account/cart" && true}
         >
           <UserBox>
+
             <UserAvatar background={userImage}>
               <input
                 name="avatar"
@@ -118,11 +119,13 @@ const UserCart = (props) => {
             </UserAvatar>
 
             <UserDescription>
+
               <CardParagraph>
                 {user.firstName}
                 <span> </span>
                 {user.lastName}
               </CardParagraph>
+
               <CardParagraphDescription>
                 {user.email}
               </CardParagraphDescription>
@@ -137,7 +140,9 @@ const UserCart = (props) => {
               </MenuBox>
             </UserDescription>
           </UserBox>
+
           {router.pathname === "/auth/account/cart" && <ProductsCart />}
+          
           {router.pathname === "/auth/account/emails" && (
             <EmailsCart emailsList={emails} />
           )}

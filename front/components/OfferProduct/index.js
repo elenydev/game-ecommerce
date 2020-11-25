@@ -57,23 +57,31 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
   return (
     <>
       <Card>
-        {" "}
+  
         <CardImage>
           <img
             src={`https://online-gaming-shop.herokuapp.com/images/${productImg}`}
             alt={productName}
           />
         </CardImage>
+
         <CardContentContainer>
+          
           <CardContentHeader>{productName}</CardContentHeader>
+
           <CardContentDescription>
             {productDescription.substring(0, 60) + "..."}
           </CardContentDescription>
+
           <CardContentInfoWrapper>
+
             <CardContentType>{gameType}</CardContentType>
+
             <CardContentPrize>{prize} $</CardContentPrize>
           </CardContentInfoWrapper>
+
         </CardContentContainer>
+        
         <Tooltip title={buttonDisabled ? "Sing in to buy product" : ""}>
           <span>
             <Button

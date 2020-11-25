@@ -89,24 +89,30 @@ const Order = ({ specificOrder, index }) => {
             
             <AccordionDetails>
               <ProductsList>
+
                 {products
                   ? products.map((product, index) => (
                       <ProductContainer key={index}>
+
                         <ProductImage>
                           <img
                             src={`https://online-gaming-shop.herokuapp.com/${product.productImg}`}
                             alt={product.productName}
                           />
                         </ProductImage>
+
                         <ProductInfo>
                           <ProductName>{product.productName}</ProductName>
+
                           <ProductAmount>
                             <span>x{product.amount}</span>
                           </ProductAmount>
+
                         </ProductInfo>
                       </ProductContainer>
                     ))
                   : "There are no products"}
+                  
               </ProductsList>
             </AccordionDetails>
             
@@ -114,15 +120,19 @@ const Order = ({ specificOrder, index }) => {
 
           <OrderInfo status={orderStatus}>
             <div>
+              
               <FormLabel>Order Status: </FormLabel>
+
               <Select value={orderStatus} onChange={handleChange}>
                 <MenuItem value="Accepted">Accepted</MenuItem>
                 <MenuItem value="In progress">In progress</MenuItem>
                 <MenuItem value="Delivered">Delivered</MenuItem>
               </Select>
+              
             </div>
             <p>Total prize: {prize}$</p>
           </OrderInfo>
+          
         </OrderDescriptionBox>
       </OrderContainer>
     </Wrapper>

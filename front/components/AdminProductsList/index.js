@@ -43,11 +43,13 @@ const AdminProductsList = ({ products }) => {
   return (
     <>
       <Wrapper>
+        
         {products.length === 0 ? (
           <Heading>Products list is empty</Heading>
         ) : (
           <Heading>Products list:</Heading>
         )}
+
         {products.length > 0 &&
           slicedArray.map((product, index) => (
             <AdminProductsListItem
@@ -59,11 +61,14 @@ const AdminProductsList = ({ products }) => {
               setErrorAlert={setErrorAlert}
             />
           ))}
+          
         {products.length > 0 && (
           <Footer>
+
             <FooterContent>
               <FooterRows>
                 <Paragraph>Products displayed:</Paragraph>
+
                 <Paragraph>
                   <select
                     onChange={(e) => {
@@ -75,6 +80,7 @@ const AdminProductsList = ({ products }) => {
                     <option value={15}>15</option>
                   </select>
                 </Paragraph>
+
                 <Paragraph>
                   <Span>{startRange}</Span>
                   <Span>-</Span>
@@ -82,6 +88,7 @@ const AdminProductsList = ({ products }) => {
                   <Span>of</Span>
                   <Span> {arrayLength} </Span>
                 </Paragraph>
+
                 <Paragraph>
                   <Span>
                     <IconButton onClick={() => decrementRange()}>
@@ -94,8 +101,10 @@ const AdminProductsList = ({ products }) => {
                     </IconButton>
                   </Span>
                 </Paragraph>
+
               </FooterRows>
             </FooterContent>
+            
           </Footer>
         )}
         <>

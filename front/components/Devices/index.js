@@ -13,11 +13,15 @@ const Devices = () => {
   return (
     <Wrapper>
       <Container>
+
         <Header>We provide games for:</Header>
+
         <CardsContainer>
+
           <Card>
             <i className='first'> </i>
             <CardTitle>Playstation</CardTitle>
+
             <CardContent>
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
@@ -26,10 +30,13 @@ const Devices = () => {
               survived not only five centuries, but also the leap into
               electronic typesetting, remaining essentially unchanged.
             </CardContent>
+
           </Card>
           <Card>
+
             <i className='second'> </i>
             <CardTitle>Xbox</CardTitle>
+
             <CardContent>
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
@@ -38,10 +45,13 @@ const Devices = () => {
               survived not only five centuries, but also the leap into
               electronic typesetting, remaining essentially unchanged.
             </CardContent>
+
           </Card>
           <Card>
+
             <i className='third'> </i>
             <CardTitle>Desktop</CardTitle>
+            
             <CardContent>
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
@@ -50,7 +60,9 @@ const Devices = () => {
               survived not only five centuries, but also the leap into
               electronic typesetting, remaining essentially unchanged.
             </CardContent>
+            
           </Card>
+          
         </CardsContainer>
       </Container>
     </Wrapper>
