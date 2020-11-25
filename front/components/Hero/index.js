@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import Link from "next/link";
+
+import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import { Typewriter } from "react-typewriting-effect";
 import {
   Wrapper,

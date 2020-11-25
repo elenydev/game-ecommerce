@@ -1,9 +1,10 @@
 import React from "react";
+import useCookie from "../../hooks/useCookie";
+import useAuth from "../../hooks/useAuth";
+
 import { IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EmailIcon from "@material-ui/icons/Email";
-import useCookie from "../../hooks/useCookie";
-import useAuth from "../../hooks/useAuth";
 import {
   Wrapper,
   EmailContainer,

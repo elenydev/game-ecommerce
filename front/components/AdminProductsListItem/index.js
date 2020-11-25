@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import useCookie from "../../hooks/useCookie";
+import useAuth from "../../hooks/useAuth";
+
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { IconButton } from "@material-ui/core";
-import useCookie from "../../hooks/useCookie";
-import useAuth from "../../hooks/useAuth";
 import {
   Wrapper,
   ProductContainer,

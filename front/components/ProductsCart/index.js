@@ -1,23 +1,23 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
-import Product from "../Product/index.js";
-import { Button } from "@material-ui/core";
-import AddProductForm from "../../components/AddProductForm/index.js";
-import Alert from "../Alert/index.js";
 import useAlert from "../../hooks/useAlert.js";
 import useCookie from "../../hooks/useCookie.js";
 import useAuth from "../../hooks/useAuth.js";
 import useProducts from "../../hooks/useProducts.js";
 import useArrayRange from "../../hooks/useArrayRange.js";
+
+import Product from "../Product/index.js";
+import { Button } from "@material-ui/core";
+import AddProductForm from "../../components/AddProductForm/index.js";
+import Alert from "../Alert/index.js";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
+import IconButton from "@material-ui/core/IconButton";
 import {
   FooterContent,
   FooterRows,
   Paragraph,
   Span,
 } from "../ProductsComponent/productsComponent.styles.js";
-import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
-import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
-import IconButton from "@material-ui/core/IconButton";
 import {
   Wrapper,
   OrderBox,

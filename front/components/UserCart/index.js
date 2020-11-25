@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import useAuth from "../../hooks/useAuth.js";
+import useCookie from "../../hooks/useCookie";
 import { useRouter } from "next/router";
+
 import ProductsCart from "../ProductsCart/index.js";
 import Sidebar from "../Sidebar/index.js";
 import EmailsCart from "../EmailsCart/index.js";
@@ -9,9 +11,7 @@ import AdminProductsList from "../AdminProductsList/index.js";
 import SubscribtionsList from "../SubscribtionsList/index.js";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import IconButton from "@material-ui/core/IconButton";
-import useCookie from "../../hooks/useCookie";
 import ChangePasswordCart from "../ChangePasswordCart/index.js";
-import useAuth from "../../hooks/useAuth.js";
 import {
   Wrapper,
   UserBox,

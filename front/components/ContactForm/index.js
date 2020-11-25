@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm } from "react-hook-form"
+import useAlert from "../../hooks/useAlert";
+;
 import { FormLabel } from "@material-ui/core";
 import Alert from "../Alert/index.js";
-import useAlert from "../../hooks/useAlert";
 import {
   Wrapper,
   Form,

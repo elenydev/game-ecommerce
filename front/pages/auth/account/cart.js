@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import useAuth from "../../../hooks/useAuth.js";
+import useAlert from "../../../hooks/useAlert.js";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+
 import Navigation from "../../../components/Navigation/index.js";
 import UserCart from "../../../components/UserCart/index.js";
-import useAlert from "../../../hooks/useAlert.js";
 import Alert from "../../../components/Alert/index.js";
-import useAuth from "../../../hooks/useAuth.js";
 
 
 const Wrapper = styled.div`

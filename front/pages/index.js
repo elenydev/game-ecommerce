@@ -1,6 +1,9 @@
 
 import Head from "next/head";
 import React, { useEffect } from "react";
+import useCookie from "../hooks/useCookie";
+import useAuth from "../hooks/useAuth.js";
+
 import Navigation from "../components/Navigation/index.js";
 import Hero from "../components/Hero/index.js"; 
 import GameTypes from '../components/GameTypes/index.js'
@@ -9,8 +12,7 @@ import OurTeam from "../components/OurTeam/index.js";
 import Footer from "../components/Footer/index.js";
 import ContactForm from "../components/ContactForm/index.js";
 import ProductsComponent from "../components/ProductsComponent/index.js";
-import useCookie from "../hooks/useCookie";
-import useAuth from "../hooks/useAuth.js";
+
 
 const Home = React.memo(({  products  }) => {
   const { setCurrentUser } = useAuth();

@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
+import useAlert from "../../hooks/useAlert";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+
 import { FormLabel, Button, Checkbox } from "@material-ui/core";
-import Link from "next/link";
 import Alert from "../Alert/index";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import useAlert from "../../hooks/useAlert";
 import {
   Wrapper,
   Form,
