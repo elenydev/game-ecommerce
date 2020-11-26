@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
 import AdminProductsListItem from "../AdminProductsListItem/index.js";
 import {
   FooterContent,
@@ -23,10 +22,13 @@ const AdminProductsList = ({ products }) => {
     incrementRange,
     decrementRange,
     handleArrayRange,
+    checkRanges,
     setVisibleProducts,
   } = useArrayRange();
 
-  const { slicedArray, arrayLength } = handleArrayRange(products);
+  const [allProducts, setAllProducts] = useState(products);
+
+  const { slicedArray, arrayLength } = handleArrayRange(allProducts);
   const {
     message,
     setMessage,
@@ -43,7 +45,6 @@ const AdminProductsList = ({ products }) => {
   return (
     <>
       <Wrapper>
-        
         {products.length === 0 ? (
           <Heading>Products list is empty</Heading>
         ) : (
@@ -59,12 +60,12 @@ const AdminProductsList = ({ products }) => {
               setMessage={setMessage}
               setVariant={setVariant}
               setErrorAlert={setErrorAlert}
+              setAllProducts={setAllProducts}
             />
           ))}
-          
+
         {products.length > 0 && (
           <Footer>
-
             <FooterContent>
               <FooterRows>
                 <Paragraph>Products displayed:</Paragraph>
@@ -101,10 +102,8 @@ const AdminProductsList = ({ products }) => {
                     </IconButton>
                   </Span>
                 </Paragraph>
-
               </FooterRows>
             </FooterContent>
-            
           </Footer>
         )}
         <>

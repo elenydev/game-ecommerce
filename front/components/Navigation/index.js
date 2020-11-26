@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import useCookie from "../../hooks/useCookie.js";
 import useAuth from "../../hooks/useAuth.js";
 import useProducts from "../../hooks/useProducts.js";
@@ -20,11 +21,13 @@ import {
 } from "./navigation.styles.js";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
-
 const Navigation = () => {
   const [user, setUser] = useState({ user: null });
-  const {currentUser, deleteCurrentUser, setCurrentUser} = useAuth()
-  const {productsList:{products}, clearProducts} = useProducts()
+  const { currentUser, deleteCurrentUser, setCurrentUser } = useAuth();
+  const {
+    productsList: { products },
+    clearProducts,
+  } = useProducts();
   const { deleteCookie } = useCookie();
   const router = useRouter();
 
@@ -40,7 +43,7 @@ const Navigation = () => {
     deleteCookie("Token");
     setTimeout(() => {
       deleteCurrentUser();
-      clearProducts()
+      clearProducts();
       setUser({ user: null });
     }, 300);
     setTimeout(() => {
@@ -68,7 +71,7 @@ const Navigation = () => {
           </Link>
         </NavLogo>
       </MobileNav>
-      
+
       <Hamburger className="hamburger" onClick={() => handleClick()}>
         <HamburgerBox className="hamburger__box">
           <HamburgerInner className="hamburger__inner"></HamburgerInner>
@@ -78,7 +81,6 @@ const Navigation = () => {
       <Wrapper className="nav">
         <Container>
           <Nav>
-
             <NavLogo>
               <Link href="/">
                 <a>
@@ -88,7 +90,6 @@ const Navigation = () => {
             </NavLogo>
 
             <NavList>
-
               <NavListItem onClick={() => handleClick()}>
                 <Link href="/#home">
                   <a>Home</a>
@@ -112,7 +113,7 @@ const Navigation = () => {
                   <a>Contact</a>
                 </Link>
               </NavListItem>
-              
+
               {user.user !== null ? (
                 <NavListItem
                   onClick={() => {
@@ -141,7 +142,7 @@ const Navigation = () => {
                   </Link>
                 </NavListItem>
               )}
-              
+
               {user.user !== null && user.user.email === "admin@admin.com" && (
                 <NavListItem onClick={() => handleClick()}>
                   <Link href="/auth/account/cart">
@@ -149,7 +150,6 @@ const Navigation = () => {
                   </Link>
                 </NavListItem>
               )}
-              
             </NavList>
           </Nav>
         </Container>

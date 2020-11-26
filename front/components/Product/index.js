@@ -1,6 +1,6 @@
 import React from "react";
 import useProducts from "../../hooks/useProducts.js";
-
+import Image from "next/image";
 
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -33,7 +33,6 @@ const Product = ({ product, productIndex }) => {
   return (
     <Wrapper>
       <ProductContainer>
-
         <ProductImage>
           <img
             src={`https://online-gaming-shop.herokuapp.com/images/${productImg}`}
@@ -42,16 +41,13 @@ const Product = ({ product, productIndex }) => {
         </ProductImage>
 
         <ProductDescriptionBox>
-
           <ProductName>{productName}</ProductName>
           <ProductDescription>{productDescription}</ProductDescription>
 
           <ProductDescription>Type: {gameType}</ProductDescription>
-
         </ProductDescriptionBox>
 
         <ProductPrizeInfo>
-
           <ProductPrize>
             <span>{prize * amount} </span>
             <span>$</span>
@@ -63,7 +59,6 @@ const Product = ({ product, productIndex }) => {
           </ProductAmount>
 
           <ActionsBox>
-
             <span>
               <IconButton onClick={() => increaseProductAmount(productIndex)}>
                 <ExpandLessIcon />
@@ -75,7 +70,6 @@ const Product = ({ product, productIndex }) => {
                 <ExpandMoreIcon />
               </IconButton>
             </span>
-            
           </ActionsBox>
         </ProductPrizeInfo>
       </ProductContainer>
