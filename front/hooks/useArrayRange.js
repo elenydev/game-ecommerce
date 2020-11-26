@@ -29,9 +29,9 @@ const useArrayRange = () => {
     return { arrayLength, currentCategoryProducts };
   };
 
-  const handleArrayRange = (subscribtions) => {
-    arrayLength = subscribtions.length;
-    const slicedArray = subscribtions.slice(startRange - 1, endRange);
+  const handleArrayRange = (arr) => {
+    arrayLength = arr.length;
+    const slicedArray = arr.slice(startRange - 1, endRange);
     return { slicedArray, arrayLength };
   };
 

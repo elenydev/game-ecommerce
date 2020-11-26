@@ -22,10 +22,11 @@ export const Wrapper = styled.div`
   transform: translateX(100%);
   box-shadow: 0px 3px 11px -9px rgba(0, 0, 0, 0.75);
   transition: transform 0.3s 0.1s ease-in-out;
+
   ${({ theme }) => theme.mq.md} {
     transform: translateX(-50%);
     height: fit-content;
-    background: ${({ theme }) =>  theme.colors.mostlyBlackBlue};
+    background: ${({ theme }) => theme.colors.mostlyBlackBlue};
   }
   &.active {
     transform: translateX(-50%) !important;
@@ -69,9 +70,9 @@ export const MobileNav = styled.div`
   top: 0;
   height: 65px;
   padding: 5px;
-  background-color: ${({ theme }) =>theme.colors.mostlyDarkBlue};
+  background-color: ${({ theme }) => theme.colors.mostlyBlackBlue};
   align-items: center;
-  @media ${({ theme }) =>theme.mq.md} {
+  @media ${({ theme }) => theme.mq.md} {
     display: none;
   } ;
 `;
@@ -119,12 +120,13 @@ export const NavActions = styled.div`
 export const Container = styled.div`
   display: flex;
   width: 100%;
+  height: 80%;
 
-  ${({ theme }) =>theme.mq.md} {
+  ${({ theme }) => theme.mq.md} {
     width: 90%;
   }
 
-  ${({ theme }) =>theme.mq.lg} {
+  ${({ theme }) => theme.mq.lg} {
     width: 80%;
   }
 `;

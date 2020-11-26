@@ -6,17 +6,17 @@ export const addSubscriber = async (req, res, next) => {
   try {
     const alreadySubscribe = await Subscribtion.findOne({ email });
     if (alreadySubscribe) {
-      res.send({ message: "You are already subscriber" });
+      res.status(400).send({ message: "You are already subscriber" });
       return;
     }
     const subscriber = new Subscribtion({
       email,
     });
     await subscriber.save();
-    res.send({ subscriber });
+    res.status(200).send({ subscriber });
     next();
   } catch (err) {
-    res.send({ message: "Something went wrong, try again" });
+    res.status(400).send({ message: "Something went wrong, try again" });
     next();
   }
 };
@@ -24,9 +24,11 @@ export const addSubscriber = async (req, res, next) => {
 export const getSubscribtions = async (req, res, next) => {
   try {
     const subscribers = await Subscribtion.find();
-    res.send({ subscribers });
+    res.status(200).send({ subscribers });
   } catch (err) {
-    res.send({ message: "Something went wrong with fetching subscribtions" });
+    res
+      .status(400)
+      .send({ message: "Something went wrong with fetching subscribtions" });
   }
 };
 
@@ -34,8 +36,8 @@ export const removeSubscribtion = async (req, res, next) => {
   const email = req.body.email;
   try {
     await Subscribtion.findOneAndDelete(email);
-    res.send({ subscribtion: req.body.email });
+    res.status(201).send({ subscribtion: req.body.email });
   } catch (err) {
-    res.send({ message: "Something went wrong, try again" });
+    res.status(400).send({ message: "Something went wrong, try again" });
   }
 };

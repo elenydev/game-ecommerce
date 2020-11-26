@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useCookie from "../../hooks/useCookie";
 import useAuth from "../../hooks/useAuth";
+import Image from "next/image";
 
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -20,7 +21,13 @@ import {
 } from "./adminproductslistitem.styles";
 
 const AdminProductListItem = (props) => {
-  const { product, setMessage, setVariant, setErrorAlert } = props;
+  const {
+    product,
+    setMessage,
+    setVariant,
+    setErrorAlert,
+    setAllProducts,
+  } = props;
   const {
     productImg,
     productName,
@@ -58,6 +65,15 @@ const AdminProductListItem = (props) => {
     setTimeout(() => {
       changeAmountInDatabase();
     }, 500);
+  };
+
+  const getAllProducts = async () => {
+    const query = await fetch(
+      "https://online-gaming-shop.herokuapp.com/getProducts"
+    );
+    const response = await query.json();
+    const products = response.products;
+    setAllProducts(products);
   };
 
   const changeAmountInDatabase = async () => {
@@ -100,6 +116,7 @@ const AdminProductListItem = (props) => {
       if (response.productId) {
         setVariant("success");
         setMessage("Product deleted");
+        getAllProducts();
       } else {
         setVariant("error");
         setMessage(response.message);
@@ -112,9 +129,7 @@ const AdminProductListItem = (props) => {
 
   return (
     <Wrapper>
-
       <ProductContainer>
-
         <ProductImage>
           <img
             src={`https://online-gaming-shop.herokuapp.com/images/${productImg}`}
@@ -123,7 +138,6 @@ const AdminProductListItem = (props) => {
         </ProductImage>
 
         <ProductDescriptionBox>
-
           <ProductName>{productName}</ProductName>
 
           <ProductDescription>
@@ -133,11 +147,9 @@ const AdminProductListItem = (props) => {
           <ProductDescription>Type: {gameType}</ProductDescription>
 
           <ProductDescription>Device: {device}</ProductDescription>
-
         </ProductDescriptionBox>
 
         <ProductPrizeInfo>
-
           <ProductPrize>
             <span>{prize * amount} </span>
             <span>$</span>
@@ -168,9 +180,7 @@ const AdminProductListItem = (props) => {
               </IconButton>
             </span>
           </ActionsBox>
-
         </ProductPrizeInfo>
-        
       </ProductContainer>
     </Wrapper>
   );

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useProducts from "../../hooks/useProducts.js";
+import Image from "next/image";
 
 import { Button } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -57,7 +58,6 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
   return (
     <>
       <Card>
-  
         <CardImage>
           <img
             src={`https://online-gaming-shop.herokuapp.com/images/${productImg}`}
@@ -66,7 +66,6 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
         </CardImage>
 
         <CardContentContainer>
-          
           <CardContentHeader>{productName}</CardContentHeader>
 
           <CardContentDescription>
@@ -74,14 +73,12 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
           </CardContentDescription>
 
           <CardContentInfoWrapper>
-
             <CardContentType>{gameType}</CardContentType>
 
             <CardContentPrize>{prize} $</CardContentPrize>
           </CardContentInfoWrapper>
-
         </CardContentContainer>
-        
+
         <Tooltip title={buttonDisabled ? "Sing in to buy product" : ""}>
           <span>
             <Button

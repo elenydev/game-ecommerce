@@ -80,8 +80,7 @@ export const createOrder = async (req, res, next) => {
   const notAvailableProducts = await checkIfProductsAreAvailable(products);
 
   if (notAvailableProducts.length > 0) {
-    res.statusCode = 500;
-    res.send({
+    res.status(400).send({
       unavailableProducts: `Someone just bought ${notAvailableProducts.map(
         (product) => `${product.productName}, `
       )} delete it from the cart to make the order.`,
@@ -100,12 +99,12 @@ export const createOrder = async (req, res, next) => {
       status: "Accepted",
     });
     await order.save();
-    res.send({ order });
+    res.status(201).send({ order });
     sendEmailAfterOrder(products, user.email, prize);
     handleAmountOfLeftProducts(products);
     next();
   } catch (err) {
-    res.send({ message: "Some error occured, try again" });
+    res.status(400).send({ message: "Some error occured, try again" });
     next(err);
   }
 };
@@ -113,10 +112,12 @@ export const createOrder = async (req, res, next) => {
 export const getOrders = async (req, res, next) => {
   try {
     const orders = await Order.find();
-    res.send({ orders });
+    res.status(200).send({ orders });
     next();
   } catch (err) {
-    res.send({ message: "Something went wrong with fetching orders" });
+    res
+      .status(400)
+      .send({ message: "Something went wrong with fetching orders" });
     next();
   }
 };
@@ -129,10 +130,10 @@ export const changeStatus = async (req, res, next) => {
     const specificOrder = await Order.findOne({ _id: order._id });
     specificOrder.status = orderStatus;
     await specificOrder.save();
-    res.send({ order });
+    res.status(201).send({ order });
     next();
   } catch (err) {
-    res.send({ message: "Something went wrong, try again" });
+    res.status(400).send({ message: "Something went wrong, try again" });
     next();
   }
 };

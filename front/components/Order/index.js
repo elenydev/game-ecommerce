@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useCookie from "../../hooks/useCookie";
 import useAuth from "../../hooks/useAuth";
+import Image from "next/image";
 
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -70,14 +71,13 @@ const Order = ({ specificOrder, index }) => {
   return (
     <Wrapper>
       <OrderContainer>
-        
         <OrderDescriptionBox>
           <CustomerEmail>{customerEmail}</CustomerEmail>
-          
+
           <CustomerName>
             {customerFirstName} {customerLastName} {date}
           </CustomerName>
-          
+
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -86,18 +86,17 @@ const Order = ({ specificOrder, index }) => {
             >
               Products
             </AccordionSummary>
-            
+
             <AccordionDetails>
               <ProductsList>
-
                 {products
                   ? products.map((product, index) => (
                       <ProductContainer key={index}>
-
                         <ProductImage>
-                          <img
+                          <Image
                             src={`https://online-gaming-shop.herokuapp.com/${product.productImg}`}
                             alt={product.productName}
+                            unsized
                           />
                         </ProductImage>
 
@@ -107,20 +106,16 @@ const Order = ({ specificOrder, index }) => {
                           <ProductAmount>
                             <span>x{product.amount}</span>
                           </ProductAmount>
-
                         </ProductInfo>
                       </ProductContainer>
                     ))
                   : "There are no products"}
-                  
               </ProductsList>
             </AccordionDetails>
-            
           </Accordion>
 
           <OrderInfo status={orderStatus}>
             <div>
-              
               <FormLabel>Order Status: </FormLabel>
 
               <Select value={orderStatus} onChange={handleChange}>
@@ -128,11 +123,9 @@ const Order = ({ specificOrder, index }) => {
                 <MenuItem value="In progress">In progress</MenuItem>
                 <MenuItem value="Delivered">Delivered</MenuItem>
               </Select>
-              
             </div>
             <p>Total prize: {prize}$</p>
           </OrderInfo>
-          
         </OrderDescriptionBox>
       </OrderContainer>
     </Wrapper>

@@ -87,7 +87,7 @@ export const signUp = async (req, res, next) => {
         policy,
       });
       await user.save();
-      res.send({
+      res.status(201).send({
         user: {
           firstName,
           lastName,
@@ -97,11 +97,11 @@ export const signUp = async (req, res, next) => {
       });
       sendEmailAfterUserRegister(firstName, email);
     } else {
-      res.send({ message: "User already exist" });
+      res.status(400).send({ message: "User already exist" });
     }
     next();
   } catch (err) {
-    console.log(err);
+    res.status(400).send({ errorMessage: "Something went wrong, try again" });
     next(err);
   }
 };
@@ -123,7 +123,7 @@ export const signIn = async (req, res, next) => {
               process.env.SECRET,
               { expiresIn: "1h" }
             );
-            return res.send({
+            return res.status(200).send({
               user: {
                 firstName,
                 lastName,
@@ -134,7 +134,9 @@ export const signIn = async (req, res, next) => {
               token,
             });
           } else {
-            res.send({ message: "Wrong password provided, try again" });
+            res
+              .status(400)
+              .send({ message: "Wrong password provided, try again" });
           }
         })
         .catch((err) => console.log(err));
@@ -143,7 +145,7 @@ export const signIn = async (req, res, next) => {
     }
     next();
   } catch (err) {
-    res.status(404).send({ message: "Something went wrong, try again" });
+    res.status(400).send({ message: "Something went wrong, try again" });
     next(err);
   }
 };
@@ -152,9 +154,9 @@ export const logOut = async (req, res, next) => {
   const id = req.body.id;
   try {
     const user = await User.findById({ _id: id });
-    res.json({ message: "Logged out" });
+    res.status(200).send({ message: "Logged out" });
   } catch (err) {
-    console.log(err);
+    res.status(400).send({ message: "Something went wrong, try again" });
     next(err);
   }
 };
@@ -168,14 +170,14 @@ export const changeAvatar = async (req, res, next) => {
     try {
       specificUser.avatar = imageUrl;
       await specificUser.save();
-      res.send({ imageUrl, user: specificUser });
+      res.status(201).send({ imageUrl, user: specificUser });
       return;
     } catch (err) {
-      res.send({ message: "Something went wrong, try again" });
+      res.status(400).send({ message: "Something went wrong, try again" });
       next();
     }
   } else {
-    res.send({ message: "Something went wrong, try again" });
+    res.status(400).send({ message: "Something went wrong, try again" });
     next();
   }
 };
@@ -186,8 +188,7 @@ export const changePassword = async (req, res, next) => {
   const newPassword = req.body.newPassword;
 
   if (password === newPassword) {
-    res.statusCode = 500;
-    res.send({ message: "You provided the same password " });
+    res.status(400).send({ message: "You provided the same password " });
     return;
   }
 
@@ -203,7 +204,7 @@ export const changePassword = async (req, res, next) => {
             await user.save();
             const { firstName, lastName, email, avatar, _id } = user;
 
-            return res.send({
+            return res.status(201).send({
               user: {
                 firstName,
                 lastName,
@@ -213,14 +214,18 @@ export const changePassword = async (req, res, next) => {
               },
             });
           } else {
-            res.send({ message: "Wrong password provided, try again" });
+            res
+              .status(400)
+              .send({ message: "Wrong password provided, try again" });
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>
+          res.status(400).send({ message: "Something went wrong, try again" })
+        );
     }
     next();
   } catch (err) {
-    res.status(404).send({ message: "Something went wrong, try again" });
+    res.status(400).send({ message: "Something went wrong, try again" });
     next(err);
   }
 };
@@ -239,17 +244,15 @@ export const remindPassword = async (req, res, next) => {
       user.password = hashedPw;
       await user.save();
       sendEmailAfterRemindPassword(email, generatedRandomPassword);
-      res.send({
+      res.status(201).send({
         user: {
           email: user.email,
         },
       });
     } else {
-      res.statusCode = 500;
-      res.send({ message: "We don't have user with this email" });
+      res.status(400).send({ message: "We don't have user with this email" });
     }
   } catch (err) {
-    res.statusCode = 404;
-    res.send({ message: "Something went wrong, try again later" });
+    res.status(400).send({ message: "Something went wrong, try again later" });
   }
 };
