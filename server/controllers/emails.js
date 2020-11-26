@@ -49,11 +49,11 @@ export const receiveEmail = async (req, res, next) => {
       date,
     });
     await newEmail.save();
-    res.send({ newEmail });
+    res.status(201).send({ newEmail });
     sendEmail(email, customerName);
     next();
   } catch (err) {
-    res.send({ message: "Something went wrong, try again" });
+    res.status(400).send({ message: "Something went wrong, try again" });
     next();
   }
 };
@@ -61,10 +61,12 @@ export const receiveEmail = async (req, res, next) => {
 export const getEmails = async (req, res, next) => {
   try {
     const emails = await Email.find();
-    res.send({ emails });
+    res.status(200).send({ emails });
     next();
   } catch (err) {
-    res.send({ message: "Something went wrong with fetching products" });
+    res
+      .status(400)
+      .send({ message: "Something went wrong with fetching products" });
   }
 };
 
@@ -73,8 +75,8 @@ export const removeEmail = async (req, res, next) => {
 
   try {
     await Email.findByIdAndDelete(emailId);
-    res.send({ email: req.body });
+    res.status(201).send({ email: req.body });
   } catch (err) {
-    res.send({ message: "Something went wrong, try again" });
+    res.status(400).send({ message: "Something went wrong, try again" });
   }
 };

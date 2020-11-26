@@ -36,15 +36,15 @@ export const addProduct = async (req, res, next) => {
         amount: 1,
       });
       await product.save();
-      res.send({
+      res.status(201).send({
         product: product,
       });
     } else {
-      res.send({ message: "Product already exist" });
+      res.status(400).send({ message: "Product already exist" });
     }
     next();
   } catch (err) {
-    res.send({ message: "Some error occured, try again" });
+    res.status(400).send({ message: "Some error occured, try again" });
     next(err);
   }
 };
@@ -52,10 +52,12 @@ export const addProduct = async (req, res, next) => {
 export const getProducts = async (req, res, next) => {
   try {
     const products = await Product.find();
-    res.send({ products: products });
+    res.status(200).send({ products: products });
     next();
   } catch (err) {
-    res.send({ message: "Something went wrong with fetching products" });
+    res
+      .status(400)
+      .send({ message: "Something went wrong with fetching products" });
     next();
   }
 };
@@ -67,10 +69,10 @@ export const changeAmount = async (req, res, next) => {
     const product = await Product.findOne({ _id: productId });
     product.availableAmount = productAmount;
     await product.save();
-    res.send({ message: "Amount changed" });
+    res.status(201).send({ message: "Amount changed" });
     next();
   } catch (err) {
-    res.send({ message: "Something went wrong, try again" });
+    res.status(400).send({ message: "Something went wrong, try again" });
     next();
   }
 };
