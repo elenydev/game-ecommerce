@@ -11,7 +11,7 @@
 * Sending emails to Online-Gaming company via form(to admin panel and also gmail account)
 * You can join to newsletter of the Online-Gaming shop
 
-** From admin account
+### From admin account
 * Adding products to offer
 * Deleting products from offer
 * Changing amount of available products on shop
@@ -24,7 +24,7 @@
 
 
 
-###Used technologies:
+### Used technologies:
 * Nextjs/React
 * Redux toolkit
 * Styled Components
