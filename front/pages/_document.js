@@ -1,23 +1,14 @@
+import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { ServerStyleSheet } from "styled-components";
-import flush from "styled-jsx/server";
+import { ServerStyleSheets } from "@material-ui/styles";
+import { ServerStyleSheet as StyledServerStyleSheet } from "styled-components";
 
-export default class MyDocument extends Document {
-  static getInitialProps({ renderPage }) {
-    const sheet = new ServerStyleSheet();
-    const page = renderPage((App) => (props) =>
-      sheet.collectStyles(<App {...props} />)
-    );
-    const styleTags = sheet.getStyleElement();
-    return { ...page, styleTags };
-  }
-
+class MyDocument extends Document {
   render() {
     return (
       <Html>
         <Head>
           <meta charSet="utf-8" />
-          {this.props.styleTags}
         </Head>
         <body>
           <Main />
@@ -27,3 +18,35 @@ export default class MyDocument extends Document {
     );
   }
 }
+
+MyDocument.getInitialProps = async (ctx) => {
+  const sheets = new ServerStyleSheets();
+  const sheetsStyled = new StyledServerStyleSheet();
+  const originalRenderPage = ctx.renderPage;
+
+  try {
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: (App) => (props) =>
+          sheetsStyled.collectStyles(sheets.collect(<App {...props} />)),
+      });
+
+    const initialProps = await Document.getInitialProps(ctx);
+
+    return {
+      ...initialProps,
+      // Styles fragment is rendered after the app and page rendering finish.
+      styles: [
+        <React.Fragment key="styles">
+          {initialProps.styles}
+          {sheets.getStyleElement()}
+          {sheetsStyled.getStyleElement()}
+        </React.Fragment>,
+      ],
+    };
+  } finally {
+    sheetsStyled.seal();
+  }
+};
+
+export default MyDocument;
