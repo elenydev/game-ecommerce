@@ -87,7 +87,7 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
               disabled={buttonDisabled}
               onClick={addProduct}
             >
-              Add
+              Buy
             </Button>
           </span>
         </Tooltip>
