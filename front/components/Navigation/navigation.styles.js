@@ -141,10 +141,15 @@ export const Hamburger = styled.button`
   background-color: transparent;
   z-index: 100;
   border: 0;
-  outline: 1px solid ${({ theme }) =>theme.colors.lightOrange};
   margin: 0;
   transition: transform 0.3s 0.1s ease-in-out;
-  ${({ theme }) =>theme.mq.md} {
+
+  &:hover,
+  &:focus {
+    outline: 1px solid ${({ theme }) => theme.colors.bittersweet};
+  }
+  
+  ${({ theme }) => theme.mq.md} {
     display: none;
   }
 `;

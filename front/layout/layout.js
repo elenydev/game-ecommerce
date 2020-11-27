@@ -6,10 +6,12 @@ import GlobalStyle from "../theme/globalStyles";
 
 const Layout = ({ children }) => {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      {children}
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        {children}
+      </ThemeProvider>
+    </>
   );
 };
 

@@ -17,9 +17,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta charSet="utf-8" />
-          <title>Online-Gaming</title>
           {this.props.styleTags}
         </Head>
         <body>
