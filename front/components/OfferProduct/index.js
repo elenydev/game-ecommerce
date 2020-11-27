@@ -62,6 +62,7 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
           <img
             src={`https://online-gaming-shop.herokuapp.com/images/${productImg}`}
             alt={productName}
+            loading="lazy"
           />
         </CardImage>
 
