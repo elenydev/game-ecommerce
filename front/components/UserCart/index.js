@@ -5,14 +5,10 @@ import { useRouter } from "next/router";
 
 import ProductsCart from "../ProductsCart/index.js";
 import Sidebar from "../Sidebar/index.js";
-const EmailsCart = React.lazy(() => import("../EmailsCart/index.js"));
-const OrdersCart = React.lazy(() => import("../OrdersCart/index.js"));
-const AdminProductsList = React.lazy(() =>
-  import("../AdminProductsList/index.js")
-);
-const SubscribtionsList = React.lazy(() =>
-  import("../SubscribtionsList/index.js")
-);
+import EmailsCart from "../EmailsCart/index.js";
+import OrdersCart from "../OrdersCart/index.js";
+import AdminProductsList from "../AdminProductsList/index.js";
+import SubscribtionsList from "../SubscribtionsList/index.js";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import IconButton from "@material-ui/core/IconButton";
 import ChangePasswordCart from "../ChangePasswordCart/index.js";

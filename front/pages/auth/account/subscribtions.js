@@ -40,7 +40,7 @@ const Subscribtions = ({ subscribtions }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const query = await fetch(
     "https://online-gaming-shop.herokuapp.com/getSubscribtions"
   );

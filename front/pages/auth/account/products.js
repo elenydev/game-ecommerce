@@ -40,7 +40,7 @@ const Products = ({ products }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const query = await fetch(
     "https://online-gaming-shop.herokuapp.com/getProducts"
   );
@@ -51,7 +51,6 @@ export async function getStaticProps() {
     props: {
       products,
     },
-    revalidate: 2,
   };
 }
 
