@@ -1,12 +1,23 @@
 ### LIVE VERSION : https://game-ecommerce.vercel.app/
 ## game-ecommerce is an "Online-Gaming" dummy Shop with front in next/react and backend in node/mongodb
 
+### Dummy Accounts: 
+
+## Admin account:
+* email: admin@admin.com
+* password: admin@admin
+
+## User account:
+* email: user@user.com
+* password: user@user
+
+
 ### Core functionallity:
 * Creating an account with avatar in shop and announce of creating account in your email
 * Resetting the password
 * Feature for changing the password and avatar
 * Authentication with email/password
-* Adding products to card
+* Adding products to card(You have to be logged in)
 * Creating an order with email announce of order in your email
 * Sending emails to Online-Gaming company via form(to admin panel and also gmail account)
 * You can join to newsletter of the Online-Gaming shop
