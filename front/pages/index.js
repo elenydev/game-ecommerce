@@ -7,10 +7,14 @@ import Navigation from "../components/Navigation/index.js";
 import Hero from "../components/Hero/index.js";
 import GameTypes from "../components/GameTypes/index.js";
 import Devices from "../components/Devices/index.js";
-import OurTeam from "../components/OurTeam/index.js";
-import Footer from "../components/Footer/index.js";
-import ContactForm from "../components/ContactForm/index.js";
-import ProductsComponent from "../components/ProductsComponent/index.js";
+const OurTeam = React.lazy(() => import("../components/OurTeam/index.js"));
+const Footer = React.lazy(() => import("../components/Footer/index.js"));
+const ContactForm = React.lazy(() =>
+  import("../components/ContactForm/index.js")
+);
+const ProductsComponent = React.lazy(() =>
+  import("../components/ProductsComponent/index.js")
+);
 
 const Home = React.memo(({ products }) => {
   const { setCurrentUser } = useAuth();
