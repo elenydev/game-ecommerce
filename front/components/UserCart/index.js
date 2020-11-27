@@ -119,9 +119,9 @@ const UserCart = (props) => {
 
             <UserDescription>
               <CardParagraph>
-                {user.firstName}
+                <p>{user.firstName}</p>
                 <span> </span>
-                {user.lastName}
+                <p>{user.lastName}</p>
               </CardParagraph>
 
               <CardParagraphDescription>{user.email}</CardParagraphDescription>

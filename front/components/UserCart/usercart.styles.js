@@ -131,9 +131,18 @@ export const CardParagraph = styled.p`
   font-family: "Roboto";
   color: rgba(255, 255, 255, 0.9);
   font-size: 1.3em;
+  display: flex;
+  
+  &> span {
+    width: 5px;
+  }
+  & > p {
+    text-transform: capitalize;
+    width: fit-content;
+  }
 
-  ${({ theme }) =>theme.mq.md} {
-    font-size: ${({ theme }) =>theme.font.size.lg};
+  ${({ theme }) => theme.mq.md} {
+    font-size: ${({ theme }) => theme.font.size.lg};
   }
 `;
 

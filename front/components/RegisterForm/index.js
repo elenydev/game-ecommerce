@@ -46,8 +46,8 @@ const RegisterForm = () => {
     const { firstName, lastName, email, password, avatar, policy } = data;
 
     const user = new FormData();
-    user.append("firstName", firstName);
-    user.append("lastName", lastName);
+    user.append("firstName", firstName.toLowerCase());
+    user.append("lastName", lastName.toLowerCase());
     user.append("email", email);
     user.append("password", password);
     user.append("avatar", avatar[0]);

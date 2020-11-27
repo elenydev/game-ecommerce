@@ -27,11 +27,11 @@ export const Heading = styled.h1`
   width: 100%;
   text-align: center;
   padding: 10px;
-  color: ${({ theme }) => theme.colors.lightOrange};
+  color: ${({ theme }) => theme.colors.bittersweet};
 `;
 
 export const TotalPrize = styled.p`
-  color: ${({ theme }) => theme.colors.lightOrange};
+  color: ${({ theme }) => theme.colors.bittersweet};
   align-self: flex-end;
   font-size: 1.2em;
   margin: 20px;
