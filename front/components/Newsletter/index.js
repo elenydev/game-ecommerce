@@ -12,7 +12,7 @@ import {
   ErrorSpan,
   InputContainer,
 } from "./newsletter.styles";
-
+import { FormLabel } from "@material-ui/core";
 
 const defaultValues = {
   email: null,
@@ -81,24 +81,26 @@ const Newsletter = () => {
             {errors.email && errors.email.type === "pattern" && (
               <ErrorSpan>Please provide a correct email</ErrorSpan>
             )}
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              name="email"
-              ref={register({
-                required: true,
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "invalid email address",
-                },
-              })}
-              onChange={() => {
-                setError("email", {
-                  type: "manual",
-                  message: "You have to a email",
-                });
-              }}
-            />
+            <FormLabel>
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                name="email"
+                ref={register({
+                  required: true,
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "invalid email address",
+                  },
+                })}
+                onChange={() => {
+                  setError("email", {
+                    type: "manual",
+                    message: "You have to a email",
+                  });
+                }}
+              />
+            </FormLabel>
           </InputContainer>
           <label>
             <Button type="submit">Subscribe</Button>

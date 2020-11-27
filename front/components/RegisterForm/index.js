@@ -202,9 +202,7 @@ const RegisterForm = () => {
           You have to accept our
           <Link href="/auth/policy">
             <ErrorSpan>
-              <a>
-                Privacy Policy
-              </a>
+              <a>Privacy Policy</a>
             </ErrorSpan>
           </Link>
           <Checkbox
@@ -221,9 +219,11 @@ const RegisterForm = () => {
             <ErrorSpan>Please accept our privacy policy</ErrorSpan>
           )}
         </CheckBox>
-        <Button type="submit" variant="contained" color="secondary">
-          Create
-        </Button>
+        <label>
+          <Button type="submit" variant="contained" color="secondary">
+            Create
+          </Button>
+        </label>
       </Form>
 
       <LoginDiv>

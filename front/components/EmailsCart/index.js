@@ -75,15 +75,17 @@ const EmailsCart = ({ emailsList }) => {
                 <Paragraph>Emails displayed:</Paragraph>
 
                 <Paragraph>
-                  <select
-                    onChange={(e) => {
-                      setVisibleProducts(parseInt(e.target.value));
-                    }}
-                  >
-                    <option value={4}>4</option>
-                    <option value={8}>8</option>
-                    <option value={12}>12</option>
-                  </select>
+                  <label>
+                    <select
+                      onChange={(e) => {
+                        setVisibleProducts(parseInt(e.target.value));
+                      }}
+                    >
+                      <option value={4}>4</option>
+                      <option value={8}>8</option>
+                      <option value={12}>12</option>
+                    </select>
+                  </label>
                 </Paragraph>
 
                 <Paragraph>

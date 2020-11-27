@@ -157,9 +157,8 @@ const AddProductForm = () => {
           errors.productDescription.type === "required" && (
             <ErrorSpan>Please provide a product description</ErrorSpan>
           )}
-
-        <SelectBox>
-          <FormLabel>
+        <FormLabel>
+          <SelectBox>
             <p>Select game type</p>
             <Controller
               as={
@@ -180,8 +179,9 @@ const AddProductForm = () => {
               rules={{ required: true }}
               control={control}
             />
-          </FormLabel>
-        </SelectBox>
+          </SelectBox>
+        </FormLabel>
+
         {errors.gameType && errors.gameType.type === "required" && (
           <ErrorSpan>Please provide a game type</ErrorSpan>
         )}
@@ -252,9 +252,8 @@ const AddProductForm = () => {
         {errors.productImg && errors.productImg.type === "required" && (
           <ErrorSpan>Please provide a product image</ErrorSpan>
         )}
-
-        <SelectBox>
-          <FormLabel>
+        <FormLabel>
+          <SelectBox>
             <p>Select device</p>
             <Controller
               as={
@@ -268,8 +267,8 @@ const AddProductForm = () => {
               rules={{ required: true }}
               control={control}
             />
-          </FormLabel>
-        </SelectBox>
+          </SelectBox>
+        </FormLabel>
 
         {errors.device && errors.device.type === "required" && (
           <ErrorSpan>Please provide a device</ErrorSpan>

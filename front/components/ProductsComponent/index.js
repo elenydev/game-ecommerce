@@ -50,7 +50,6 @@ const ProductsComponent = ({ products }) => {
 
   return (
     <Wrapper id="games">
-
       <Header>Our offer</Header>
 
       <ItemsContainer>
@@ -68,7 +67,6 @@ const ProductsComponent = ({ products }) => {
       <Footer>
         <FooterContent>
           <FooterRows>
-            
             <Paragraph>Products displayed:</Paragraph>
 
             <Paragraph>
@@ -90,7 +88,6 @@ const ProductsComponent = ({ products }) => {
               <Span>of</Span>
               <Span>{arrayLength}</Span>
             </Paragraph>
-
           </FooterRows>
 
           <Paragraph>
@@ -106,25 +103,24 @@ const ProductsComponent = ({ products }) => {
               </IconButton>
             </Span>
           </Paragraph>
-
         </FooterContent>
         <FooterContent>
           <FooterRows>
-
             <Paragraph>Device:</Paragraph>
 
             <Paragraph>
-              <select
-                onChange={(e) => {
-                  setCategoryDisplayed(e.target.value);
-                }}
-              >
-                <option value="Desktop">Desktop</option>
-                <option value="Playstation">Playstation</option>
-                <option value="Xbox">Xbox</option>
-              </select>
+              <label>
+                <select
+                  onChange={(e) => {
+                    setCategoryDisplayed(e.target.value);
+                  }}
+                >
+                  <option value="Desktop">Desktop</option>
+                  <option value="Playstation">Playstation</option>
+                  <option value="Xbox">Xbox</option>
+                </select>
+              </label>
             </Paragraph>
-            
           </FooterRows>
         </FooterContent>
       </Footer>

@@ -6,7 +6,7 @@ import { ServerStyleSheet as StyledServerStyleSheet } from "styled-components";
 class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html lang="pl">
         <Head>
           <meta charSet="utf-8" />
         </Head>

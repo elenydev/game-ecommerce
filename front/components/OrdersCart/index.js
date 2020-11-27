@@ -28,7 +28,6 @@ const OrdersCart = ({ orders }) => {
 
   return (
     <Wrapper>
-
       {orders && orders.length === 0 ? (
         <Heading>We don't have any orders</Heading>
       ) : (
@@ -44,20 +43,21 @@ const OrdersCart = ({ orders }) => {
           {orders.length > 0 && (
             <Footer>
               <FooterContent>
-
                 <FooterRows>
                   <Paragraph>Orders displayed:</Paragraph>
 
                   <Paragraph>
-                    <select
-                      onChange={(e) => {
-                        setVisibleProducts(parseInt(e.target.value));
-                      }}
-                    >
-                      <option value={4}>4</option>
-                      <option value={8}>8</option>
-                      <option value={12}>12</option>
-                    </select>
+                    <label>
+                      <select
+                        onChange={(e) => {
+                          setVisibleProducts(parseInt(e.target.value));
+                        }}
+                      >
+                        <option value={4}>4</option>
+                        <option value={8}>8</option>
+                        <option value={12}>12</option>
+                      </select>
+                    </label>
                   </Paragraph>
 
                   <Paragraph>
@@ -78,7 +78,6 @@ const OrdersCart = ({ orders }) => {
                       />
                     </Span>
                   </Paragraph>
-                  
                 </FooterRows>
               </FooterContent>
             </Footer>
