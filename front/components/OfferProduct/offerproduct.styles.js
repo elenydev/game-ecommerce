@@ -7,7 +7,7 @@ export const Card = styled.div`
   background: ${({ theme }) => theme.colors.mostlyBlackBlue};
   transition: 0.2s all linear;
   border: 1px solid transparent;
-  max-width: 250px;
+  max-width: 300px;
   height: 100%;
   width: 100%;
 
@@ -19,36 +19,36 @@ export const Card = styled.div`
 
   & > span > .MuiButton-containedSecondary {
     margin: 15px;
-    background-color: ${({ theme }) =>  theme.colors.cyanBlue};
+    background-color: ${({ theme }) => theme.colors.cyanBlue};
     width: fit-content;
     align-self: center;
     transition: 0.5s all linear;
     margin-top: auto;
 
     &:hover {
-      background-color: ${({ theme }) =>theme.colors.lightBlue};
+      background-color: ${({ theme }) => theme.colors.lightBlue};
     }
   }
 
   & > span > .MuiButton-contained.Mui-disabled {
     background-color: #0b3558;
-    color: ${({ theme }) =>theme.colors.darkerWhite};
+    color: ${({ theme }) => theme.colors.darkerWhite};
   }
 
-  ${({ theme }) =>theme.mq.md} {
+  ${({ theme }) => theme.mq.md} {
     max-width: 300px;
   }
 
   &:hover {
     transform: scale(1.05);
-    border: 1px solid ${({ theme }) =>theme.colors.bittersweet};
+    border: 1px solid ${({ theme }) => theme.colors.bittersweet};
   }
 `;
 
 export const CardImage = styled.div`
   display: flex;
 
-  height: 200px;
+  max-height: 250px;
   width: auto;
 
   img {
@@ -56,8 +56,8 @@ export const CardImage = styled.div`
     height: auto;
   }
 
-  ${({ theme }) =>theme.mq.md} {
-    height: 280px;
+  ${({ theme }) => theme.mq.md} {
+    max-height: 400px;
     width: auto;
   }
 `;

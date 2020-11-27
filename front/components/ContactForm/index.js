@@ -64,7 +64,6 @@ const ContactForm = () => {
       <Heading>Have question?</Heading>
 
       <Form onSubmit={handleSubmit(handleSendEmail)}>
-
         <FormLabel>
           <Input
             type="text"
@@ -129,8 +128,9 @@ const ContactForm = () => {
         {errors.message && errors.message.type === "required" && (
           <ErrorSpan>Please provide a message</ErrorSpan>
         )}
-
-        <Button type="submit">Send</Button>
+        <label>
+          <Button type="submit">Send</Button>
+        </label>
       </Form>
       {message && (
         <Alert shouldOpen={true} message={message} variant={variant} />

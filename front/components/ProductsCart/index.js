@@ -110,7 +110,6 @@ const ProductsCart = () => {
 
   return (
     <Wrapper>
-
       {user.email === "admin@admin.com" && <AddProductForm />}
 
       {user.email !== "admin@admin.com" && products.length >= 1 ? (
@@ -126,7 +125,6 @@ const ProductsCart = () => {
             <Footer>
               <FooterContent>
                 <FooterRows>
-
                   <Paragraph>
                     <Span>{startRange}</Span>
                     <Span>-</Span>
@@ -148,7 +146,6 @@ const ProductsCart = () => {
                       </IconButton>
                     </Span>
                   </Paragraph>
-                  
                 </FooterRows>
               </FooterContent>
             </Footer>
@@ -163,15 +160,17 @@ const ProductsCart = () => {
       <>
         {user.email !== "admin@admin.com" && (
           <OrderBox>
-            <Button
-              type="submit"
-              variant="contained"
-              color="secondary"
-              disabled={products.length < 1 && true}
-              onClick={createOrder}
-            >
-              Click to order
-            </Button>
+            <label>
+              <Button
+                type="submit"
+                variant="contained"
+                color="secondary"
+                disabled={products.length < 1 && true}
+                onClick={createOrder}
+              >
+                Click to order
+              </Button>
+            </label>
           </OrderBox>
         )}
       </>

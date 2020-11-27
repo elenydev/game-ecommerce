@@ -16,17 +16,17 @@ export const ProductContainer = styled.div`
   display: flex;
   padding: 15px;
   flex-direction: column;
-  border: 1px solid ${({ theme }) => theme.colors.lightOrange};
+  border: 1px solid ${({ theme }) => theme.colors.bittersweet};
   border-radius: 50px;
   margin-bottom: 5px;
   transition: all 0.4s ease 0s;
 
   &:hover {
     transform: scale(1.02);
-    border: 1.5px solid ${({ theme }) =>  theme.colors.bittersweet};
+    border: 1.5px solid ${({ theme }) => theme.colors.bittersweet};
   }
 
-  ${({ theme }) =>theme.mq.md} {
+  ${({ theme }) => theme.mq.md} {
     flex-direction: row;
   }
 `;
@@ -92,9 +92,9 @@ export const ProductPrizeInfo = styled.div`
   min-height: 100%;
   align-items: center;
   justify-content: space-between;
-  color: ${({ theme }) =>theme.colors.lightOrange};
+  color: ${({ theme }) => theme.colors.bittersweet};
 
-  ${({ theme }) =>theme.mq.md} {
+  ${({ theme }) => theme.mq.md} {
     flex-direction: row;
     margin-left: auto;
   }
@@ -134,6 +134,6 @@ export const ActionsBox = styled.div`
 
   span {
     display: flex;
-    color: ${({ theme }) =>theme.colors.lightOrange};
+    color: ${({ theme }) => theme.colors.bittersweet};
   }
 `;

@@ -59,10 +59,12 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
     <>
       <Card>
         <CardImage>
-          <img
+          <Image
             src={`https://online-gaming-shop.herokuapp.com/images/${productImg}`}
             alt={productName}
             loading="lazy"
+            width={350}
+            height={300}
           />
         </CardImage>
 
@@ -81,16 +83,18 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
         </CardContentContainer>
 
         <Tooltip title={buttonDisabled ? "Sing in to buy product" : ""}>
-          <span>
-            <Button
-              variant="contained"
-              color="secondary"
-              disabled={buttonDisabled}
-              onClick={addProduct}
-            >
-              Buy
-            </Button>
-          </span>
+          <label>
+            <span>
+              <Button
+                variant="contained"
+                color="secondary"
+                disabled={buttonDisabled}
+                onClick={addProduct}
+              >
+                Buy
+              </Button>
+            </span>
+          </label>
         </Tooltip>
       </Card>
     </>

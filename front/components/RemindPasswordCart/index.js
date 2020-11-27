@@ -93,10 +93,11 @@ const RemindPassword = ({ setVariant, setMessage, setErrorAlert }) => {
             {errors.email && errors.email.type === "pattern" && (
               <ErrorSpan>Please provide a correct email</ErrorSpan>
             )}
-
-            <Button type="submit" variant="contained" color="secondary">
-              Remind
-            </Button>
+            <label>
+              <Button type="submit" variant="contained" color="secondary">
+                Remind
+              </Button>
+            </label>
           </Form>
         </AccordionDetails>
       </Accordion>

@@ -47,13 +47,12 @@ const EmailsCart = ({ emailsList }) => {
   return (
     <>
       <Wrapper>
-
         {emails && emails.length === 0 ? (
           <Heading>We don't have any emails</Heading>
         ) : (
           <>
             <Heading>Emails: </Heading>
-            
+
             {slicedArray.map((email, index) => (
               <Email
                 emailMessage={email}
@@ -81,12 +80,12 @@ const EmailsCart = ({ emailsList }) => {
                       setVisibleProducts(parseInt(e.target.value));
                     }}
                   >
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={15}>15</option>
+                    <option value={4}>4</option>
+                    <option value={8}>8</option>
+                    <option value={12}>12</option>
                   </select>
                 </Paragraph>
-                
+
                 <Paragraph>
                   <Span>{startRange}</Span>
                   <Span>-</Span>
@@ -94,24 +93,20 @@ const EmailsCart = ({ emailsList }) => {
                   <Span>of</Span>
                   <Span> {arrayLength} </Span>
                 </Paragraph>
-                
               </FooterRows>
               <Paragraph>
-                
                 <Span>
                   <IconButton onClick={() => decrementRange()}>
                     <KeyboardArrowLeftIcon />
                   </IconButton>
                 </Span>
-                
+
                 <Span>
                   <IconButton onClick={() => incrementRange()}>
                     <KeyboardArrowRightIcon />
                   </IconButton>
                 </Span>
-                
               </Paragraph>
-              
             </FooterContent>
           </Footer>
         )}

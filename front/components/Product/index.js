@@ -34,9 +34,11 @@ const Product = ({ product, productIndex }) => {
     <Wrapper>
       <ProductContainer>
         <ProductImage>
-          <img
+          <Image
             src={`https://online-gaming-shop.herokuapp.com/images/${productImg}`}
             alt={productName}
+            width={200}
+            height={200}
           />
         </ProductImage>
 

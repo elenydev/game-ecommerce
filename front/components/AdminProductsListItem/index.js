@@ -131,9 +131,11 @@ const AdminProductListItem = (props) => {
     <Wrapper>
       <ProductContainer>
         <ProductImage>
-          <img
+          <Image
             src={`https://online-gaming-shop.herokuapp.com/images/${productImg}`}
             alt={productName}
+            width={150}
+            height={150}
           />
         </ProductImage>
 

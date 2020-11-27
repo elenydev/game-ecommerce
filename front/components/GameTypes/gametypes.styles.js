@@ -87,7 +87,6 @@ export const Card = styled.div`
 
 export const CardImage = styled.div`
   display: flex;
-  width: 100%;
   position: relative;
   img {
     max-width: 100%;

@@ -105,14 +105,16 @@ const Policy = () => {
             All of the data is used only for application performance
           </ContentParagraph>
         </ContentWrapper>
-        <Button
-          type="submit"
-          variant="contained"
-          color="secondary"
-          onClick={() => router.back()}
-        >
-          Back
-        </Button>
+        <label>
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            onClick={() => router.back()}
+          >
+            Back
+          </Button>
+        </label>
         <SummarySpan>
           If you decide to log in to the application or create an account, you
           declare that you are aware and that you consent to the storage of data

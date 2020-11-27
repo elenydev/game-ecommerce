@@ -47,7 +47,6 @@ const SubscribtionsList = ({ subscribtionsList }) => {
   return (
     <>
       <Wrapper>
-
         {subscribtions && subscribtions.length === 0 ? (
           <Heading>We don't have any subscribtions</Heading>
         ) : (
@@ -71,7 +70,6 @@ const SubscribtionsList = ({ subscribtionsList }) => {
           <Footer>
             <FooterContent>
               <FooterRows>
-
                 <Paragraph>Subscribtions displayed:</Paragraph>
 
                 <Paragraph>
@@ -80,9 +78,9 @@ const SubscribtionsList = ({ subscribtionsList }) => {
                       setVisibleProducts(parseInt(e.target.value));
                     }}
                   >
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={15}>15</option>
+                    <option value={4}>4</option>
+                    <option value={8}>8</option>
+                    <option value={12}>12</option>
                   </select>
                 </Paragraph>
 
@@ -107,7 +105,6 @@ const SubscribtionsList = ({ subscribtionsList }) => {
                   </IconButton>
                 </Span>
               </Paragraph>
-              
             </FooterContent>
           </Footer>
         )}

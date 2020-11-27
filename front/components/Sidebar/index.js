@@ -54,13 +54,16 @@ const Sidebar = () => {
 
   return (
     <Wrapper>
-      <Button
-        onClick={toggleDrawer("left", true)}
-        variant="contained"
-        color="secondary"
-      >
-        Menu
-      </Button>
+      <label>
+        <Button
+          onClick={toggleDrawer("left", true)}
+          variant="contained"
+          color="secondary"
+        >
+          Menu
+        </Button>
+      </label>
+
       <Drawer
         anchor="left"
         open={open["left"]}

@@ -139,17 +139,17 @@ const Login = () => {
         {errors.password && errors.password.type === "required" && (
           <ErrorSpan>Please provide a password</ErrorSpan>
         )}
-
-        <Button type="submit" variant="contained" color="secondary">
-          Sign in
-        </Button>
+        <label>
+          <Button type="submit" variant="contained" color="secondary">
+            Sign in
+          </Button>
+        </label>
 
         <LoginDiv>
           <Link href="/auth/register">
             <a>Back to sign up</a>
           </Link>
         </LoginDiv>
-        
       </Form>
       <RemindPassword
         setMessage={setMessage}

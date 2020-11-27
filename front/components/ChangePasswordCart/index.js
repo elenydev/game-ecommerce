@@ -142,14 +142,15 @@ const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
               }}
             />
           </FormLabel>
-          
+
           {errors.newPassword && errors.newPassword.type === "required" && (
             <ErrorSpan>Please provide a new password</ErrorSpan>
           )}
-
-          <Button type="submit" variant="contained" color="secondary">
-            Change
-          </Button>
+          <label>
+            <Button type="submit" variant="contained" color="secondary">
+              Change
+            </Button>
+          </label>
         </Form>
       </Modal>
     </>

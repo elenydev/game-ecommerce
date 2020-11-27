@@ -30,7 +30,12 @@ const GameTypes = () => {
       <CardsWrapper>
         <Card>
           <CardImage>
-            <img src="/images/ai1.jpg" alt="Multiplayer" />
+            <Image
+              src="/images/ai1.jpg"
+              alt="Multiplayer"
+              width={450}
+              height={300}
+            />
           </CardImage>
 
           <CardTitle>Multiplayer</CardTitle>
@@ -43,7 +48,12 @@ const GameTypes = () => {
         </Card>
         <Card>
           <CardImage>
-            <img src="/images/ai2.jpg" alt="Racing"  />
+            <Image
+              src="/images/ai2.jpg"
+              alt="Racing"
+              width={450}
+              height={300}
+            />
           </CardImage>
 
           <CardTitle>Racing</CardTitle>
@@ -55,7 +65,7 @@ const GameTypes = () => {
         </Card>
         <Card>
           <CardImage>
-            <img src="/images/ai3.jpg" alt="War" />
+            <Image src="/images/ai3.jpg" alt="War" width={450} height={300} />
           </CardImage>
 
           <CardTitle>War</CardTitle>
