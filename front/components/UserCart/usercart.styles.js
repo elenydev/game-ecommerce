@@ -89,7 +89,7 @@ export const UserAvatar = styled.div`
   }
 
   & > label > .MuiIconButton-colorPrimary {
-    color: ${({ theme }) => theme.colors.bittersweet} !important;
+    color: ${({ theme }) => theme.colors.darkOrange} !important;
   }
 
   & > label {

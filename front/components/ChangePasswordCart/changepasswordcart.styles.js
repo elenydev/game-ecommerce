@@ -9,17 +9,17 @@ export const Form = styled.form`
   justify-content: space-between;
   align-items: center;
   color: ${({ theme }) => theme.colors.white};
-  & > .MuiButton-containedSecondary {
+  & > label > .MuiButton-containedSecondary {
     margin: 15px;
-    background-color: ${({ theme }) =>   theme.colors.darkOrange};
+    background-color: ${({ theme }) => theme.colors.darkOrange};
 
     &:hover {
-      background-color: ${({ theme }) =>   theme.colors.lightOrange};
+      background-color: ${({ theme }) => theme.colors.lightOrange};
     }
   }
 
   & > .MuiFormLabel-root {
-    color: ${({ theme }) =>theme.colors.white};
+    color: ${({ theme }) => theme.colors.white};
   }
 
   & > .hidden {
@@ -27,10 +27,10 @@ export const Form = styled.form`
   }
 
   & > label > .MuiIconButton-colorPrimary {
-    color: ${({ theme }) =>theme.colors.lightOrange} !important;
+    color: ${({ theme }) => theme.colors.lightOrange} !important;
   }
 
- ${({ theme }) => theme.mq.xs }{
+  ${({ theme }) => theme.mq.xs} {
     width: fit-content;
   }
 `;
@@ -52,7 +52,7 @@ export const InputElement = styled(Input)`
 export const Paragraph = styled.p`
   cursor: pointer;
   margin-right: 7px;
-  color:${({ theme }) =>theme.colors.bittersweet};
+  color: ${({ theme }) => theme.colors.darkOrange};
   min-height: 100%;
 `;
 
