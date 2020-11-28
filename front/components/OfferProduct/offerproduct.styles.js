@@ -111,4 +111,5 @@ export const CardContentPrize = styled.p`
   display: flex;
   width: 35%;
   justify-content: flex-end;
+  align-items: flex-end;
 `;
