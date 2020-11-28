@@ -28,17 +28,17 @@ export const Wrapper = styled.div`
     align-items: flex-start;
   }
 
-   ${({ theme }) =>  theme.mq.xlg} {
+  ${({ theme }) => theme.mq.xlg} {
     padding: 0 10%;
     padding-top: 10%;
   }
 
-  & > .MuiButton-containedSecondary {
+  & > label > .MuiButton-containedSecondary {
     margin: 15px;
-    background-color:${({ theme }) =>theme.colors.darkOrange};
+    background-color: ${({ theme }) => theme.colors.darkOrange};
 
     &:hover {
-      background-color: ${({ theme }) =>theme.colors.lightOrange};
+      background-color: ${({ theme }) => theme.colors.lightOrange};
     }
   }
 `;

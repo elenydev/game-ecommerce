@@ -17,7 +17,7 @@ export const Card = styled.div`
     justify-content: center;
   }
 
-  & > span > .MuiButton-containedSecondary {
+  & > span > label > .MuiButton-containedSecondary {
     margin: 15px;
     background-color: ${({ theme }) => theme.colors.cyanBlue};
     width: fit-content;

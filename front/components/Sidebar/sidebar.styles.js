@@ -18,12 +18,12 @@ export const useStyles = makeStyles({
 export const Wrapper = styled.div`
   display: flex;
 
-  & > .MuiButton-containedSecondary {
+  & > label > .MuiButton-containedSecondary {
     background-color: ${({ theme }) => theme.colors.darkOrange};
     font-size: 0.8em;
 
     &:hover {
-      background-color: ${({ theme }) =>  theme.colors.lightOrange};;
+      background-color: ${({ theme }) => theme.colors.lightOrange};
     }
   }
 `;

@@ -10,13 +10,13 @@ export const Form = styled.form`
   align-items: center;
   color: ${({ theme }) => theme.colors.white};
 
-  & > .MuiButton-containedSecondary {
+  & > label > .MuiButton-containedSecondary {
     margin: 15px;
-    background-color: ${({ theme }) =>  theme.colors.darkOrange};
+    background-color: ${({ theme }) => theme.colors.darkOrange};
     font-size: ${({ theme }) => theme.font.size.xxs};
 
     &:hover {
-      background-color: ${({ theme }) =>theme.colors.lightOrange};
+      background-color: ${({ theme }) => theme.colors.lightOrange};
     }
   }
 
@@ -29,11 +29,11 @@ export const Form = styled.form`
   }
 
   & > label > .MuiIconButton-colorPrimary {
-    color: ${({ theme }) =>theme.colors.lightOrange} !important;
+    color: ${({ theme }) => theme.colors.lightOrange} !important;
   }
 
-  & > .MuiInputBase-root {
-    color: ${({ theme }) =>theme.colors.white} !important;
+  & > label > .MuiInputBase-root {
+    color: ${({ theme }) => theme.colors.white} !important;
 
     &::placeholder {
       color: ${({ theme }) => theme.colors.white} !important;
@@ -72,18 +72,19 @@ export const SelectBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
+  min-width: 100%;
 
-  & > .MuiFormLabel-root {
+  & >  .MuiFormLabel-root {
     margin: 10px 0;
     color: rgba(255, 255, 255, 0.5);
 
     & > p {
       margin: 5px 0;
+      color: inherit;
     }
   }
 
   & > label > .MuiInputBase-root {
-    color: ${({ theme }) =>theme.colors.lightOrange} !important;
+    color: ${({ theme }) => theme.colors.lightOrange} !important;
   }
 `;

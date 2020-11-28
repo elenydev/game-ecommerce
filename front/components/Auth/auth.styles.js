@@ -23,12 +23,12 @@ export const Form = styled.form`
   align-items: center;
   color: ${({ theme }) => theme.colors.white};
 
-  & > .MuiButton-containedSecondary {
+  & > label > .MuiButton-containedSecondary {
     margin: 15px;
     background-color: ${({ theme }) => theme.colors.darkOrange};
 
     &:hover {
-      background-color: ${({ theme }) =>   theme.colors.lightOrange};
+      background-color: ${({ theme }) => theme.colors.lightOrange};
     }
   }
 
@@ -41,7 +41,7 @@ export const Form = styled.form`
   }
 
   & > label > .MuiIconButton-colorPrimary {
-    color: ${({ theme }) =>theme.colors.lightOrange} !important;
+    color: ${({ theme }) => theme.colors.lightOrange} !important;
   }
 `;
 

@@ -66,7 +66,8 @@ const Footer = () => {
         © 2020 Online Gaming. All Rights Reserved | Design by{" "}
         <a href="https://w3layouts.com/" target="_blank">
           w3layouts
-        </a>
+        </a>{" "}
+        & Damian Czarnota
       </FooterDescription>
     </Wrapper>
   );
