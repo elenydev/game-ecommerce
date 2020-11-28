@@ -69,14 +69,20 @@ const OrdersCart = ({ orders }) => {
                   </Paragraph>
 
                   <Paragraph>
-                    <Span>
-                      <KeyboardArrowLeftIcon onClick={() => decrementRange()} />
-                    </Span>
-                    <Span>
-                      <KeyboardArrowRightIcon
-                        onClick={() => incrementRange()}
-                      />
-                    </Span>
+                    <label>
+                      <Span>
+                        <KeyboardArrowLeftIcon
+                          onClick={() => decrementRange()}
+                        />
+                      </Span>
+                    </label>
+                    <label>
+                      <Span>
+                        <KeyboardArrowRightIcon
+                          onClick={() => incrementRange()}
+                        />
+                      </Span>
+                    </label>
                   </Paragraph>
                 </FooterRows>
               </FooterContent>

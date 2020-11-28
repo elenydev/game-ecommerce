@@ -16,7 +16,6 @@ const Footer = () => {
   return (
     <Wrapper>
       <FooterContainer>
-
         <AdressContainer>
           <Heading>Adress</Heading>
 
@@ -36,38 +35,36 @@ const Footer = () => {
               <span>Phone: +123 4567 8900</span>
             </address>
           </AdressContent>
-
         </AdressContainer>
-        
+
         <FollowUsContainer>
           <Heading>Follow Us</Heading>
 
           <LinksList>
             <li>
-              <a className='facebook' href='#'></a>
+              <a className="facebook" href="#" alt="facebook"></a>
             </li>
             <li>
-              <a className='twitter' href='#'></a>
+              <a className="twitter" href="#" alt="twitter"></a>
             </li>
             <li>
-              <a className='google' href='#'></a>
+              <a className="google" href="#" alt="google"></a>
             </li>
             <li>
-              <a className='instagram' href='#'></a>
+              <a className="instagram" href="#" alt="instagram"></a>
             </li>
             <li>
-              <a className='youtube' href='#'></a>
+              <a className="youtube" href="#" alt="youtube"></a>
             </li>
           </LinksList>
         </FollowUsContainer>
 
         <Newsletter />
-
       </FooterContainer>
-      
+
       <FooterDescription>
         © 2020 Online Gaming. All Rights Reserved | Design by{" "}
-        <a href='https://w3layouts.com/' target='_blank'>
+        <a href="https://w3layouts.com/" target="_blank">
           w3layouts
         </a>
       </FooterDescription>

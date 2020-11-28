@@ -96,16 +96,20 @@ const SubscribtionsList = ({ subscribtionsList }) => {
               </FooterRows>
 
               <Paragraph>
-                <Span>
-                  <IconButton onClick={() => decrementRange()}>
-                    <KeyboardArrowLeftIcon />
-                  </IconButton>
-                </Span>
-                <Span>
-                  <IconButton onClick={() => incrementRange()}>
-                    <KeyboardArrowRightIcon />
-                  </IconButton>
-                </Span>
+                <label>
+                  <Span>
+                    <IconButton onClick={() => decrementRange()}>
+                      <KeyboardArrowLeftIcon />
+                    </IconButton>
+                  </Span>
+                </label>
+                <label>
+                  <Span>
+                    <IconButton onClick={() => incrementRange()}>
+                      <KeyboardArrowRightIcon />
+                    </IconButton>
+                  </Span>
+                </label>
               </Paragraph>
             </FooterContent>
           </Footer>

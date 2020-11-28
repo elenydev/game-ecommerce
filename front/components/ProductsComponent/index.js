@@ -70,15 +70,17 @@ const ProductsComponent = ({ products }) => {
             <Paragraph>Products displayed:</Paragraph>
 
             <Paragraph>
-              <select
-                onChange={(e) => {
-                  setVisibleProducts(parseInt(e.target.value));
-                }}
-              >
-                <option value={4}>4</option>
-                <option value={8}>8</option>
-                <option value={12}>12</option>
-              </select>
+              <label>
+                <select
+                  onChange={(e) => {
+                    setVisibleProducts(parseInt(e.target.value));
+                  }}
+                >
+                  <option value={4}>4</option>
+                  <option value={8}>8</option>
+                  <option value={12}>12</option>
+                </select>
+              </label>
             </Paragraph>
 
             <Paragraph>
@@ -92,15 +94,19 @@ const ProductsComponent = ({ products }) => {
 
           <Paragraph>
             <Span>
-              <IconButton onClick={() => decrementRange()}>
-                <KeyboardArrowLeftIcon />
-              </IconButton>
+              <label>
+                <IconButton onClick={() => decrementRange()}>
+                  <KeyboardArrowLeftIcon />
+                </IconButton>
+              </label>
             </Span>
 
             <Span>
-              <IconButton onClick={() => incrementRange()}>
-                <KeyboardArrowRightIcon />
-              </IconButton>
+              <label>
+                <IconButton onClick={() => incrementRange()}>
+                  <KeyboardArrowRightIcon />
+                </IconButton>
+              </label>
             </Span>
           </Paragraph>
         </FooterContent>

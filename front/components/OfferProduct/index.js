@@ -83,8 +83,8 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
         </CardContentContainer>
 
         <Tooltip title={buttonDisabled ? "Sing in to buy product" : ""}>
-          <label>
-            <span>
+          <span>
+            <label>
               <Button
                 variant="contained"
                 color="secondary"
@@ -93,8 +93,8 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
               >
                 Buy
               </Button>
-            </span>
-          </label>
+            </label>
+          </span>
         </Tooltip>
       </Card>
     </>

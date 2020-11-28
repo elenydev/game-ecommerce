@@ -30,8 +30,9 @@ export const Card = styled.div`
     }
   }
 
-  & > span > .MuiButton-contained.Mui-disabled {
+  & > span > label > .MuiButton-contained.Mui-disabled {
     background-color: #0b3558;
+    margin-bottom: 5px;
     color: ${({ theme }) => theme.colors.darkerWhite};
   }
 
@@ -75,11 +76,11 @@ export const CardContentContainer = styled.div`
   }
 `;
 
-export const CardContentHeader = styled.h4`
+export const CardContentHeader = styled.h5`
   width: 100%;
-  font-size: ${({ theme }) =>theme.font.size.sm};
+  font-size: ${({ theme }) => theme.font.size.sm};
   font-family: "Black Ops One", normal;
-  font-weight: ${({ theme }) =>theme.font.weight.medium};
+  font-weight: ${({ theme }) => theme.font.weight.medium};
   margin-top: 5px;
 `;
 
