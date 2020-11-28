@@ -75,12 +75,6 @@ const Newsletter = () => {
 
         <Form onSubmit={handleSubmit(addSubscriber)}>
           <InputContainer>
-            {errors.email && errors.email.type === "required" && (
-              <ErrorSpan>Please provide a email</ErrorSpan>
-            )}
-            {errors.email && errors.email.type === "pattern" && (
-              <ErrorSpan>Please provide a correct email</ErrorSpan>
-            )}
             <FormLabel>
               <Input
                 type="email"
@@ -107,7 +101,12 @@ const Newsletter = () => {
           </label>
         </Form>
       </NewsletterContainer>
-
+      {errors.email && errors.email.type === "required" && (
+        <ErrorSpan>Please provide a email</ErrorSpan>
+      )}
+      {errors.email && errors.email.type === "pattern" && (
+        <ErrorSpan>Please provide a correct email</ErrorSpan>
+      )}
       {message !== null && (
         <Alert message={message} variant={variant} shouldOpen={true} />
       )}
