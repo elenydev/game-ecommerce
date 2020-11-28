@@ -143,11 +143,12 @@ export const CardContent = styled.p`
   width: 100%;
   text-align: center;
   padding: 5px;
+  flex: 1;
   color: rgba(0, 0, 0, 0.8);
   font-size: ${({ theme }) => theme.font.size.xxs};
 
-  ${({ theme }) =>  theme.mq.md} {
-    font-size: ${({ theme }) =>theme.font.size.xs};
+  ${({ theme }) => theme.mq.md} {
+    font-size: ${({ theme }) => theme.font.size.xs};
     line-height: 1.5;
   }
 `;
