@@ -13,7 +13,7 @@ export const OrderBox = styled.div`
   justify-content: center;
   padding: 15px;
 
-  & > .MuiButton-containedSecondary {
+  & > label > .MuiButton-containedSecondary {
     margin: 15px;
     background-color: ${({ theme }) => theme.colors.darkOrange};
 

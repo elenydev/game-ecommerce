@@ -94,9 +94,10 @@ const Order = ({ specificOrder, index }) => {
                       <ProductContainer key={index}>
                         <ProductImage>
                           <Image
-                            src={`https://online-gaming-shop.herokuapp.com/${product.productImg}`}
+                            src={`https://online-gaming-shop.herokuapp.com/images/${product.productImg}`}
                             alt={product.productName}
-                            unsized
+                            width={120}
+                            height={120}
                           />
                         </ProductImage>
 

@@ -31,7 +31,6 @@ const Hero = () => {
   return (
     <Wrapper id="home">
       <HeaderContainer>
-        
         <Header>
           <Typewriter
             string="All of us love gaming"
@@ -52,7 +51,7 @@ const Hero = () => {
       </HeaderContainer>
 
       <PlayIconContainer>
-        <Link href="#gameTypes">
+        <Link href="/#gameTypes">
           <a>
             <PlayCircleOutlineIcon />
           </a>
