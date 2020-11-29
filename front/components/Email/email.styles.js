@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   margin-top: 50px;
+  border-radius: 50px;
 
   ${({ theme }) => theme.mq.md} {
     margin: 5px 0px;
@@ -18,7 +19,6 @@ export const EmailContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   flex: 1;
-  border-radius: 50px;
 
   ${({ theme }) => theme.mq.md} {
     flex-direction: row;
