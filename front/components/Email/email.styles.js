@@ -18,6 +18,7 @@ export const EmailContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   flex: 1;
+  border-radius: 50px;
 
   ${({ theme }) => theme.mq.md} {
     flex-direction: row;

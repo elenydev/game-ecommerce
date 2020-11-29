@@ -18,6 +18,7 @@ export const ProductContainer = styled.div`
   flex-direction: column;
   border: 1px solid rgb(255 90 90 /60%);
   margin: 5px 0px;
+  border-radius: 50px;
 
   @media (min-width: 960px) {
     flex-direction: row;
@@ -39,6 +40,7 @@ export const ProductImage = styled.div`
     width: 100%;
     box-shadow: ${({ theme }) => theme.boxShadow.light};
     height: auto;
+    border-radius: 50px;
   }
 `;
 
