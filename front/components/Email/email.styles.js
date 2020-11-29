@@ -6,7 +6,6 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   margin-top: 50px;
-  border-radius: 50px;
 
   ${({ theme }) => theme.mq.md} {
     margin: 5px 0px;
@@ -73,9 +72,10 @@ export const EmailWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: 1px solid ${({ theme }) =>theme.colors.bittersweet};
+  border: 1px solid ${({ theme }) => theme.colors.bittersweet};
+  border-radius: 50px;
 
-  ${({ theme }) =>theme.mq.md} {
+  ${({ theme }) => theme.mq.md} {
     flex-direction: row;
   }
 `;
