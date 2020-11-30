@@ -11,12 +11,12 @@ export const LoginDiv = styled.div`
   color: ${({ theme }) => theme.colors.white};
 
   .MuiPaper-root {
-    color: ${({ theme }) =>  theme.colors.darkerWhite};
+    color: ${({ theme }) => theme.colors.darkerWhite};
     min-height: 0px;
     background: transparent;
   }
   .MuiIconButton-root {
-    color: ${({ theme }) =>theme.colors.darkerWhite};
+    color: ${({ theme }) => theme.colors.darkerWhite};
   }
   .MuiPaper-elevation1 {
     box-shadow: none;
@@ -30,15 +30,15 @@ export const LoginDiv = styled.div`
 
 export const InputElement = styled(Input)`
   margin: 8px 0;
-  color: ${({ theme }) =>theme.colors.white};
+  color: ${({ theme }) => theme.colors.white};
 
   & > .MuiInputBase-input {
-    color: ${({ theme }) =>theme.colors.white};
+    color: ${({ theme }) => theme.colors.white};
   }
 `;
 
 export const ErrorSpan = styled.span`
-  color: ${({ theme }) =>theme.colors.bittersweet};
+  color: ${({ theme }) => theme.colors.bittersweet};
   font-size: 12px;
 `;
 
@@ -47,13 +47,13 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
 
-  & > .MuiButton-containedSecondary {
+  & > label > .MuiButton-containedSecondary {
     margin: 15px;
     width: fit-content;
-    background-color:${({ theme }) =>theme.colors.darkOrange};
+    background-color: ${({ theme }) => theme.colors.darkOrange};
 
     &:hover {
-      background-color: ${({ theme }) =>theme.colors.lightOrange};
+      background-color: ${({ theme }) => theme.colors.lightOrange};
     }
   }
 `;
