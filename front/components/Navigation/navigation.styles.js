@@ -120,7 +120,7 @@ export const NavActions = styled.div`
 export const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 80%;
+  height: 100%;
 
   ${({ theme }) => theme.mq.md} {
     width: 90%;
