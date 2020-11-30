@@ -191,6 +191,12 @@ export const changePassword = async (req, res, next) => {
     res.status(400).send({ message: "You provided the same password " });
     return;
   }
+  if (email === "admin@admin.com") {
+    res
+      .status(400)
+      .send({ message: "You can't change password for admin account :) " });
+    return;
+  }
 
   try {
     const user = await User.findOne({ email: email });

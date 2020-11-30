@@ -22,13 +22,11 @@ import {
   CardParagraphDescription,
 } from "./usercart.styles";
 
-
-
 const UserCart = (props) => {
- const {
-   currentUser: { user },
-   setCurrentUser,
- } = useAuth();
+  const {
+    currentUser: { user },
+    setCurrentUser,
+  } = useAuth();
   const router = useRouter();
   const {
     products,
@@ -127,11 +125,14 @@ const UserCart = (props) => {
               <CardParagraphDescription>{user.email}</CardParagraphDescription>
 
               <MenuBox>
-                <ChangePasswordCart
-                  setMessage={setMessage}
-                  setVariant={setVariant}
-                  setErrorAlert={setErrorAlert}
-                />
+                {user.email !== "admin@admin.com" && (
+                  <ChangePasswordCart
+                    setMessage={setMessage}
+                    setVariant={setVariant}
+                    setErrorAlert={setErrorAlert}
+                  />
+                )}
+
                 {user.email === "admin@admin.com" && <Sidebar />}
               </MenuBox>
             </UserDescription>
