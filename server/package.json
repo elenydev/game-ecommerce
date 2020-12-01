@@ -15,9 +15,7 @@
     "csurf": "^1.11.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-graphql": "^0.11.0",
     "express-validator": "^6.6.1",
-    "graphql": "^15.3.0",
     "gridfs-stream": "^1.1.1",
     "heroku": "^7.46.0",
     "jsonwebtoken": "^8.5.1",
@@ -27,8 +25,7 @@
     "multer": "^1.4.2",
     "multer-gridfs-storage": "^4.2.0",
     "nodemailer": "^6.4.16",
-    "nodemon": "^2.0.4",
-    "socket.io": "^2.3.0"
+    "nodemon": "^2.0.4"
   },
   "devDependencies": {},
   "scripts": {

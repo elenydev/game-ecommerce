@@ -14,6 +14,7 @@ import {
   CardContentType,
   CardContentPrize,
 } from "./offerproduct.styles";
+import { ENDPOINT_URL } from "../../constants.js";
 
 const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
   const {
@@ -60,7 +61,7 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
       <Card>
         <CardImage>
           <Image
-            src={`https://online-gaming-shop.herokuapp.com/images/${productImg}`}
+            src={`${ENDPOINT_URL}/images/${productImg}`}
             alt={productName}
             width={350}
             height={300}

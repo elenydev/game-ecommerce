@@ -25,6 +25,7 @@ import {
   ProductAmount,
   ProductInfo,
 } from "./order.styles";
+import { ENDPOINT_URL } from "../../constants";
 
 
 
@@ -53,17 +54,14 @@ const Order = ({ specificOrder, index }) => {
       status: e.target.value,
       userId
     };
-    const query = await fetch(
-      "https://online-gaming-shop.herokuapp.com/changeStatus",
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          Authorization: "Bearer " + tokenCookie,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const query = await fetch(`${ENDPOINT_URL}/changeStatus`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        Authorization: "Bearer " + tokenCookie,
+        "Content-Type": "application/json",
+      },
+    });
     const response = await query.json();
     setOrderStatus(e.target.value);
   };
@@ -94,7 +92,7 @@ const Order = ({ specificOrder, index }) => {
                       <ProductContainer key={index}>
                         <ProductImage>
                           <Image
-                            src={`https://online-gaming-shop.herokuapp.com/images/${product.productImg}`}
+                            src={`${ENDPOINT_URL}/images/${product.productImg}`}
                             alt={product.productName}
                             width={120}
                             height={120}

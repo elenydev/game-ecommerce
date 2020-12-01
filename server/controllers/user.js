@@ -97,11 +97,11 @@ export const signUp = async (req, res, next) => {
       });
       sendEmailAfterUserRegister(firstName, email);
     } else {
-      res.status(400).send({ message: "User already exist" });
+      res.status(404).send({ message: "User already exist" });
     }
     next();
   } catch (err) {
-    res.status(400).send({ errorMessage: "Something went wrong, try again" });
+    res.status(404).send({ errorMessage: "Something went wrong, try again" });
     next(err);
   }
 };
@@ -135,7 +135,7 @@ export const signIn = async (req, res, next) => {
             });
           } else {
             res
-              .status(400)
+              .status(404)
               .send({ message: "Wrong password provided, try again" });
           }
         })
@@ -145,7 +145,7 @@ export const signIn = async (req, res, next) => {
     }
     next();
   } catch (err) {
-    res.status(400).send({ message: "Something went wrong, try again" });
+    res.status(404).send({ message: "Something went wrong, try again" });
     next(err);
   }
 };

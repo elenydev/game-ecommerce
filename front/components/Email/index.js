@@ -15,6 +15,7 @@ import {
   EmailWrapper,
   DeleteWrapper,
 } from "./email.styles";
+import { ENDPOINT_URL } from "../../constants";
 
 
 const Email = (props) => {
@@ -29,9 +30,7 @@ const Email = (props) => {
 
   const fetchEmails = async () => {
     try {
-      const query = await fetch(
-        "https://online-gaming-shop.herokuapp.com/getEmails"
-      );
+      const query = await fetch(`${ENDPOINT_URL}/getEmails`);
       const response = await query.json();
       setEmails(response.emails.reverse());
     } catch (err) {
@@ -41,17 +40,14 @@ const Email = (props) => {
 
   const deleteEmailFromDatabase = async (emailId) => {
     try {
-      const request = await fetch(
-        "https://online-gaming-shop.herokuapp.com/removeEmail",
-        {
-          method: "POST",
-          body: JSON.stringify({ emailId: emailId, userId }),
-          headers: {
-            Authorization: "Bearer " + tokenCookie,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const request = await fetch(`${ENDPOINT_URL}/removeEmail`, {
+        method: "POST",
+        body: JSON.stringify({ emailId: emailId, userId }),
+        headers: {
+          Authorization: "Bearer " + tokenCookie,
+          "Content-Type": "application/json",
+        },
+      });
       const response = await request.json();
       if (!response.email) {
         setErrorAlert();

@@ -1,5 +1,4 @@
 import Product from "../models/product.js";
-import socket from "../socket.js";
 import bcrypt from "bcryptjs";
 
 export const addProduct = async (req, res, next) => {
@@ -40,11 +39,11 @@ export const addProduct = async (req, res, next) => {
         product: product,
       });
     } else {
-      res.status(400).send({ message: "Product already exist" });
+      res.status(404).send({ message: "Product already exist" });
     }
     next();
   } catch (err) {
-    res.status(400).send({ message: "Some error occured, try again" });
+    res.status(404).send({ message: "Some error occured, try again" });
     next(err);
   }
 };
@@ -56,7 +55,7 @@ export const getProducts = async (req, res, next) => {
     next();
   } catch (err) {
     res
-      .status(400)
+      .status(404)
       .send({ message: "Something went wrong with fetching products" });
     next();
   }
@@ -72,7 +71,7 @@ export const changeAmount = async (req, res, next) => {
     res.status(201).send({ message: "Amount changed" });
     next();
   } catch (err) {
-    res.status(400).send({ message: "Something went wrong, try again" });
+    res.status(404).send({ message: "Something went wrong, try again" });
     next();
   }
 };
@@ -87,9 +86,9 @@ export const deleteProduct = async (req, res, next) => {
       await checkIfExist.deleteOne();
       res.status(201).send({ productId });
     } catch (err) {
-      res.status(500).send({ message: "Some error occured, please try again" });
+      res.status(404).send({ message: "Some error occured, please try again" });
     }
   } else {
-    res.status(500).send({ message: "We can't find that product, try again" });
+    res.status(404).send({ message: "We can't find that product, try again" });
   }
 };

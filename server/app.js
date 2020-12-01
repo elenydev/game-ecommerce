@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import socket from "./socket.js";
 import cors from "cors";
 import csrf from "csurf";
 import multer from "multer";
@@ -164,7 +163,6 @@ mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => {
     const server = app.listen(process.env.PORT || 8080);
-    const io = socket.init(server);
   })
   .catch((err) => {
     console.log(err);

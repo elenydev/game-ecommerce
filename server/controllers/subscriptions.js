@@ -16,7 +16,7 @@ export const addSubscriber = async (req, res, next) => {
     res.status(200).send({ subscriber });
     next();
   } catch (err) {
-    res.status(400).send({ message: "Something went wrong, try again" });
+    res.status(404).send({ message: "Something went wrong, try again" });
     next();
   }
 };
@@ -27,7 +27,7 @@ export const getSubscribtions = async (req, res, next) => {
     res.status(200).send({ subscribers });
   } catch (err) {
     res
-      .status(400)
+      .status(404)
       .send({ message: "Something went wrong with fetching subscribtions" });
   }
 };
@@ -38,6 +38,6 @@ export const removeSubscribtion = async (req, res, next) => {
     await Subscribtion.findOneAndDelete(email);
     res.status(201).send({ subscribtion: req.body.email });
   } catch (err) {
-    res.status(400).send({ message: "Something went wrong, try again" });
+    res.status(404).send({ message: "Something went wrong, try again" });
   }
 };

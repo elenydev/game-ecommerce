@@ -13,6 +13,8 @@ import {
   TextInput,
   Button,
 } from "./contactform.styles";
+import { CHECK_IF_EMAIL_REGEX } from "../../constants";
+import { ENDPOINT_URL } from "../../constants";
 
 
 const defaultValues = {
@@ -31,16 +33,13 @@ const ContactForm = () => {
   const handleSendEmail = async (data, event) => {
     event.preventDefault();
     try {
-      const request = await fetch(
-        "https://online-gaming-shop.herokuapp.com/receiveEmail",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const request = await fetch(`${ENDPOINT_URL}/receiveEmail`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const response = await request.json();
       if (!response.newEmail) {
         setErrorAlert()
@@ -91,16 +90,10 @@ const ContactForm = () => {
             ref={register({
               required: true,
               pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                value: CHECK_IF_EMAIL_REGEX,
                 message: "invalid email address",
               },
             })}
-            onChange={() => {
-              setError("email", {
-                type: "manual",
-                message: "You have to a email",
-              });
-            }}
           />
         </FormLabel>
 
@@ -116,12 +109,6 @@ const ContactForm = () => {
             placeholder="Your message..."
             name="message"
             ref={register({ required: true })}
-            onChange={() => {
-              setError("message", {
-                type: "manual",
-                message: "You have to provide a message",
-              });
-            }}
           ></TextInput>
         </FormLabel>
 

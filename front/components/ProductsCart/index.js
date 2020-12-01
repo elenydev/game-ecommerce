@@ -25,6 +25,7 @@ import {
   TotalPrize,
   Footer,
 } from "./productscart.styles";
+import { ENDPOINT_URL } from "../../constants.js";
 
 
 const ProductsCart = () => {
@@ -71,17 +72,14 @@ const ProductsCart = () => {
       userId: user.userId,
     };
     try {
-      const request = await fetch(
-        "https://online-gaming-shop.herokuapp.com/createOrder",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            Authorization: "Bearer " + tokenCookie,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const request = await fetch(`${ENDPOINT_URL}/createOrder`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          Authorization: "Bearer " + tokenCookie,
+          "Content-Type": "application/json",
+        },
+      });
       const response = await request.json();
       if (response.order) {
         clearProducts();

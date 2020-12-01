@@ -11,6 +11,7 @@ import OurTeam from "../components/OurTeam/index.js";
 import Footer from "../components/Footer/index.js";
 import ContactForm from "../components/ContactForm/index.js";
 import ProductsComponent from "../components/ProductsComponent/index.js";
+import { ENDPOINT_URL } from "../constants";
 
 const Home = React.memo(({ products }) => {
   const { setCurrentUser } = useAuth();
@@ -64,9 +65,7 @@ const Home = React.memo(({ products }) => {
 });
 
 export async function getServerSideProps() {
-  const query = await fetch(
-    "https://online-gaming-shop.herokuapp.com/getProducts"
-  );
+  const query = await fetch(`${ENDPOINT_URL}/getProducts`);
 
   const response = await query.json();
   const products = response.products ? response.products : [];

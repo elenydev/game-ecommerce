@@ -19,6 +19,7 @@ import {
   ProductAmount,
   ActionsBox,
 } from "./adminproductslistitem.styles";
+import { ENDPOINT_URL } from "../../constants";
 
 const AdminProductListItem = (props) => {
   const {
@@ -68,9 +69,7 @@ const AdminProductListItem = (props) => {
   };
 
   const getAllProducts = async () => {
-    const query = await fetch(
-      "https://online-gaming-shop.herokuapp.com/getProducts"
-    );
+    const query = await fetch(`${ENDPOINT_URL}/getProducts`);
     const response = await query.json();
     const products = response.products;
     setAllProducts(products);
@@ -83,7 +82,7 @@ const AdminProductListItem = (props) => {
       userId,
     };
     try {
-      await fetch("https://online-gaming-shop.herokuapp.com/changeAmount", {
+      await fetch(`${ENDPOINT_URL}/changeAmount`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -101,17 +100,14 @@ const AdminProductListItem = (props) => {
       productId: product._id,
     };
     try {
-      const query = await fetch(
-        "https://online-gaming-shop.herokuapp.com/deleteProduct",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            Authorization: "Bearer " + tokenCookie,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const query = await fetch(`${ENDPOINT_URL}/deleteProduct`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          Authorization: "Bearer " + tokenCookie,
+          "Content-Type": "application/json",
+        },
+      });
       const response = await query.json();
       if (response.productId) {
         setVariant("success");
@@ -132,7 +128,7 @@ const AdminProductListItem = (props) => {
       <ProductContainer>
         <ProductImage>
           <Image
-            src={`https://online-gaming-shop.herokuapp.com/images/${productImg}`}
+            src={`${ENDPOINT_URL}/images/${productImg}`}
             alt={productName}
             width={150}
             height={150}

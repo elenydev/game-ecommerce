@@ -17,6 +17,7 @@ import {
   ProductAmount,
   ActionsBox,
 } from "./product.styles";
+import { ENDPOINT_URL } from "../../constants.js";
 
 
 const Product = ({ product, productIndex }) => {
@@ -35,7 +36,7 @@ const Product = ({ product, productIndex }) => {
       <ProductContainer>
         <ProductImage>
           <Image
-            src={`https://online-gaming-shop.herokuapp.com/images/${productImg}`}
+            src={`${ENDPOINT_URL}/images/${productImg}`}
             alt={productName}
             width={200}
             height={200}

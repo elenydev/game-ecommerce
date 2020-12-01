@@ -21,6 +21,7 @@ import {
   CardParagraph,
   CardParagraphDescription,
 } from "./usercart.styles";
+import { ENDPOINT_URL } from "../../constants.js";
 
 const UserCart = (props) => {
   const {
@@ -40,7 +41,7 @@ const UserCart = (props) => {
 
   const { tokenCookie } = useCookie();
   const [userImage, setUserImage] = useState(
-    user && "https://online-gaming-shop.herokuapp.com/images/" + user.avatar
+    user && `${ENDPOINT_URL}/images/` + user.avatar
   );
 
   const changeAvatar = async (avatar) => {
@@ -49,21 +50,16 @@ const UserCart = (props) => {
     data.append("email", user.email);
     data.append("userId", user.userId);
     try {
-      const send = await fetch(
-        "https://online-gaming-shop.herokuapp.com/changeAvatar",
-        {
-          method: "POST",
-          body: data,
-          headers: {
-            Authorization: "Bearer " + tokenCookie,
-          },
-        }
-      );
+      const send = await fetch(`${ENDPOINT_URL}/changeAvatar`, {
+        method: "POST",
+        body: data,
+        headers: {
+          Authorization: "Bearer " + tokenCookie,
+        },
+      });
       const response = await send.json();
       if (response.imageUrl) {
-        setUserImage(
-          "https://online-gaming-shop.herokuapp.com/images/" + response.imageUrl
-        );
+        setUserImage(`${ENDPOINT_URL}/images/` + response.imageUrl);
         setCurrentUser(user);
         setVariant("success");
         setMessage("Avatar changed");

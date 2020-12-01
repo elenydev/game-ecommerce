@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 import Navigation from "../../../components/Navigation/index.js";
 import UserCart from "../../../components/UserCart/index.js";
+import { ENDPOINT_URL } from "../../../constants.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -41,9 +42,7 @@ const Subscribtions = ({ subscribtions }) => {
 };
 
 export async function getServerSideProps() {
-  const query = await fetch(
-    "https://online-gaming-shop.herokuapp.com/getSubscribtions"
-  );
+  const query = await fetch(`${ENDPOINT_URL}/getSubscribtions`);
   const response = await query.json();
   const subscribtions = response.subscribers;
 

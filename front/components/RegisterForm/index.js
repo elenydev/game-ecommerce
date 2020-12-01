@@ -17,6 +17,7 @@ import {
   InputElement,
   CheckBox,
 } from "./registerform.styles";
+import { ENDPOINT_URL } from "../../constants";
 
 const defaultValues = {
   firstName: null,
@@ -54,13 +55,10 @@ const RegisterForm = () => {
     user.append("policy", policy);
 
     try {
-      const send = await fetch(
-        "https://online-gaming-shop.herokuapp.com/signUp",
-        {
-          method: "POST",
-          body: user,
-        }
-      );
+      const send = await fetch(`${ENDPOINT_URL}/signUp`, {
+        method: "POST",
+        body: user,
+      });
       const response = await send.json();
       if (response) {
         if (response.user) {
@@ -96,12 +94,6 @@ const RegisterForm = () => {
             name="firstName"
             placeholder="First Name"
             inputRef={register({ required: true })}
-            onChange={() => {
-              setError("firstName", {
-                type: "manual",
-                message: "You have to provide a first name",
-              });
-            }}
           />
         </FormLabel>
         {errors.firstName && errors.firstName.type === "required" && (
@@ -114,12 +106,6 @@ const RegisterForm = () => {
             name="lastName"
             placeholder="Last Name"
             inputRef={register({ required: true })}
-            onChange={() => {
-              setError("lastName", {
-                type: "manual",
-                message: "You have to provide a last name",
-              });
-            }}
           />
         </FormLabel>
         {errors.lastName && errors.lastName.type === "required" && (
@@ -138,12 +124,6 @@ const RegisterForm = () => {
                 message: "invalid email address",
               },
             })}
-            onChange={() => {
-              setError("email", {
-                type: "manual",
-                message: "You have to a email",
-              });
-            }}
           />
         </FormLabel>
         {errors.email && errors.email.type === "required" && (
@@ -159,12 +139,6 @@ const RegisterForm = () => {
             name="password"
             placeholder="Enter Password"
             inputRef={register({ required: true })}
-            onChange={() => {
-              setError("password", {
-                type: "manual",
-                message: "You have to provide a password",
-              });
-            }}
           />
         </FormLabel>
         {errors.password && errors.password.type === "required" && (
@@ -178,12 +152,6 @@ const RegisterForm = () => {
           accept=".png, .jpg, .jpeg"
           id="avatar"
           className="hidden"
-          onChange={(e) => {
-            setError("avatar", {
-              type: "manual",
-              message: "You have to provide an avatar",
-            });
-          }}
         />
         <label htmlFor="avatar">
           <IconButton
@@ -205,16 +173,7 @@ const RegisterForm = () => {
               <a>Privacy Policy</a>
             </ErrorSpan>
           </Link>
-          <Checkbox
-            name="policy"
-            inputRef={register({ required: true })}
-            onChange={() => {
-              setError("policy", {
-                type: "manual",
-                message: "You have accept our privacy policy ",
-              });
-            }}
-          />
+          <Checkbox name="policy" inputRef={register({ required: true })} />
           {errors.policy && errors.policy.type === "required" && (
             <ErrorSpan>Please accept our privacy policy</ErrorSpan>
           )}

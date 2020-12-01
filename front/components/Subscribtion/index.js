@@ -9,6 +9,7 @@ import {
   SubscribtionCard,
   DeleteWrapper,
 } from "./subscribtion.styles";
+import { ENDPOINT_URL } from "../../constants";
 
 
 
@@ -31,9 +32,7 @@ const Subscribtion = (props) => {
 
   const fetchSubscribtions = async () => {
     try {
-      const query = await fetch(
-        "https://online-gaming-shop.herokuapp.com/getSubscribtions"
-      );
+      const query = await fetch(`${ENDPOINT_URL}/getSubscribtions`);
       const response = await query.json();
       setSubscribtions(response.subscribers.reverse());
     } catch (err) {
@@ -43,20 +42,17 @@ const Subscribtion = (props) => {
 
   const deleteSubscribtionFromDatabase = async (email) => {
     try {
-      const request = await fetch(
-        "https://online-gaming-shop.herokuapp.com/removeSubscribtion",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: email.email,
-            userId,
-          }),
-          headers: {
-            Authorization: "Bearer " + tokenCookie,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const request = await fetch(`${ENDPOINT_URL}/removeSubscribtion`, {
+        method: "POST",
+        body: JSON.stringify({
+          email: email.email,
+          userId,
+        }),
+        headers: {
+          Authorization: "Bearer " + tokenCookie,
+          "Content-Type": "application/json",
+        },
+      });
       const response = await request.json();
       if (!response.subscribtion) {
         setErrorAlert();

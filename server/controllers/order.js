@@ -44,7 +44,7 @@ const checkIfProductsAreAvailable = async (userProducts) => {
   const unvailableProducts = [];
 
   userProducts.filter((userProduct) => {
-    availableProducts.map((availableProduct) => {
+    availableProducts.forEach((availableProduct) => {
       if (
         userProduct.device === availableProduct.device &&
         userProduct.productName === availableProduct.productName
@@ -60,7 +60,7 @@ const checkIfProductsAreAvailable = async (userProducts) => {
 };
 
 const handleAmountOfLeftProducts = (productsArray) => {
-  productsArray.map(async (product) => {
+  productsArray.forEach(async (product) => {
     const exisitingProduct = await Product.findOne({
       productName: product.productName,
       device: product.device,

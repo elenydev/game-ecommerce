@@ -12,6 +12,7 @@ import {
   ErrorSpan,
   Form,
 } from "./remindpasswordcart.styles";
+import { CHECK_IF_EMAIL_REGEX, ENDPOINT_URL } from "../../constants";
 
 
 const RemindPassword = ({ setVariant, setMessage, setErrorAlert }) => {
@@ -24,16 +25,13 @@ const RemindPassword = ({ setVariant, setMessage, setErrorAlert }) => {
   const remindPassword = async (data, event) => {
     event.preventDefault();
     try {
-      const send = await fetch(
-        "https://online-gaming-shop.herokuapp.com/remindPassword",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const send = await fetch(`${ENDPOINT_URL}/remindPassword`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const response = await send.json();
 
       if (response) {
@@ -75,16 +73,10 @@ const RemindPassword = ({ setVariant, setMessage, setErrorAlert }) => {
                 inputRef={register({
                   required: true,
                   pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    value: CHECK_IF_EMAIL_REGEX,
                     message: "invalid email address",
                   },
                 })}
-                onChange={() => {
-                  setError("email", {
-                    type: "manual",
-                    message: "You have to provide a email",
-                  });
-                }}
               />
             </FormLabel>
             {errors.email && errors.email.type === "required" && (

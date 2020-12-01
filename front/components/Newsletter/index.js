@@ -13,6 +13,7 @@ import {
   InputContainer,
 } from "./newsletter.styles";
 import { FormLabel } from "@material-ui/core";
+import { CHECK_IF_EMAIL_REGEX } from "../../constants.js";
 
 const defaultValues = {
   email: null,
@@ -83,16 +84,10 @@ const Newsletter = () => {
                 ref={register({
                   required: true,
                   pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    value: CHECK_IF_EMAIL_REGEX,
                     message: "invalid email address",
                   },
                 })}
-                onChange={() => {
-                  setError("email", {
-                    type: "manual",
-                    message: "You have to a email",
-                  });
-                }}
               />
             </FormLabel>
           </InputContainer>

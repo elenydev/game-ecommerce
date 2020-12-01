@@ -13,6 +13,7 @@ import {
   InputElement,
   Header,
 } from "./changepasswordcart.styles";
+import { ENDPOINT_URL } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -70,17 +71,14 @@ const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
     };
 
     try {
-      const query = await fetch(
-        "https://online-gaming-shop.herokuapp.com/changePassword",
-        {
-          method: "POST",
-          body: JSON.stringify(queryData),
-          headers: {
-            Authorization: "Bearer " + tokenCookie,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const query = await fetch(`${ENDPOINT_URL}/changePassword`, {
+        method: "POST",
+        body: JSON.stringify(queryData),
+        headers: {
+          Authorization: "Bearer " + tokenCookie,
+          "Content-Type": "application/json",
+        },
+      });
       const response = await query.json();
       if (response.user) {
         setVariant("success");

@@ -10,6 +10,7 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Alert from "../../components/Alert/index.js";
+import { ENDPOINT_URL } from "../../constants";
 import {
   Form,
   Header,
@@ -81,16 +82,13 @@ const AddProductForm = () => {
     product.append("device", device);
     product.append("userId", userId);
     try {
-      const send = await fetch(
-        "https://online-gaming-shop.herokuapp.com/addProduct",
-        {
-          method: "POST",
-          body: product,
-          headers: {
-            Authorization: "Bearer " + tokenCookie,
-          },
-        }
-      );
+      const send = await fetch(`${ENDPOINT_URL}/addProduct`, {
+        method: "POST",
+        body: product,
+        headers: {
+          Authorization: "Bearer " + tokenCookie,
+        },
+      });
       const response = await send.json();
       if (response) {
         if (response.product) {
@@ -125,12 +123,6 @@ const AddProductForm = () => {
             name="productName"
             placeholder="Product Name"
             inputRef={register({ required: true })}
-            onChange={() => {
-              setError("productName", {
-                type: "manual",
-                message: "You have to provide a product name",
-              });
-            }}
           />
         </FormLabel>
 
@@ -144,12 +136,6 @@ const AddProductForm = () => {
             name="productDescription"
             placeholder="Product Description"
             inputRef={register({ required: true })}
-            onChange={() => {
-              setError("productDescription", {
-                type: "manual",
-                message: "You have to provide a product description",
-              });
-            }}
           />
         </FormLabel>
 
@@ -192,12 +178,6 @@ const AddProductForm = () => {
             name="prize"
             placeholder="Enter prize"
             inputRef={register({ required: true, min: 1 })}
-            onChange={() => {
-              setError("prize", {
-                type: "manual",
-                message: "You have to provide a prize",
-              });
-            }}
           />
         </FormLabel>
 
@@ -211,12 +191,6 @@ const AddProductForm = () => {
             name="availableAmount"
             placeholder="Enter amount of products "
             inputRef={register({ required: true, min: 1 })}
-            onChange={() => {
-              setError("availableAmount", {
-                type: "availableAmount",
-                message: "You have to provide amount of products",
-              });
-            }}
           />
         </FormLabel>
 
@@ -231,12 +205,6 @@ const AddProductForm = () => {
           accept=".png, .jpg, .jpeg"
           id="productImg"
           className="hidden"
-          onChange={(e) => {
-            setError("productImg", {
-              type: "manual",
-              message: "You have to provide an product image",
-            });
-          }}
         />
 
         <label htmlFor="productImg">

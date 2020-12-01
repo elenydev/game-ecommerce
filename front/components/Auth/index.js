@@ -17,6 +17,7 @@ import {
   LoginDiv,
   InputElement,
 } from "./auth.styles";
+import { CHECK_IF_EMAIL_REGEX, ENDPOINT_URL } from "../../constants";
 
 const defaultValues = {
   firstName: null,
@@ -49,16 +50,13 @@ const Login = () => {
   const loginUser = async (data, event) => {
     event.preventDefault();
     try {
-      const send = await fetch(
-        "https://online-gaming-shop.herokuapp.com/signIn",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const send = await fetch(`${ENDPOINT_URL}/signIn`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const response = await send.json();
       if (response) {
         if (response.user) {
@@ -100,16 +98,10 @@ const Login = () => {
             inputRef={register({
               required: true,
               pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                value: CHECK_IF_EMAIL_REGEX,
                 message: "invalid email address",
               },
             })}
-            onChange={() => {
-              setError("email", {
-                type: "manual",
-                message: "You have to provide a email",
-              });
-            }}
           />
         </FormLabel>
 
@@ -127,12 +119,6 @@ const Login = () => {
             name="password"
             placeholder="Enter Password"
             inputRef={register({ required: true })}
-            onChange={() => {
-              setError("password", {
-                type: "manual",
-                message: "You have to provide a password",
-              });
-            }}
           />
         </FormLabel>
 
