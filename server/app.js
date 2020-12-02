@@ -40,7 +40,6 @@ import {
 } from "./controllers/subscriptions.js";
 
 import isAuth from "./middleware/is-auth.js";
-import { get } from "http";
 
 dotenv.config();
 const __filename = fileURLToPath(import.meta.url);

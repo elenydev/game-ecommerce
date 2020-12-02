@@ -36,7 +36,7 @@ const sendEmail = (email, customerName) => {
 
 export const receiveEmail = async (req, res, next) => {
   const date = new Date().toLocaleString();
-  const { customerName, email, message };
+  const { customerName, email, message } = req.body;
 
   try {
     const newEmail = new Email({

@@ -59,7 +59,7 @@ const checkIfProductsAreAvailable = async (userProducts) => {
   return unvailableProducts;
 };
 
-const handleAmountOfLeftProducts = (productsArray) => {
+const handleAmountOfLeftProducts = async (productsArray) => {
   productsArray.forEach(async (product) => {
     const exisitingProduct = await Product.findOne({
       productName: product.productName,
