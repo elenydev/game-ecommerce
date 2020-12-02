@@ -73,9 +73,7 @@ const handleAmountOfLeftProducts = (productsArray) => {
 };
 
 export const createOrder = async (req, res, next) => {
-  const products = req.body.products;
-  const user = req.body.user;
-  const prize = req.body.prize;
+  const { products, user, prize } = req.body;
 
   const notAvailableProducts = await checkIfProductsAreAvailable(products);
 
@@ -123,8 +121,7 @@ export const getOrders = async (req, res, next) => {
 };
 
 export const changeStatus = async (req, res, next) => {
-  const order = req.body.order;
-  const orderStatus = req.body.status;
+  const { order, orderStatus } = req.body;
 
   try {
     const specificOrder = await Order.findOne({ _id: order._id });

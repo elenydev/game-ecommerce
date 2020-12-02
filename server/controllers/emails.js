@@ -35,10 +35,8 @@ const sendEmail = (email, customerName) => {
 };
 
 export const receiveEmail = async (req, res, next) => {
-  const customerName = req.body.customerName;
-  const email = req.body.email;
-  const message = req.body.message;
   const date = new Date().toLocaleString();
+  const { customerName, email, message };
 
   try {
     const newEmail = new Email({
@@ -70,8 +68,7 @@ export const getEmails = async (req, res, next) => {
 };
 
 export const removeEmail = async (req, res, next) => {
-  const emailId = req.body.emailId;
-
+  const { emailId } = req.body;
   try {
     await Email.findByIdAndDelete(emailId);
     res.status(201).send({ email: req.body });

@@ -2,12 +2,14 @@ import Product from "../models/product.js";
 import bcrypt from "bcryptjs";
 
 export const addProduct = async (req, res, next) => {
-  const productName = req.body.productName;
-  const productDescription = req.body.productDescription;
-  const gameType = req.body.gameType;
-  const prize = req.body.prize;
-  const availableAmount = req.body.availableAmount;
-  const device = req.body.device;
+  const {
+    productName,
+    productDescription,
+    gameType,
+    prize,
+    availableAmount,
+    device,
+  } = req.body;
   const productFile = req.file;
 
   if (!productFile) {
@@ -62,8 +64,7 @@ export const getProducts = async (req, res, next) => {
 };
 
 export const changeAmount = async (req, res, next) => {
-  const productId = req.body.productId;
-  const productAmount = req.body.productAmount;
+  const { productId, productAmount } = req.body;
   try {
     const product = await Product.findOne({ _id: productId });
     product.availableAmount = productAmount;
@@ -78,8 +79,7 @@ export const changeAmount = async (req, res, next) => {
 
 
 export const deleteProduct = async (req, res, next) => {
-  const productId = req.body.productId;
-
+  const { productId } = req.body;
   const checkIfExist = await Product.findOne({ _id: productId });
   if (checkIfExist) {
     try {

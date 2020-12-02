@@ -63,12 +63,8 @@ const sendEmailAfterRemindPassword = (email, newPassword) => {
 };
 
 export const signUp = async (req, res, next) => {
-  const firstName = req.body.firstName;
-  const lastName = req.body.lastName;
-  const email = req.body.email;
-  const password = req.body.password;
+  const { firstName, lastName, email, password, policy } = req.body;
   const avatar = req.file;
-  const policy = req.body.policy;
   if (!avatar) {
     return res.status(422).send({ message: "Error with avatar occured" });
   }
@@ -107,8 +103,7 @@ export const signUp = async (req, res, next) => {
 };
 
 export const signIn = async (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  const { email, password } = req.body;
 
   try {
     const user = await User.findOne({ email: email });
@@ -151,7 +146,7 @@ export const signIn = async (req, res, next) => {
 };
 
 export const logOut = async (req, res, next) => {
-  const id = req.body.id;
+  const { id } = req.body;
   try {
     const user = await User.findById({ _id: id });
     res.status(200).send({ message: "Logged out" });
@@ -162,7 +157,7 @@ export const logOut = async (req, res, next) => {
 };
 
 export const changeAvatar = async (req, res, next) => {
-  const userEmail = req.body.email;
+  const { userEmail } = req.body;
   const avatar = req.file;
   const imageUrl = avatar.filename;
   const specificUser = await User.findOne({ email: userEmail });
@@ -183,9 +178,7 @@ export const changeAvatar = async (req, res, next) => {
 };
 
 export const changePassword = async (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  const newPassword = req.body.newPassword;
+  const { email, password, newPassword } = req.body;
 
   if (password === newPassword) {
     res.status(400).send({ message: "You provided the same password " });
@@ -197,7 +190,6 @@ export const changePassword = async (req, res, next) => {
       .send({ message: "You can't change password for admin account :) " });
     return;
   }
-
   try {
     const user = await User.findOne({ email: email });
     if (user !== null) {
@@ -236,10 +228,8 @@ export const changePassword = async (req, res, next) => {
   }
 };
 
-
 export const remindPassword = async (req, res, next) => {
-  const email = req.body.email;
-
+  const { email } = req.body;
   try {
     const user = await User.findOne({ email: email });
     if (user) {
