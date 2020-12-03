@@ -8,8 +8,8 @@ import {
   removeSubscribtion,
 } from "../controllers/subscriptions.js";
 
-router.use("/addSubscriber", addSubscriber);
-router.use("/getSubscribtions", getSubscribtions);
-router.use("/removeSubscribtion", isAuth, removeSubscribtion);
+router.use("/subscribtions/add", addSubscriber);
+router.use("/subscribtions/all", getSubscribtions);
+router.use("/subscribtions/remove", isAuth, removeSubscribtion);
 
 export default router;

@@ -37,9 +37,9 @@ const fileFilter = (req, file, cb) => {
 const router = express.Router();
 const upload = multer({ storage, fileFilter: fileFilter });
 
-router.use("/getProducts", getProducts);
-router.use("/addProduct", upload.single("productImg"), addProduct);
-router.use("/changeAmount", isAuth, changeAmount);
-router.use("/deleteProduct", isAuth, deleteProduct);
+router.use("/products/all", getProducts);
+router.use("/products/add", upload.single("productImg"), addProduct);
+router.use("/products/amount", isAuth, changeAmount);
+router.use("/products/remove", isAuth, deleteProduct);
 
 export default router;
