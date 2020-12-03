@@ -72,7 +72,7 @@ const ProductsCart = () => {
       userId: user.userId,
     };
     try {
-      const request = await fetch(`${ENDPOINT_URL}/createOrder`, {
+      const request = await fetch(`${ENDPOINT_URL}/orders/create`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {

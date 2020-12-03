@@ -54,7 +54,7 @@ const Order = ({ specificOrder, index }) => {
       status: e.target.value,
       userId
     };
-    const query = await fetch(`${ENDPOINT_URL}/changeStatus`, {
+    const query = await fetch(`${ENDPOINT_URL}/order/status`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {

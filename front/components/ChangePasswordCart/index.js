@@ -71,7 +71,7 @@ const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
     };
 
     try {
-      const query = await fetch(`${ENDPOINT_URL}/changePassword`, {
+      const query = await fetch(`${ENDPOINT_URL}/users/password/change`, {
         method: "POST",
         body: JSON.stringify(queryData),
         headers: {

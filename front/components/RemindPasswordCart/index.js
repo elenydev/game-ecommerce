@@ -25,7 +25,7 @@ const RemindPassword = ({ setVariant, setMessage, setErrorAlert }) => {
   const remindPassword = async (data, event) => {
     event.preventDefault();
     try {
-      const send = await fetch(`${ENDPOINT_URL}/remindPassword`, {
+      const send = await fetch(`${ENDPOINT_URL}/users/password/remind`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {

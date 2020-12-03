@@ -32,7 +32,7 @@ const Subscribtion = (props) => {
 
   const fetchSubscribtions = async () => {
     try {
-      const query = await fetch(`${ENDPOINT_URL}/getSubscribtions`);
+      const query = await fetch(`${ENDPOINT_URL}/subscribtions/all`);
       const response = await query.json();
       setSubscribtions(response.subscribers.reverse());
     } catch (err) {
@@ -42,7 +42,7 @@ const Subscribtion = (props) => {
 
   const deleteSubscribtionFromDatabase = async (email) => {
     try {
-      const request = await fetch(`${ENDPOINT_URL}/removeSubscribtion`, {
+      const request = await fetch(`${ENDPOINT_URL}/subscribtions/remove`, {
         method: "POST",
         body: JSON.stringify({
           email: email.email,

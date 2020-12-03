@@ -42,7 +42,7 @@ const Emails = ({ emails }) => {
 };
 
 export async function getServerSideProps() {
-  const query = await fetch(`${ENDPOINT_URL}/getEmails`);
+  const query = await fetch(`${ENDPOINT_URL}/emails/all`);
   const response = await query.json();
   const emails = response.emails;
 

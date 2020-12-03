@@ -82,7 +82,7 @@ const AddProductForm = () => {
     product.append("device", device);
     product.append("userId", userId);
     try {
-      const send = await fetch(`${ENDPOINT_URL}/addProduct`, {
+      const send = await fetch(`${ENDPOINT_URL}/products/add`, {
         method: "POST",
         body: product,
         headers: {

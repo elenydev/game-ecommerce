@@ -42,7 +42,7 @@ const Subscribtions = ({ subscribtions }) => {
 };
 
 export async function getServerSideProps() {
-  const query = await fetch(`${ENDPOINT_URL}/getSubscribtions`);
+  const query = await fetch(`${ENDPOINT_URL}/subscribtions/all`);
   const response = await query.json();
   const subscribtions = response.subscribers;
 

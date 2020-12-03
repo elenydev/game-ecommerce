@@ -17,7 +17,7 @@ import {
   InputElement,
   CheckBox,
 } from "./registerform.styles";
-import { ENDPOINT_URL } from "../../constants";
+import { CHECK_IF_EMAIL_REGEX, ENDPOINT_URL } from "../../constants";
 
 const defaultValues = {
   firstName: null,
@@ -55,7 +55,7 @@ const RegisterForm = () => {
     user.append("policy", policy);
 
     try {
-      const send = await fetch(`${ENDPOINT_URL}/signUp`, {
+      const send = await fetch(`${ENDPOINT_URL}/users/create`, {
         method: "POST",
         body: user,
       });
@@ -120,7 +120,7 @@ const RegisterForm = () => {
             inputRef={register({
               required: true,
               pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                value: CHECK_IF_EMAIL_REGEX,
                 message: "invalid email address",
               },
             })}

@@ -65,8 +65,7 @@ const Home = React.memo(({ products }) => {
 });
 
 export async function getServerSideProps() {
-  const query = await fetch(`${ENDPOINT_URL}/getProducts`);
-
+  const query = await fetch(`${ENDPOINT_URL}/products/all`);
   const response = await query.json();
   const products = response.products ? response.products : [];
 

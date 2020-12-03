@@ -50,7 +50,7 @@ const UserCart = (props) => {
     data.append("email", user.email);
     data.append("userId", user.userId);
     try {
-      const send = await fetch(`${ENDPOINT_URL}/changeAvatar`, {
+      const send = await fetch(`${ENDPOINT_URL}/users/avatar`, {
         method: "POST",
         body: data,
         headers: {

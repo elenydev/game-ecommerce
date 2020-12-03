@@ -33,7 +33,7 @@ const ContactForm = () => {
   const handleSendEmail = async (data, event) => {
     event.preventDefault();
     try {
-      const request = await fetch(`${ENDPOINT_URL}/receiveEmail`, {
+      const request = await fetch(`${ENDPOINT_URL}/emails/send`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {

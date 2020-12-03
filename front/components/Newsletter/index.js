@@ -13,7 +13,7 @@ import {
   InputContainer,
 } from "./newsletter.styles";
 import { FormLabel } from "@material-ui/core";
-import { CHECK_IF_EMAIL_REGEX } from "../../constants.js";
+import { CHECK_IF_EMAIL_REGEX, ENDPOINT_URL } from "../../constants.js";
 
 const defaultValues = {
   email: null,
@@ -35,16 +35,13 @@ const Newsletter = () => {
   const addSubscriber = async (data, e) => {
     e.preventDefault();
     try {
-      const query = await fetch(
-        "https://online-gaming-shop.herokuapp.com/addSubscriber",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const query = await fetch(`${ENDPOINT_URL}/subscribtions/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       const response = await query.json();
       if (response) {
         if (response.subscriber) {

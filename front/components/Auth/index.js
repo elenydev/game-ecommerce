@@ -50,7 +50,7 @@ const Login = () => {
   const loginUser = async (data, event) => {
     event.preventDefault();
     try {
-      const send = await fetch(`${ENDPOINT_URL}/signIn`, {
+      const send = await fetch(`${ENDPOINT_URL}/users/login`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {

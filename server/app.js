@@ -82,11 +82,11 @@ router.use("/images/:filename", (req, res) => {
 });
 
 app.use("/", router);
-app.use("/emails", emailsRoutes);
-app.use("/orders", orderRoutes);
-app.use("/products", productsRoutes);
-app.use("/subscribtions", subscribtionsRoutes);
-app.use("/users", userRoutes);
+app.use("/", emailsRoutes);
+app.use("/", orderRoutes);
+app.use("/", productsRoutes);
+app.use("/", subscribtionsRoutes);
+app.use("/", userRoutes);
 
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })

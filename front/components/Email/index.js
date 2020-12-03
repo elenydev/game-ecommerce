@@ -30,7 +30,7 @@ const Email = (props) => {
 
   const fetchEmails = async () => {
     try {
-      const query = await fetch(`${ENDPOINT_URL}/getEmails`);
+      const query = await fetch(`${ENDPOINT_URL}/emails/all`);
       const response = await query.json();
       setEmails(response.emails.reverse());
     } catch (err) {
@@ -40,7 +40,7 @@ const Email = (props) => {
 
   const deleteEmailFromDatabase = async (emailId) => {
     try {
-      const request = await fetch(`${ENDPOINT_URL}/removeEmail`, {
+      const request = await fetch(`${ENDPOINT_URL}/emails/remove`, {
         method: "POST",
         body: JSON.stringify({ emailId: emailId, userId }),
         headers: {

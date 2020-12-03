@@ -43,7 +43,7 @@ const Orders = ({ orders }) => {
 };
 
 export async function getServerSideProps() {
-  const query = await fetch(`${ENDPOINT_URL}/getOrders`);
+  const query = await fetch(`${ENDPOINT_URL}/orders/all`);
   const response = await query.json();
   const orders = response.orders;
 

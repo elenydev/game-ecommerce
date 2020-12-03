@@ -69,7 +69,7 @@ const AdminProductListItem = (props) => {
   };
 
   const getAllProducts = async () => {
-    const query = await fetch(`${ENDPOINT_URL}/getProducts`);
+    const query = await fetch(`${ENDPOINT_URL}/products/all`);
     const response = await query.json();
     const products = response.products;
     setAllProducts(products);
@@ -82,7 +82,7 @@ const AdminProductListItem = (props) => {
       userId,
     };
     try {
-      await fetch(`${ENDPOINT_URL}/changeAmount`, {
+      await fetch(`${ENDPOINT_URL}/products/amount`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -100,7 +100,7 @@ const AdminProductListItem = (props) => {
       productId: product._id,
     };
     try {
-      const query = await fetch(`${ENDPOINT_URL}/deleteProduct`, {
+      const query = await fetch(`${ENDPOINT_URL}/products/remove`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
