@@ -15,8 +15,6 @@ import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import Alert from "../Alert/index.js";
 import IconButton from "@material-ui/core/IconButton";
 
-
-
 const EmailsCart = ({ emailsList }) => {
   const [emails, setEmails] = useState(emailsList);
   const {
@@ -40,8 +38,14 @@ const EmailsCart = ({ emailsList }) => {
   const { slicedArray, arrayLength } = handleArrayRange(emails);
 
   useEffect(() => {
-    clearMessage();
-    checkRanges();
+    let mounted = true;
+    if (mounted) {
+      clearMessage();
+      checkRanges();
+    }
+    return () => {
+      mounted = false;
+    };
   }, [message]);
 
   return (

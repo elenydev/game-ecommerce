@@ -99,12 +99,22 @@ const ProductsCart = () => {
   };
 
   useEffect(() => {
-    clearMessage();
+    let mounted = true;
+    if (mounted) clearMessage();
+    return () => {
+      mounted = false;
+    };
   }, [message]);
 
+ 
   useEffect(() => {
-    checkRanges();
+    let mounted = true;
+    if (mounted) checkRanges();
+    return () => {
+      mounted = false;
+    };
   }, [products]);
+
 
   return (
     <Wrapper>

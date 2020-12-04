@@ -8,7 +8,6 @@ import Navigation from "../../../components/Navigation/index.js";
 import UserCart from "../../../components/UserCart/index.js";
 import Alert from "../../../components/Alert/index.js";
 
-
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -41,13 +40,23 @@ const Account = () => {
   } = useAlert();
 
   useEffect(() => {
-    if (user === null) {
-      router.push("/");
+    let mounted = true;
+    if (mounted) {
+      if (user === null) {
+        router.push("/");
+      }
     }
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    clearMessage();
+    let mounted = true;
+    if (mounted) clearMessage();
+    return () => {
+      mounted = false;
+    };
   }, [message]);
 
   return (

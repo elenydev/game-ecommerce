@@ -81,9 +81,13 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    clearMessage();
-  }, [message]);
+ useEffect(() => {
+   let mounted = true;
+   if (mounted) clearMessage();
+   return () => {
+     mounted = false;
+   };
+ }, [message]);
 
   return (
     <Wrapper>

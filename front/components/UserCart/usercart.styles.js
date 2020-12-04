@@ -127,13 +127,13 @@ export const UserDescription = styled.div`
   padding: 5px;
 `;
 
-export const CardParagraph = styled.p`
+export const CardParagraph = styled.div`
   font-family: "Roboto";
   color: rgba(255, 255, 255, 0.9);
   font-size: 1.3em;
   display: flex;
-  
-  &> span {
+
+  & > span {
     width: 5px;
   }
   & > p {

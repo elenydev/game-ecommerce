@@ -20,11 +20,10 @@ const Hero = () => {
   };
 
   useEffect(() => {
-    let isMounted = true;
-    renderSubHeader();
-
+    let mounted = true;
+    if (mounted) renderSubHeader();
     return () => {
-      isMounted = false;
+      mounted = false;
     };
   }, []);
 

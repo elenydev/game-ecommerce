@@ -27,9 +27,15 @@ const Subscribtions = ({ subscribtions }) => {
   } = useAuth();
   const router = useRouter();
   useEffect(() => {
-    if (user === null || user.email !== "admin@admin.com") {
-      router.push("/");
+    let mounted = true;
+    if (mounted) {
+      if (user === null || user.email !== "admin@admin.com") {
+        router.push("/");
+      }
     }
+    return () => {
+      mounted = false;
+    };
   }, []);
   return (
     <>

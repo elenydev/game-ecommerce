@@ -51,14 +51,13 @@ const Navigation = () => {
     }, 400);
   };
 
-  useEffect(() => {
-    let isMounted = true;
-    setUser(currentUser);
-
-    return () => {
-      isMounted = false;
-    };
-  }, [currentUser]);
+   useEffect(() => {
+     let mounted = true;
+     if (mounted) setUser(currentUser);
+     return () => {
+       mounted = false;
+     };
+   }, [currentUser]);
 
   return (
     <>

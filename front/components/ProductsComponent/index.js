@@ -40,12 +40,21 @@ const ProductsComponent = ({ products }) => {
     categoryDisplayed
   );
 
-  useEffect(() =>{
-    checkRanges()
-  },[categoryDisplayed])
+ 
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) checkRanges();
+    return () => {
+      mounted = false;
+    };
+  }, [categoryDisplayed]);
 
   useEffect(() => {
-    clearMessage();
+    let mounted = true;
+    if (mounted) clearMessage();
+    return () => {
+      mounted = false;
+    };
   }, [message]);
 
   return (

@@ -25,25 +25,11 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
     productImg,
   } = product;
 
-
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const {
     productsList: { products },
     putProductToCart,
   } = useProducts();
-
-  useEffect(() => {
-    let isMounted = true;
-    if (user !== null) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [user]);
 
   const addProduct = () => {
     if (!products.includes(product)) {
@@ -55,6 +41,20 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
     setMessage("Product already in card");
     setVariant("error");
   };
+  
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      if (user !== null) {
+        setButtonDisabled(false);
+      } else {
+        setButtonDisabled(true);
+      }
+    }
+    return () => {
+      mounted = false;
+    };
+  }, [user]);
 
   return (
     <>

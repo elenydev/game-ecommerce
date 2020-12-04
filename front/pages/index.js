@@ -18,10 +18,16 @@ const Home = React.memo(({ products }) => {
   const { userCookie } = useCookie();
 
   useEffect(() => {
-    if (!userCookie) {
-      return;
+    let mounted = true;
+    if (mounted) {
+      if (!userCookie) {
+        return;
+      }
+      setCurrentUser(userCookie);
     }
-    setCurrentUser(userCookie);
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (

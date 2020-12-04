@@ -40,8 +40,14 @@ const SubscribtionsList = ({ subscribtionsList }) => {
   const { slicedArray, arrayLength } = handleArrayRange(subscribtions);
 
   useEffect(() => {
-    clearMessage();
-    checkRanges();
+    let mounted = true;
+    if (mounted) {
+      clearMessage();
+      checkRanges();
+    }
+    return () => {
+      mounted = false;
+    };
   }, [message]);
 
   return (

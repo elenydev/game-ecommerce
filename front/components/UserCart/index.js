@@ -72,12 +72,14 @@ const UserCart = (props) => {
   };
 
   useEffect(() => {
-    let isMounted = true;
-    if (user === null) {
-      router.push("/");
+    let mounted = true;
+    if (mounted) {
+      if (user === null) {
+        router.push("/");
+      }
     }
     return () => {
-      isMounted = false;
+      mounted = false;
     };
   }, []);
 

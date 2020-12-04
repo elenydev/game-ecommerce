@@ -80,7 +80,11 @@ const RegisterForm = () => {
   };
 
   useEffect(() => {
-    clearMessage();
+    let mounted = true;
+    if (mounted) clearMessage();
+    return () => {
+      mounted = false;
+    };
   }, [message]);
 
   return (
