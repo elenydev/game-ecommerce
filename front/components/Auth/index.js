@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import useAlert from "../../hooks/useAlert";
-import useCookie from "../../hooks/useCookie";
+import useAlert from "../../hooks/useAlert"
 import useAuth from "../../hooks/useAuth";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -31,7 +30,7 @@ const defaultValues = {
 const Login = () => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues,
-  });
+  })
 
   const {
     message,
@@ -40,15 +39,13 @@ const Login = () => {
     setVariant,
     clearMessage,
     setErrorAlert,
-  } = useAlert();
+  } = useAlert()
 
-  const { setCookie } = useCookie();
-
-  const router = useRouter();
-  const { setCurrentUser } = useAuth();
+  const router = useRouter()
+  const { setCurrentUser, setCookie } = useAuth()
 
   const loginUser = async (data, event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       const send = await fetch(`${ENDPOINT_URL}/users/login`, {
         method: "POST",
@@ -56,38 +53,38 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-      });
-      const response = await send.json();
+      })
+      const response = await send.json()
       if (response) {
         if (response.user) {
           setTimeout(() => {
-            setCurrentUser(response.user);
-            setCookie("User", response.user);
-            setCookie("Token", response.token);
-            reset();
-            setVariant("success");
-            setMessage("You are logged in");
-            router.push("/auth/account/cart");
-          }, 100);
+            setCurrentUser(response.user)
+            setCookie("User", response.user)
+            setCookie("Token", response.token)
+            reset()
+            setVariant("success")
+            setMessage("You are logged in")
+            router.push("/auth/account/cart")
+          }, 100)
         } else {
-          setErrorAlert();
+          setErrorAlert()
         }
       } else {
-        setVariant("error");
-        setMessage("Wrong password or email provided");
+        setVariant("error")
+        setMessage("Wrong password or email provided")
       }
     } catch (err) {
-      setErrorAlert();
+      setErrorAlert()
     }
-  };
+  }
 
- useEffect(() => {
-   let mounted = true;
-   if (mounted) clearMessage();
-   return () => {
-     mounted = false;
-   };
- }, [message]);
+  useEffect(() => {
+    let mounted = true
+    if (mounted) clearMessage()
+    return () => {
+      mounted = false
+    }
+  }, [message])
 
   return (
     <Wrapper>
@@ -151,7 +148,7 @@ const Login = () => {
         <Alert message={message} variant={variant} shouldOpen={true} />
       )}
     </Wrapper>
-  );
+  )
 };
 
 export default Login;

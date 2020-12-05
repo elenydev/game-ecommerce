@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import useCookie from "../../hooks/useCookie.js";
+import Link from "next/link"
 import useAuth from "../../hooks/useAuth.js";
 import useProducts from "../../hooks/useProducts.js";
 import { useRouter } from "next/router";
@@ -23,12 +21,11 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 const Navigation = () => {
   const [user, setUser] = useState({ user: null });
-  const { currentUser, deleteCurrentUser, setCurrentUser } = useAuth();
+  const { currentUser, deleteCurrentUser, deleteCookie } = useAuth()
   const {
-    productsList: { products },
+    cartProductsList: {  cartProducts  },
     clearProducts,
-  } = useProducts();
-  const { deleteCookie } = useCookie();
+  } = useProducts()
   const router = useRouter();
 
   const handleClick = () => {
@@ -116,7 +113,7 @@ const Navigation = () => {
               {user.user !== null ? (
                 <NavListItem
                   onClick={() => {
-                    handleClick(), logOut();
+                    handleClick(), logOut()
                   }}
                 >
                   <Link href="/">
@@ -136,7 +133,7 @@ const Navigation = () => {
                   <Link href="/auth/account/cart">
                     <a>
                       <ShoppingCartIcon />
-                      <span>({products.length})</span>
+                      <span>({cartProducts.length})</span>
                     </a>
                   </Link>
                 </NavListItem>
@@ -154,7 +151,7 @@ const Navigation = () => {
         </Container>
       </Wrapper>
     </>
-  );
+  )
 };
 
 export default Navigation;

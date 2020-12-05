@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import useCookie from "../../hooks/useCookie";
+import React, { useState } from "react"
 import useAuth from "../../hooks/useAuth";
 import Image from "next/image";
 
@@ -28,7 +27,7 @@ const AdminProductListItem = (props) => {
     setVariant,
     setErrorAlert,
     setAllProducts,
-  } = props;
+  } = props
   const {
     productImg,
     productName,
@@ -38,49 +37,49 @@ const AdminProductListItem = (props) => {
     availableAmount,
     amount,
     device,
-  } = product;
+  } = product
 
-  const { tokenCookie } = useCookie();
   const {
     currentUser: {
       user: { userId },
     },
-  } = useAuth();
-  const [productAmount, setProductAmount] = useState(availableAmount);
-  let newAmount = 0;
+    tokenCookie,
+  } = useAuth()
+  const [productAmount, setProductAmount] = useState(availableAmount)
+  let newAmount = 0
 
   const increaseAmount = () => {
-    setProductAmount(productAmount + 1);
-    newAmount = productAmount + 1;
+    setProductAmount(productAmount + 1)
+    newAmount = productAmount + 1
     setTimeout(() => {
-      changeAmountInDatabase();
-    }, 500);
-  };
+      changeAmountInDatabase()
+    }, 500)
+  }
 
   const decreaseAmount = () => {
     if (productAmount - 1 < 0) {
-      return;
+      return
     }
-    setProductAmount(productAmount - 1);
-    newAmount = productAmount + -1;
+    setProductAmount(productAmount - 1)
+    newAmount = productAmount + -1
     setTimeout(() => {
-      changeAmountInDatabase();
-    }, 500);
-  };
+      changeAmountInDatabase()
+    }, 500)
+  }
 
   const getAllProducts = async () => {
-    const query = await fetch(`${ENDPOINT_URL}/products/all`);
-    const response = await query.json();
-    const products = response.products;
-    setAllProducts(products);
-  };
+    const query = await fetch(`${ENDPOINT_URL}/products/all`)
+    const response = await query.json()
+    const products = response.products
+    setAllProducts(products)
+  }
 
   const changeAmountInDatabase = async () => {
     const data = {
       productId: product._id,
       productAmount: newAmount,
       userId,
-    };
+    }
     try {
       await fetch(`${ENDPOINT_URL}/products/amount`, {
         method: "POST",
@@ -89,16 +88,16 @@ const AdminProductListItem = (props) => {
           Authorization: "Bearer " + tokenCookie,
           "Content-Type": "application/json",
         },
-      });
+      })
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
 
   const deleteProduct = async () => {
     const data = {
       productId: product._id,
-    };
+    }
     try {
       const query = await fetch(`${ENDPOINT_URL}/products/remove`, {
         method: "POST",
@@ -107,21 +106,21 @@ const AdminProductListItem = (props) => {
           Authorization: "Bearer " + tokenCookie,
           "Content-Type": "application/json",
         },
-      });
-      const response = await query.json();
+      })
+      const response = await query.json()
       if (response.productId) {
-        setVariant("success");
-        setMessage("Product deleted");
-        getAllProducts();
+        setVariant("success")
+        setMessage("Product deleted")
+        getAllProducts()
       } else {
-        setVariant("error");
-        setMessage(response.message);
+        setVariant("error")
+        setMessage(response.message)
       }
     } catch (err) {
-      setErrorAlert();
-      console.log(err);
+      setErrorAlert()
+      console.log(err)
     }
-  };
+  }
 
   return (
     <Wrapper>
@@ -181,7 +180,7 @@ const AdminProductListItem = (props) => {
         </ProductPrizeInfo>
       </ProductContainer>
     </Wrapper>
-  );
+  )
 };
 
 export default AdminProductListItem;

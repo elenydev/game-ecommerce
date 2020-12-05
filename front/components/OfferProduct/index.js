@@ -27,16 +27,16 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const {
-    productsList: { products },
+    cartProductsList: { cartProducts },
     putProductToCart,
-  } = useProducts();
+  } = useProducts()
 
   const addProduct = () => {
-    if (!products.includes(product)) {
-      setMessage("Product added to cart");
-      setVariant("success");
-      putProductToCart(product);
-      return;
+    if (!cartProducts.includes(product)) {
+      setMessage("Product added to cart")
+      setVariant("success")
+      putProductToCart(product)
+      return
     }
     setMessage("Product already in card");
     setVariant("error");

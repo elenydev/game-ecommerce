@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from "react"
 import { useForm } from "react-hook-form"
-import useAlert from "../../hooks/useAlert";
-;
-import { FormLabel } from "@material-ui/core";
-import Alert from "../Alert/index.js";
+import useAlert from "../../hooks/useAlert"
+import { FormLabel } from "@material-ui/core"
+import Alert from "../Alert/index.js"
 import {
   Wrapper,
   Form,
@@ -12,26 +11,31 @@ import {
   Input,
   TextInput,
   Button,
-} from "./contactform.styles";
-import { CHECK_IF_EMAIL_REGEX } from "../../constants";
-import { ENDPOINT_URL } from "../../constants";
-
+} from "./contactform.styles"
+import { CHECK_IF_EMAIL_REGEX } from "../../constants"
+import { ENDPOINT_URL } from "../../constants"
 
 const defaultValues = {
   customerName: null,
   email: null,
   message: null,
-};
+}
 
 const ContactForm = () => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues,
-  });
-  const {message,setMessage,variant,setVariant,clearMessage, setErrorAlert} = useAlert()
- 
+  })
+  const {
+    message,
+    setMessage,
+    variant,
+    setVariant,
+    clearMessage,
+    setErrorAlert,
+  } = useAlert()
 
   const handleSendEmail = async (data, event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       const request = await fetch(`${ENDPOINT_URL}/emails/send`, {
         method: "POST",
@@ -39,28 +43,26 @@ const ContactForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-      });
-      const response = await request.json();
+      })
+      const response = await request.json()
       if (!response.newEmail) {
         setErrorAlert()
       }
-      setVariant("success");
-      setMessage("Email send");
-      reset();
+      setVariant("success")
+      setMessage("Email send")
+      reset()
     } catch (err) {
-     setErrorAlert()
+      setErrorAlert()
     }
-
-  };
+  }
 
   useEffect(() => {
-    let mounted = true;
-    if (mounted) clearMessage();
+    let mounted = true
+    if (mounted) clearMessage()
     return () => {
-      mounted = false;
-    };
-  }, [message]);
-
+      mounted = false
+    }
+  }, [message])
 
   return (
     <Wrapper id="contact">
@@ -77,7 +79,7 @@ const ContactForm = () => {
               setError("customerName", {
                 type: "manual",
                 message: "You have to provide a name",
-              });
+              })
             }}
           />
         </FormLabel>
@@ -127,7 +129,7 @@ const ContactForm = () => {
         <Alert shouldOpen={true} message={message} variant={variant} />
       )}
     </Wrapper>
-  );
-};
+  )
+}
 
-export default ContactForm;
+export default ContactForm

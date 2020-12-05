@@ -1,42 +1,40 @@
-import React, { useEffect } from "react";
-import useAlert from "../../hooks/useAlert.js";
-import useCookie from "../../hooks/useCookie.js";
-import useAuth from "../../hooks/useAuth.js";
-import useProducts from "../../hooks/useProducts.js";
-import useArrayRange from "../../hooks/useArrayRange.js";
+import React, { useEffect } from "react"
+import useAlert from "../../hooks/useAlert.js"
+import useAuth from "../../hooks/useAuth.js"
+import useProducts from "../../hooks/useProducts.js"
+import useArrayRange from "../../hooks/useArrayRange.js"
 
-import Product from "../Product/index.js";
-import { Button } from "@material-ui/core";
-import AddProductForm from "../../components/AddProductForm/index.js";
-import Alert from "../Alert/index.js";
-import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
-import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
-import IconButton from "@material-ui/core/IconButton";
+import Product from "../Product/index.js"
+import { Button } from "@material-ui/core"
+import AddProductForm from "../../components/AddProductForm/index.js"
+import Alert from "../Alert/index.js"
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight"
+import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft"
+import IconButton from "@material-ui/core/IconButton"
 import {
   FooterContent,
   FooterRows,
   Paragraph,
   Span,
-} from "../ProductsComponent/productsComponent.styles.js";
+} from "../ProductsComponent/productsComponent.styles.js"
 import {
   Wrapper,
   OrderBox,
   Heading,
   TotalPrize,
   Footer,
-} from "./productscart.styles";
-import { ENDPOINT_URL } from "../../constants.js";
-
+} from "./productscart.styles"
+import { ENDPOINT_URL } from "../../constants.js"
 
 const ProductsCart = () => {
   const {
-    productsList: { products },
+    cartProductsList: { cartProducts },
     clearProducts,
-  } = useProducts();
+  } = useProducts()
   const {
     currentUser: { user },
-  } = useAuth();
-  const { tokenCookie } = useCookie();
+    tokenCookie,
+  } = useAuth()
   const {
     message,
     setMessage,
@@ -44,7 +42,7 @@ const ProductsCart = () => {
     setVariant,
     clearMessage,
     setErrorAlert,
-  } = useAlert();
+  } = useAlert()
 
   const {
     startRange,
@@ -53,16 +51,16 @@ const ProductsCart = () => {
     decrementRange,
     checkRanges,
     handleArrayRange,
-  } = useArrayRange();
-  const { slicedArray, arrayLength } = handleArrayRange(products);
+  } = useArrayRange()
+  const { slicedArray, arrayLength } = handleArrayRange(cartProducts)
 
   const getPrize = () => {
-    let prize = 0;
+    let prize = 0
     products.map((product) => {
-      prize = prize + product.amount * product.prize;
-    });
-    return prize;
-  };
+      prize = prize + product.amount * product.prize
+    })
+    return prize
+  }
 
   const createOrder = async () => {
     const data = {
@@ -70,7 +68,7 @@ const ProductsCart = () => {
       user,
       prize: getPrize(),
       userId: user.userId,
-    };
+    }
     try {
       const request = await fetch(`${ENDPOINT_URL}/orders/create`, {
         method: "POST",
@@ -79,42 +77,40 @@ const ProductsCart = () => {
           Authorization: "Bearer " + tokenCookie,
           "Content-Type": "application/json",
         },
-      });
-      const response = await request.json();
+      })
+      const response = await request.json()
       if (response.order) {
-        clearProducts();
-        setVariant("success");
-        setMessage("Order created");
+        clearProducts()
+        setVariant("success")
+        setMessage("Order created")
       }
       if (response.message) {
-        setErrorAlert();
+        setErrorAlert()
       }
       if (response.unavailableProducts) {
-        setVariant("error");
-        setMessage(response.unavailableProducts);
+        setVariant("error")
+        setMessage(response.unavailableProducts)
       }
     } catch (err) {
-      setErrorAlert();
+      setErrorAlert()
     }
-  };
+  }
 
   useEffect(() => {
-    let mounted = true;
-    if (mounted) clearMessage();
+    let mounted = true
+    if (mounted) clearMessage()
     return () => {
-      mounted = false;
-    };
-  }, [message]);
+      mounted = false
+    }
+  }, [message])
 
- 
   useEffect(() => {
-    let mounted = true;
-    if (mounted) checkRanges();
+    let mounted = true
+    if (mounted) checkRanges()
     return () => {
-      mounted = false;
-    };
-  }, [products]);
-
+      mounted = false
+    }
+  }, [cartProducts])
 
   return (
     <Wrapper>
@@ -186,7 +182,7 @@ const ProductsCart = () => {
         <Alert variant={variant} shouldOpen={true} message={message} />
       )}
     </Wrapper>
-  );
-};
+  )
+}
 
-export default ProductsCart;
+export default ProductsCart

@@ -1,15 +1,13 @@
-import React, { useState } from "react";
-import useCookie from "../../hooks/useCookie";
-import useAuth from "../../hooks/useAuth";
-import Image from "next/image";
+import React, { useState } from "react"
+import useAuth from "../../hooks/useAuth"
+import Image from "next/image"
 
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { Select, MenuItem, FormControlLabel } from "@material-ui/core";
-import { FormLabel } from "@material-ui/core";
-
+import Accordion from "@material-ui/core/Accordion"
+import AccordionSummary from "@material-ui/core/AccordionSummary"
+import AccordionDetails from "@material-ui/core/AccordionDetails"
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
+import { Select, MenuItem, FormControlLabel } from "@material-ui/core"
+import { FormLabel } from "@material-ui/core"
 
 import {
   Wrapper,
@@ -24,10 +22,8 @@ import {
   ProductName,
   ProductAmount,
   ProductInfo,
-} from "./order.styles";
-import { ENDPOINT_URL } from "../../constants";
-
-
+} from "./order.styles"
+import { ENDPOINT_URL } from "../../constants"
 
 const Order = ({ specificOrder, index }) => {
   const {
@@ -38,22 +34,22 @@ const Order = ({ specificOrder, index }) => {
     prize,
     date,
     status,
-  } = specificOrder;
+  } = specificOrder
   const {
     currentUser: {
       user: { userId },
     },
-  } = useAuth();
-  const {tokenCookie} = useCookie()
+    tokenCookie,
+  } = useAuth()
 
-  const [orderStatus, setOrderStatus] = useState(status);
+  const [orderStatus, setOrderStatus] = useState(status)
 
   const handleChange = async (e) => {
     const data = {
       order: specificOrder,
       status: e.target.value,
-      userId
-    };
+      userId,
+    }
     const query = await fetch(`${ENDPOINT_URL}/order/status`, {
       method: "POST",
       body: JSON.stringify(data),
@@ -61,10 +57,10 @@ const Order = ({ specificOrder, index }) => {
         Authorization: "Bearer " + tokenCookie,
         "Content-Type": "application/json",
       },
-    });
-    const response = await query.json();
-    setOrderStatus(e.target.value);
-  };
+    })
+    const response = await query.json()
+    setOrderStatus(e.target.value)
+  }
 
   return (
     <Wrapper>
@@ -128,7 +124,7 @@ const Order = ({ specificOrder, index }) => {
         </OrderDescriptionBox>
       </OrderContainer>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default Order;
+export default Order

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useAuth from "../../hooks/useAuth.js";
-import useCookie from "../../hooks/useCookie";
+import useAuth from "../../hooks/useAuth.js"
 import { useRouter } from "next/router";
 
 import ProductsCart from "../ProductsCart/index.js";
@@ -27,8 +26,9 @@ const UserCart = (props) => {
   const {
     currentUser: { user },
     setCurrentUser,
-  } = useAuth();
-  const router = useRouter();
+    tokenCookie,
+  } = useAuth()
+  const router = useRouter()
   const {
     products,
     orders,
@@ -37,18 +37,17 @@ const UserCart = (props) => {
     setMessage,
     setVariant,
     setErrorAlert,
-  } = props;
+  } = props
 
-  const { tokenCookie } = useCookie();
   const [userImage, setUserImage] = useState(
     user && `${ENDPOINT_URL}/images/` + user.avatar
-  );
+  )
 
   const changeAvatar = async (avatar) => {
-    const data = new FormData();
-    data.append("avatar", avatar);
-    data.append("email", user.email);
-    data.append("userId", user.userId);
+    const data = new FormData()
+    data.append("avatar", avatar)
+    data.append("email", user.email)
+    data.append("userId", user.userId)
     try {
       const send = await fetch(`${ENDPOINT_URL}/users/avatar`, {
         method: "POST",
@@ -56,32 +55,32 @@ const UserCart = (props) => {
         headers: {
           Authorization: "Bearer " + tokenCookie,
         },
-      });
-      const response = await send.json();
+      })
+      const response = await send.json()
       if (response.imageUrl) {
-        setUserImage(`${ENDPOINT_URL}/images/` + response.imageUrl);
-        setCurrentUser(user);
-        setVariant("success");
-        setMessage("Avatar changed");
+        setUserImage(`${ENDPOINT_URL}/images/` + response.imageUrl)
+        setCurrentUser(user)
+        setVariant("success")
+        setMessage("Avatar changed")
       } else {
-        setErrorAlert();
+        setErrorAlert()
       }
     } catch (err) {
-      setErrorAlert();
+      setErrorAlert()
     }
-  };
+  }
 
   useEffect(() => {
-    let mounted = true;
+    let mounted = true
     if (mounted) {
       if (user === null) {
-        router.push("/");
+        router.push("/")
       }
     }
     return () => {
-      mounted = false;
-    };
-  }, []);
+      mounted = false
+    }
+  }, [])
 
   return (
     <>
@@ -99,7 +98,7 @@ const UserCart = (props) => {
                 id="avatar"
                 className="hidden"
                 onChange={(e) => {
-                  changeAvatar(e.target.files[0]);
+                  changeAvatar(e.target.files[0])
                 }}
               />
               <label htmlFor="avatar">
@@ -156,7 +155,7 @@ const UserCart = (props) => {
         </Wrapper>
       )}
     </>
-  );
+  )
 };
 
 export default UserCart;

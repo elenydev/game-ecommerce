@@ -1,29 +1,28 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"
 import {
-  selectProducts,
+  selectCartProducts,
   increaseAmount,
   decreaseAmount,
   addProductToCart,
   clearCart,
-} from "../Reducers/productsSlice.js";
+} from "../reducers/cartProductsSlice.js"
 
-const useAuth = () => {
-  const dispatch = useDispatch();
-  const productsList = useSelector(selectProducts);
+const useCartProducts = () => {
+  const dispatch = useDispatch()
+  const cartProductsList = useSelector(selectCartProducts)
 
-  const clearProducts = () => dispatch(clearCart());
-  const putProductToCart = (product) => dispatch(addProductToCart(product));
-  const increaseProductAmount = (index) => dispatch(increaseAmount(index));
-  const decreaseProductAmount = (index) => dispatch(decreaseAmount(index));
+  const clearProducts = () => dispatch(clearCart())
+  const putProductToCart = (product) => dispatch(addProductToCart(product))
+  const increaseProductAmount = (index) => dispatch(increaseAmount(index))
+  const decreaseProductAmount = (index) => dispatch(decreaseAmount(index))
 
   return {
-    productsList,
+    cartProductsList,
     clearProducts,
     putProductToCart,
     increaseProductAmount,
     decreaseProductAmount,
-  };
-};
+  }
+}
 
-export default useAuth;
+export default useCartProducts

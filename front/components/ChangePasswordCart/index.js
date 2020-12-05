@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import useCookie from "../../hooks/useCookie";
+import { useForm } from "react-hook-form"
 import useAuth from "../../hooks/useAuth";
 
 import { FormLabel, Button } from "@material-ui/core";
@@ -49,8 +48,8 @@ const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
     currentUser: {
       user: { email },
     },
-  } = useAuth();
-  const { tokenCookie } = useCookie();
+    tokenCookie,
+  } = useAuth()
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 

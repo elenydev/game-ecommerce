@@ -1,5 +1,4 @@
-import React from "react";
-import useCookie from "../../hooks/useCookie";
+import React from "react"
 import useAuth from "../../hooks/useAuth";
 
 import { IconButton } from "@material-ui/core";
@@ -20,13 +19,13 @@ import { ENDPOINT_URL } from "../../constants";
 
 const Email = (props) => {
   const { customerName, email, message, date } = props.emailMessage;
-  const { setEmails, emailId, setMessage, setVariant, setErrorAlert } = props;
-  const { tokenCookie } = useCookie();
+  const { setEmails, emailId, setMessage, setVariant, setErrorAlert } = props
   const {
     currentUser: {
       user: { userId },
     },
-  } = useAuth();
+    tokenCookie,
+  } = useAuth()
 
   const fetchEmails = async () => {
     try {

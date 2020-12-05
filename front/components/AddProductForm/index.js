@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import useAlert from "../../hooks/useAlert";
-import useCookie from "../../hooks/useCookie";
+import useAlert from "../../hooks/useAlert"
 import useAuth from "../../hooks/useAuth";
 
 import { FormLabel, Button, Checkbox } from "@material-ui/core";
@@ -33,13 +32,13 @@ const defaultValues = {
 const AddProductForm = () => {
   const { register, handleSubmit, errors, setError, reset, control } = useForm({
     defaultValues,
-  });
-  const { tokenCookie } = useCookie();
+  })
   const {
     currentUser: {
       user: { userId },
     },
-  } = useAuth();
+    tokenCookie,
+  } = useAuth()
 
   const {
     message,

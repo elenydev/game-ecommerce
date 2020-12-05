@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import useAlert from "../../hooks/useAlert";
-import useArrayRange from "../../hooks/useArrayRange";
-import useAuth from "../../hooks/useAuth";
+import React, { useState, useEffect } from "react"
+import useAlert from "../../hooks/useAlert"
+import useArrayRange from "../../hooks/useArrayRange"
+import useAuth from "../../hooks/useAuth"
 
-import OfferProduct from "../OfferProduct";
-import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
-import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
-import IconButton from "@material-ui/core/IconButton";
+import OfferProduct from "../OfferProduct"
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight"
+import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft"
+import IconButton from "@material-ui/core/IconButton"
 import {
   Wrapper,
   Header,
@@ -16,15 +16,14 @@ import {
   FooterContent,
   FooterRows,
   Span,
-} from "./productsComponent.styles.js";
-import Alert from "../Alert/index.js";
-
+} from "./productsComponent.styles.js"
+import Alert from "../Alert/index.js"
 
 const ProductsComponent = ({ products }) => {
   const {
     currentUser: { user },
-  } = useAuth();
-  const [categoryDisplayed, setCategoryDisplayed] = useState("Desktop");
+  } = useAuth()
+  const [categoryDisplayed, setCategoryDisplayed] = useState("Desktop")
   const {
     startRange,
     endRange,
@@ -33,29 +32,28 @@ const ProductsComponent = ({ products }) => {
     decrementRange,
     handleProductsArrayRange,
     setVisibleProducts,
-  } = useArrayRange();
-  const { message, variant, setMessage, setVariant, clearMessage } = useAlert();
+  } = useArrayRange()
+  const { message, variant, setMessage, setVariant, clearMessage } = useAlert()
   const { arrayLength, currentCategoryProducts } = handleProductsArrayRange(
     products,
     categoryDisplayed
-  );
-
- 
-  useEffect(() => {
-    let mounted = true;
-    if (mounted) checkRanges();
-    return () => {
-      mounted = false;
-    };
-  }, [categoryDisplayed]);
+  )
 
   useEffect(() => {
-    let mounted = true;
-    if (mounted) clearMessage();
+    let mounted = true
+    if (mounted) checkRanges()
     return () => {
-      mounted = false;
-    };
-  }, [message]);
+      mounted = false
+    }
+  }, [categoryDisplayed])
+
+  useEffect(() => {
+    let mounted = true
+    if (mounted) clearMessage()
+    return () => {
+      mounted = false
+    }
+  }, [message])
 
   return (
     <Wrapper id="games">
@@ -82,7 +80,7 @@ const ProductsComponent = ({ products }) => {
               <label>
                 <select
                   onChange={(e) => {
-                    setVisibleProducts(parseInt(e.target.value));
+                    setVisibleProducts(parseInt(e.target.value))
                   }}
                 >
                   <option value={4}>4</option>
@@ -127,7 +125,7 @@ const ProductsComponent = ({ products }) => {
               <label>
                 <select
                   onChange={(e) => {
-                    setCategoryDisplayed(e.target.value);
+                    setCategoryDisplayed(e.target.value)
                   }}
                 >
                   <option value="Desktop">Desktop</option>
@@ -145,7 +143,7 @@ const ProductsComponent = ({ products }) => {
         )}
       </>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default ProductsComponent;
+export default ProductsComponent

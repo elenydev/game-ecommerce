@@ -1,6 +1,5 @@
 import Head from "next/head";
-import React, { useEffect } from "react";
-import useCookie from "../hooks/useCookie";
+import React, { useEffect } from "react"
 import useAuth from "../hooks/useAuth.js";
 
 import Navigation from "../components/Navigation/index.js";
@@ -14,8 +13,7 @@ import ProductsComponent from "../components/ProductsComponent/index.js";
 import { ENDPOINT_URL } from "../constants";
 
 const Home = React.memo(({ products }) => {
-  const { setCurrentUser } = useAuth();
-  const { userCookie } = useCookie();
+  const { setCurrentUser, userCookie } = useAuth()
 
   useEffect(() => {
     let mounted = true;
