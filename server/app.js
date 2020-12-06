@@ -26,13 +26,10 @@ const router = express.Router();
 const app = express();
 const mongoURI = process.env.MONGO_URI;
 
-const connection = mongoose.createConnection(
-  "mongodb+srv://Damian:wOipEDVLCVSfhPap@ecommerce.afuvr.mongodb.net/ecommerce?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+const connection = mongoose.createConnection(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
 let gfs;
 
 connection.once("open", () => {
