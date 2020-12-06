@@ -38,10 +38,10 @@ const fileFilter = (req, file, cb) => {
 const router = express.Router();
 const upload = multer({ storage, fileFilter: fileFilter });
 
-router.use("/users/login", signIn);
-router.use("/users/create", upload.single("avatar"), signUp);
-router.use("/users/avatar", upload.single("avatar"), changeAvatar);
-router.use("/users/password/change", isAuth, changePassword);
-router.use("/users/password/remind", remindPassword);
+router.use("/login", signIn);
+router.use("/create", upload.single("avatar"), signUp);
+router.use("/avatar", upload.single("avatar"), changeAvatar);
+router.use("/password/change", isAuth, changePassword);
+router.use("/password/remind", remindPassword);
 
 export default router;

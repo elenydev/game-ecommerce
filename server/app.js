@@ -26,10 +26,13 @@ const router = express.Router();
 const app = express();
 const mongoURI = process.env.MONGO_URI;
 
-const connection = mongoose.createConnection(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const connection = mongoose.createConnection(
+  "mongodb+srv://Damian:wOipEDVLCVSfhPap@ecommerce.afuvr.mongodb.net/ecommerce?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 let gfs;
 
 connection.once("open", () => {
@@ -81,15 +84,21 @@ router.use("/images/:filename", (req, res) => {
   });
 });
 
+
+
+
 app.use("/", router);
-app.use("/", emailsRoutes);
-app.use("/", orderRoutes);
-app.use("/", productsRoutes);
-app.use("/", subscribtionsRoutes);
-app.use("/", userRoutes);
+app.use("/emails", emailsRoutes);
+app.use("/orders", orderRoutes);
+app.use("/products", productsRoutes);
+app.use("/subscribtions", subscribtionsRoutes);
+app.use("/users", userRoutes);
 
 mongoose
-  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then((result) => {
     const server = app.listen(process.env.PORT || 8080);
   })
