@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { selectUser, setUser, deleteUser } from "../reducers/userSlice.js"
+import { selectUser, setUser, deleteUser } from "../reducers/user-slice.js"
 import Cookies from "universal-cookie"
 
 

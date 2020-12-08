@@ -5,7 +5,7 @@ import {
   decreaseAmount,
   addProductToCart,
   clearCart,
-} from "../reducers/cartProductsSlice.js"
+} from "../reducers/cartproducts-slice.js"
 
 const useCartProducts = () => {
   const dispatch = useDispatch()

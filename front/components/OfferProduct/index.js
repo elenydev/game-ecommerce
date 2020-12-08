@@ -16,7 +16,7 @@ import {
   CardContentPrize,
 } from "./offerproduct.styles"
 import { ENDPOINT_URL } from "../../constants.js"
-import { notificationsSlice } from "../../Reducers/notificationsSlice.js"
+import { notificationsSlice } from "../../reducers/notifications-slice.js"
 
 const OfferProduct = React.memo(({ product, user }) => {
   const {
