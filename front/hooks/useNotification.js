@@ -3,7 +3,7 @@ import {
   getNotification,
   createNotification,
   clearNotification,
-} from "../Reducers/notificationsSlice.js"
+} from "../reducers/notificationsSlice.js"
 
 export const useNotification = () => {
   const dispatch = useDispatch()
