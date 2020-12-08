@@ -53,4 +53,13 @@ To run this project, install it locally using npm:
 * npm i
 * npm run dev
 
+## To run server locally you have to:
+ * cd ../server
+ * Create your env variables for:
+  * secret(JWT)
+  * email(for nodemailer from gmail)
+  * password(for nodemailer from gmail)
+  * mongoURI
+ * node app.js
+
 
