@@ -12,8 +12,7 @@ import {
 
 
 const storage = new GridFsStorage({
-  url:
-    "mongodb+srv://admin:xchPdPtsZsuYY5RA@cluster0.9lha6.mongodb.net/<ecommercecopy>?retryWrites=true&w=majority",
+  url: process.env.MONGO_URI,
   file: (req, file) => {
     const filename =
       new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
