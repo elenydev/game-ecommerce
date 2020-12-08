@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Order from "../Order/index.js";
-import useArrayRange from "../../hooks/useArrayRange.js";
+import usePagination from "../../hooks/usePagination.js"
 
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
@@ -22,7 +22,7 @@ const OrdersCart = ({ orders }) => {
     decrementRange,
     handleArrayRange,
     setVisibleProducts,
-  } = useArrayRange();
+  } = usePagination()
 
   const { slicedArray, arrayLength } = handleArrayRange(orders);
 

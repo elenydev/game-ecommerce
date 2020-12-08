@@ -1,7 +1,7 @@
 import Subscribtion from "../models/subscription.js";
 
 export const addSubscriber = async (req, res, next) => {
-  const email = req.body.email;
+  const { email } = req.body
 
   try {
     const alreadySubscribe = await Subscribtion.findOne({ email });
@@ -13,7 +13,7 @@ export const addSubscriber = async (req, res, next) => {
       email,
     });
     await subscriber.save();
-    res.status(200).send({ subscriber });
+    res.status(200).send({ subscriber, message: "Subscribtion added" })
     next();
   } catch (err) {
     res.status(404).send({ message: "Something went wrong, try again" });
@@ -24,7 +24,9 @@ export const addSubscriber = async (req, res, next) => {
 export const getSubscribtions = async (req, res, next) => {
   try {
     const subscribers = await Subscribtion.find();
-    res.status(200).send({ subscribers });
+    res
+      .status(200)
+      .send({ subscribers, message: "Subscribers successfully fetched" })
   } catch (err) {
     res
       .status(404)
@@ -33,10 +35,15 @@ export const getSubscribtions = async (req, res, next) => {
 };
 
 export const removeSubscribtion = async (req, res, next) => {
-  const email = req.body.email;
+  const { email } = req.body
   try {
     await Subscribtion.findOneAndDelete(email);
-    res.status(201).send({ subscribtion: req.body.email });
+    res
+      .status(201)
+      .send({
+        subscribtion: email,
+        message: "Subscribtion successfully deleted",
+      })
   } catch (err) {
     res.status(404).send({ message: "Something went wrong, try again" });
   }

@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import useAuth from "../../hooks/useAuth";
 import Image from "next/image";
+import useNotification from "../../hooks/useNotification"
 
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -38,6 +39,8 @@ const AdminProductListItem = (props) => {
     amount,
     device,
   } = product
+  
+  const { setNotification, setErrorNotification } = useNotification()
 
   const {
     currentUser: {
@@ -90,7 +93,7 @@ const AdminProductListItem = (props) => {
         },
       })
     } catch (err) {
-      console.log(err)
+      setErrorNotification()
     }
   }
 
@@ -107,18 +110,14 @@ const AdminProductListItem = (props) => {
           "Content-Type": "application/json",
         },
       })
-      const response = await query.json()
-      if (response.productId) {
-        setVariant("success")
-        setMessage("Product deleted")
-        getAllProducts()
-      } else {
-        setVariant("error")
-        setMessage(response.message)
+      const { productId, message } = await query.json()
+      if (!productId) {
+        setNotification("error", message)
       }
+      setNotification("success", message)
+      getAllProducts()
     } catch (err) {
-      setErrorAlert()
-      console.log(err)
+      setErrorNotification()
     }
   }
 

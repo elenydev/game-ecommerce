@@ -1,5 +1,4 @@
-import Product from "../models/product.js";
-import bcrypt from "bcryptjs";
+import Product from "../models/product.js"
 
 export const addProduct = async (req, res, next) => {
   const {
@@ -39,7 +38,8 @@ export const addProduct = async (req, res, next) => {
       await product.save();
       res.status(201).send({
         product: product,
-      });
+        message: "Product successfully added to offer",
+      })
     } else {
       res.status(404).send({ message: "Product already exist" });
     }
@@ -53,7 +53,9 @@ export const addProduct = async (req, res, next) => {
 export const getProducts = async (req, res, next) => {
   try {
     const products = await Product.find();
-    res.status(200).send({ products: products });
+    res
+      .status(200)
+      .send({ products: products, message: "Products successfully fetched" })
     next();
   } catch (err) {
     res
@@ -84,7 +86,9 @@ export const deleteProduct = async (req, res, next) => {
   if (checkIfExist) {
     try {
       await checkIfExist.deleteOne();
-      res.status(201).send({ productId });
+      res
+        .status(201)
+        .send({ productId, message: "Product successfully deleted" })
     } catch (err) {
       res.status(404).send({ message: "Some error occured, please try again" });
     }

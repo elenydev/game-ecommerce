@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link"
 import useAuth from "../../hooks/useAuth.js";
-import useProducts from "../../hooks/useProducts.js";
+import useCartProducts from "../../hooks/useCartProducts.js"
 import { useRouter } from "next/router";
 
 import {
@@ -23,9 +23,9 @@ const Navigation = () => {
   const [user, setUser] = useState({ user: null });
   const { currentUser, deleteCurrentUser, deleteCookie } = useAuth()
   const {
-    cartProductsList: {  cartProducts  },
+    cartProductsList: { cartProducts },
     clearProducts,
-  } = useProducts()
+  } = useCartProducts()
   const router = useRouter();
 
   const handleClick = () => {

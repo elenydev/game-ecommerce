@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import useAuth from "../../../hooks/useAuth.js";
-import useAlert from "../../../hooks/useAlert.js";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
 import Navigation from "../../../components/Navigation/index.js";
-import UserCart from "../../../components/UserCart/index.js";
-import Alert from "../../../components/Alert/index.js";
+import UserCart from "../../../components/UserCart/index.js"
 
 const Wrapper = styled.div`
   display: flex;
@@ -28,54 +26,30 @@ const Wrapper = styled.div`
 const Account = () => {
   const {
     currentUser: { user },
-  } = useAuth();
-  const router = useRouter();
-  const {
-    variant,
-    message,
-    setMessage,
-    setVariant,
-    clearMessage,
-    setErrorAlert,
-  } = useAlert();
+  } = useAuth()
+  const router = useRouter()
 
   useEffect(() => {
-    let mounted = true;
+    let mounted = true
     if (mounted) {
       if (user === null) {
-        router.push("/");
+        router.push("/")
       }
     }
     return () => {
-      mounted = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    let mounted = true;
-    if (mounted) clearMessage();
-    return () => {
-      mounted = false;
-    };
-  }, [message]);
+      mounted = false
+    }
+  }, [])
 
   return (
     <>
       <Navigation />
       <Wrapper isAdmin={user && user.email === "admin@admin.com" && true}>
         <UserCart
-          setMessage={setMessage}
-          setVariant={setVariant}
-          setErrorAlert={setErrorAlert}
         />
       </Wrapper>
-      <>
-        {message && (
-          <Alert message={message} variant={variant} shouldOpen={true} />
-        )}
-      </>
     </>
-  );
+  )
 };
 
 export default Account;

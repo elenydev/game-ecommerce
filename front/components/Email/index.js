@@ -1,9 +1,10 @@
 import React from "react"
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../hooks/useAuth"
+import useNotification from "../../hooks/useNotification"
 
-import { IconButton } from "@material-ui/core";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import EmailIcon from "@material-ui/icons/Email";
+import { IconButton } from "@material-ui/core"
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever"
+import EmailIcon from "@material-ui/icons/Email"
 import {
   Wrapper,
   EmailContainer,
@@ -13,13 +14,13 @@ import {
   EmailMessage,
   EmailWrapper,
   DeleteWrapper,
-} from "./email.styles";
-import { ENDPOINT_URL } from "../../constants";
-
+} from "./email.styles"
+import { ENDPOINT_URL } from "../../constants"
 
 const Email = (props) => {
-  const { customerName, email, message, date } = props.emailMessage;
-  const { setEmails, emailId, setMessage, setVariant, setErrorAlert } = props
+  const { setEmails, emailId } = props
+  const { customerName, email, message, date } = props.emailMessage
+  const { setNotification, setErrorNotification } = useNotification()
   const {
     currentUser: {
       user: { userId },
@@ -29,13 +30,13 @@ const Email = (props) => {
 
   const fetchEmails = async () => {
     try {
-      const query = await fetch(`${ENDPOINT_URL}/emails/all`);
-      const response = await query.json();
-      setEmails(response.emails.reverse());
+      const query = await fetch(`${ENDPOINT_URL}/emails/all`)
+      const response = await query.json()
+      setEmails(response.emails.reverse())
     } catch (err) {
-      console.log(err);
+      setErrorNotification()
     }
-  };
+  }
 
   const deleteEmailFromDatabase = async (emailId) => {
     try {
@@ -46,28 +47,23 @@ const Email = (props) => {
           Authorization: "Bearer " + tokenCookie,
           "Content-Type": "application/json",
         },
-      });
-      const response = await request.json();
-      if (!response.email) {
-        setErrorAlert();
-        return;
+      })
+      const { email, message } = await request.json()
+      if (!email) {
+        setErrorNotification()
       }
-      setVariant("success");
-      setMessage("Email deleted");
-      fetchEmails();
+      setNotification("success", message)
+      fetchEmails()
     } catch (err) {
-      setErrorAlert();
+      setErrorNotification()
     }
-  };
+  }
 
   return (
     <Wrapper>
       <EmailWrapper>
-
         <EmailContainer>
-
           <EmailDescriptionBox>
-
             <CustomerEmail>{email}</CustomerEmail>
 
             <EmailCustomerName>
@@ -77,7 +73,6 @@ const Email = (props) => {
             <EmailMessage>Message:</EmailMessage>
             <EmailMessage>{message}</EmailMessage>
           </EmailDescriptionBox>
-
         </EmailContainer>
 
         <DeleteWrapper>
@@ -85,13 +80,14 @@ const Email = (props) => {
             <DeleteForeverIcon />
           </IconButton>
           <IconButton>
-            <a href={`mailto:${email}`}><EmailIcon/></a>
+            <a href={`mailto:${email}`}>
+              <EmailIcon />
+            </a>
           </IconButton>
         </DeleteWrapper>
-        
       </EmailWrapper>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default Email;
+export default Email

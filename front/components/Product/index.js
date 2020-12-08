@@ -1,5 +1,5 @@
 import React from "react";
-import useProducts from "../../hooks/useProducts.js";
+import useCartProducts from "../../hooks/useCartProducts.js"
 import Image from "next/image";
 
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
@@ -21,7 +21,7 @@ import { ENDPOINT_URL } from "../../constants.js";
 
 
 const Product = ({ product, productIndex }) => {
-  const { increaseProductAmount, decreaseProductAmount } = useProducts();
+  const { increaseProductAmount, decreaseProductAmount } = useCartProducts()
   const {
     productImg,
     productName,

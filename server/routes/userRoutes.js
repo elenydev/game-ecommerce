@@ -12,16 +12,17 @@ import {
 } from "../controllers/user.js";
 
 const storage = new GridFsStorage({
-  url: process.env.MONGO_URI,
+  url:
+    "mongodb+srv://admin:xchPdPtsZsuYY5RA@cluster0.9lha6.mongodb.net/<ecommercecopy>?retryWrites=true&w=majority",
   file: (req, file) => {
     const filename =
-      new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname;
+      new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
     const fileInfo = {
       filename: filename,
       bucketName: "images",
-    };
+    }
   },
-});
+})
 
 const fileFilter = (req, file, cb) => {
   if (

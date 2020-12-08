@@ -1,13 +1,12 @@
 import React, { useEffect } from "react"
-import useAlert from "../../hooks/useAlert.js"
+import useNotification from "../../hooks/useNotification"
 import useAuth from "../../hooks/useAuth.js"
-import useProducts from "../../hooks/useProducts.js"
-import useArrayRange from "../../hooks/useArrayRange.js"
+import useCartProducts from "../../hooks/useCartProducts.js"
+import usePagination from "../../hooks/usePagination.js"
 
 import Product from "../Product/index.js"
 import { Button } from "@material-ui/core"
 import AddProductForm from "../../components/AddProductForm/index.js"
-import Alert from "../Alert/index.js"
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight"
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft"
 import IconButton from "@material-ui/core/IconButton"
@@ -30,19 +29,12 @@ const ProductsCart = () => {
   const {
     cartProductsList: { cartProducts },
     clearProducts,
-  } = useProducts()
+  } = useCartProducts()
   const {
     currentUser: { user },
     tokenCookie,
   } = useAuth()
-  const {
-    message,
-    setMessage,
-    variant,
-    setVariant,
-    clearMessage,
-    setErrorAlert,
-  } = useAlert()
+  const { setNotification, setErrorNotification } = useNotification()
 
   const {
     startRange,
@@ -51,7 +43,7 @@ const ProductsCart = () => {
     decrementRange,
     checkRanges,
     handleArrayRange,
-  } = useArrayRange()
+  } = usePagination()
   const { slicedArray, arrayLength } = handleArrayRange(cartProducts)
 
   const getPrize = () => {
@@ -78,31 +70,16 @@ const ProductsCart = () => {
           "Content-Type": "application/json",
         },
       })
-      const response = await request.json()
-      if (response.order) {
-        clearProducts()
-        setVariant("success")
-        setMessage("Order created")
+      const { order, message } = await request.json()
+      if (!order) {
+        setNotification("error", message)
       }
-      if (response.message) {
-        setErrorAlert()
-      }
-      if (response.unavailableProducts) {
-        setVariant("error")
-        setMessage(response.unavailableProducts)
-      }
+      setNotification("success", message)
+      clearProducts()
     } catch (err) {
-      setErrorAlert()
+      setErrorNotification()
     }
   }
-
-  useEffect(() => {
-    let mounted = true
-    if (mounted) clearMessage()
-    return () => {
-      mounted = false
-    }
-  }, [message])
 
   useEffect(() => {
     let mounted = true
@@ -178,9 +155,6 @@ const ProductsCart = () => {
           </OrderBox>
         )}
       </>
-      {message && (
-        <Alert variant={variant} shouldOpen={true} message={message} />
-      )}
     </Wrapper>
   )
 }

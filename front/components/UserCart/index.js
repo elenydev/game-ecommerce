@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 import useAuth from "../../hooks/useAuth.js"
-import { useRouter } from "next/router";
+import { useRouter } from "next/router"
+import useNotification from "../../hooks/useNotification.js"
 
-import ProductsCart from "../ProductsCart/index.js";
-import Sidebar from "../Sidebar/index.js";
-import EmailsCart from "../EmailsCart/index.js";
-import OrdersCart from "../OrdersCart/index.js";
-import AdminProductsList from "../AdminProductsList/index.js";
-import SubscribtionsList from "../SubscribtionsList/index.js";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import IconButton from "@material-ui/core/IconButton";
-import ChangePasswordCart from "../ChangePasswordCart/index.js";
+import ProductsCart from "../ProductsCart/index.js"
+import Sidebar from "../Sidebar/index.js"
+import EmailsCart from "../EmailsCart/index.js"
+import OrdersCart from "../OrdersCart/index.js"
+import AdminProductsList from "../AdminProductsList/index.js"
+import SubscribtionsList from "../SubscribtionsList/index.js"
+import PhotoCamera from "@material-ui/icons/PhotoCamera"
+import IconButton from "@material-ui/core/IconButton"
+import ChangePasswordCart from "../ChangePasswordCart/index.js"
 import {
   Wrapper,
   UserBox,
@@ -19,8 +20,8 @@ import {
   UserDescription,
   CardParagraph,
   CardParagraphDescription,
-} from "./usercart.styles";
-import { ENDPOINT_URL } from "../../constants.js";
+} from "./usercart.styles"
+import { ENDPOINT_URL } from "../../constants.js"
 
 const UserCart = (props) => {
   const {
@@ -29,15 +30,8 @@ const UserCart = (props) => {
     tokenCookie,
   } = useAuth()
   const router = useRouter()
-  const {
-    products,
-    orders,
-    subscribtions,
-    emails,
-    setMessage,
-    setVariant,
-    setErrorAlert,
-  } = props
+  const { products, orders, subscribtions, emails } = props
+  const { setNotification, setErrorNotification } = useNotification()
 
   const [userImage, setUserImage] = useState(
     user && `${ENDPOINT_URL}/images/` + user.avatar
@@ -56,17 +50,15 @@ const UserCart = (props) => {
           Authorization: "Bearer " + tokenCookie,
         },
       })
-      const response = await send.json()
-      if (response.imageUrl) {
-        setUserImage(`${ENDPOINT_URL}/images/` + response.imageUrl)
-        setCurrentUser(user)
-        setVariant("success")
-        setMessage("Avatar changed")
-      } else {
-        setErrorAlert()
+      const { imageUrl, message } = await send.json()
+      if (!imageUrl) {
+        setErrorNotification()
       }
+      setUserImage(`${ENDPOINT_URL}/images/` + imageUrl)
+      setCurrentUser(user)
+      setNotification("success", message)
     } catch (err) {
-      setErrorAlert()
+      setErrorNotification()
     }
   }
 
@@ -156,6 +148,6 @@ const UserCart = (props) => {
       )}
     </>
   )
-};
+}
 
-export default UserCart;
+export default UserCart

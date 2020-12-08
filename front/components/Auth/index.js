@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
-import { useRouter } from "next/router";
-import useAlert from "../../hooks/useAlert"
-import useAuth from "../../hooks/useAuth";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
+import React, { useEffect } from "react"
+import { useRouter } from "next/router"
+import useNotification from "../../hooks/useNotification"
+import useAuth from "../../hooks/useAuth"
+import Link from "next/link"
+import { useForm } from "react-hook-form"
 
-import { FormLabel, Button } from "@material-ui/core";
-import Alert from "../Alert/index";
-import RemindPassword from "../RemindPasswordCart";
+import { FormLabel, Button } from "@material-ui/core"
+import RemindPassword from "../RemindPasswordCart"
 import {
   Wrapper,
   Header,
@@ -15,8 +14,8 @@ import {
   ErrorSpan,
   LoginDiv,
   InputElement,
-} from "./auth.styles";
-import { CHECK_IF_EMAIL_REGEX, ENDPOINT_URL } from "../../constants";
+} from "./auth.styles"
+import { CHECK_IF_EMAIL_REGEX, ENDPOINT_URL } from "../../constants"
 
 const defaultValues = {
   firstName: null,
@@ -25,21 +24,14 @@ const defaultValues = {
   password: null,
   avatar: null,
   policy: null,
-};
+}
 
 const Login = () => {
-  const { register, handleSubmit, errors, setError, reset } = useForm({
+  const { register, handleSubmit, errors, reset } = useForm({
     defaultValues,
   })
 
-  const {
-    message,
-    setMessage,
-    variant,
-    setVariant,
-    clearMessage,
-    setErrorAlert,
-  } = useAlert()
+  const { setErrorNotification, setNotification } = useNotification()
 
   const router = useRouter()
   const { setCurrentUser, setCookie } = useAuth()
@@ -47,44 +39,28 @@ const Login = () => {
   const loginUser = async (data, event) => {
     event.preventDefault()
     try {
-      const send = await fetch(`${ENDPOINT_URL}/users/login`, {
+      const query = await fetch(`${ENDPOINT_URL}/users/login`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },
       })
-      const response = await send.json()
-      if (response) {
-        if (response.user) {
-          setTimeout(() => {
-            setCurrentUser(response.user)
-            setCookie("User", response.user)
-            setCookie("Token", response.token)
-            reset()
-            setVariant("success")
-            setMessage("You are logged in")
-            router.push("/auth/account/cart")
-          }, 100)
-        } else {
-          setErrorAlert()
-        }
-      } else {
-        setVariant("error")
-        setMessage("Wrong password or email provided")
+      const { user, token, message } = await query.json()
+      if (!query.ok) {
+        setNotification("error", message)
+        return
       }
+      setCurrentUser(user)
+      setCookie("User", user)
+      setCookie("Token", token)
+      reset()
+      setNotification("success", message)
+      router.push("/auth/account/cart")
     } catch (err) {
-      setErrorAlert()
+      setErrorNotification()
     }
   }
-
-  useEffect(() => {
-    let mounted = true
-    if (mounted) clearMessage()
-    return () => {
-      mounted = false
-    }
-  }, [message])
 
   return (
     <Wrapper>
@@ -138,17 +114,9 @@ const Login = () => {
           </Link>
         </LoginDiv>
       </Form>
-      <RemindPassword
-        setMessage={setMessage}
-        setVariant={setVariant}
-        setErrorAlert={setErrorAlert}
-      />
-
-      {message && (
-        <Alert message={message} variant={variant} shouldOpen={true} />
-      )}
+      <RemindPassword />
     </Wrapper>
   )
-};
+}
 
-export default Login;
+export default Login

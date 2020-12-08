@@ -1,26 +1,19 @@
-import React, { useEffect, useState } from "react"
-import useAuth from "../../hooks/useAuth";
+import React from "react"
+import useAuth from "../../hooks/useAuth"
+import useNotification from "../../hooks/useNotification"
 
-import { IconButton } from "@material-ui/core";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import { IconButton } from "@material-ui/core"
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever"
 import {
   SubscribtionWrapper,
   SubscribtionCard,
   DeleteWrapper,
-} from "./subscribtion.styles";
-import { ENDPOINT_URL } from "../../constants";
-
-
+} from "./subscribtion.styles"
+import { ENDPOINT_URL } from "../../constants"
 
 const Subscribtion = (props) => {
-  const {
-    email,
-    index,
-    setSubscribtions,
-    setVariant,
-    setMessage,
-    setErrorAlert,
-  } = props
+  const { email, index, setSubscribtions } = props
+  const { setNotification, setErrorNotification } = useNotification()
 
   const {
     currentUser: {
@@ -52,16 +45,14 @@ const Subscribtion = (props) => {
           "Content-Type": "application/json",
         },
       })
-      const response = await request.json()
-      if (!response.subscribtion) {
-        setErrorAlert()
-        return
+      const { subscribtion, message } = await request.json()
+      if (!subscribtion) {
+        setNotification("error", message)
       }
-      setVariant("success")
-      setMessage("Subscribtion deleted")
+      setNotification("success", message)
       fetchSubscribtions()
     } catch (err) {
-      setErrorAlert()
+      setErrorNotification()
     }
   }
   return (
@@ -77,6 +68,6 @@ const Subscribtion = (props) => {
       </SubscribtionWrapper>
     </>
   )
-};
+}
 
-export default Subscribtion;
+export default Subscribtion

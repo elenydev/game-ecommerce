@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 import { useForm } from "react-hook-form"
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../hooks/useAuth"
+import useNotification from "../../hooks/useNotification"
 
-import { FormLabel, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
+import { FormLabel, Button } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles"
+import Modal from "@material-ui/core/Modal"
 import {
   Paragraph,
   Form,
   ErrorSpan,
   InputElement,
   Header,
-} from "./changepasswordcart.styles";
-import { ENDPOINT_URL } from "../../constants";
+} from "./changepasswordcart.styles"
+import { ENDPOINT_URL } from "../../constants"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,44 +31,42 @@ const useStyles = makeStyles((theme) => ({
     left: "50%",
     transform: "translate(-50%,-50%)",
   },
-}));
-
-
+}))
 
 const defaultValues = {
   password: null,
   newPassword: null,
-};
+}
 
-const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
+const ChangePasswordCart = () => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues,
-  });
-
+  })
+  const { setNotification, setErrorNotification } = useNotification()
   const {
     currentUser: {
       user: { email },
     },
     tokenCookie,
   } = useAuth()
-  const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const classes = useStyles()
+  const [open, setOpen] = useState(false)
 
   const handleOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const changePassword = async (data, event) => {
-    event.preventDefault();
+    event.preventDefault()
     const queryData = {
       password: data.password,
       newPassword: data.newPassword,
       email,
-    };
+    }
 
     try {
       const query = await fetch(`${ENDPOINT_URL}/users/password/change`, {
@@ -77,22 +76,18 @@ const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
           Authorization: "Bearer " + tokenCookie,
           "Content-Type": "application/json",
         },
-      });
-      const response = await query.json();
-      if (response.user) {
-        setVariant("success");
-        setMessage("Password changed");
-        handleClose();
-        reset();
+      })
+      const { user, message } = await query.json()
+      if (!user) {
+        setNotification("error", message)
       }
-      if (response.message) {
-        setVariant("error");
-        setMessage(response.message);
-      }
+      setNotification("success", message)
+      handleClose()
+      reset()
     } catch (err) {
-      setErrorAlert();
+      setErrorNotification()
     }
-  };
+  }
 
   return (
     <>
@@ -117,7 +112,7 @@ const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
                 setError("password", {
                   type: "manual",
                   message: "You have to provide a current password",
-                });
+                })
               }}
             />
           </FormLabel>
@@ -136,7 +131,7 @@ const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
                 setError("password", {
                   type: "manual",
                   message: "You have to provide a new password",
-                });
+                })
               }}
             />
           </FormLabel>
@@ -152,7 +147,7 @@ const ChangePasswordCart = ({ setMessage, setVariant, setErrorAlert }) => {
         </Form>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default ChangePasswordCart;
+export default ChangePasswordCart

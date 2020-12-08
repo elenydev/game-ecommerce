@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useAlert from "../../hooks/useAlert.js";
-import useArrayRange from "../../hooks/useArrayRange";
+import usePagination from "../../hooks/usePagination"
 
 import {
   FooterContent,
@@ -10,22 +9,13 @@ import {
 } from "../ProductsComponent/productsComponent.styles.js";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
-import Subscribtion from "../Subscribtion/index.js";
-import Alert from "../Alert/index.js";
+import Subscribtion from "../Subscribtion/index.js"
 import IconButton from "@material-ui/core/IconButton";
 import { Wrapper, Heading, Footer } from "./subscribtions.styles";
 
 
 const SubscribtionsList = ({ subscribtionsList }) => {
-  const [subscribtions, setSubscribtions] = useState(subscribtionsList);
-  const {
-    message,
-    setMessage,
-    variant,
-    setVariant,
-    clearMessage,
-    setErrorAlert,
-  } = useAlert();
+  const [subscribtions, setSubscribtions] = useState(subscribtionsList)
 
   const {
     startRange,
@@ -35,15 +25,14 @@ const SubscribtionsList = ({ subscribtionsList }) => {
     decrementRange,
     handleArrayRange,
     setVisibleProducts,
-  } = useArrayRange();
+  } = usePagination()
 
   const { slicedArray, arrayLength } = handleArrayRange(subscribtions);
 
   useEffect(() => {
     let mounted = true;
     if (mounted) {
-      clearMessage();
-      checkRanges();
+      checkRanges()
     }
     return () => {
       mounted = false;
@@ -64,9 +53,6 @@ const SubscribtionsList = ({ subscribtionsList }) => {
                 key={index}
                 index={index}
                 setSubscribtions={setSubscribtions}
-                setVariant={setVariant}
-                setMessage={setMessage}
-                setErrorAlert={setErrorAlert}
               ></Subscribtion>
             ))}
           </>
@@ -82,7 +68,7 @@ const SubscribtionsList = ({ subscribtionsList }) => {
                   <label>
                     <select
                       onChange={(e) => {
-                        setVisibleProducts(parseInt(e.target.value));
+                        setVisibleProducts(parseInt(e.target.value))
                       }}
                     >
                       <option value={4}>4</option>
@@ -120,12 +106,9 @@ const SubscribtionsList = ({ subscribtionsList }) => {
             </FooterContent>
           </Footer>
         )}
-        {message && (
-          <Alert shouldOpen={true} variant={variant} message={message} />
-        )}
       </Wrapper>
     </>
-  );
+  )
 };
 
 export default SubscribtionsList;

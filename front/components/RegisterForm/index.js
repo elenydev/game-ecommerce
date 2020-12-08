@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
-import useAlert from "../../hooks/useAlert";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
+import React, { useEffect } from "react"
+import useNotification from "../../hooks/useNotification"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { useForm } from "react-hook-form"
 
-import { FormLabel, Button, Checkbox } from "@material-ui/core";
-import Alert from "../Alert/index";
-import IconButton from "@material-ui/core/IconButton";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import { FormLabel, Button, Checkbox } from "@material-ui/core"
+import IconButton from "@material-ui/core/IconButton"
+import PhotoCamera from "@material-ui/icons/PhotoCamera"
 import {
   Wrapper,
   Form,
@@ -16,8 +15,8 @@ import {
   Header,
   InputElement,
   CheckBox,
-} from "./registerform.styles";
-import { CHECK_IF_EMAIL_REGEX, ENDPOINT_URL } from "../../constants";
+} from "./registerform.styles"
+import { CHECK_IF_EMAIL_REGEX, ENDPOINT_URL } from "../../constants"
 
 const defaultValues = {
   firstName: null,
@@ -26,66 +25,45 @@ const defaultValues = {
   password: null,
   avatar: null,
   policy: null,
-};
+}
 
 const RegisterForm = () => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues,
-  });
+  })
 
-  const router = useRouter();
-  const {
-    message,
-    setMessage,
-    variant,
-    setVariant,
-    clearMessage,
-    setErrorAlert,
-  } = useAlert();
+  const router = useRouter()
+  const { setErrorNotification, setNotification } = useNotification()
   const registerUser = async (data, event) => {
-    event.preventDefault();
-    const { firstName, lastName, email, password, avatar, policy } = data;
+    event.preventDefault()
+    const { firstName, lastName, email, password, avatar, policy } = data
 
-    const user = new FormData();
-    user.append("firstName", firstName.toLowerCase());
-    user.append("lastName", lastName.toLowerCase());
-    user.append("email", email);
-    user.append("password", password);
-    user.append("avatar", avatar[0]);
-    user.append("policy", policy);
+    const user = new FormData()
+    user.append("firstName", firstName.toLowerCase())
+    user.append("lastName", lastName.toLowerCase())
+    user.append("email", email)
+    user.append("password", password)
+    user.append("avatar", avatar[0])
+    user.append("policy", policy)
 
     try {
       const send = await fetch(`${ENDPOINT_URL}/users/create`, {
         method: "POST",
         body: user,
-      });
-      const response = await send.json();
-      if (response) {
-        if (response.user) {
-          setVariant("success");
-          setMessage("User created");
-          setTimeout(() => router.push("/auth/login"), 1000);
-          reset();
+      })
+      const { user, message } = await send.json()
+      {
+        if (!user) {
+          setNotification("error", message)
         }
-        if (response.message) {
-          setVariant("error");
-          setMessage("User already exist");
-        }
-      } else {
-        setErrorAlert();
+        setNotification("success", message)
+        setTimeout(() => router.push("/auth/login"), 1000)
+        reset()
       }
     } catch (err) {
-      setErrorAlert();
+      setErrorNotification()
     }
-  };
-
-  useEffect(() => {
-    let mounted = true;
-    if (mounted) clearMessage();
-    return () => {
-      mounted = false;
-    };
-  }, [message]);
+  }
 
   return (
     <Wrapper>
@@ -194,12 +172,8 @@ const RegisterForm = () => {
           <a>Or switch to sign in</a>
         </Link>
       </LoginDiv>
-
-      {message && (
-        <Alert variant={variant} message={message} shouldOpen={true} />
-      )}
     </Wrapper>
-  );
-};
+  )
+}
 
-export default RegisterForm;
+export default RegisterForm

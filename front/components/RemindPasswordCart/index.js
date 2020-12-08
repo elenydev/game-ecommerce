@@ -1,29 +1,30 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React from "react"
+import { useForm } from "react-hook-form"
+import useNotification from "../../hooks/useNotification.js"
 
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { FormLabel, Button } from "@material-ui/core";
+import Accordion from "@material-ui/core/Accordion"
+import AccordionSummary from "@material-ui/core/AccordionSummary"
+import AccordionDetails from "@material-ui/core/AccordionDetails"
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
+import { FormLabel, Button } from "@material-ui/core"
 import {
   LoginDiv,
   InputElement,
   ErrorSpan,
   Form,
-} from "./remindpasswordcart.styles";
-import { CHECK_IF_EMAIL_REGEX, ENDPOINT_URL } from "../../constants";
+} from "./remindpasswordcart.styles"
+import { CHECK_IF_EMAIL_REGEX, ENDPOINT_URL } from "../../constants"
 
-
-const RemindPassword = ({ setVariant, setMessage, setErrorAlert }) => {
+const RemindPassword = () => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues: {
       email: null,
     },
-  });
+  })
+  const { setNotification, setErrorNotification } = useNotification()
 
   const remindPassword = async (data, event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       const send = await fetch(`${ENDPOINT_URL}/users/password/remind`, {
         method: "POST",
@@ -31,26 +32,17 @@ const RemindPassword = ({ setVariant, setMessage, setErrorAlert }) => {
         headers: {
           "Content-Type": "application/json",
         },
-      });
-      const response = await send.json();
-
-      if (response) {
-        if (response.user) {
-          reset();
-          setVariant("success");
-          setMessage("Password reset successfully, check your email");
-        }
-        if (response.message) {
-          setVariant("error");
-          setMessage(response.message);
-        }
-      } else {
-        setErrorAlert();
+      })
+      const { user, message } = await send.json()
+      if (!user) {
+        setNotification("error", message)
       }
+      reset()
+      setNotification("success", message)
     } catch (err) {
-      setErrorAlert();
+      setErrorNotification()
     }
-  };
+  }
 
   return (
     <LoginDiv>
@@ -94,7 +86,7 @@ const RemindPassword = ({ setVariant, setMessage, setErrorAlert }) => {
         </AccordionDetails>
       </Accordion>
     </LoginDiv>
-  );
-};
+  )
+}
 
-export default RemindPassword;
+export default RemindPassword

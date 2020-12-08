@@ -1,17 +1,17 @@
-import { Provider } from "react-redux";
-import store from "../store/store.js";
-import Layout from "../layout/layout";
+import { Provider } from "react-redux"
+import store from "../store/store.js"
+import Layout from "../layout/layout"
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Layout>
-        <Provider store={store}>
+      <Provider store={store}>
+        <Layout>
           <Component {...pageProps} />
-        </Provider>
-      </Layout>
+        </Layout>
+      </Provider>
     </>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp

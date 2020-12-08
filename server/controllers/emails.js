@@ -1,7 +1,7 @@
-import Email from "../models/email.js";
-import nodemailer from "nodemailer";
-import dotenv from "dotenv";
-dotenv.config();
+import Email from "../models/email.js"
+import nodemailer from "nodemailer"
+import dotenv from "dotenv"
+dotenv.config()
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
   tls: {
     rejectUnauthorized: false,
   },
-});
+})
 
 const sendEmail = (email, customerName) => {
   const mailOptions = {
@@ -26,17 +26,17 @@ const sendEmail = (email, customerName) => {
     <br/>
     <small>Reply to the customer: ${email}</small></p>
     </div>`,
-  };
+  }
   transporter.sendMail(mailOptions, function (err, data) {
     if (err) {
-      console.log(err);
+      console.log(err)
     }
-  });
-};
+  })
+}
 
 export const receiveEmail = async (req, res, next) => {
-  const date = new Date().toLocaleString();
-  const { customerName, email, message } = req.body;
+  const date = new Date().toLocaleString()
+  const { customerName, email, message } = req.body
 
   try {
     const newEmail = new Email({
@@ -44,35 +44,37 @@ export const receiveEmail = async (req, res, next) => {
       email,
       message,
       date,
-    });
-    await newEmail.save();
-    res.status(201).send({ newEmail });
-    sendEmail(email, customerName);
-    next();
+    })
+    await newEmail.save()
+    res.status(201).send({ newEmail, message: "Email successfully sended" })
+    sendEmail(email, customerName)
+    next()
   } catch (err) {
-    res.status(400).send({ message: "Something went wrong, try again" });
-    next();
+    res.status(400).send({ message: "Something went wrong, try again" })
+    next()
   }
-};
+}
 
 export const getEmails = async (req, res, next) => {
   try {
-    const emails = await Email.find();
-    res.status(200).send({ emails });
-    next();
+    const emails = await Email.find()
+    res.status(200).send({ emails, message: "Emails successfully sended" })
+    next()
   } catch (err) {
     res
       .status(400)
-      .send({ message: "Something went wrong with fetching products" });
+      .send({ message: "Something went wrong with fetching products" })
   }
-};
+}
 
 export const removeEmail = async (req, res, next) => {
-  const { emailId } = req.body;
+  const { emailId } = req.body
   try {
-    await Email.findByIdAndDelete(emailId);
-    res.status(201).send({ email: req.body });
+    await Email.findByIdAndDelete(emailId)
+    res
+      .status(201)
+      .send({ email: req.body, message: "Email successfully deleted" })
   } catch (err) {
-    res.status(400).send({ message: "Something went wrong, try again" });
+    res.status(400).send({ message: "Something went wrong, try again" })
   }
-};
+}

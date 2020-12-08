@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import useProducts from "../../hooks/useProducts.js";
-import Image from "next/image";
+import React, { useState, useEffect } from "react"
+import useCartProducts from "../../hooks/useCartProducts.js"
+import useNotification from "../../hooks/useNotification.js"
+import Image from "next/image"
 
-import { Button } from "@material-ui/core";
-import Tooltip from "@material-ui/core/Tooltip";
+import { Button } from "@material-ui/core"
+import Tooltip from "@material-ui/core/Tooltip"
 import {
   Card,
   CardImage,
@@ -13,48 +14,48 @@ import {
   CardContentInfoWrapper,
   CardContentType,
   CardContentPrize,
-} from "./offerproduct.styles";
-import { ENDPOINT_URL } from "../../constants.js";
+} from "./offerproduct.styles"
+import { ENDPOINT_URL } from "../../constants.js"
+import { notificationsSlice } from "../../Reducers/notificationsSlice.js"
 
-const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
+const OfferProduct = React.memo(({ product, user }) => {
   const {
     productName,
     productDescription,
     gameType,
     prize,
     productImg,
-  } = product;
+  } = product
+  const { setNotification } = useNotification()
 
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [buttonDisabled, setButtonDisabled] = useState(true)
   const {
     cartProductsList: { cartProducts },
     putProductToCart,
-  } = useProducts()
+  } = useCartProducts()
 
   const addProduct = () => {
     if (!cartProducts.includes(product)) {
-      setMessage("Product added to cart")
-      setVariant("success")
+      setNotification("success", "Product added to cart")
       putProductToCart(product)
       return
     }
-    setMessage("Product already in card");
-    setVariant("error");
-  };
-  
+    setNotification("error", "Product already in cart")
+  }
+
   useEffect(() => {
-    let mounted = true;
+    let mounted = true
     if (mounted) {
       if (user !== null) {
-        setButtonDisabled(false);
+        setButtonDisabled(false)
       } else {
-        setButtonDisabled(true);
+        setButtonDisabled(true)
       }
     }
     return () => {
-      mounted = false;
-    };
-  }, [user]);
+      mounted = false
+    }
+  }, [user])
 
   return (
     <>
@@ -98,7 +99,7 @@ const OfferProduct = React.memo(({ product, user, setVariant, setMessage }) => {
         </Tooltip>
       </Card>
     </>
-  );
-});
+  )
+})
 
-export default OfferProduct;
+export default OfferProduct

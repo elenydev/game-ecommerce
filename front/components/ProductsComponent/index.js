@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
-import useAlert from "../../hooks/useAlert"
-import useArrayRange from "../../hooks/useArrayRange"
+import usePagination from "../../hooks/usePagination"
 import useAuth from "../../hooks/useAuth"
 
 import OfferProduct from "../OfferProduct"
@@ -17,7 +16,6 @@ import {
   FooterRows,
   Span,
 } from "./productsComponent.styles.js"
-import Alert from "../Alert/index.js"
 
 const ProductsComponent = ({ products }) => {
   const {
@@ -32,8 +30,7 @@ const ProductsComponent = ({ products }) => {
     decrementRange,
     handleProductsArrayRange,
     setVisibleProducts,
-  } = useArrayRange()
-  const { message, variant, setMessage, setVariant, clearMessage } = useAlert()
+  } = usePagination()
   const { arrayLength, currentCategoryProducts } = handleProductsArrayRange(
     products,
     categoryDisplayed
@@ -47,14 +44,6 @@ const ProductsComponent = ({ products }) => {
     }
   }, [categoryDisplayed])
 
-  useEffect(() => {
-    let mounted = true
-    if (mounted) clearMessage()
-    return () => {
-      mounted = false
-    }
-  }, [message])
-
   return (
     <Wrapper id="games">
       <Header>Our offer</Header>
@@ -65,8 +54,6 @@ const ProductsComponent = ({ products }) => {
             key={index}
             product={product}
             user={user}
-            setMessage={setMessage}
-            setVariant={setVariant}
           />
         ))}
       </ItemsContainer>
@@ -137,11 +124,6 @@ const ProductsComponent = ({ products }) => {
           </FooterRows>
         </FooterContent>
       </Footer>
-      <>
-        {message && (
-          <Alert variant={variant} shouldOpen={true} message={message} />
-        )}
-      </>
     </Wrapper>
   )
 }

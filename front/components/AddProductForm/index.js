@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import useAlert from "../../hooks/useAlert"
-import useAuth from "../../hooks/useAuth";
+import React, { useState } from "react"
+import { useForm, Controller } from "react-hook-form"
+import useNotification from "../../hooks/useNotification"
+import useAuth from "../../hooks/useAuth"
 
-import { FormLabel, Button, Checkbox } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import Alert from "../../components/Alert/index.js";
-import { ENDPOINT_URL } from "../../constants";
+import { FormLabel, Button, Checkbox } from "@material-ui/core"
+import IconButton from "@material-ui/core/IconButton"
+import PhotoCamera from "@material-ui/icons/PhotoCamera"
+import Select from "@material-ui/core/Select"
+import MenuItem from "@material-ui/core/MenuItem"
+import { ENDPOINT_URL } from "../../constants"
 import {
   Form,
   Header,
   InputElement,
   ErrorSpan,
   SelectBox,
-} from "./addproductform.styles.js";
-
+} from "./addproductform.styles.js"
 
 const defaultValues = {
   productName: null,
@@ -27,7 +25,7 @@ const defaultValues = {
   availableAmount: null,
   productImage: null,
   device: "Desktop",
-};
+}
 
 const AddProductForm = () => {
   const { register, handleSubmit, errors, setError, reset, control } = useForm({
@@ -40,27 +38,20 @@ const AddProductForm = () => {
     tokenCookie,
   } = useAuth()
 
-  const {
-    message,
-    setMessage,
-    variant,
-    setVariant,
-    clearMessage,
-    setErrorAlert,
-  } = useAlert();
-  const [gameType, setGameType] = useState("Wargame");
-  const [device, setDevice] = useState("Desktop");
+  const { setNotification, setErrorNotification } = useNotification()
+  const [gameType, setGameType] = useState("Wargame")
+  const [device, setDevice] = useState("Desktop")
 
   const handleChangeGameType = (event) => {
-    setGameType(event.target.value);
-  };
+    setGameType(event.target.value)
+  }
 
   const handleChangeDevice = (event) => {
-    setDevice(e.target.value);
-  };
+    setDevice(e.target.value)
+  }
 
   const registerProduct = async (data, event) => {
-    event.preventDefault();
+    event.preventDefault()
     const {
       productName,
       productDescription,
@@ -69,17 +60,17 @@ const AddProductForm = () => {
       availableAmount,
       productImg,
       device,
-    } = data;
+    } = data
 
-    const product = new FormData();
-    product.append("productName", productName);
-    product.append("productDescription", productDescription);
-    product.append("gameType", gameType);
-    product.append("prize", prize);
-    product.append("availableAmount", availableAmount);
-    product.append("productImg", productImg[0]);
-    product.append("device", device);
-    product.append("userId", userId);
+    const product = new FormData()
+    product.append("productName", productName)
+    product.append("productDescription", productDescription)
+    product.append("gameType", gameType)
+    product.append("prize", prize)
+    product.append("availableAmount", availableAmount)
+    product.append("productImg", productImg[0])
+    product.append("device", device)
+    product.append("userId", userId)
     try {
       const send = await fetch(`${ENDPOINT_URL}/products/add`, {
         method: "POST",
@@ -87,33 +78,17 @@ const AddProductForm = () => {
         headers: {
           Authorization: "Bearer " + tokenCookie,
         },
-      });
-      const response = await send.json();
-      if (response) {
-        if (response.product) {
-          setVariant("success");
-          setMessage("Product added");
-          reset();
-          return;
-        } else {
-          setVariant("error");
-          setMessage("Product already exist");
-          return;
-        }
+      })
+      const { product, message } = await send.json()
+      if (!product) {
+        setNotification("error", message)
       }
-      setErrorAlert();
+      setNotification("success", message)
+      reset()
     } catch (err) {
-      setErrorAlert();
+      setErrorNotification()
     }
-  };
-
-  useEffect(() => {
-    let mounted = true;
-    if (mounted) clearMessage();
-    return () => {
-      mounted = false;
-    };
-  }, [message]);
+  }
 
   return (
     <div>
@@ -250,11 +225,8 @@ const AddProductForm = () => {
           </Button>
         </label>
       </Form>
-      {message && (
-        <Alert message={message} variant={variant} shouldOpen={true} />
-      )}
     </div>
-  );
-};
+  )
+}
 
-export default AddProductForm;
+export default AddProductForm

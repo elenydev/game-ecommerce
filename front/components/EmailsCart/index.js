@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useAlert from "../../hooks/useAlert.js";
-import useArrayRange from "../../hooks/useArrayRange";
+import usePagination from "../../hooks/usePagination"
 
 import Email from "../Email/index.js";
 import { Wrapper, Heading, Footer } from "./emailscart.styles";
@@ -11,20 +10,11 @@ import {
   Span,
 } from "../ProductsComponent/productsComponent.styles.js";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
-import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
-import Alert from "../Alert/index.js";
+import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft"
 import IconButton from "@material-ui/core/IconButton";
 
 const EmailsCart = ({ emailsList }) => {
   const [emails, setEmails] = useState(emailsList);
-  const {
-    message,
-    setMessage,
-    variant,
-    setVariant,
-    clearMessage,
-    setErrorAlert,
-  } = useAlert();
   const {
     startRange,
     endRange,
@@ -33,20 +23,19 @@ const EmailsCart = ({ emailsList }) => {
     decrementRange,
     handleArrayRange,
     setVisibleProducts,
-  } = useArrayRange();
+  } = usePagination()
 
   const { slicedArray, arrayLength } = handleArrayRange(emails);
 
   useEffect(() => {
-    let mounted = true;
+    let mounted = true
     if (mounted) {
-      clearMessage();
-      checkRanges();
+      checkRanges()
     }
     return () => {
-      mounted = false;
-    };
-  }, [message]);
+      mounted = false
+    }
+  }, [emails])
 
   return (
     <>
@@ -64,9 +53,6 @@ const EmailsCart = ({ emailsList }) => {
                 key={index}
                 emailId={email._id}
                 setEmails={setEmails}
-                setMessage={setMessage}
-                setVariant={setVariant}
-                setErrorAlert={setErrorAlert}
               />
             ))}
           </>
@@ -82,7 +68,7 @@ const EmailsCart = ({ emailsList }) => {
                   <label>
                     <select
                       onChange={(e) => {
-                        setVisibleProducts(parseInt(e.target.value));
+                        setVisibleProducts(parseInt(e.target.value))
                       }}
                     >
                       <option value={4}>4</option>
@@ -119,12 +105,9 @@ const EmailsCart = ({ emailsList }) => {
             </FooterContent>
           </Footer>
         )}
-        {message && (
-          <Alert variant={variant} message={message} shouldOpen={true} />
-        )}
       </Wrapper>
     </>
-  );
+  )
 };
 
 export default EmailsCart;

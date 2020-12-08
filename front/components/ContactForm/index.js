@@ -1,8 +1,7 @@
 import React, { useEffect } from "react"
 import { useForm } from "react-hook-form"
-import useAlert from "../../hooks/useAlert"
+import useNotification from "../../hooks/useNotification"
 import { FormLabel } from "@material-ui/core"
-import Alert from "../Alert/index.js"
 import {
   Wrapper,
   Form,
@@ -25,14 +24,7 @@ const ContactForm = () => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues,
   })
-  const {
-    message,
-    setMessage,
-    variant,
-    setVariant,
-    clearMessage,
-    setErrorAlert,
-  } = useAlert()
+  const { setErrorNotification, setNotification } = useNotification()
 
   const handleSendEmail = async (data, event) => {
     event.preventDefault()
@@ -44,25 +36,16 @@ const ContactForm = () => {
           "Content-Type": "application/json",
         },
       })
-      const response = await request.json()
-      if (!response.newEmail) {
-        setErrorAlert()
+      const { newEmail } = await request.json()
+      if (!newEmail) {
+        setErrorNotification()
       }
-      setVariant("success")
-      setMessage("Email send")
+      setNotification("success", "Email sent")
       reset()
     } catch (err) {
-      setErrorAlert()
+      setErrorNotification()
     }
   }
-
-  useEffect(() => {
-    let mounted = true
-    if (mounted) clearMessage()
-    return () => {
-      mounted = false
-    }
-  }, [message])
 
   return (
     <Wrapper id="contact">
@@ -125,9 +108,6 @@ const ContactForm = () => {
           <Button type="submit">Send</Button>
         </label>
       </Form>
-      {message && (
-        <Alert shouldOpen={true} message={message} variant={variant} />
-      )}
     </Wrapper>
   )
 }

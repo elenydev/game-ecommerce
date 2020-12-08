@@ -1,8 +1,7 @@
 import express from "express";
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
-import GridFsStorage from "multer-gridfs-storage";
 import Grid from "gridfs-stream";
 import methodOverride from "method-override";
 
@@ -24,12 +23,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const router = express.Router();
 const app = express();
-const mongoURI = process.env.MONGO_URI;
+const mongoURI = process.env.MONGO_URI
 
-const connection = mongoose.createConnection(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+const connection = mongoose.createConnection(
+  mongoURI,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+)
 let gfs;
 
 connection.once("open", () => {
@@ -92,13 +94,16 @@ app.use("/subscribtions", subscribtionsRoutes);
 app.use("/users", userRoutes);
 
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    mongoURI,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then((result) => {
-    const server = app.listen(process.env.PORT || 8080);
+    const server = app.listen(process.env.PORT || 8080)
   })
   .catch((err) => {
-    console.log(err);
-  });
+    console.log(err)
+  })

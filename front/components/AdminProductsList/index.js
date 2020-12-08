@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react"
 import AdminProductsListItem from "../AdminProductsListItem/index.js";
 import {
   FooterContent,
@@ -8,10 +8,8 @@ import {
 } from "../ProductsComponent/productsComponent.styles.js";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
-import useArrayRange from "../../hooks/useArrayRange.js";
-import IconButton from "@material-ui/core/IconButton";
-import useAlert from "../../hooks/useAlert";
-import Alert from "../../components/Alert/index.js";
+import usePagination from "../../hooks/usePagination.js"
+import IconButton from "@material-ui/core/IconButton"
 import { Wrapper, Heading, Footer } from "./adminproductslist.styles";
 
 
@@ -22,29 +20,12 @@ const AdminProductsList = ({ products }) => {
     incrementRange,
     decrementRange,
     handleArrayRange,
-    checkRanges,
     setVisibleProducts,
-  } = useArrayRange();
+  } = usePagination()
 
-  const [allProducts, setAllProducts] = useState(products);
+  const [allProducts, setAllProducts] = useState(products)
 
-  const { slicedArray, arrayLength } = handleArrayRange(allProducts);
-  const {
-    message,
-    setMessage,
-    variant,
-    setVariant,
-    clearMessage,
-    setErrorAlert,
-  } = useAlert();
-
-  useEffect(() => {
-    let mounted = true;
-    if (mounted) clearMessage();
-    return () => {
-      mounted = false;
-    };
-  }, [message]);
+  const { slicedArray, arrayLength } = handleArrayRange(allProducts)
 
   return (
     <>
@@ -61,9 +42,6 @@ const AdminProductsList = ({ products }) => {
               key={index}
               product={product}
               index={index}
-              setMessage={setMessage}
-              setVariant={setVariant}
-              setErrorAlert={setErrorAlert}
               setAllProducts={setAllProducts}
             />
           ))}
@@ -77,7 +55,7 @@ const AdminProductsList = ({ products }) => {
                 <Paragraph>
                   <select
                     onChange={(e) => {
-                      setVisibleProducts(parseInt(e.target.value));
+                      setVisibleProducts(parseInt(e.target.value))
                     }}
                   >
                     <option value={4}>4</option>
@@ -110,14 +88,9 @@ const AdminProductsList = ({ products }) => {
             </FooterContent>
           </Footer>
         )}
-        <>
-          {message && (
-            <Alert variant={variant} message={message} shouldOpen={true} />
-          )}
-        </>
       </Wrapper>
     </>
-  );
+  )
 };
 
 export default AdminProductsList;
