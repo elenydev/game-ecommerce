@@ -1,3 +1,6 @@
+### App not usable for now, small changes in auth 
+
+
 ### LIVE VERSION : https://game-ecommerce.vercel.app/
 ## game-ecommerce is an "Online-Gaming" dummy Shop with front in next/react and backend in node/mongodb
 
