@@ -1,38 +1,6 @@
 import Email from "../models/email.js"
-import nodemailer from "nodemailer"
-import dotenv from "dotenv"
-dotenv.config()
+import { sendEmail } from "./mailers.js"
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASSWORD,
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-})
-
-const sendEmail = (email, customerName) => {
-  const mailOptions = {
-    from: email,
-    to: "online.gaming.dummy@gmail.com",
-    subject: `Email from site: ${customerName}`,
-    html: `<h3>Email from: ${customerName}</h3>
-    <br/>
-    <div>
-    <p>${message}</p>
-    <br/>
-    <small>Reply to the customer: ${email}</small></p>
-    </div>`,
-  }
-  transporter.sendMail(mailOptions, function (err, data) {
-    if (err) {
-      console.log(err)
-    }
-  })
-}
 
 export const receiveEmail = async (req, res, next) => {
   const date = new Date().toLocaleString()

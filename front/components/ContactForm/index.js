@@ -39,6 +39,7 @@ const ContactForm = () => {
       const { newEmail } = await request.json()
       if (!newEmail) {
         setErrorNotification()
+        return
       }
       setNotification("success", "Email sent")
       reset()

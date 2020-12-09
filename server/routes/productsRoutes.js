@@ -18,7 +18,6 @@ const storage = new GridFsStorage({
       new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
     const fileInfo = {
       filename: filename,
-      bucketName: "images",
     }
   },
 })

@@ -51,6 +51,7 @@ const Email = (props) => {
       const { email, message } = await request.json()
       if (!email) {
         setErrorNotification()
+        return
       }
       setNotification("success", message)
       fetchEmails()

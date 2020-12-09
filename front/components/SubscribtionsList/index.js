@@ -30,14 +30,14 @@ const SubscribtionsList = ({ subscribtionsList }) => {
   const { slicedArray, arrayLength } = handleArrayRange(subscribtions);
 
   useEffect(() => {
-    let mounted = true;
+    let mounted = true
     if (mounted) {
       checkRanges()
     }
     return () => {
-      mounted = false;
-    };
-  }, [message]);
+      mounted = false
+    }
+  }, [subscribtions])
 
   return (
     <>

@@ -113,6 +113,7 @@ const AdminProductListItem = (props) => {
       const { productId, message } = await query.json()
       if (!productId) {
         setNotification("error", message)
+        return
       }
       setNotification("success", message)
       getAllProducts()

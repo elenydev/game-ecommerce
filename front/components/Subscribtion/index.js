@@ -48,6 +48,7 @@ const Subscribtion = (props) => {
       const { subscribtion, message } = await request.json()
       if (!subscribtion) {
         setNotification("error", message)
+        return
       }
       setNotification("success", message)
       fetchSubscribtions()

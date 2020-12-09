@@ -38,6 +38,7 @@ const Newsletter = () => {
       if (!subscriber) {
         setNotification("error", message)
         reset()
+        return
       }
       setNotification("success", message)
       reset()
