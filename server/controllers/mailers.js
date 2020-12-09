@@ -5,7 +5,7 @@ dotenv.config()
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.end.EMAIL,
+    user: process.env.EMAIL,
     pass: process.env.PASSWORD,
   },
   tls: {
@@ -39,7 +39,7 @@ export const sendEmailAfterOrder = (products, customerEmail, prize) => {
 
 export const sendEmailAfterUserRegister = (userFirstName, email) => {
   const mailOptions = {
-    from: process.env.EMAIL,
+    from: "online.gaming.dummy@gmail.com",
     to: email,
     subject: "Online-gaming shop account",
     html: `<h3>Thank you for joining our Online-Gaming ${userFirstName}</h3>
@@ -73,6 +73,26 @@ export const sendEmailAfterRemindPassword = (email, newPassword) => {
     <br/>
     <p>If you doesn't tried to remind your password, immediately contact with us!</p>
     <small>Have a nice day! Online-Gaming team. You can reply direct to this email or catch us on: online.gaming.dummy@gmail.com</small></p>
+    </div>`,
+  }
+  transporter.sendMail(mailOptions, function (err, data) {
+    if (err) {
+      console.log(err)
+    }
+  })
+}
+
+export const sendEmail = (email, customerName) => {
+  const mailOptions = {
+    from: email,
+    to: process.env.EMAIL,
+    subject: `Email from site: ${customerName}`,
+    html: `<h3>Email from: ${customerName}</h3>
+    <br/>
+    <div>
+    <p>${message}</p>
+    <br/>
+    <small>Reply to the customer: ${email}</small></p>
     </div>`,
   }
   transporter.sendMail(mailOptions, function (err, data) {

@@ -23,8 +23,7 @@ export const addProduct = async (req, res, next) => {
       device: device,
     });
     if (existingProduct.length === 0) {
-      const productImg = productFile.filename;
-      console.log(productImg);
+      const productImg = productFile.filename
       const product = new Product({
         productName,
         productDescription,

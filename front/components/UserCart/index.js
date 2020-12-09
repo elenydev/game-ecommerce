@@ -53,6 +53,7 @@ const UserCart = (props) => {
       const { imageUrl, message } = await send.json()
       if (!imageUrl) {
         setErrorNotification()
+        return
       }
       setUserImage(`${ENDPOINT_URL}/images/` + imageUrl)
       setCurrentUser(user)
@@ -114,13 +115,7 @@ const UserCart = (props) => {
               <CardParagraphDescription>{user.email}</CardParagraphDescription>
 
               <MenuBox>
-                {user.email !== "admin@admin.com" && (
-                  <ChangePasswordCart
-                    setMessage={setMessage}
-                    setVariant={setVariant}
-                    setErrorAlert={setErrorAlert}
-                  />
-                )}
+                {user.email !== "admin@admin.com" && <ChangePasswordCart />}
 
                 {user.email === "admin@admin.com" && <Sidebar />}
               </MenuBox>

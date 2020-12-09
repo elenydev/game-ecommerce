@@ -36,6 +36,7 @@ const RemindPassword = () => {
       const { user, message } = await send.json()
       if (!user) {
         setNotification("error", message)
+        return
       }
       reset()
       setNotification("success", message)

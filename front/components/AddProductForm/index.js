@@ -47,7 +47,7 @@ const AddProductForm = () => {
   }
 
   const handleChangeDevice = (event) => {
-    setDevice(e.target.value)
+    setDevice(event.target.value)
   }
 
   const registerProduct = async (data, event) => {
@@ -72,16 +72,17 @@ const AddProductForm = () => {
     product.append("device", device)
     product.append("userId", userId)
     try {
-      const send = await fetch(`${ENDPOINT_URL}/products/add`, {
+      const query = await fetch(`${ENDPOINT_URL}/products/add`, {
         method: "POST",
         body: product,
         headers: {
           Authorization: "Bearer " + tokenCookie,
         },
       })
-      const { product, message } = await send.json()
-      if (!product) {
+      const { message } = await query.json()
+      if (!query.ok) {
         setNotification("error", message)
+        return
       }
       setNotification("success", message)
       reset()
@@ -94,7 +95,7 @@ const AddProductForm = () => {
     <div>
       <Header>Add product</Header>
 
-      <Form onSubmit={handleSubmit(registerProduct)} encType="">
+      <Form onSubmit={handleSubmit(registerProduct)}>
         <FormLabel>
           <InputElement
             type="text"

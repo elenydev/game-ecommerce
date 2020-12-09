@@ -48,7 +48,7 @@ const ProductsCart = () => {
 
   const getPrize = () => {
     let prize = 0
-    products.map((product) => {
+    cartProducts.map((product) => {
       prize = prize + product.amount * product.prize
     })
     return prize
@@ -56,7 +56,7 @@ const ProductsCart = () => {
 
   const createOrder = async () => {
     const data = {
-      products,
+      cartProducts,
       user,
       prize: getPrize(),
       userId: user.userId,
@@ -73,6 +73,7 @@ const ProductsCart = () => {
       const { order, message } = await request.json()
       if (!order) {
         setNotification("error", message)
+        return
       }
       setNotification("success", message)
       clearProducts()
@@ -93,7 +94,7 @@ const ProductsCart = () => {
     <Wrapper>
       {user.email === "admin@admin.com" && <AddProductForm />}
 
-      {user.email !== "admin@admin.com" && products.length >= 1 ? (
+      {user.email !== "admin@admin.com" && cartProducts.length >= 1 ? (
         <>
           <Heading>Your products: </Heading>
 
@@ -102,7 +103,7 @@ const ProductsCart = () => {
           ))}
           <TotalPrize>Total prize: {getPrize()} $</TotalPrize>
 
-          {products.length > 0 && (
+          {cartProducts.length > 0 && (
             <Footer>
               <FooterContent>
                 <FooterRows>
@@ -146,7 +147,7 @@ const ProductsCart = () => {
                 type="submit"
                 variant="contained"
                 color="secondary"
-                disabled={products.length < 1 && true}
+                disabled={cartProducts.length < 1 && true}
                 onClick={createOrder}
               >
                 Click to order

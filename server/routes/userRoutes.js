@@ -18,7 +18,6 @@ const storage = new GridFsStorage({
       new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
     const fileInfo = {
       filename: filename,
-      bucketName: "images",
     }
   },
 })
@@ -39,8 +38,8 @@ const router = express.Router();
 const upload = multer({ storage, fileFilter: fileFilter });
 
 router.use("/login", signIn);
-router.use("/create", upload.single("avatar"), signUp);
-router.use("/avatar", upload.single("avatar"), changeAvatar);
+router.use("/avatar", upload.single("avatar"), isAuth, changeAvatar)
+router.use("/create", upload.single("avatar"), signUp)
 router.use("/password/change", isAuth, changePassword);
 router.use("/password/remind", remindPassword);
 

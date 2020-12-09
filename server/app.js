@@ -1,5 +1,5 @@
 import express from "express";
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose"
 import bodyParser from "body-parser";
 import cors from "cors";
 import Grid from "gridfs-stream";
@@ -39,9 +39,9 @@ connection.once("open", () => {
 });
 
 app.use(cors());
-app.use(methodOverride("_method"));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride("_method"))
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -61,11 +61,10 @@ router.get("/", (req, res, next) => {
 
 router.use("/images/:filename", (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-    console.log(file);
     if (!file || file.length === 0) {
       return res.status(404).json({
         err: "File doesn't exist",
-      });
+      })
     }
 
     if (
@@ -73,14 +72,14 @@ router.use("/images/:filename", (req, res) => {
       file.contentType === "image/png" ||
       file.contentType === "image/jpg"
     ) {
-      const readstream = gfs.createReadStream(file.filename);
-      readstream.pipe(res);
+      const readstream = gfs.createReadStream(file.filename)
+      readstream.pipe(res)
     } else {
       res.status(404).json({
         err: "Not an image",
-      });
+      })
     }
-  });
+  })
 });
 
 

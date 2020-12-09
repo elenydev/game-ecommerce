@@ -34,10 +34,10 @@ const RegisterForm = () => {
 
   const router = useRouter()
   const { setErrorNotification, setNotification } = useNotification()
+
   const registerUser = async (data, event) => {
     event.preventDefault()
     const { firstName, lastName, email, password, avatar, policy } = data
-
     const user = new FormData()
     user.append("firstName", firstName.toLowerCase())
     user.append("lastName", lastName.toLowerCase())
@@ -47,19 +47,18 @@ const RegisterForm = () => {
     user.append("policy", policy)
 
     try {
-      const send = await fetch(`${ENDPOINT_URL}/users/create`, {
+      const query = await fetch(`${ENDPOINT_URL}/users/create`, {
         method: "POST",
-        body: user,
+        body: user
       })
-      const { user, message } = await send.json()
-      {
-        if (!user) {
-          setNotification("error", message)
-        }
-        setNotification("success", message)
-        setTimeout(() => router.push("/auth/login"), 1000)
-        reset()
+      const { message } = await query.json()
+      if (!query.ok) {
+        setNotification("error", message)
+        return
       }
+      setNotification("success", message)
+      setTimeout(() => router.push("/auth/login"), 1000)
+      reset()
     } catch (err) {
       setErrorNotification()
     }
@@ -69,7 +68,7 @@ const RegisterForm = () => {
     <Wrapper>
       <Header>Create an account</Header>
 
-      <Form onSubmit={handleSubmit(registerUser)} encType="">
+      <Form onSubmit={handleSubmit(registerUser)} >
         <FormLabel>
           <InputElement
             type="text"

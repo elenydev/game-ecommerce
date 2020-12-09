@@ -80,6 +80,7 @@ const ChangePasswordCart = () => {
       const { user, message } = await query.json()
       if (!user) {
         setNotification("error", message)
+        return
       }
       setNotification("success", message)
       handleClose()
