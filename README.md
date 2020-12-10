@@ -1,4 +1,4 @@
-### App not usable for now, small changes in auth 
+
 
 
 ### LIVE VERSION : https://game-ecommerce.vercel.app/
