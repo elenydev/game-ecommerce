@@ -10,7 +10,9 @@ import { Product } from "../interfaces/dataInterfaces"
 
 const useCartProducts = () => {
   const dispatch = useDispatch()
-  const cartProductsList: Product[] = useSelector(selectCartProducts)
+  const cartProductsList: { cartProducts: Product[] } = useSelector(
+    selectCartProducts
+  )
 
   const clearProducts = () => dispatch(clearCart())
   const putProductToCart = (product: Product) =>

@@ -40,7 +40,8 @@ export const {
   clearCart,
 } = cartProductsSlice.actions
 
-export const selectCartProducts = (state: { cartProducts: Product[] }) =>
-  state.cartProducts
+export const selectCartProducts = (state: {
+  cartProducts: { cartProducts: Product[] }
+}) => state.cartProducts
 
 export default cartProductsSlice.reducer
