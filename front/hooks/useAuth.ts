@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { selectUser, setUser, deleteUser } from "../reducers/user-slice"
 import Cookies from "universal-cookie"
-import { User } from "../interfaces/userInterfaces"
+import { User } from "../interfaces/dataInterfaces"
 
 const useAuth = () => {
   const dispatch = useDispatch()
