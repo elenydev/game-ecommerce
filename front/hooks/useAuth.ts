@@ -9,7 +9,7 @@ const useAuth = () => {
   const currentUser = useSelector(selectUser)
   const cookies = new Cookies()
   const [tokenCookie] = useState<string>(cookies.get("Token"))
-  const [userCookie] = useState<string>(cookies.get("User"))
+  const [userCookie] = useState<User>(cookies.get("User"))
   const setCookie = (name: string, value: string): void => {
     const date = new Date(new Date().getTime() + 60 * 60 * 1000)
     cookies.set(name, value, {
