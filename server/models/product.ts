@@ -1,6 +1,15 @@
-import moongose from "mongoose";
+import moongose, { Schema, Document } from "mongoose"
 
-const { Schema } = moongose;
+export interface Product extends Document {
+  productName: string
+  productDescription: string
+  gameType: string
+  prize: number
+  availableAmount: number
+  productImg: string
+  device: string
+  amount: number
+}
 
 const productSchema = new Schema({
   productName: {
@@ -34,6 +43,6 @@ const productSchema = new Schema({
   amount: {
     type: Number,
   },
-});
+})
 
-export default moongose.model("Product", productSchema);
+export default moongose.model<Product>("Product", productSchema)

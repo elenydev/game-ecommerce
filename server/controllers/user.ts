@@ -1,3 +1,4 @@
+import { RequestHandler } from "express"
 import User from "../models/user.js"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
@@ -5,9 +6,16 @@ import {
   sendEmailAfterRemindPassword,
   sendEmailAfterUserRegister,
 } from "./mailers.js"
+import { User as UserInterface } from "../interfaces/interfaces.js"
 
-export const signUp = async (req, res, next) => {
-  const { firstName, lastName, email, password, policy } = req.body
+export const signUp: RequestHandler = async (req, res, next) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    policy,
+  }: UserInterface = req.body
   const avatar = req.file
   if (!avatar) {
     return res.status(422).send({ message: "Error with avatar occured" })
@@ -46,8 +54,8 @@ export const signUp = async (req, res, next) => {
   }
 }
 
-export const signIn = async (req, res, next) => {
-  const { email, password } = req.body
+export const signIn: RequestHandler = async (req, res, next) => {
+  const { email, password }: { email: string; password: string } = req.body
   try {
     const user = await User.findOne({ email: email })
     if (user !== null) {
@@ -89,8 +97,8 @@ export const signIn = async (req, res, next) => {
   }
 }
 
-export const logOut = async (req, res, next) => {
-  const { id } = req.body
+export const logOut: RequestHandler = async (req, res, next) => {
+  const { id }: { id: string } = req.body
   try {
     const user = await User.findById({ _id: id })
     res.status(200).send({ message: "Logged out" })
@@ -100,8 +108,8 @@ export const logOut = async (req, res, next) => {
   }
 }
 
-export const changeAvatar = async (req, res, next) => {
-  const { userId } = req.body
+export const changeAvatar: RequestHandler = async (req, res, next) => {
+  const { userId }: { userId: string } = req.body
   const avatar = req.file
   const imageUrl = avatar.filename
   const specificUser = await User.findById(userId)
@@ -125,8 +133,12 @@ export const changeAvatar = async (req, res, next) => {
   }
 }
 
-export const changePassword = async (req, res, next) => {
-  const { email, password, newPassword } = req.body
+export const changePassword: RequestHandler = async (req, res, next) => {
+  const {
+    email,
+    password,
+    newPassword,
+  }: { email: string; password: string; newPassword: string } = req.body
 
   if (password === newPassword) {
     res.status(400).send({ message: "You provided the same password " })
@@ -177,14 +189,19 @@ export const changePassword = async (req, res, next) => {
   }
 }
 
-export const remindPassword = async (req, res, next) => {
-  const { email } = req.body
+const generateRandomPassword = () => {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  )
+}
+
+export const remindPassword: RequestHandler = async (req, res, next) => {
+  const { email }: { email: string } = req.body
   try {
     const user = await User.findOne({ email: email })
     if (user) {
-      const generatedRandomPassword =
-        Math.random().toString(36).substring(2, 15) +
-        Math.random().toString(36).substring(2, 15)
+      const generatedRandomPassword = generateRandomPassword()
       const hashedPw = await bcrypt.hash(generatedRandomPassword, 12)
       user.password = hashedPw
       await user.save()

@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer"
 import dotenv from "dotenv"
+import { Product } from "../models/product"
 dotenv.config()
 
 const transporter = nodemailer.createTransport({
@@ -13,7 +14,11 @@ const transporter = nodemailer.createTransport({
   },
 })
 
-export const sendEmailAfterOrder = (products, customerEmail, prize) => {
+export const sendEmailAfterOrder = (
+  products: Product[],
+  customerEmail: string,
+  prize: number
+) => {
   const mailOptions = {
     from: process.env.EMAIL,
     to: customerEmail,
@@ -37,7 +42,10 @@ export const sendEmailAfterOrder = (products, customerEmail, prize) => {
   })
 }
 
-export const sendEmailAfterUserRegister = (userFirstName, email) => {
+export const sendEmailAfterUserRegister = (
+  userFirstName: string,
+  email: string
+): void => {
   const mailOptions = {
     from: "online.gaming.dummy@gmail.com",
     to: email,
@@ -60,7 +68,10 @@ export const sendEmailAfterUserRegister = (userFirstName, email) => {
   })
 }
 
-export const sendEmailAfterRemindPassword = (email, newPassword) => {
+export const sendEmailAfterRemindPassword = (
+  email: string,
+  newPassword: string
+): void => {
   const mailOptions = {
     from: "online.gaming.dummy@gmail.com",
     to: email,
@@ -82,7 +93,11 @@ export const sendEmailAfterRemindPassword = (email, newPassword) => {
   })
 }
 
-export const sendEmail = (email, customerName) => {
+export const sendEmail = (
+  email: string,
+  customerName: string,
+  message: string
+): void => {
   const mailOptions = {
     from: email,
     to: process.env.EMAIL,

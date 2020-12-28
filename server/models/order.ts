@@ -1,7 +1,19 @@
-import moongose from "mongoose";
-import Product from "./product.js";
+import moongose, { Schema, Document } from "mongoose"
 
-const { Schema } = moongose;
+export interface Order extends Document {
+  customerFirstName: string
+  customerLastName: string
+  customerEmail: string
+  products: {
+    productName: string
+    prize: number
+    productImg: string
+    amount: number
+  }[]
+  prize: number
+  date: string
+  status: string
+}
 
 const orderSchema = new Schema({
   customerFirstName: {
@@ -39,6 +51,6 @@ const orderSchema = new Schema({
     type: String,
     required: true,
   },
-});
+})
 
-export default moongose.model("Order", orderSchema);
+export default moongose.model<Order>("Order", orderSchema)

@@ -1,10 +1,14 @@
+import { RequestHandler } from "express"
+import { IncomingOrder, OrderStatus } from "../interfaces/interfaces.js"
 import Order from "../models/order.js"
-import Product from "../models/product.js"
+import Product, { Product as ProductInterface } from "../models/product.js"
 import { sendEmailAfterOrder } from "./mailers.js"
 
-const checkIfProductsAreAvailable = async (userProducts) => {
+const checkIfProductsAreAvailable = async (
+  userProducts: ProductInterface[]
+): Promise<ProductInterface[]> => {
   const availableProducts = await Product.find()
-  const unvailableProducts = []
+  const unvailableProducts: ProductInterface[] = []
 
   userProducts.filter((userProduct) => {
     availableProducts.forEach((availableProduct) => {
@@ -22,7 +26,9 @@ const checkIfProductsAreAvailable = async (userProducts) => {
   return unvailableProducts
 }
 
-const handleAmountOfLeftProducts = async (productsArray) => {
+const handleAmountOfLeftProducts = async (
+  productsArray: ProductInterface[]
+) => {
   productsArray.forEach(async (product) => {
     const exisitingProduct = await Product.findOne({
       productName: product.productName,
@@ -35,8 +41,8 @@ const handleAmountOfLeftProducts = async (productsArray) => {
   })
 }
 
-export const createOrder = async (req, res, next) => {
-  const { products, user, prize } = req.body
+export const createOrder: RequestHandler = async (req, res, next) => {
+  const { products, user, prize }: IncomingOrder = req.body
 
   const notAvailableProducts = await checkIfProductsAreAvailable(products)
 
@@ -70,7 +76,7 @@ export const createOrder = async (req, res, next) => {
   }
 }
 
-export const getOrders = async (req, res, next) => {
+export const getOrders: RequestHandler = async (req, res, next) => {
   try {
     const orders = await Order.find()
     res.status(200).send({ orders, message: "Orders successfully fetched" })
@@ -83,8 +89,8 @@ export const getOrders = async (req, res, next) => {
   }
 }
 
-export const changeStatus = async (req, res, next) => {
-  const { order, orderStatus } = req.body
+export const changeStatus: RequestHandler = async (req, res, next) => {
+  const { order, orderStatus }: OrderStatus = req.body
   try {
     const specificOrder = await Order.findOne({ _id: order._id })
     specificOrder.status = orderStatus
