@@ -1,6 +1,13 @@
-import moongose from "mongoose";
+import moongose, { Schema, Document } from "mongoose"
 
-const { Schema } = moongose;
+export interface User extends Document {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  avatar: string
+  policy: boolean
+}
 
 const userSchema = new Schema({
   firstName: {
@@ -27,6 +34,6 @@ const userSchema = new Schema({
     type: Boolean,
     required: true,
   },
-});
+})
 
-export default moongose.model("User", userSchema);
+export default moongose.model<User>("User", userSchema)

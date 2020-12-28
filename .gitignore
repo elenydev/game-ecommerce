@@ -8,6 +8,7 @@ service.js
 firebase.json
 nodemon.json
 front/.next
+server/dist
 
 /.pnp
 .pnp.js
